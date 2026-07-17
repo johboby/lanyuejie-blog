@@ -1,0 +1,29 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs",
+    "server": "node server/index.js",
+    "lint": "node server/lint.js lint",
+    "lint:watch": "node server/lint.js",
+    "dev:all": "concurrently \"npm run dev\" \"npm run server\" \"npm run lint:watch\""
+  },
+  "dependencies": {
+    "chokidar": "^5.0.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "fs-extra": "^11.3.6",
+    "gray-matter": "^4.0.3",
+    "multer": "^2.2.0",
+    "vitepress": "^1.5.0",
+    "vue": "^3.5.40"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.4",
+    "esbuild": "^0.28.1"
+  }
+}

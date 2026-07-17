@@ -1,0 +1,310 @@
+{
+  "rootHash": "8cd59f7ddfd87b2b5da4bc4e5378f8ee7001764e3332a325f7fe9da50b18f844",
+  "timestamp": 1784257694388,
+  "fileCount": 17,
+  "files": [
+    {
+      "path": ".codeartsdoer\\skills\\code-refactoring\\scripts\\code_analyzer.py",
+      "hash": "0d3ebd904d95dfc9182e25e97a3653c81b64fa18c63db554a8b51583e8713ea0",
+      "size": 27705,
+      "modified": 1784257624902.4407
+    },
+    {
+      "path": ".codeartsdoer\\skills\\code-refactoring\\scripts\\complexity_metrics.py",
+      "hash": "5e3985f748293ccbcd00b90dc91a2037a7a6210c24bdce1f086c5dfd03418c81",
+      "size": 16992,
+      "modified": 1784257624906.0205
+    },
+    {
+      "path": ".codeartsdoer\\skills\\code-refactoring\\scripts\\debt_tracker.py",
+      "hash": "397b37bef1d3ea71261db4cb7d4ed878fb541e30ca10171afa32371d7e4b566b",
+      "size": 25897,
+      "modified": 1784257624908.5803
+    },
+    {
+      "path": ".codeartsdoer\\skills\\code-refactoring\\scripts\\main_workflow.py",
+      "hash": "c57bd5bdeecd7a0af87bd2c688eeea3ad9c60fa4ab865aed0b6749087686754d",
+      "size": 12155,
+      "modified": 1784257624911.15
+    },
+    {
+      "path": ".codeartsdoer\\skills\\code-refactoring\\scripts\\refactoring_engine.py",
+      "hash": "1ca1148b032a9d02bfb178e1c9a3f0ef74b696ba6b80069f90db81e72480a903",
+      "size": 12609,
+      "modified": 1784257624914.6748
+    },
+    {
+      "path": ".codeartsdoer\\skills\\code-refactoring\\scripts\\technical_debt_tracker.py",
+      "hash": "66fc88951a84f481f46757805c9edb352c6f34b85a64c8fe2e52954db8c62c56",
+      "size": 11460,
+      "modified": 1784257624917.727
+    },
+    {
+      "path": ".codeartsdoer\\skills\\code-refactoring\\scripts\\test_samples.py",
+      "hash": "53640433a48b2f69c5e8b266a2f70196f90841a9ebcef99f1ba43770815dc8bf",
+      "size": 7935,
+      "modified": 1784257624920.7295
+    },
+    {
+      "path": ".codeartsdoer\\skills\\cloud-infrastructure\\scripts\\infrastructure_validator.py",
+      "hash": "eb896ea142333a850d7eec193776d1a87dddaa62f66262ccccfab6b05b51c2cb",
+      "size": 13463,
+      "modified": 1784257624845.8381
+    },
+    {
+      "path": ".codeartsdoer\\skills\\ai-writing-cleaner\\scripts\\cleaner.py",
+      "hash": "b71e11c487be6326d2109a3fde75df6052f2bf4d25d452a68f58f5758f786c67",
+      "size": 13334,
+      "modified": 1784257624745.6477
+    },
+    {
+      "path": ".codeartsdoer\\skills\\ai-code-cleaner\\scripts\\cleaner.py",
+      "hash": "934c7f7983a9fe7993e3159e7b609fd94622c1e6519eae1195a9179b2d730529",
+      "size": 8752,
+      "modified": 1784257624704.1553
+    },
+    {
+      "path": ".codeartsdoer\\skills\\advanced-rag\\scripts\\document_analyzer.py",
+      "hash": "d25f6f25714eee2ad66a8c912778c35c9f500f594a27305ff6142e930cf30864",
+      "size": 9303,
+      "modified": 1784257624630.644
+    },
+    {
+      "path": ".codeartsdoer\\skills\\advanced-rag\\scripts\\document_retriever.py",
+      "hash": "72da2b6b1dc5e474b3aa47118fc783771b2f1f54f249caf91558538d748f01ba",
+      "size": 6577,
+      "modified": 1784257624635.6716
+    },
+    {
+      "path": ".codeartsdoer\\skills\\advanced-rag\\scripts\\example.py",
+      "hash": "cbd62bbe4b458667ad541dc44bf625dcaef3f46c503491439e0c4c85dbe3b0d9",
+      "size": 602,
+      "modified": 1784257624638.037
+    },
+    {
+      "path": ".codeartsdoer\\skills\\advanced-rag\\scripts\\generation_templates.py",
+      "hash": "50eba8c6a342809b74b4fe082ea9633e4f50a1bea845cdac42cfeae8f198f699",
+      "size": 10732,
+      "modified": 1784257624658.087
+    },
+    {
+      "path": ".codeartsdoer\\skills\\advanced-rag\\scripts\\knowledge_graph.py",
+      "hash": "c20b644de3b2003773a3cf34452a6463f27ee5054319cd5ac66a40958f45ce71",
+      "size": 10452,
+      "modified": 1784257624660.6062
+    },
+    {
+      "path": ".codeartsdoer\\skills\\advanced-rag\\scripts\\multi_modal_rag.py",
+      "hash": "b6412ca70b724db3f335bfe8f9dacf76dcec31b62ad24a9ad03659a1aadfc177",
+      "size": 10929,
+      "modified": 1784257624660.6062
+    },
+    {
+      "path": ".codeartsdoer\\skills\\advanced-rag\\scripts\\rag_workflow.py",
+      "hash": "31bce2ff50a52ca8dd3b9f86e97c200744e9623606a6f836e84b79e268457065",
+      "size": 7315,
+      "modified": 1784257624667.6628
+    }
+  ],
+  "tree": {
+    "hash": "8cd59f7ddfd87b2b5da4bc4e5378f8ee7001764e3332a325f7fe9da50b18f844",
+    "left": {
+      "hash": "153dde355235d652c7a6e75d6be80de4a2f1a190a20dbcc2a05d6376ff907022",
+      "left": {
+        "hash": "4f1ddf691d38e8f5e9766fdbf050dcdce13f9a1c6ed6491b20c157e79430c7b8",
+        "left": {
+          "hash": "fca6dea184ddb9fb84cf549213c4384288cada352a756f30c8972d43e228fd25",
+          "left": {
+            "hash": "161307697bd01991ef3a7b0c33c0d12fb2e601adc9d0d0922390beb2f79ef4ec",
+            "left": {
+              "hash": "d25f6f25714eee2ad66a8c912778c35c9f500f594a27305ff6142e930cf30864",
+              "file": {
+                "path": ".codeartsdoer\\skills\\advanced-rag\\scripts\\document_analyzer.py",
+                "hash": "d25f6f25714eee2ad66a8c912778c35c9f500f594a27305ff6142e930cf30864",
+                "size": 9303,
+                "modified": 1784257624630.644
+              }
+            },
+            "right": {
+              "hash": "72da2b6b1dc5e474b3aa47118fc783771b2f1f54f249caf91558538d748f01ba",
+              "file": {
+                "path": ".codeartsdoer\\skills\\advanced-rag\\scripts\\document_retriever.py",
+                "hash": "72da2b6b1dc5e474b3aa47118fc783771b2f1f54f249caf91558538d748f01ba",
+                "size": 6577,
+                "modified": 1784257624635.6716
+              }
+            }
+          },
+          "right": {
+            "hash": "1db4270a70a86b4eff6d19d956ee17042ae35557613f40c9a6ca84f87cd55c02",
+            "left": {
+              "hash": "cbd62bbe4b458667ad541dc44bf625dcaef3f46c503491439e0c4c85dbe3b0d9",
+              "file": {
+                "path": ".codeartsdoer\\skills\\advanced-rag\\scripts\\example.py",
+                "hash": "cbd62bbe4b458667ad541dc44bf625dcaef3f46c503491439e0c4c85dbe3b0d9",
+                "size": 602,
+                "modified": 1784257624638.037
+              }
+            },
+            "right": {
+              "hash": "50eba8c6a342809b74b4fe082ea9633e4f50a1bea845cdac42cfeae8f198f699",
+              "file": {
+                "path": ".codeartsdoer\\skills\\advanced-rag\\scripts\\generation_templates.py",
+                "hash": "50eba8c6a342809b74b4fe082ea9633e4f50a1bea845cdac42cfeae8f198f699",
+                "size": 10732,
+                "modified": 1784257624658.087
+              }
+            }
+          }
+        },
+        "right": {
+          "hash": "b4e4e6f9798ff9f1332ce19cbef62d5f2971542fa2599ab269f30fa19e156d60",
+          "left": {
+            "hash": "59d9548b223a216823f539938e98646d296196048391de9f14c1479bbd579e1b",
+            "left": {
+              "hash": "c20b644de3b2003773a3cf34452a6463f27ee5054319cd5ac66a40958f45ce71",
+              "file": {
+                "path": ".codeartsdoer\\skills\\advanced-rag\\scripts\\knowledge_graph.py",
+                "hash": "c20b644de3b2003773a3cf34452a6463f27ee5054319cd5ac66a40958f45ce71",
+                "size": 10452,
+                "modified": 1784257624660.6062
+              }
+            },
+            "right": {
+              "hash": "b6412ca70b724db3f335bfe8f9dacf76dcec31b62ad24a9ad03659a1aadfc177",
+              "file": {
+                "path": ".codeartsdoer\\skills\\advanced-rag\\scripts\\multi_modal_rag.py",
+                "hash": "b6412ca70b724db3f335bfe8f9dacf76dcec31b62ad24a9ad03659a1aadfc177",
+                "size": 10929,
+                "modified": 1784257624660.6062
+              }
+            }
+          },
+          "right": {
+            "hash": "0f7f006b05b71e121be84aee48fc70d1763b7dadf0fd74bfd38835745b7809b9",
+            "left": {
+              "hash": "31bce2ff50a52ca8dd3b9f86e97c200744e9623606a6f836e84b79e268457065",
+              "file": {
+                "path": ".codeartsdoer\\skills\\advanced-rag\\scripts\\rag_workflow.py",
+                "hash": "31bce2ff50a52ca8dd3b9f86e97c200744e9623606a6f836e84b79e268457065",
+                "size": 7315,
+                "modified": 1784257624667.6628
+              }
+            },
+            "right": {
+              "hash": "934c7f7983a9fe7993e3159e7b609fd94622c1e6519eae1195a9179b2d730529",
+              "file": {
+                "path": ".codeartsdoer\\skills\\ai-code-cleaner\\scripts\\cleaner.py",
+                "hash": "934c7f7983a9fe7993e3159e7b609fd94622c1e6519eae1195a9179b2d730529",
+                "size": 8752,
+                "modified": 1784257624704.1553
+              }
+            }
+          }
+        }
+      },
+      "right": {
+        "hash": "ddf95982b7deeb1810d685527486826a3abf294ef85cff01cca9b0bfe12e7a43",
+        "left": {
+          "hash": "f7875b4bc45763be485edfa53140266e0608da810f113c640241aa108ccf8ce7",
+          "left": {
+            "hash": "62a3077c1b5eed48dbd391b216b8f07945a8d940ad4d3910ccc6cf50b9d5ef39",
+            "left": {
+              "hash": "b71e11c487be6326d2109a3fde75df6052f2bf4d25d452a68f58f5758f786c67",
+              "file": {
+                "path": ".codeartsdoer\\skills\\ai-writing-cleaner\\scripts\\cleaner.py",
+                "hash": "b71e11c487be6326d2109a3fde75df6052f2bf4d25d452a68f58f5758f786c67",
+                "size": 13334,
+                "modified": 1784257624745.6477
+              }
+            },
+            "right": {
+              "hash": "eb896ea142333a850d7eec193776d1a87dddaa62f66262ccccfab6b05b51c2cb",
+              "file": {
+                "path": ".codeartsdoer\\skills\\cloud-infrastructure\\scripts\\infrastructure_validator.py",
+                "hash": "eb896ea142333a850d7eec193776d1a87dddaa62f66262ccccfab6b05b51c2cb",
+                "size": 13463,
+                "modified": 1784257624845.8381
+              }
+            }
+          },
+          "right": {
+            "hash": "0f0ed1527e8b951650b0f0559085c4335f696ac30b8edcb9449e058aff3c1144",
+            "left": {
+              "hash": "0d3ebd904d95dfc9182e25e97a3653c81b64fa18c63db554a8b51583e8713ea0",
+              "file": {
+                "path": ".codeartsdoer\\skills\\code-refactoring\\scripts\\code_analyzer.py",
+                "hash": "0d3ebd904d95dfc9182e25e97a3653c81b64fa18c63db554a8b51583e8713ea0",
+                "size": 27705,
+                "modified": 1784257624902.4407
+              }
+            },
+            "right": {
+              "hash": "5e3985f748293ccbcd00b90dc91a2037a7a6210c24bdce1f086c5dfd03418c81",
+              "file": {
+                "path": ".codeartsdoer\\skills\\code-refactoring\\scripts\\complexity_metrics.py",
+                "hash": "5e3985f748293ccbcd00b90dc91a2037a7a6210c24bdce1f086c5dfd03418c81",
+                "size": 16992,
+                "modified": 1784257624906.0205
+              }
+            }
+          }
+        },
+        "right": {
+          "hash": "a673ffb9a64cbbcda3112d91aadc8ed630ce565f2ac58596a94b0ce92c841478",
+          "left": {
+            "hash": "7225f6e17b12baeac1b95851498826275f27fa7e83bfd02f59298739a2cdde9f",
+            "left": {
+              "hash": "397b37bef1d3ea71261db4cb7d4ed878fb541e30ca10171afa32371d7e4b566b",
+              "file": {
+                "path": ".codeartsdoer\\skills\\code-refactoring\\scripts\\debt_tracker.py",
+                "hash": "397b37bef1d3ea71261db4cb7d4ed878fb541e30ca10171afa32371d7e4b566b",
+                "size": 25897,
+                "modified": 1784257624908.5803
+              }
+            },
+            "right": {
+              "hash": "c57bd5bdeecd7a0af87bd2c688eeea3ad9c60fa4ab865aed0b6749087686754d",
+              "file": {
+                "path": ".codeartsdoer\\skills\\code-refactoring\\scripts\\main_workflow.py",
+                "hash": "c57bd5bdeecd7a0af87bd2c688eeea3ad9c60fa4ab865aed0b6749087686754d",
+                "size": 12155,
+                "modified": 1784257624911.15
+              }
+            }
+          },
+          "right": {
+            "hash": "bc2fb25410f0e37a606a905c9ef77836ceb795cf84cac2aeda3c25cab12105e8",
+            "left": {
+              "hash": "1ca1148b032a9d02bfb178e1c9a3f0ef74b696ba6b80069f90db81e72480a903",
+              "file": {
+                "path": ".codeartsdoer\\skills\\code-refactoring\\scripts\\refactoring_engine.py",
+                "hash": "1ca1148b032a9d02bfb178e1c9a3f0ef74b696ba6b80069f90db81e72480a903",
+                "size": 12609,
+                "modified": 1784257624914.6748
+              }
+            },
+            "right": {
+              "hash": "66fc88951a84f481f46757805c9edb352c6f34b85a64c8fe2e52954db8c62c56",
+              "file": {
+                "path": ".codeartsdoer\\skills\\code-refactoring\\scripts\\technical_debt_tracker.py",
+                "hash": "66fc88951a84f481f46757805c9edb352c6f34b85a64c8fe2e52954db8c62c56",
+                "size": 11460,
+                "modified": 1784257624917.727
+              }
+            }
+          }
+        }
+      }
+    },
+    "right": {
+      "hash": "53640433a48b2f69c5e8b266a2f70196f90841a9ebcef99f1ba43770815dc8bf",
+      "file": {
+        "path": ".codeartsdoer\\skills\\code-refactoring\\scripts\\test_samples.py",
+        "hash": "53640433a48b2f69c5e8b266a2f70196f90841a9ebcef99f1ba43770815dc8bf",
+        "size": 7935,
+        "modified": 1784257624920.7295
+      }
+    }
+  }
+}
