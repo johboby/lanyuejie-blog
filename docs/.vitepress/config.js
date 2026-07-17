@@ -2,8 +2,8 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   lang: 'zh-CN',
-  title: '鎻芥湀鐣岀鎶€',
-  description: '涓撴敞浜庝汉宸ユ櫤鑳戒笌椋庨櫓鎺у埗鐨勫墠娌跨鎶€浼佷笟 鈥?鍙岀簿涓ゅ噺锛氱簿鍑嗚瘑鍒风簿缁嗙鐞喡峰噺鎹熷鏁埪峰噺鐏鹃槻鐏?,
+  title: '揽月界科技',
+  description: '专注于人工智能与风险控制的前沿科技企业 — 双精两减：精准识别·精细管理·减损增效·减灾防灾',
   base: '/lanyuejie-blog/',
   cleanUrls: true,
   lastUpdated: true,
@@ -25,16 +25,16 @@ export default defineConfig({
 
   themeConfig: {
     nav: [
-      { text: '棣栭〉', link: '/' },
-      { text: '鏂囩珷', link: '/posts/' },
-      { text: '鍒嗙被', link: '/categories/' },
-      { text: '鍏充簬', link: '/about' },
+      { text: '首页', link: '/' },
+      { text: '文章', link: '/posts/' },
+      { text: '分类', link: '/categories/' },
+      { text: '关于', link: '/about' },
     ],
 
     sidebar: {
       '/posts/': [
         {
-          text: '鏂囩珷鍒楄〃',
+          text: '文章列表',
           items: [],
         },
       ],
@@ -46,11 +46,11 @@ export default defineConfig({
         locales: {
           root: {
             translations: {
-              button: { buttonText: '鎼滅储', buttonAriaLabel: '鎼滅储' },
+              button: { buttonText: '搜索', buttonAriaLabel: '搜索' },
               modal: {
-                noResultsText: '鏃犳硶鎵惧埌鐩稿叧缁撴灉',
-                resetButtonTitle: '娓呴櫎鏌ヨ鏉′欢',
-                footer: { selectText: '閫夋嫨', navigateText: '鍒囨崲', closeText: '鍏抽棴' },
+                noResultsText: '无法找到相关结果',
+                resetButtonTitle: '清除查询条件',
+                footer: { selectText: '选择', navigateText: '切换', closeText: '关闭' },
               },
             },
           },
@@ -64,23 +64,23 @@ export default defineConfig({
     ],
 
     outline: {
-      label: '椤甸潰瀵艰埅',
+      label: '页面导航',
       level: [2, 3],
     },
 
     docFooter: {
-      prev: '涓婁竴绡?,
-      next: '涓嬩竴绡?,
+      prev: '上一篇',
+      next: '下一篇',
     },
 
     lastUpdated: {
-      text: '鏈€鍚庢洿鏂颁簬',
+      text: '最后更新于',
     },
 
-    returnToTopLabel: '鍥炲埌椤堕儴',
-    sidebarMenuLabel: '鑿滃崟',
-    darkModeSwitchLabel: '涓婚',
-    lightModeSwitchTitle: '鍒囨崲鍒版祬鑹叉ā寮?,
-    darkModeSwitchTitle: '鍒囨崲鍒版繁鑹叉ā寮?,
+    returnToTopLabel: '回到顶部',
+    sidebarMenuLabel: '菜单',
+    darkModeSwitchLabel: '主题',
+    lightModeSwitchTitle: '切换到浅色模式',
+    darkModeSwitchTitle: '切换到深色模式',
   },
 })
