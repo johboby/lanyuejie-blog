@@ -4,7 +4,7 @@ title: 文章列表
 
 <script setup>
 import { computed, ref } from 'vue'
-import { data as posts } from '../.vitepress/posts.data.js'
+import posts from '../.vitepress/posts-data.json'
 
 const selectedCategory = ref('全部')
 const searchQuery = ref('')

@@ -4,7 +4,7 @@ title: 标签
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { data as posts } from '../.vitepress/posts.data.js'
+import posts from '../.vitepress/posts-data.json'
 
 const activeTag = ref('')
 

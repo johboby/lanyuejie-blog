@@ -4,7 +4,7 @@ title: 分类
 
 <script setup>
 import { computed } from 'vue'
-import { data as posts } from '../.vitepress/posts.data.js'
+import posts from '../.vitepress/posts-data.json'
 
 const categories = computed(() => {
   const catMap = {}

@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vitepress dev docs",
-    "build": "vitepress build docs",
+    "dev": "node scripts/generate-posts-data.js && vitepress dev docs",
+    "build": "node scripts/generate-posts-data.js && vitepress build docs",
     "preview": "vitepress preview docs",
     "server": "node server/index.js",
     "lint": "node server/lint.js lint",
@@ -23,6 +23,7 @@
     "vue": "^3.5.40"
   },
   "devDependencies": {
-    "concurrently": "^9.2.4"
+    "concurrently": "^9.2.4",
+    "esbuild": "^0.28.1"
   }
 }

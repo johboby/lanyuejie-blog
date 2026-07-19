@@ -4,7 +4,7 @@ title: 揽月界科技
 
 <script setup>
 import { computed } from 'vue'
-import { data as posts } from './.vitepress/posts.data.js'
+import posts from './.vitepress/posts-data.json'
 
 const recentPosts = computed(() => (posts || []).slice(0, 4))
 
@@ -79,7 +79,7 @@ const stats = [
       <p class="hero-tagline">精准识别 · 精细管理 · 减损增效 · 减灾防灾</p>
       <div class="hero-actions">
         <a href="mailto:samhoclub@163.com" class="btn-primary">联系合作</a>
-        <a href="/lanyuejie-blog/about" class="btn-secondary">了解我们</a>
+        <a href="/lanyuejie-blog/about.html" class="btn-secondary">了解我们</a>
       </div>
     </div>
   </section>

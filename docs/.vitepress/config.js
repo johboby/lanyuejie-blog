@@ -5,7 +5,7 @@ export default defineConfig({
   title: '揽月界科技',
   description: '专注于人工智能与风险控制的前沿科技企业 — 双精两减：精准识别·精细管理·减损增效·减灾防灾',
   base: '/lanyuejie-blog/',
-  cleanUrls: true,
+  cleanUrls: false,
   lastUpdated: true,
   ignoreDeadLinks: true,
 
