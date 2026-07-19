@@ -19,7 +19,7 @@ const categories = computed(() => frontmatter.value.categories || [])
 </script>
 
 <template>
-  <div v-if="frontmatter.title" class="post-header">
+  <div v-if="frontmatter.title && frontmatter.date" class="post-header">
     <h1 class="post-title">{{ frontmatter.title }}</h1>
     <div class="post-info">
       <span v-if="date" class="info-item">

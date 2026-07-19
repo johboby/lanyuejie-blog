@@ -29,7 +29,7 @@ export default {
   Layout() {
     return h(DefaultTheme.Layout, null, {
       'doc-before': () => h(PostHeader),
-      'layout': () => [h(JsonLd), h(ReadingProgress), h(BackToTop)],
+      'layout-bottom': () => [h(JsonLd), h(ReadingProgress), h(BackToTop)],
     })
   },
   setup() {
