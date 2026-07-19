@@ -7,6 +7,7 @@ export default defineConfig({
   base: '/lanyuejie-blog/',
   cleanUrls: true,
   lastUpdated: true,
+  ignoreDeadLinks: true,
 
   vite: {
     server: {
