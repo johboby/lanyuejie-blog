@@ -1,10 +1,11 @@
 import { defineConfig } from 'vitepress'
-import { writeFileSync } from 'fs'
+import { writeFileSync, readFileSync } from 'fs'
 import { resolve } from 'path'
 
 const SITE_URL = 'https://johboby.github.io/lanyuejie-blog'
 const SITE_NAME = '揽月界科技'
 const SITE_DESCRIPTION = '专注于人工智能与风险控制的前沿科技企业'
+const CHARS_PER_MINUTE = 500
 
 function getPageUrl(relativePath) {
   if (relativePath === 'index.md') return `${SITE_URL}/`
@@ -19,6 +20,51 @@ function escapeXml(str) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;')
+}
+
+function extractText(src) {
+  if (!src) return ''
+  return src
+    .replace(/^---[\s\S]*?---/, '')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/\*\*|__|\*|_|~~|`{1,3}[^`]*`{1,3}/g, '')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
+    .replace(/^[-*+]\s+/gm, '')
+    .replace(/^\d+\.\s+/gm, '')
+    .replace(/^>\s+/gm, '')
+    .replace(/\n{2,}/g, '\n')
+    .trim()
+}
+
+function autoDescription(src, fallback = '') {
+  const text = extractText(src)
+  if (!text) return fallback
+  const first = text.split('\n').find(l => l.trim().length > 20)
+  if (!first) return fallback
+  const clean = first.trim().replace(/\s+/g, ' ')
+  return clean.length > 160 ? clean.slice(0, 157) + '...' : clean
+}
+
+function countWords(src) {
+  const text = extractText(src)
+  const chinese = (text.match(/[\u4e00-\u9fff]/g) || []).length
+  const english = text.replace(/[\u4e00-\u9fff]/g, ' ').split(/\s+/).filter(w => w).length
+  return chinese + english
+}
+
+function extractHeadings(src) {
+  if (!src) return []
+  const body = src.replace(/^---[\s\S]*?---/, '')
+  const headings = []
+  const regex = /^(#{2,4})\s+(.+)$/gm
+  let match
+  while ((match = regex.exec(body)) !== null) {
+    const level = match[1].length
+    const text = match[2].trim().replace(/\*\*|__|\*|_|~~|`{1,3}[^`]*`{1,3}/g, '')
+    headings.push({ level, text })
+  }
+  return headings
 }
 
 export default defineConfig({
@@ -81,31 +127,42 @@ export default defineConfig({
   transformHead({ pageData }) {
     const url = getPageUrl(pageData.relativePath)
     const head = []
-    const title = pageData.frontmatter.title || SITE_NAME
-    const description = pageData.frontmatter.description || SITE_DESCRIPTION
+    const fm = pageData.frontmatter
+    let src = ''
+    try {
+      src = readFileSync(resolve('docs', pageData.relativePath), 'utf-8')
+    } catch {}
+    const title = fm.title || SITE_NAME
+    const description = autoDescription(src, fm.description || SITE_DESCRIPTION)
+    const wordCount = countWords(src)
+    const headings = extractHeadings(src)
 
     head.push(['link', { rel: 'canonical', href: url }])
 
     head.push(['meta', { property: 'og:url', content: url }])
     head.push(['meta', { property: 'og:title', content: title }])
     head.push(['meta', { property: 'og:description', content: description }])
-    head.push(['meta', { property: 'og:type', content: pageData.frontmatter.date ? 'article' : 'website' }])
+    head.push(['meta', { property: 'og:type', content: fm.date ? 'article' : 'website' }])
 
     head.push(['meta', { name: 'twitter:title', content: title }])
     head.push(['meta', { name: 'twitter:description', content: description }])
 
-    if (pageData.frontmatter.date) {
-      const isoDate = new Date(pageData.frontmatter.date).toISOString()
+    if (fm.date) {
+      const isoDate = new Date(fm.date).toISOString()
       head.push(['meta', { property: 'article:published_time', content: isoDate }])
-      if (pageData.frontmatter.tags) {
-        for (const tag of pageData.frontmatter.tags) {
+      if (fm.tags) {
+        for (const tag of fm.tags) {
           head.push(['meta', { property: 'article:tag', content: tag }])
         }
       }
 
-      const jsonLd = JSON.stringify({
+      const isLongRead = wordCount > 3000
+      const articleType = isLongRead ? 'ScholarlyArticle' : 'Article'
+      const readMinutes = Math.max(1, Math.ceil(wordCount / CHARS_PER_MINUTE))
+
+      const jsonLd = {
         '@context': 'https://schema.org',
-        '@type': 'Article',
+        '@type': articleType,
         headline: title,
         description,
         datePublished: isoDate,
@@ -118,8 +175,25 @@ export default defineConfig({
         },
         url,
         mainEntityOfPage: { '@type': 'WebPage', '@id': url },
-      })
-      head.push(['script', { type: 'application/ld+json' }, jsonLd])
+        wordCount,
+        timeRequired: `PT${readMinutes}M`,
+      }
+
+      if (isLongRead && headings.length > 0) {
+        jsonLd.hasPart = headings.slice(0, 10).map(h => ({
+          '@type': 'WebPageElement',
+          name: h.text,
+        }))
+      }
+
+      if (fm.categories && fm.categories.length) {
+        jsonLd.about = fm.categories.map(c => ({
+          '@type': 'Thing',
+          name: c,
+        }))
+      }
+
+      head.push(['script', { type: 'application/ld+json' }, JSON.stringify(jsonLd)])
     } else if (pageData.relativePath === 'index.md') {
       const jsonLd = JSON.stringify({
         '@context': 'https://schema.org',
@@ -167,10 +241,12 @@ export default defineConfig({
 
     const items = posts.map(post => {
       const link = `${SITE_URL}${post.url}`
+      const src = post.src || ''
+      const desc = autoDescription(src, post.frontmatter.description || '')
       return `    <item>
       <title>${escapeXml(post.frontmatter.title)}</title>
       <link>${link}</link>
-      <description>${escapeXml(post.frontmatter.description || '')}</description>
+      <description>${escapeXml(desc)}</description>
       <pubDate>${new Date(post.frontmatter.date).toUTCString()}</pubDate>
       <guid isPermaLink="true">${link}</guid>
 ${(post.frontmatter.tags || []).map(t => `      <category>${escapeXml(t)}</category>`).join('\n')}
