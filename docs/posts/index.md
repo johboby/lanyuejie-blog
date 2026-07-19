@@ -6,7 +6,8 @@ title: 文章列表
 import { computed, ref } from 'vue'
 import { usePosts } from '../.vitepress/theme/composables/usePosts.js'
 
-const { posts } = usePosts()
+const glob = import.meta.glob('./*.md', { eager: true })
+const { posts } = usePosts(glob)
 const selectedCategory = ref('全部')
 const searchQuery = ref('')
 

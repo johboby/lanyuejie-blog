@@ -1,18 +1,18 @@
 import { ref } from 'vue'
 import { withBase } from 'vitepress'
 
-const posts = ref(null)
+const cache = ref(null)
 
-const modules = import.meta.glob('../../../posts/*.md', { eager: true })
+export function usePosts(globResult) {
+  if (cache.value) return { posts: cache }
 
-function loadPosts() {
-  if (posts.value) return posts.value
-
-  const items = Object.entries(modules)
+  const items = Object.entries(globResult)
     .filter(([path]) => !path.endsWith('/index.md'))
     .map(([path, mod]) => {
       const fm = mod.frontmatter || {}
-      const slug = path.replace(/^..\/..\/..\/posts\//, '').replace(/\.md$/, '')
+      const segments = path.split('/')
+      const fileName = segments[segments.length - 1]
+      const slug = fileName.replace(/\.md$/, '')
       return {
         title: fm.title || slug,
         date: fm.date ? new Date(fm.date).toLocaleDateString('zh-CN', { year: 'numeric', month: 'short', day: 'numeric' }) : '',
@@ -25,10 +25,6 @@ function loadPosts() {
     })
     .sort((a, b) => (a.rawDate > b.rawDate ? -1 : 1))
 
-  posts.value = items
-  return items
-}
-
-export function usePosts() {
-  return { posts: ref(loadPosts()) }
+  cache.value = items
+  return { posts: cache }
 }

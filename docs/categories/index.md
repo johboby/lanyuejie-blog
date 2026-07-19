@@ -6,7 +6,8 @@ title: 分类
 import { computed } from 'vue'
 import { usePosts } from '../.vitepress/theme/composables/usePosts.js'
 
-const { posts } = usePosts()
+const glob = import.meta.glob('../posts/*.md', { eager: true })
+const { posts } = usePosts(glob)
 
 const categories = computed(() => {
   const catMap = {}

@@ -6,7 +6,8 @@ title: 标签
 import { ref, computed, onMounted } from 'vue'
 import { usePosts } from '../.vitepress/theme/composables/usePosts.js'
 
-const { posts } = usePosts()
+const glob = import.meta.glob('../posts/*.md', { eager: true })
+const { posts } = usePosts(glob)
 const activeTag = ref('')
 
 const tags = computed(() => {

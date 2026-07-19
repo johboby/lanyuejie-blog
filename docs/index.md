@@ -6,7 +6,8 @@ title: 揽月界科技
 import { computed } from 'vue'
 import { usePosts } from './.vitepress/theme/composables/usePosts.js'
 
-const { posts } = usePosts()
+const glob = import.meta.glob('./posts/*.md', { eager: true })
+const { posts } = usePosts(glob)
 const recentPosts = computed(() => posts.value.slice(0, 4))
 
 const products = [
