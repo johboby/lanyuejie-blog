@@ -194,6 +194,26 @@ export default defineConfig({
       }
 
       head.push(['script', { type: 'application/ld+json' }, JSON.stringify(jsonLd)])
+
+      if (isLongRead) {
+        const speakable = JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'SpeakableSpecification',
+          cssSelector: ['.vp-doc h2', '.vp-doc h3'],
+        })
+        head.push(['meta', { name: 'speakable', content: JSON.stringify({ cssSelector: ['.vp-doc h2', '.vp-doc h3'] }) }])
+      }
+
+      const breadcrumb = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: '首页', item: `${SITE_URL}/` },
+          { '@type': 'ListItem', position: 2, name: '文章', item: `${SITE_URL}/posts/` },
+          { '@type': 'ListItem', position: 3, name: title, item: url },
+        ],
+      })
+      head.push(['script', { type: 'application/ld+json' }, breadcrumb])
     } else if (pageData.relativePath === 'index.md') {
       const jsonLd = JSON.stringify({
         '@context': 'https://schema.org',
@@ -232,6 +252,8 @@ export default defineConfig({
   async buildEnd({ outDir }) {
     const { createContentLoader } = await import('vitepress')
     const posts = await createContentLoader('posts/*.md', {
+      includeSrc: true,
+      render: false,
       transform(raw) {
         return raw
           .filter(page => !page.url.endsWith('/posts/'))
@@ -268,5 +290,39 @@ ${items}
 </rss>`
 
     writeFileSync(resolve(outDir, 'feed.xml'), rss, 'utf-8')
+
+    const llmsFull = [
+      `# ${SITE_NAME}`,
+      '',
+      `> ${SITE_DESCRIPTION}`,
+      '',
+      `网站地址：${SITE_URL}`,
+      '联系方式：samhoclub@163.com | 微信 cy321one | 公众号 尘渊文化',
+      '',
+      '---',
+      '',
+      ...posts.map(post => {
+        const src = post.src || ''
+        const desc = autoDescription(src, post.frontmatter.description || '')
+        const wc = countWords(src)
+        const rt = Math.max(1, Math.ceil(wc / CHARS_PER_MINUTE))
+        const tags = (post.frontmatter.tags || []).join('、')
+        const dateStr = post.frontmatter.date ? new Date(post.frontmatter.date).toISOString().slice(0, 10) : '未知'
+        return [
+          `## ${post.frontmatter.title}`,
+          '',
+          `- 地址：${SITE_URL}${post.url}`,
+          `- 日期：${dateStr}`,
+          `- 字数：${wc.toLocaleString()} | 阅读时间：${rt}分钟`,
+          tags ? `- 标签：${tags}` : null,
+          `- 分类：${(post.frontmatter.categories || []).join('、')}`,
+          '',
+          desc,
+          '',
+        ].filter(Boolean).join('\n')
+      }),
+    ].join('\n')
+
+    writeFileSync(resolve(outDir, 'llms-full.txt'), llmsFull, { encoding: 'utf-8' })
   },
 })

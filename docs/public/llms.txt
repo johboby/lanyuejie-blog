@@ -1,0 +1,36 @@
+# 揽月界科技
+
+> 专注于人工智能与风险控制的前沿科技企业 | https://johboby.github.io/lanyuejie-blog/
+
+揽月界科技是一家专注于人工智能与风险控制的前沿科技企业，核心业务涵盖智能保险、畜牧业风险监测、农业标准化数据库。技术底座包括五层脑启发架构、物理信息融合AI、自适应进化引擎和安全合规闭环。
+
+## 联系方式
+
+- 邮箱：samhoclub@163.com
+- 微信：cy321one
+- 公众号：尘渊文化
+
+## 产品平台
+
+- 生猪养殖风险监测：https://szxt.cycu.top
+- 牦牛监测和智能保险：https://agri.cycu.top
+- 农业标准化基础数据库：https://risk.cycu.top
+
+## 研究报告
+
+- [2025-2026年中国智能体产业深度研究报告](/posts/ai-agent-industry-report-2025-2026.html)：AI Agent产业研究，从涌现狂欢到工程收敛
+- [大模型驱动的知识自动化](/posts/llm-knowledge-automation.html)：技术架构演进与产业落地路径
+- [人工智能与人文学科的深度融合](/posts/ai-humanities-integration.html)：从技术赋能到双向塑造
+- [经济政策不确定性与AI计量方法应用](/posts/economic-policy-ai-econometrics.html)：货币政策与计量经济学方法
+- [中国能源与制造业趋势研究](/posts/energy-manufacturing-trends-2026h1.html)：宏观景气、电力供需与系统约束
+- [能源与气候前沿行业报告](/posts/energy-climate-industry-report.html)：新能源、碳市场与气候适应
+- [全球价值链韧性与安全研究](/posts/global-value-chain-resilience.html)：供应链安全与地缘政治影响
+- [尘渊文化研究报告合集](/posts/chenyuan-research-collection.html)：新大众文艺与市场动向研究
+- [市场动向汇聚与浅析](/posts/market-trends-dec-2025.html)：2025年12月新兴技术与WEF趋势
+- [市场动向汇聚与浅析（2026年3月）](/posts/market-trends-mar-2026.html)：半导体芯片技术演进与创新
+- [2026年全球全行业深度展望与战略洞察报告](/posts/global-industry-outlook-2026.html)：新质生产力爆发前夜的格局重构
+- [2025-2026年全球重大技术突破深度研究报告](/posts/global-tech-breakthrough-2025-2026.html)：从量子纠错到数字文明的演进
+
+## 可选：详细内容
+
+- [llms-full.txt](/llms-full.txt) — 包含所有文章摘要的完整版
