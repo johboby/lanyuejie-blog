@@ -16,6 +16,7 @@ onMounted(async () => {
       return
     }
   } catch {}
+  const base = import.meta.env.BASE_URL
   const modules = import.meta.glob('../posts/*.md', { eager: true })
   const items = Object.entries(modules)
     .filter(([path]) => !path.endsWith('/index.md'))
@@ -28,7 +29,7 @@ onMounted(async () => {
         tags: fm.tags || [],
         categories: fm.categories || [],
         excerpt: fm.description || '',
-        link: path.replace('../', '/').replace('.md', ''),
+        link: base + path.replace('../', '').replace('.md', ''),
       }
     })
     .sort((a, b) => (a.rawDate > b.rawDate ? -1 : 1))

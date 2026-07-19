@@ -15,6 +15,7 @@ onMounted(async () => {
       return
     }
   } catch {}
+  const base = import.meta.env.BASE_URL
   const modules = import.meta.glob('../posts/*.md', { eager: true })
   const catMap = {}
   Object.entries(modules).forEach(([path, mod]) => {
@@ -25,7 +26,7 @@ onMounted(async () => {
       if (!catMap[cat]) catMap[cat] = []
       catMap[cat].push({
         title: fm.title || path.split('/').pop().replace('.md', ''),
-        link: path.replace('../', '/').replace('.md', ''),
+        link: base + path.replace('../', '').replace('.md', ''),
         date: fm.date ? new Date(fm.date).toLocaleDateString('zh-CN') : '',
       })
     })

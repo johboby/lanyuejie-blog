@@ -2,6 +2,10 @@
 title: 关于我们
 ---
 
+<script setup>
+const base = '/lanyuejie-blog'
+</script>
+
 <div class="about-page">
   <h1 class="page-title">关于揽月界科技</h1>
 
@@ -89,7 +93,6 @@ title: 关于我们
   max-width: 780px;
   margin: 0 auto;
 }
-
 .page-title {
   font-size: 2rem;
   font-weight: 800;
@@ -100,43 +103,36 @@ title: 关于我们
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
 .about-content {
   font-size: 15px;
   line-height: 1.9;
 }
-
-.about-content .lead {
+.about-content :deep(p) {
+  margin-bottom: 1rem;
+  color: var(--vp-c-text-2);
+}
+.about-content :deep(.lead) {
   font-size: 1.1rem;
   font-weight: 500;
   color: var(--vp-c-text-1);
   margin-bottom: 1.5rem;
   line-height: 1.8;
 }
-
-.about-content p {
-  margin-bottom: 1rem;
-  color: var(--vp-c-text-2);
-}
-
-.about-content h2 {
+.about-content :deep(h2) {
   font-size: 1.25rem;
   font-weight: 700;
   margin-top: 2.5rem;
   margin-bottom: 1rem;
   color: var(--vp-c-text-1);
 }
-
-.about-content strong {
+.about-content :deep(strong) {
   color: var(--vp-c-text-1);
 }
-
 .roadmap-grid {
   display: grid;
   gap: 1rem;
   margin: 1rem 0 2rem;
 }
-
 .roadmap-item {
   background: var(--vp-c-bg-soft);
   border-radius: 12px;
@@ -144,16 +140,13 @@ title: 关于我们
   border: 1px solid var(--vp-c-divider);
   transition: transform 0.3s, box-shadow 0.3s;
 }
-
 .roadmap-item:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
-
 .roadmap-item.active {
   border-left: 3px solid #c9a84c;
 }
-
 .roadmap-item .phase {
   font-family: monospace;
   font-size: 0.72rem;
@@ -162,28 +155,24 @@ title: 关于我们
   margin-bottom: 0.4rem;
   text-transform: uppercase;
 }
-
 .roadmap-item h3 {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0.4rem;
   color: var(--vp-c-text-1);
 }
-
 .roadmap-item p {
   font-size: 0.85rem;
   color: var(--vp-c-text-2);
   line-height: 1.75;
   margin-bottom: 0;
 }
-
 .tech-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
   margin: 1rem 0 2rem;
 }
-
 .tech-item {
   background: var(--vp-c-bg-soft);
   border-radius: 12px;
@@ -191,45 +180,37 @@ title: 关于我们
   border: 1px solid var(--vp-c-divider);
   transition: transform 0.3s;
 }
-
 .tech-item:hover {
   transform: translateY(-2px);
 }
-
 .tech-item h4 {
   font-size: 0.95rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: var(--vp-c-text-1);
 }
-
 .tech-item p {
   font-size: 0.82rem;
   color: var(--vp-c-text-2);
   line-height: 1.7;
   margin-bottom: 0;
 }
-
 .contact-list {
   padding-left: 1.2rem;
   list-style: disc;
 }
-
 .contact-list li {
   margin-bottom: 0.5rem;
 }
-
 .contact-list a {
   color: #3b7a6b;
   text-decoration: none;
   transition: color 0.2s;
 }
-
 .contact-list a:hover {
   color: #2d5a4f;
   text-decoration: underline;
 }
-
 .vision-quote {
   margin-top: 2.5rem;
   padding: 1.5rem 2rem;
@@ -237,7 +218,6 @@ title: 关于我们
   border-radius: 12px;
   border-left: 3px solid #3b7a6b;
 }
-
 .vision-quote p {
   font-style: italic;
   color: var(--vp-c-text-1);
@@ -245,7 +225,6 @@ title: 关于我们
   margin-bottom: 0.4rem;
   line-height: 1.8;
 }
-
 .vision-quote p:last-child {
   margin-bottom: 0;
   font-size: 0.9rem;
