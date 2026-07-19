@@ -1,5 +1,4 @@
 import { defineConfig } from 'vitepress'
-import { sitemap } from './plugins/sitemap'
 
 export default defineConfig({
   lang: 'zh-CN',
@@ -9,6 +8,56 @@ export default defineConfig({
   cleanUrls: true,
   lastUpdated: true,
   ignoreDeadLinks: true,
+
+  sitemap: {
+    hostname: 'https://johboby.github.io/lanyuejie-blog/',
+    lastmodDateOnly: true,
+  },
+
+  transformPageData(pageData) {
+    const canonicalUrl = `https://johboby.github.io/lanyuejie-blog/${pageData.relativePath}`
+      .replace(/index\.md$/, '')
+      .replace(/\.md$/, '')
+
+    pageData.frontmatter.head ??= []
+    pageData.frontmatter.head.push(
+      ['link', { rel: 'canonical', href: canonicalUrl }],
+      ['meta', { property: 'og:title', content: pageData.frontmatter.title || '揽月界科技' }],
+      ['meta', { property: 'og:description', content: pageData.frontmatter.description || '专注于人工智能与风险控制的前沿科技企业' }],
+      ['meta', { property: 'og:url', content: canonicalUrl }],
+    )
+
+    if (pageData.frontmatter.date) {
+      pageData.frontmatter.head.push(
+        ['meta', { property: 'article:published_time', content: pageData.frontmatter.date }],
+      )
+    }
+
+    if (pageData.frontmatter.tags && pageData.frontmatter.tags.length) {
+      pageData.frontmatter.head.push(
+        ['meta', { name: 'keywords', content: pageData.frontmatter.tags.join(', ') }],
+      )
+    }
+
+    if (pageData.relativePath.startsWith('posts/') && !pageData.relativePath.endsWith('index.md')) {
+      const schema = {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: pageData.frontmatter.title || '',
+        datePublished: pageData.frontmatter.date || '',
+        author: { '@type': 'Organization', name: '揽月界科技' },
+        publisher: { '@type': 'Organization', name: '揽月界科技', url: 'https://johboby.github.io/lanyuejie-blog/' },
+        url: canonicalUrl,
+        mainEntityOfPage: canonicalUrl,
+      }
+      if (pageData.frontmatter.tags) {
+        schema.keywords = pageData.frontmatter.tags.join(', ')
+      }
+      pageData.frontmatter.head.push(
+        ['script', { type: 'application/ld+json' }, JSON.stringify(schema)],
+      )
+    }
+  },
 
   vite: {
     server: {
@@ -26,29 +75,14 @@ export default defineConfig({
     ['meta', { name: 'keywords', content: '揽月界科技,AI风控,智能保险,畜牧业监测,双精两减,防灾减损,物理信息AI,五层脑架构' }],
     ['meta', { name: 'author', content: '揽月界科技' }],
     ['meta', { name: 'robots', content: 'index, follow' }],
+    ['meta', { name: 'googlebot', content: 'index, follow' }],
+    ['meta', { name: 'baiduspider', content: 'index, follow' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: '揽月界科技' }],
     ['meta', { property: 'og:locale', content: 'zh_CN' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['link', { rel: 'canonical', href: 'https://johboby.github.io/lanyuejie-blog/' }],
   ],
-
-  transformHead(context) {
-    const page = context.page
-    if (page === 'index.md') {
-      return [
-        ['meta', { property: 'og:title', content: '揽月界科技 — AI驱动的风险控制前沿企业' }],
-        ['meta', { property: 'og:description', content: '双精两减：精准识别·精细管理·减损增效·减灾防灾' }],
-        ['meta', { property: 'og:url', content: 'https://johboby.github.io/lanyuejie-blog/' }],
-      ]
-    }
-    if (page === 'about.md') {
-      return [
-        ['meta', { property: 'og:title', content: '关于揽月界科技' }],
-        ['meta', { property: 'og:description', content: '专注于人工智能与风险控制的前沿科技企业，根植上海，双精两减核心理念' }],
-      ]
-    }
-  },
 
   themeConfig: {
     nav: [

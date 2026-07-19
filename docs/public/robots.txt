@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://johboby.github.io/lanyuejie-blog/sitemap.xml

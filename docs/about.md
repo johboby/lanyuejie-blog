@@ -15,25 +15,25 @@ const base = '/lanyuejie-blog'
     </p>
 
     <p>
-      我们以<strong>"双精两减"</strong>——精准识别、精细管理、减损增效、减灾防灾——为核心理念，
+      我们以「双精两减」——精准识别、精细管理、减损增效、减灾防灾——为核心理念，
       致力于将AI技术深度应用于畜牧业、农业、水利、保险等实体经济领域。
     </p>
 
-    <h2>🏢 核心理念</h2>
+    <h2>核心理念</h2>
     <p>
-      公司构建的<strong>五层脑启发架构</strong>（感知→认知→决策→执行→价值），
+      公司构建的「五层脑启发架构」（感知→认知→决策→执行→价值），
       融合物理信息AI、自适应进化引擎与安全合规闭环，
       为合作伙伴提供可靠、可控、可追溯的智能风控解决方案。
     </p>
 
-    <h2>🤝 学术合作</h2>
+    <h2>学术合作</h2>
     <p>
       与中央财经大学建立深度产学研合作关系，联合研发畜牧业智能监测、
       智能保险风控、农业标准化基础数据库、水利综合监控雷达软件等核心产品，
       将金融工程、精算科学与人工智能深度融合，推动行业智能化升级。
     </p>
 
-    <h2>🚀 三级火箭发展战略</h2>
+    <h2>三级火箭发展战略</h2>
 
     <div class="roadmap-grid">
       <div class="roadmap-item active">
@@ -49,11 +49,11 @@ const base = '/lanyuejie-blog'
       <div class="roadmap-item">
         <div class="phase">PHASE III · 未来愿景</div>
         <h3>升华价值 · 标准引领</h3>
-        <p>推动解决方案向行业标准演进，输出可复制的认知框架与工具平台。以"双精两减"和防灾减损为核心价值，助力中国农业与保险行业实现智能化转型升级。</p>
+        <p>推动解决方案向行业标准演进，输出可复制的认知框架与工具平台。以「双精两减」和防灾减损为核心价值，助力中国农业与保险行业实现智能化转型升级。</p>
       </div>
     </div>
 
-    <h2>🌟 技术特色</h2>
+    <h2>技术特色</h2>
 
     <div class="tech-grid">
       <div class="tech-item">
@@ -74,11 +74,11 @@ const base = '/lanyuejie-blog'
       </div>
     </div>
 
-    <h2>📬 联系我们</h2>
+    <h2>联系我们</h2>
     <ul class="contact-list">
-      <li>📧 邮箱：<a href="mailto:samhoclub@163.com">samhoclub@163.com</a></li>
-      <li>🌐 官网：<a href="https://www.cycu.top" target="_blank">www.cycu.top</a></li>
-      <li>📱 公众号：尘渊文化</li>
+      <li>邮箱：<a href="mailto:samhoclub@163.com">samhoclub@163.com</a></li>
+      <li>官网：<a href="https://www.cycu.top" target="_blank">www.cycu.top</a></li>
+      <li>公众号：尘渊文化</li>
     </ul>
 
     <div class="vision-quote">
@@ -107,25 +107,22 @@ const base = '/lanyuejie-blog'
   font-size: 15px;
   line-height: 1.9;
 }
-.about-content :deep(p) {
+.about-content p {
   margin-bottom: 1rem;
   color: var(--vp-c-text-2);
 }
-.about-content :deep(.lead) {
+.about-content .lead {
   font-size: 1.1rem;
   font-weight: 500;
   color: var(--vp-c-text-1);
   margin-bottom: 1.5rem;
   line-height: 1.8;
 }
-.about-content :deep(h2) {
+.about-content h2 {
   font-size: 1.25rem;
   font-weight: 700;
   margin-top: 2.5rem;
   margin-bottom: 1rem;
-  color: var(--vp-c-text-1);
-}
-.about-content :deep(strong) {
   color: var(--vp-c-text-1);
 }
 .roadmap-grid {

@@ -4,22 +4,23 @@ title: 分类
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { withBase } from 'vitepress'
 
 const categories = ref({})
 
 onMounted(async () => {
-  const base = import.meta.env.BASE_URL
   const modules = import.meta.glob('../posts/*.md', { eager: true })
   const catMap = {}
   Object.entries(modules).forEach(([path, mod]) => {
     if (path.endsWith('/index.md')) return
     const fm = mod.frontmatter || {}
+    const slug = path.replace(/^\.\.\/posts\//, '').replace(/\.md$/, '')
     const cats = fm.categories || ['未分类']
     cats.forEach(cat => {
       if (!catMap[cat]) catMap[cat] = []
       catMap[cat].push({
-        title: fm.title || path.split('/').pop().replace('.md', ''),
-        link: base + path.replace('../', '').replace('.md', ''),
+        title: fm.title || slug,
+        link: withBase('/posts/' + slug),
         date: fm.date ? new Date(fm.date).toLocaleDateString('zh-CN') : '',
         tags: fm.tags || [],
       })

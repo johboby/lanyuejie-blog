@@ -32,7 +32,7 @@ const categories = computed(() => frontmatter.value.categories || [])
       </a>
     </div>
     <div v-if="tags.length" class="post-tags">
-      <a v-for="tag in tags" :key="tag" :href="base + 'tags/'" class="tag">{{ tag }}</a>
+      <a v-for="tag in tags" :key="tag" :href="base + 'tags/#' + encodeURIComponent(tag)" class="tag">{{ tag }}</a>
     </div>
   </div>
 </template>
@@ -88,7 +88,7 @@ const categories = computed(() => frontmatter.value.categories || [])
   color: var(--vp-c-brand-1);
   font-weight: 500;
   text-decoration: none;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
 
 .tag:hover { background: var(--vp-c-brand-1); color: #fff; }

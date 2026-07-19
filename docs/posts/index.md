@@ -4,26 +4,27 @@ title: 文章列表
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import { withBase } from 'vitepress'
 
 const posts = ref([])
 const selectedCategory = ref('全部')
 const searchQuery = ref('')
 
 onMounted(async () => {
-  const base = import.meta.env.BASE_URL
   const modules = import.meta.glob('../posts/*.md', { eager: true })
   const items = Object.entries(modules)
     .filter(([path]) => !path.endsWith('/index.md'))
     .map(([path, mod]) => {
       const fm = mod.frontmatter || {}
+      const slug = path.replace(/^\.\.\/posts\//, '').replace(/\.md$/, '')
       return {
-        title: fm.title || path.split('/').pop().replace('.md', ''),
+        title: fm.title || slug,
         date: fm.date ? new Date(fm.date).toLocaleDateString('zh-CN') : '',
         rawDate: fm.date || '',
         tags: fm.tags || [],
         categories: fm.categories || [],
         excerpt: fm.description || '',
-        link: base + path.replace('../', '').replace('.md', ''),
+        link: withBase('/posts/' + slug),
       }
     })
     .sort((a, b) => (a.rawDate > b.rawDate ? -1 : 1))
@@ -95,28 +96,17 @@ const filteredPosts = computed(() => {
 .page-title { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
 .page-desc { color: var(--vp-c-text-2); font-size: 15px; margin-bottom: 1.5rem; }
 
-.search-box {
-  position: relative; margin-bottom: 1.5rem;
-}
-
-.search-icon {
-  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-  color: var(--vp-c-text-3); pointer-events: none;
-}
+.search-box { position: relative; margin-bottom: 1.5rem; }
+.search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--vp-c-text-3); pointer-events: none; }
 
 .search-input {
   width: 100%; padding: 10px 14px 10px 40px; border-radius: 10px;
   border: 1px solid var(--vp-c-divider); background: var(--vp-c-bg-soft);
   font-size: 14px; color: var(--vp-c-text-1); outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s; font-family: inherit;
 }
 
-.search-input:focus {
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 0 0 3px var(--vp-c-brand-soft);
-}
-
+.search-input:focus { border-color: var(--vp-c-brand-1); box-shadow: 0 0 0 3px var(--vp-c-brand-soft); }
 .search-input::placeholder { color: var(--vp-c-text-3); }
 
 .category-filter { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 2rem; }
@@ -124,8 +114,7 @@ const filteredPosts = computed(() => {
 .filter-btn {
   padding: 4px 14px; border-radius: 20px;
   border: 1px solid var(--vp-c-divider); background: transparent;
-  color: var(--vp-c-text-2); font-size: 13px; cursor: pointer;
-  transition: all 0.2s;
+  color: var(--vp-c-text-2); font-size: 13px; cursor: pointer; transition: all 0.2s;
 }
 
 .filter-btn:hover { border-color: var(--vp-c-brand-1); color: var(--vp-c-brand-1); }
@@ -135,16 +124,12 @@ const filteredPosts = computed(() => {
 
 .post-item {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 16px; border-radius: 10px; text-decoration: none; color: inherit;
-  transition: background 0.15s;
+  padding: 20px 16px; border-radius: 10px; text-decoration: none; color: inherit; transition: background 0.15s;
 }
 
 .post-item:hover { background: var(--vp-c-default-soft); }
 .post-item-main { flex: 1; min-width: 0; }
-
-.post-item-title {
-  font-size: 16px; font-weight: 600; margin-bottom: 4px; letter-spacing: -0.01em;
-}
+.post-item-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; letter-spacing: -0.01em; }
 
 .post-item-excerpt {
   font-size: 14px; color: var(--vp-c-text-2); margin-bottom: 8px;
@@ -154,17 +139,9 @@ const filteredPosts = computed(() => {
 
 .post-item-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .meta-date { font-size: 13px; color: var(--vp-c-text-3); }
+.meta-tag { font-size: 12px; padding: 1px 8px; border-radius: 10px; background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1); }
 
-.meta-tag {
-  font-size: 12px; padding: 1px 8px; border-radius: 10px;
-  background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1);
-}
-
-.post-item-arrow {
-  font-size: 18px; color: var(--vp-c-text-3); margin-left: 16px;
-  transition: transform 0.15s, color 0.15s;
-}
-
+.post-item-arrow { font-size: 18px; color: var(--vp-c-text-3); margin-left: 16px; transition: transform 0.15s, color 0.15s; }
 .post-item:hover .post-item-arrow { transform: translateX(4px); color: var(--vp-c-brand-1); }
 
 .empty-state { text-align: center; padding: 4rem 0; color: var(--vp-c-text-3); }

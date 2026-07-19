@@ -39,26 +39,6 @@ body {
 .VPNavBar:not(.top) { background: rgba(255, 255, 255, 0.82) !important; }
 .dark .VPNavBar:not(.top) { background: rgba(17, 17, 17, 0.82) !important; }
 
-.VPHero .name {
-  font-weight: 800 !important;
-  background: linear-gradient(135deg, var(--vp-c-brand-1), var(--vp-c-gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.VPHero .text {
-  font-weight: 500 !important;
-  letter-spacing: -0.02em;
-  margin-top: -4px !important;
-}
-
-.VPHero .tagline {
-  font-size: 18px !important;
-  color: var(--vp-c-text-2) !important;
-  letter-spacing: 0.02em;
-}
-
 .VPButton {
   border-radius: 10px !important;
   font-weight: 500 !important;
@@ -69,25 +49,10 @@ body {
 .VPButton:hover { transform: translateY(-2px); }
 .VPButton.brand:hover { box-shadow: 0 4px 14px rgba(45, 106, 90, 0.3) !important; }
 
-.VPFeature {
-  border-radius: var(--blog-radius) !important;
-  border: 1px solid var(--vp-c-divider) !important;
-  box-shadow: var(--blog-shadow) !important;
-  transition: transform var(--blog-transition), box-shadow var(--blog-transition), border-color var(--blog-transition) !important;
-  overflow: hidden;
-}
-
-.VPFeature:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--blog-shadow-hover) !important;
-  border-color: var(--vp-c-brand-soft) !important;
-}
-
-.VPFeature .icon { font-size: 30px !important; }
-.VPFeature .title { font-weight: 600 !important; }
-
 .vp-doc { max-width: 800px !important; }
 .vp-doc h1:first-child { display: none; }
+.vp-doc:has(.home) { max-width: 100% !important; }
+.vp-doc:has(.home) h1:first-child { display: none; }
 
 .vp-doc h1:not(:first-child) {
   margin-top: 2rem !important;

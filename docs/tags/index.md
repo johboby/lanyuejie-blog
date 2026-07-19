@@ -3,25 +3,26 @@ title: 标签
 ---
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+import { withBase } from 'vitepress'
 
 const tags = ref({})
 const activeTag = ref('')
 
 onMounted(async () => {
-  const base = import.meta.env.BASE_URL
   const modules = import.meta.glob('../posts/*.md', { eager: true })
   const tagMap = {}
   Object.entries(modules).forEach(([path, mod]) => {
     if (path.endsWith('/index.md')) return
     const fm = mod.frontmatter || {}
+    const slug = path.replace(/^\.\.\/posts\//, '').replace(/\.md$/, '')
     const postTags = fm.tags || []
     const cats = fm.categories || []
     postTags.forEach(tag => {
       if (!tagMap[tag]) tagMap[tag] = []
       tagMap[tag].push({
-        title: fm.title || path.split('/').pop().replace('.md', ''),
-        link: base + path.replace('../', '').replace('.md', ''),
+        title: fm.title || slug,
+        link: withBase('/posts/' + slug),
         date: fm.date ? new Date(fm.date).toLocaleDateString('zh-CN') : '',
         categories: cats,
       })
@@ -30,26 +31,38 @@ onMounted(async () => {
       const untagged = '未标签'
       if (!tagMap[untagged]) tagMap[untagged] = []
       tagMap[untagged].push({
-        title: fm.title || path.split('/').pop().replace('.md', ''),
-        link: base + path.replace('../', '').replace('.md', ''),
+        title: fm.title || slug,
+        link: withBase('/posts/' + slug),
         date: fm.date ? new Date(fm.date).toLocaleDateString('zh-CN') : '',
         categories: cats,
       })
     }
   })
   tags.value = tagMap
+
+  const hash = decodeURIComponent(window.location.hash.slice(1))
+  if (hash && tagMap[hash]) {
+    activeTag.value = hash
+  }
 })
 
 const sortedTags = computed(() => {
   return Object.entries(tags.value).sort((a, b) => b[1].length - a[1].length)
 })
 
-import { computed } from 'vue'
-
 const filteredPosts = computed(() => {
   if (!activeTag.value) return []
   return tags.value[activeTag.value] || []
 })
+
+function selectTag(tag) {
+  activeTag.value = activeTag.value === tag ? '' : tag
+  if (activeTag.value) {
+    window.location.hash = encodeURIComponent(tag)
+  } else {
+    history.replaceState(null, '', window.location.pathname)
+  }
+}
 </script>
 
 <div class="tags-page">
@@ -61,7 +74,7 @@ const filteredPosts = computed(() => {
       v-for="[tag, posts] in sortedTags"
       :key="tag"
       :class="['tag-btn', { active: activeTag === tag }]"
-      @click="activeTag = activeTag === tag ? '' : tag"
+      @click="selectTag(tag)"
     >
       {{ tag }}
       <span class="tag-count">{{ posts.length }}</span>
