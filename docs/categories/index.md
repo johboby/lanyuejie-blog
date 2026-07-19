@@ -8,7 +8,7 @@ import { data as posts } from '../.vitepress/posts.data.js'
 
 const categories = computed(() => {
   const catMap = {}
-  posts.forEach(p => {
+  ;(posts || []).forEach(p => {
     const cats = p.categories.length ? p.categories : ['未分类']
     cats.forEach(cat => {
       if (!catMap[cat]) catMap[cat] = []

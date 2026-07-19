@@ -6,7 +6,7 @@ title: 揽月界科技
 import { computed } from 'vue'
 import { data as posts } from './.vitepress/posts.data.js'
 
-const recentPosts = computed(() => posts.slice(0, 4))
+const recentPosts = computed(() => (posts || []).slice(0, 4))
 
 const products = [
   {

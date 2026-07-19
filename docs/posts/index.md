@@ -11,13 +11,13 @@ const searchQuery = ref('')
 
 const allCategories = computed(() => {
   const cats = new Set()
-  posts.forEach(p => p.categories.forEach(c => cats.add(c)))
+  ;(posts || []).forEach(p => p.categories.forEach(c => cats.add(c)))
   return ['全部', ...cats]
 })
 
 const tagMap = computed(() => {
   const map = {}
-  posts.forEach(p => {
+  ;(posts || []).forEach(p => {
     p.tags.forEach(t => {
       map[t] = (map[t] || 0) + 1
     })
@@ -27,7 +27,7 @@ const tagMap = computed(() => {
 
 const categoryStats = computed(() => {
   const map = {}
-  posts.forEach(p => {
+  ;(posts || []).forEach(p => {
     p.categories.forEach(c => {
       map[c] = (map[c] || 0) + 1
     })
@@ -35,10 +35,10 @@ const categoryStats = computed(() => {
   return Object.entries(map).sort((a, b) => b[1] - a[1])
 })
 
-const totalPosts = computed(() => posts.length)
+const totalPosts = computed(() => (posts || []).length)
 
 const filteredPosts = computed(() => {
-  let result = posts
+  let result = posts || []
   if (selectedCategory.value !== '全部') {
     result = result.filter(p => p.categories.includes(selectedCategory.value))
   }
