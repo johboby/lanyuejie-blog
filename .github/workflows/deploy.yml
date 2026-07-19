@@ -60,13 +60,8 @@ jobs:
           BASE="https://johboby.github.io/lanyuejie-blog"
           URL_LIST="[\"${BASE}/\",\"${BASE}/posts/\",\"${BASE}/about.html\",\"${BASE}/posts/ai-agent-industry-report-2025-2026.html\",\"${BASE}/posts/ai-humanities-integration.html\",\"${BASE}/posts/chenyuan-research-collection.html\",\"${BASE}/posts/economic-policy-ai-econometrics.html\",\"${BASE}/posts/energy-climate-industry-report.html\",\"${BASE}/posts/energy-manufacturing-trends-2026h1.html\",\"${BASE}/posts/global-industry-outlook-2026.html\",\"${BASE}/posts/global-tech-breakthrough-2025-2026.html\",\"${BASE}/posts/global-value-chain-resilience.html\",\"${BASE}/posts/llm-knowledge-automation.html\",\"${BASE}/posts/market-trends-dec-2025.html\",\"${BASE}/posts/market-trends-mar-2026.html\"]"
           BODY="{\"host\":\"${HOST}\",\"key\":\"${KEY}\",\"urlList\":${URL_LIST}}"
-          echo "Submitting to IndexNow (Bing/Yandex/Seznam)..."
-          curl -s -o /dev/null -w "Bing: %{http_code}\n" -X POST "https://api.indexnow.org/indexnow" -H "Content-Type: application/json" -d "$BODY" || true
+          echo "Submitting to IndexNow endpoints..."
+          curl -s -o /dev/null -w "IndexNow API: %{http_code}\n" -X POST "https://api.indexnow.org/indexnow" -H "Content-Type: application/json" -d "$BODY" || true
+          curl -s -o /dev/null -w "Bing: %{http_code}\n" -X POST "https://www.bing.com/indexnow" -H "Content-Type: application/json" -d "$BODY" || true
           curl -s -o /dev/null -w "Yandex: %{http_code}\n" -X POST "https://yandex.com/indexnow" -H "Content-Type: application/json" -d "$BODY" || true
-
-      - name: Baidu - Submit sitemap
-        if: success()
-        run: |
-          echo "Notifying Baidu about sitemap..."
-          curl -s -o /dev/null -w "Baidu: %{http_code}\n" "http://data.zz.baidu.com/urls?site=https://johboby.github.io/lanyuejie-blog&token=placeholder" || true
-          echo "Note: Baidu requires site verification token. Add Baidu token to repo secrets for auto-submit."
+          curl -s -o /dev/null -w "Seznam: %{http_code}\n" -X POST "https://search.seznam.cz/indexnow" -H "Content-Type: application/json" -d "$BODY" || true
