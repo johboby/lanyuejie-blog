@@ -4,15 +4,13 @@ title: 标签
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { usePosts } from '../.vitepress/theme/composables/usePosts.js'
+import { data as posts } from '../.vitepress/posts.data.js'
 
-const glob = import.meta.glob('../posts/*.md', { eager: true })
-const { posts } = usePosts(glob)
 const activeTag = ref('')
 
 const tags = computed(() => {
   const tagMap = {}
-  posts.value.forEach(p => {
+  posts.forEach(p => {
     const postTags = p.tags.length ? p.tags : ['未标签']
     postTags.forEach(tag => {
       if (!tagMap[tag]) tagMap[tag] = []
@@ -67,7 +65,7 @@ onMounted(() => {
   <div v-if="filteredPosts.length" class="tag-posts">
     <h2 class="section-title">{{ activeTag }} · {{ filteredPosts.length }} 篇</h2>
     <div class="post-list">
-      <a v-for="post in filteredPosts" :key="post.link" :href="post.link" class="post-item">
+      <a v-for="post in filteredPosts" :key="post.url" :href="post.url" class="post-item">
         <div class="post-item-main">
           <div class="post-item-title">{{ post.title }}</div>
           <div class="post-item-meta">
@@ -83,7 +81,7 @@ onMounted(() => {
   <div v-else-if="!activeTag && posts.length" class="all-posts">
     <h2 class="section-title">全部文章 · {{ posts.length }} 篇</h2>
     <div class="post-list">
-      <a v-for="post in posts" :key="post.link" :href="post.link" class="post-item">
+      <a v-for="post in posts" :key="post.url" :href="post.url" class="post-item">
         <div class="post-item-main">
           <div class="post-item-title">{{ post.title }}</div>
           <div class="post-item-meta">

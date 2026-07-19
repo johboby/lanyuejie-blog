@@ -2,7 +2,6 @@ import DefaultTheme from 'vitepress/theme'
 import PostHeader from './components/PostHeader.vue'
 import BackToTop from './components/BackToTop.vue'
 import ReadingProgress from './components/ReadingProgress.vue'
-import SiteFooter from './components/SiteFooter.vue'
 import './style.css'
 import { h, onMounted, watch, nextTick } from 'vue'
 import { useRoute } from 'vitepress'
@@ -31,7 +30,6 @@ export default {
     return h(DefaultTheme.Layout, null, {
       'doc-before': () => h(PostHeader),
       'layout': () => [h(JsonLd), h(ReadingProgress), h(BackToTop)],
-      'doc-after': () => h(SiteFooter),
     })
   },
   setup() {

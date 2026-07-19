@@ -4,22 +4,20 @@ title: 文章列表
 
 <script setup>
 import { computed, ref } from 'vue'
-import { usePosts } from '../.vitepress/theme/composables/usePosts.js'
+import { data as posts } from '../.vitepress/posts.data.js'
 
-const glob = import.meta.glob('./*.md', { eager: true })
-const { posts } = usePosts(glob)
 const selectedCategory = ref('全部')
 const searchQuery = ref('')
 
 const allCategories = computed(() => {
   const cats = new Set()
-  posts.value.forEach(p => p.categories.forEach(c => cats.add(c)))
+  posts.forEach(p => p.categories.forEach(c => cats.add(c)))
   return ['全部', ...cats]
 })
 
 const tagMap = computed(() => {
   const map = {}
-  posts.value.forEach(p => {
+  posts.forEach(p => {
     p.tags.forEach(t => {
       map[t] = (map[t] || 0) + 1
     })
@@ -29,7 +27,7 @@ const tagMap = computed(() => {
 
 const categoryStats = computed(() => {
   const map = {}
-  posts.value.forEach(p => {
+  posts.forEach(p => {
     p.categories.forEach(c => {
       map[c] = (map[c] || 0) + 1
     })
@@ -37,10 +35,10 @@ const categoryStats = computed(() => {
   return Object.entries(map).sort((a, b) => b[1] - a[1])
 })
 
-const totalPosts = computed(() => posts.value.length)
+const totalPosts = computed(() => posts.length)
 
 const filteredPosts = computed(() => {
-  let result = posts.value
+  let result = posts
   if (selectedCategory.value !== '全部') {
     result = result.filter(p => p.categories.includes(selectedCategory.value))
   }
@@ -76,7 +74,7 @@ const filteredPosts = computed(() => {
     </div>
 
     <div v-if="filteredPosts.length" class="post-list">
-      <a v-for="post in filteredPosts" :key="post.link" :href="post.link" class="post-item">
+      <a v-for="post in filteredPosts" :key="post.url" :href="post.url" class="post-item">
         <div class="post-item-main">
           <div class="post-item-title">{{ post.title }}</div>
           <div v-if="post.excerpt" class="post-item-excerpt">{{ post.excerpt }}</div>

@@ -4,11 +4,9 @@ title: 揽月界科技
 
 <script setup>
 import { computed } from 'vue'
-import { usePosts } from './.vitepress/theme/composables/usePosts.js'
+import { data as posts } from './.vitepress/posts.data.js'
 
-const glob = import.meta.glob('./posts/*.md', { eager: true })
-const { posts } = usePosts(glob)
-const recentPosts = computed(() => posts.value.slice(0, 4))
+const recentPosts = computed(() => posts.slice(0, 4))
 
 const products = [
   {
@@ -131,7 +129,7 @@ const stats = [
         <a href="/lanyuejie-blog/posts/" class="view-all">查看全部 →</a>
       </div>
       <div class="recent-grid">
-        <a v-for="post in recentPosts" :key="post.link" :href="post.link" class="recent-card">
+        <a v-for="post in recentPosts" :key="post.url" :href="post.url" class="recent-card">
           <div class="recent-card-cats">
             <span v-for="cat in post.categories.slice(0, 2)" :key="cat" class="recent-cat">{{ cat }}</span>
           </div>

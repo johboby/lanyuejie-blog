@@ -4,14 +4,11 @@ title: 分类
 
 <script setup>
 import { computed } from 'vue'
-import { usePosts } from '../.vitepress/theme/composables/usePosts.js'
-
-const glob = import.meta.glob('../posts/*.md', { eager: true })
-const { posts } = usePosts(glob)
+import { data as posts } from '../.vitepress/posts.data.js'
 
 const categories = computed(() => {
   const catMap = {}
-  posts.value.forEach(p => {
+  posts.forEach(p => {
     const cats = p.categories.length ? p.categories : ['未分类']
     cats.forEach(cat => {
       if (!catMap[cat]) catMap[cat] = []
@@ -33,8 +30,8 @@ const categories = computed(() => {
         <span class="category-count">{{ catPosts.length }} 篇</span>
       </div>
       <ul class="category-posts">
-        <li v-for="post in catPosts" :key="post.link">
-          <a :href="post.link" class="post-link">
+        <li v-for="post in catPosts" :key="post.url">
+          <a :href="post.url" class="post-link">
             <span class="post-title">{{ post.title }}</span>
             <span class="post-meta-row">
               <span v-if="post.date" class="post-date">{{ post.date }}</span>
