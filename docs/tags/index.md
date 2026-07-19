@@ -8,16 +8,29 @@ import { withBase } from 'vitepress'
 
 const tags = ref({})
 const activeTag = ref('')
+const allPosts = ref([])
 
 onMounted(async () => {
   const modules = import.meta.glob('../posts/*.md', { eager: true })
   const tagMap = {}
+  const posts = []
+
   Object.entries(modules).forEach(([path, mod]) => {
     if (path.endsWith('/index.md')) return
     const fm = mod.frontmatter || {}
     const slug = path.replace(/^\.\.\/posts\//, '').replace(/\.md$/, '')
     const postTags = fm.tags || []
     const cats = fm.categories || []
+
+    posts.push({
+      title: fm.title || slug,
+      link: withBase('/posts/' + slug),
+      date: fm.date ? new Date(fm.date).toLocaleDateString('zh-CN') : '',
+      rawDate: fm.date || '',
+      categories: cats,
+      tags: postTags,
+    })
+
     postTags.forEach(tag => {
       if (!tagMap[tag]) tagMap[tag] = []
       tagMap[tag].push({
@@ -27,6 +40,7 @@ onMounted(async () => {
         categories: cats,
       })
     })
+
     if (postTags.length === 0) {
       const untagged = '未标签'
       if (!tagMap[untagged]) tagMap[untagged] = []
@@ -38,7 +52,9 @@ onMounted(async () => {
       })
     }
   })
+
   tags.value = tagMap
+  allPosts.value = posts.sort((a, b) => (a.rawDate > b.rawDate ? -1 : 1))
 
   const hash = decodeURIComponent(window.location.hash.slice(1))
   if (hash && tagMap[hash]) {
@@ -69,7 +85,7 @@ function selectTag(tag) {
   <h1 class="page-title">标签</h1>
   <p class="page-desc">通过标签快速浏览相关文章</p>
 
-  <div class="tag-cloud">
+  <div v-if="sortedTags.length" class="tag-cloud">
     <button
       v-for="[tag, posts] in sortedTags"
       :key="tag"
@@ -95,6 +111,27 @@ function selectTag(tag) {
         <div class="post-item-arrow">→</div>
       </a>
     </div>
+  </div>
+
+  <div v-else-if="!activeTag && allPosts.length" class="all-posts">
+    <h2 class="section-title">全部文章 · {{ allPosts.length }} 篇</h2>
+    <div class="post-list">
+      <a v-for="post in allPosts" :key="post.link" :href="post.link" class="post-item">
+        <div class="post-item-main">
+          <div class="post-item-title">{{ post.title }}</div>
+          <div class="post-item-meta">
+            <span v-if="post.date" class="meta-date">{{ post.date }}</span>
+            <span v-for="cat in post.categories" :key="cat" class="meta-cat">{{ cat }}</span>
+            <span v-for="tag in post.tags.slice(0, 3)" :key="tag" class="meta-tag">{{ tag }}</span>
+          </div>
+        </div>
+        <div class="post-item-arrow">→</div>
+      </a>
+    </div>
+  </div>
+
+  <div v-if="!sortedTags.length && !allPosts.length" class="empty-state">
+    <p>暂无文章</p>
   </div>
 </div>
 
@@ -157,10 +194,17 @@ function selectTag(tag) {
   background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1);
 }
 
+.meta-tag {
+  font-size: 11px; padding: 1px 7px; border-radius: 8px;
+  background: var(--vp-c-gold-soft); color: var(--vp-c-gold);
+}
+
 .post-item-arrow {
   font-size: 16px; color: var(--vp-c-text-3); margin-left: 16px;
   transition: transform 0.15s, color 0.15s;
 }
 
 .post-item:hover .post-item-arrow { transform: translateX(4px); color: var(--vp-c-brand-1); }
+
+.empty-state { text-align: center; padding: 4rem 0; color: var(--vp-c-text-3); }
 </style>

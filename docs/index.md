@@ -31,36 +31,55 @@ onMounted(async () => {
 
 const recentPosts = computed(() => posts.value.slice(0, 4))
 
-const capabilities = [
+const products = [
   {
-    label: '畜牧业智能监测',
+    name: '生猪养殖风险监测与保险平台',
     desc: 'IoT + AI图像识别 + 区块链存证，牲畜标的精准追踪与疫病预警',
-    tag: '产品',
+    url: 'https://szxt.cycu.top',
+    tag: '畜牧',
   },
   {
-    label: '智能保险风控',
+    name: '牦牛监测和智能保险系统',
     desc: '覆盖标的识别、风险评估、理赔存证的全流程智能保险平台',
-    tag: '产品',
+    url: 'https://agri.cycu.top',
+    tag: '畜牧',
   },
   {
-    label: '农业标准化数据库',
+    name: '农业标准化基础数据库平台',
     desc: '整合土壤、气候、作物、养殖多维数据，统一标准驱动精准决策',
-    tag: '产品',
+    url: 'https://risk.cycu.top',
+    tag: '农业',
   },
   {
-    label: '水利综合监控雷达',
+    name: '马铃薯晚疫病智能监测系统',
+    desc: 'AI驱动的作物病害实时监测与预警，精准施药降低损失',
+    url: 'https://risk.cycu.top',
+    tag: '农业',
+  },
+  {
+    name: '水利综合监控雷达软件',
     desc: '雷达遥感 + AI预测模型，水位流速实时监测与洪涝早期预警',
-    tag: '产品',
+    url: '',
+    tag: '水利',
   },
+]
+
+const techFeatures = [
   {
-    label: '五层脑启发架构',
+    name: '五层脑启发架构',
     desc: '感知→认知→决策→执行→价值，模拟生物神经的完整闭环',
-    tag: '架构',
   },
   {
-    label: '物理信息融合AI',
+    name: '物理信息融合AI',
     desc: '将物理定律嵌入神经网络，复杂工况下保持鲁棒性与可解释性',
-    tag: '技术',
+  },
+  {
+    name: '自适应进化引擎',
+    desc: '动态反馈驱动算法持续优化，系统随环境变化自主迭代',
+  },
+  {
+    name: '安全合规闭环',
+    desc: '国密算法 + 零信任架构 + 区块链存证，全链路可追溯',
   },
 ]
 
@@ -80,7 +99,7 @@ const stats = [
       <p class="hero-sub">AI驱动的风险控制前沿企业</p>
       <p class="hero-tagline">精准识别 · 精细管理 · 减损增效 · 减灾防灾</p>
       <div class="hero-actions">
-        <a :href="withBase('/posts/')" class="btn-primary">探索研究</a>
+        <a href="mailto:samhoclub@163.com" class="btn-primary">联系合作</a>
         <a :href="withBase('/about')" class="btn-secondary">了解我们</a>
       </div>
     </div>
@@ -93,16 +112,29 @@ const stats = [
     </div>
   </section>
 
-  <section class="capabilities">
+  <section class="products">
     <div class="section-header">
-      <h2>核心能力</h2>
+      <h2>核心产品</h2>
       <p>从感知到决策，从技术到产品</p>
     </div>
-    <div class="cap-grid">
-      <div v-for="c in capabilities" :key="c.label" class="cap-card">
-        <span class="cap-tag">{{ c.tag }}</span>
-        <h3>{{ c.label }}</h3>
-        <p>{{ c.desc }}</p>
+    <div class="product-grid">
+      <div v-for="p in products" :key="p.name" class="product-card">
+        <span class="product-tag">{{ p.tag }}</span>
+        <h3>{{ p.name }}</h3>
+        <p>{{ p.desc }}</p>
+        <a v-if="p.url" :href="p.url" target="_blank" rel="noopener" class="product-link">访问平台 →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="tech">
+    <div class="section-header">
+      <h2>技术底座</h2>
+    </div>
+    <div class="tech-grid">
+      <div v-for="t in techFeatures" :key="t.name" class="tech-card">
+        <h3>{{ t.name }}</h3>
+        <p>{{ t.desc }}</p>
       </div>
     </div>
   </section>
@@ -114,16 +146,14 @@ const stats = [
     </div>
     <div class="recent-grid">
       <a v-for="post in recentPosts" :key="post.link" :href="post.link" class="recent-card">
-        <div class="recent-card-body">
-          <div class="recent-card-cats">
-            <span v-for="cat in post.categories.slice(0, 2)" :key="cat" class="recent-cat">{{ cat }}</span>
-          </div>
-          <h3>{{ post.title }}</h3>
-          <div class="recent-card-footer">
-            <span v-if="post.date" class="recent-date">{{ post.date }}</span>
-            <div class="recent-tags">
-              <span v-for="tag in post.tags.slice(0, 2)" :key="tag" class="recent-tag">{{ tag }}</span>
-            </div>
+        <div class="recent-card-cats">
+          <span v-for="cat in post.categories.slice(0, 2)" :key="cat" class="recent-cat">{{ cat }}</span>
+        </div>
+        <h3>{{ post.title }}</h3>
+        <div class="recent-card-footer">
+          <span v-if="post.date" class="recent-date">{{ post.date }}</span>
+          <div class="recent-tags">
+            <span v-for="tag in post.tags.slice(0, 2)" :key="tag" class="recent-tag">{{ tag }}</span>
           </div>
         </div>
       </a>
@@ -134,10 +164,7 @@ const stats = [
     <div class="cta-inner">
       <h2>与我们一起，用AI重新定义风控</h2>
       <p>揽月于九天，划界于未来</p>
-      <div class="cta-actions">
-        <a href="mailto:samhoclub@163.com" class="btn-primary">联系合作</a>
-        <a href="https://www.cycu.top" target="_blank" class="btn-secondary">访问官网</a>
-      </div>
+      <a href="mailto:samhoclub@163.com" class="btn-primary">samhoclub@163.com</a>
     </div>
   </section>
 </div>
@@ -145,10 +172,11 @@ const stats = [
 <style scoped>
 .home {
   overflow-x: hidden;
+  width: 100%;
 }
 
 .hero {
-  padding: 6rem 1.5rem 4rem;
+  padding: 5rem 2rem 3.5rem;
   text-align: center;
   background: linear-gradient(180deg, rgba(45, 106, 90, 0.04) 0%, transparent 100%);
 }
@@ -168,7 +196,7 @@ const stats = [
 }
 
 .hero-title {
-  font-size: 3.2rem;
+  font-size: 3rem;
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.15;
@@ -180,7 +208,7 @@ const stats = [
 }
 
 .hero-sub {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 500;
   color: var(--vp-c-text-1);
   margin-bottom: 0.5rem;
@@ -241,9 +269,9 @@ const stats = [
 .stats-bar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  max-width: 800px;
+  max-width: 860px;
   margin: 0 auto 4rem;
-  padding: 0 1.5rem;
+  padding: 0 2rem;
   gap: 1px;
   background: var(--vp-c-divider);
   border-radius: 14px;
@@ -278,12 +306,13 @@ const stats = [
   margin-top: 0.3rem;
 }
 
-.capabilities,
+.products,
+.tech,
 .recent,
 .cta {
-  max-width: 960px;
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 0 1.5rem 4rem;
+  padding: 0 2rem 4rem;
 }
 
 .section-header {
@@ -298,11 +327,13 @@ const stats = [
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--vp-c-text-1);
+  margin: 0;
 }
 
 .section-header p {
   font-size: 0.88rem;
   color: var(--vp-c-text-3);
+  margin: 0;
 }
 
 .view-all {
@@ -313,32 +344,33 @@ const stats = [
   transition: opacity 0.2s;
 }
 
-.view-all:hover {
-  opacity: 0.7;
-}
+.view-all:hover { opacity: 0.7; }
 
-.cap-grid {
+.product-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 14px;
 }
 
-.cap-card {
+.product-card {
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   border-radius: 14px;
-  padding: 1.25rem;
+  padding: 1.5rem;
   transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  display: flex;
+  flex-direction: column;
 }
 
-.cap-card:hover {
+.product-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   border-color: var(--vp-c-brand-soft);
 }
 
-.cap-tag {
+.product-tag {
   display: inline-block;
+  align-self: flex-start;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -349,24 +381,70 @@ const stats = [
   margin-bottom: 0.6rem;
 }
 
-.cap-card h3 {
+.product-card h3 {
   font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+  margin-bottom: 0.4rem;
+  line-height: 1.4;
+}
+
+.product-card p {
+  font-size: 0.82rem;
+  color: var(--vp-c-text-2);
+  line-height: 1.65;
+  margin: 0 0 0.8rem;
+  flex: 1;
+}
+
+.product-link {
+  font-size: 0.82rem;
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.product-link:hover { opacity: 0.7; }
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.tech-card {
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 14px;
+  padding: 1.25rem;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.tech-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border-color: var(--vp-c-brand-soft);
+}
+
+.tech-card h3 {
+  font-size: 0.92rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
   margin-bottom: 0.4rem;
 }
 
-.cap-card p {
-  font-size: 0.82rem;
+.tech-card p {
+  font-size: 0.8rem;
   color: var(--vp-c-text-2);
-  line-height: 1.65;
+  line-height: 1.6;
   margin: 0;
 }
 
 .recent-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 14px;
 }
 
 .recent-card {
@@ -438,9 +516,7 @@ const stats = [
   color: var(--vp-c-brand-1);
 }
 
-.cta {
-  padding-bottom: 5rem;
-}
+.cta { padding-bottom: 5rem; }
 
 .cta-inner {
   text-align: center;
@@ -464,25 +540,26 @@ const stats = [
   margin-bottom: 2rem;
 }
 
-.cta-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
+@media (max-width: 900px) {
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+  .tech-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
   .hero { padding: 4rem 1.25rem 3rem; }
   .hero-title { font-size: 2.2rem; }
-  .hero-sub { font-size: 1.1rem; }
+  .hero-sub { font-size: 1.05rem; }
   .stats-bar { grid-template-columns: repeat(2, 1fr); }
-  .cap-grid { grid-template-columns: 1fr; }
+  .product-grid { grid-template-columns: 1fr; }
+  .tech-grid { grid-template-columns: 1fr 1fr; }
   .recent-grid { grid-template-columns: 1fr; }
   .cta-inner { padding: 2.5rem 1.5rem; }
+  .products, .tech, .recent, .cta { padding: 0 1.25rem 3rem; }
 }
 
 @media (max-width: 480px) {
   .hero-title { font-size: 1.8rem; }
   .stat-value { font-size: 1.5rem; }
+  .tech-grid { grid-template-columns: 1fr; }
 }
 </style>

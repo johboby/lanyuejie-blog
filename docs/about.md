@@ -2,10 +2,6 @@
 title: 关于我们
 ---
 
-<script setup>
-const base = '/lanyuejie-blog'
-</script>
-
 <div class="about-page">
   <h1 class="page-title">关于揽月界科技</h1>
 
@@ -18,6 +14,45 @@ const base = '/lanyuejie-blog'
       我们以「双精两减」——精准识别、精细管理、减损增效、减灾防灾——为核心理念，
       致力于将AI技术深度应用于畜牧业、农业、水利、保险等实体经济领域。
     </p>
+
+    <h2>核心产品</h2>
+
+    <div class="product-list">
+      <div class="product-item">
+        <div class="product-item-header">
+          <h3>生猪养殖风险监测与保险平台</h3>
+          <a href="https://szxt.cycu.top" target="_blank" rel="noopener" class="product-url">szxt.cycu.top →</a>
+        </div>
+        <p>IoT + AI图像识别 + 区块链存证，实现牲畜标的精准追踪、生长状态监测与疫病风险预警。</p>
+      </div>
+      <div class="product-item">
+        <div class="product-item-header">
+          <h3>牦牛监测和智能保险系统</h3>
+          <a href="https://agri.cycu.top" target="_blank" rel="noopener" class="product-url">agri.cycu.top →</a>
+        </div>
+        <p>覆盖标的识别、风险评估、理赔存证的全流程智能保险平台，实现风险精准定价与防灾减损预警。</p>
+      </div>
+      <div class="product-item">
+        <div class="product-item-header">
+          <h3>农业标准化基础数据库平台</h3>
+          <a href="https://risk.cycu.top" target="_blank" rel="noopener" class="product-url">risk.cycu.top →</a>
+        </div>
+        <p>整合土壤、气候、作物、养殖等多维数据，以统一数据标准驱动精准农业决策。</p>
+      </div>
+      <div class="product-item">
+        <div class="product-item-header">
+          <h3>马铃薯晚疫病智能监测系统</h3>
+          <a href="https://risk.cycu.top" target="_blank" rel="noopener" class="product-url">risk.cycu.top →</a>
+        </div>
+        <p>AI驱动的作物病害实时监测与预警，精准施药降低损失。</p>
+      </div>
+      <div class="product-item">
+        <div class="product-item-header">
+          <h3>水利综合监控雷达软件</h3>
+        </div>
+        <p>融合雷达遥感监测与AI预测模型，实现水位、流速、降雨量实时监测与洪涝灾害早期预警。</p>
+      </div>
+    </div>
 
     <h2>核心理念</h2>
     <p>
@@ -75,11 +110,21 @@ const base = '/lanyuejie-blog'
     </div>
 
     <h2>联系我们</h2>
-    <ul class="contact-list">
-      <li>邮箱：<a href="mailto:samhoclub@163.com">samhoclub@163.com</a></li>
-      <li>官网：<a href="https://www.cycu.top" target="_blank">www.cycu.top</a></li>
-      <li>公众号：尘渊文化</li>
-    </ul>
+
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="contact-label">邮箱</div>
+        <a href="mailto:samhoclub@163.com" class="contact-value">samhoclub@163.com</a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label">微信</div>
+        <span class="contact-value">cy321one</span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label">公众号</div>
+        <span class="contact-value">尘渊文化</span>
+      </div>
+    </div>
 
     <div class="vision-quote">
       <p>揽月于九天，划界于未来。</p>
@@ -124,6 +169,50 @@ const base = '/lanyuejie-blog'
   margin-top: 2.5rem;
   margin-bottom: 1rem;
   color: var(--vp-c-text-1);
+}
+.product-list {
+  display: grid;
+  gap: 10px;
+  margin: 1rem 0 2rem;
+}
+.product-item {
+  background: var(--vp-c-bg-soft);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--vp-c-divider);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.product-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+.product-item-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.4rem;
+}
+.product-item h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+  margin: 0;
+}
+.product-url {
+  font-size: 0.78rem;
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+.product-url:hover { opacity: 0.7; }
+.product-item p {
+  font-size: 0.85rem;
+  color: var(--vp-c-text-2);
+  line-height: 1.75;
+  margin: 0;
 }
 .roadmap-grid {
   display: grid;
@@ -192,22 +281,37 @@ const base = '/lanyuejie-blog'
   line-height: 1.7;
   margin-bottom: 0;
 }
-.contact-list {
-  padding-left: 1.2rem;
-  list-style: disc;
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 2rem;
 }
-.contact-list li {
-  margin-bottom: 0.5rem;
+.contact-item {
+  background: var(--vp-c-bg-soft);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--vp-c-divider);
 }
-.contact-list a {
-  color: #3b7a6b;
+.contact-label {
+  font-size: 0.75rem;
+  color: var(--vp-c-text-3);
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.04em;
+}
+.contact-value {
+  font-size: 0.92rem;
+  color: var(--vp-c-text-1);
+  font-weight: 600;
+  word-break: break-all;
+}
+.contact-item a.contact-value {
   text-decoration: none;
-  transition: color 0.2s;
+  color: var(--vp-c-brand-1);
+  transition: opacity 0.2s;
 }
-.contact-list a:hover {
-  color: #2d5a4f;
-  text-decoration: underline;
-}
+.contact-item a.contact-value:hover { opacity: 0.7; }
 .vision-quote {
   margin-top: 2.5rem;
   padding: 1.5rem 2rem;
