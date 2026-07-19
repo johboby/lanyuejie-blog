@@ -540,16 +540,30 @@ const stats = [
   margin-bottom: 2rem;
 }
 
+@media (min-width: 1440px) {
+  .products, .tech, .recent, .cta { max-width: 1200px; }
+  .stats-bar { max-width: 960px; }
+  .product-grid { gap: 16px; }
+  .tech-grid { gap: 16px; }
+}
+
+@media (max-width: 1024px) {
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+  .tech-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-bar { max-width: 680px; }
+}
+
 @media (max-width: 900px) {
   .product-grid { grid-template-columns: repeat(2, 1fr); }
   .tech-grid { grid-template-columns: repeat(2, 1fr); }
+  .recent-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 768px) {
-  .hero { padding: 4rem 1.25rem 3rem; }
+  .hero { padding: 3.5rem 1.25rem 2.5rem; }
   .hero-title { font-size: 2.2rem; }
   .hero-sub { font-size: 1.05rem; }
-  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .stats-bar { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
   .product-grid { grid-template-columns: 1fr; }
   .tech-grid { grid-template-columns: 1fr 1fr; }
   .recent-grid { grid-template-columns: 1fr; }
@@ -557,9 +571,27 @@ const stats = [
   .products, .tech, .recent, .cta { padding: 0 1.25rem 3rem; }
 }
 
-@media (max-width: 480px) {
-  .hero-title { font-size: 1.8rem; }
-  .stat-value { font-size: 1.5rem; }
+@media (max-width: 640px) {
+  .hero { padding: 3rem 1rem 2rem; }
+  .hero-title { font-size: 1.9rem; }
+  .hero-sub { font-size: 1rem; }
+  .hero-tagline { font-size: 0.88rem; }
+  .stats-bar { grid-template-columns: repeat(2, 1fr); border-radius: 10px; }
+  .stat-item { padding: 1rem 0.75rem; }
+  .stat-value { font-size: 1.6rem; }
+  .section-header h2 { font-size: 1.2rem; }
   .tech-grid { grid-template-columns: 1fr; }
+  .cta-inner h2 { font-size: 1.25rem; }
+}
+
+@media (max-width: 480px) {
+  .hero-title { font-size: 1.7rem; }
+  .stat-value { font-size: 1.4rem; }
+  .stat-value small { font-size: 0.8rem; }
+  .stat-label { font-size: 0.72rem; }
+  .hero-actions { gap: 8px; }
+  .btn-primary, .btn-secondary { padding: 8px 20px; font-size: 14px; }
+  .product-card { padding: 1.25rem; }
+  .tech-card { padding: 1rem; }
 }
 </style>

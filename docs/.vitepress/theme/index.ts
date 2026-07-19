@@ -1,7 +1,9 @@
 import DefaultTheme from 'vitepress/theme'
 import PostHeader from './components/PostHeader.vue'
+import BackToTop from './components/BackToTop.vue'
+import ReadingProgress from './components/ReadingProgress.vue'
 import './style.css'
-import { h, onMounted } from 'vue'
+import { h, onMounted, watch } from 'vue'
 import { useRoute } from 'vitepress'
 
 export default {
@@ -9,7 +11,27 @@ export default {
   Layout() {
     return h(DefaultTheme.Layout, null, {
       'doc-before': () => h(PostHeader),
-      'layout': () => h(JsonLd),
+      'layout': () => [h(JsonLd), h(ReadingProgress), h(BackToTop)],
+    })
+  },
+  setup() {
+    const route = useRoute()
+
+    onMounted(() => {
+      if (typeof document !== 'undefined') {
+        document.documentElement.classList.add('page-ready')
+      }
+    })
+
+    watch(() => route.path, () => {
+      if (typeof document !== 'undefined') {
+        const el = document.querySelector('.VPContent')
+        if (el) {
+          el.classList.remove('page-fade-in')
+          void el.offsetWidth
+          el.classList.add('page-fade-in')
+        }
+      }
     })
   },
 }
