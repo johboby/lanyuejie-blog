@@ -17,7 +17,7 @@ for (const file of files) {
   if (!data.title) continue
 
   const slug = file.replace(/\.md$/, '')
-  const url = '/lanyuejie-blog/posts/' + slug + '.html'
+  const url = '/lanyuejie-blog/posts/' + slug
 
   posts.push({
     title: data.title || '',

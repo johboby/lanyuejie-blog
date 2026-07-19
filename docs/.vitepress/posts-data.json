@@ -12,7 +12,7 @@
       "能源与气候"
     ],
     "excerpt": "能源与气候前沿按应用场景的行业报告，涵盖新能源、碳市场与气候适应",
-    "url": "/lanyuejie-blog/posts/energy-climate-industry-report.html"
+    "url": "/lanyuejie-blog/posts/energy-climate-industry-report"
   },
   {
     "title": "尘渊文化研究报告合集",
@@ -26,7 +26,7 @@
       "综合"
     ],
     "excerpt": "尘渊文化研究报告合集，涵盖新大众文艺、市场动向汇聚与浅析等研究",
-    "url": "/lanyuejie-blog/posts/chenyuan-research-collection.html"
+    "url": "/lanyuejie-blog/posts/chenyuan-research-collection"
   },
   {
     "title": "2025-2026年中国智能体产业深度研究报告",
@@ -41,7 +41,7 @@
       "产业研究"
     ],
     "excerpt": "过去两年，以大语言模型（LLM）为代表的生成式人工智能经历了一场史无前例的\"涌现狂欢\"。从ChatGPT的横空出世到百模大战，产业界的注意力被牢牢锚定在\"参数规模\"、\"基准测试得分\"与\"文本生成质量\"上。然而，进入2024年下半年，一股深沉的焦虑开始在投资界与企业级应用端蔓延。",
-    "url": "/lanyuejie-blog/posts/ai-agent-industry-report-2025-2026.html"
+    "url": "/lanyuejie-blog/posts/ai-agent-industry-report-2025-2026"
   },
   {
     "title": "中国能源与制造业趋势研究",
@@ -56,7 +56,7 @@
       "能源与气候"
     ],
     "excerpt": "宏观与制造业运行景气—产出—利润分析，电力需求与供给结构，负荷、装机与系统约束研究",
-    "url": "/lanyuejie-blog/posts/energy-manufacturing-trends-2026h1.html"
+    "url": "/lanyuejie-blog/posts/energy-manufacturing-trends-2026h1"
   },
   {
     "title": "大模型驱动的知识自动化",
@@ -72,7 +72,7 @@
       "技术与架构"
     ],
     "excerpt": "大模型驱动的知识自动化技术架构演进与产业落地路径研究",
-    "url": "/lanyuejie-blog/posts/llm-knowledge-automation.html"
+    "url": "/lanyuejie-blog/posts/llm-knowledge-automation"
   },
   {
     "title": "经济政策不确定性与AI计量方法应用",
@@ -88,7 +88,7 @@
       "经济与政策"
     ],
     "excerpt": "经济政策不确定性、货币政策、人工智能及计量经济学方法应用核查研究",
-    "url": "/lanyuejie-blog/posts/economic-policy-ai-econometrics.html"
+    "url": "/lanyuejie-blog/posts/economic-policy-ai-econometrics"
   },
   {
     "title": "人工智能与人文学科的深度融合",
@@ -104,7 +104,7 @@
       "人文与伦理"
     ],
     "excerpt": "生成式AI与大型语言模型推动人文学科与数字人文进入深度重构期，从\"技术赋能\"到\"双向塑造\"的新格局",
-    "url": "/lanyuejie-blog/posts/ai-humanities-integration.html"
+    "url": "/lanyuejie-blog/posts/ai-humanities-integration"
   },
   {
     "title": "全球价值链韧性与安全研究",
@@ -119,7 +119,7 @@
       "经济与政策"
     ],
     "excerpt": "全球价值链韧性与安全研究，聚焦供应链安全与地缘政治影响",
-    "url": "/lanyuejie-blog/posts/global-value-chain-resilience.html"
+    "url": "/lanyuejie-blog/posts/global-value-chain-resilience"
   },
   {
     "title": "市场动向汇聚与浅析",
@@ -134,6 +134,6 @@
       "市场分析"
     ],
     "excerpt": "2025年12月市场动向汇聚与浅析，聚焦新兴技术与WEF趋势",
-    "url": "/lanyuejie-blog/posts/market-trends-dec-2025.html"
+    "url": "/lanyuejie-blog/posts/market-trends-dec-2025"
   }
 ]
