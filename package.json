@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node scripts/generate-posts-data.js && vitepress dev docs",
-    "build": "node scripts/generate-posts-data.js && vitepress build docs",
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
     "preview": "vitepress preview docs",
     "server": "node server/index.js",
     "lint": "node server/lint.js lint",
