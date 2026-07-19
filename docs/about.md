@@ -82,6 +82,8 @@ const techFeatures = [
 
 <div class="about">
   <section class="about-hero">
+    <div class="about-hero-bg"></div>
+    <div class="about-hero-overlay"></div>
     <div class="about-hero-inner">
       <p class="about-overline">About Us</p>
       <h1 class="about-title">关于揽月界科技</h1>
@@ -91,11 +93,12 @@ const techFeatures = [
   </section>
 
   <section class="about-intro">
-    <div class="section-container">
+    <div class="section-inner">
       <div class="intro-grid">
         <div class="intro-main">
           <h2>我们的使命</h2>
           <p>揽月界科技（Lanyuejie Technology）以「双精两减」为核心理念，致力于将AI技术深度应用于畜牧业、农业、水利、保险等实体经济领域，构建可靠、可控、可追溯的智能风控解决方案。</p>
+          <p>公司构建的「五层脑启发架构」（感知→认知→决策→执行→价值），融合物理信息AI、自适应进化引擎与安全合规闭环，为合作伙伴提供可靠、可控、可追溯的智能风控解决方案。</p>
         </div>
         <div class="intro-side">
           <div class="intro-highlight">
@@ -109,7 +112,7 @@ const techFeatures = [
   </section>
 
   <section class="about-products">
-    <div class="section-container">
+    <div class="section-inner">
       <div class="section-header">
         <h2>核心产品</h2>
         <p>从感知到决策，从技术到产品</p>
@@ -126,7 +129,7 @@ const techFeatures = [
   </section>
 
   <section class="about-academic">
-    <div class="section-container">
+    <div class="section-inner">
       <div class="academic-card">
         <div class="academic-badge">产学研合作</div>
         <h2>与中央财经大学深度合作</h2>
@@ -136,7 +139,7 @@ const techFeatures = [
   </section>
 
   <section class="about-roadmap">
-    <div class="section-container">
+    <div class="section-inner">
       <div class="section-header">
         <h2>三级火箭发展战略</h2>
       </div>
@@ -154,7 +157,7 @@ const techFeatures = [
   </section>
 
   <section class="about-tech">
-    <div class="section-container">
+    <div class="section-inner">
       <div class="section-header">
         <h2>技术特色</h2>
       </div>
@@ -168,7 +171,7 @@ const techFeatures = [
   </section>
 
   <section class="about-contact">
-    <div class="section-container">
+    <div class="section-inner">
       <div class="section-header">
         <h2>联系我们</h2>
       </div>
@@ -193,11 +196,11 @@ const techFeatures = [
   </section>
 
   <section class="about-vision">
-    <div class="section-container">
-      <div class="vision-inner">
-        <p class="vision-main">揽月于九天，划界于未来。</p>
-        <p class="vision-sub">以技术为基石，以创新为动力，构建智慧、绿色、可持续的美好社会。</p>
-      </div>
+    <div class="about-vision-bg"></div>
+    <div class="about-vision-overlay"></div>
+    <div class="vision-inner">
+      <p class="vision-main">揽月于九天，划界于未来。</p>
+      <p class="vision-sub">以技术为基石，以创新为动力，构建智慧、绿色、可持续的美好社会。</p>
     </div>
   </section>
 </div>
@@ -208,8 +211,8 @@ const techFeatures = [
   width: 100%;
 }
 
-.section-container {
-  max-width: 1080px;
+.section-inner {
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
 }
@@ -218,11 +221,11 @@ const techFeatures = [
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .section-header h2 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--vp-c-text-1);
@@ -230,107 +233,122 @@ const techFeatures = [
 }
 
 .section-header p {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: var(--vp-c-text-3);
   margin: 0;
 }
 
 .about-hero {
-  padding: 4rem 2rem 3rem;
-  text-align: center;
-  background: linear-gradient(180deg, rgba(45, 106, 90, 0.04) 0%, transparent 100%);
+  position: relative;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.about-hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('/lanyuejie-blog/images/about-hero.jpg') center/cover no-repeat;
+}
+
+.about-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(15, 40, 35, 0.9) 0%, rgba(30, 70, 60, 0.85) 50%, rgba(50, 90, 70, 0.78) 100%);
 }
 
 .about-hero-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 4rem 2rem;
   max-width: 600px;
-  margin: 0 auto;
 }
 
 .about-overline {
   font-family: monospace;
-  font-size: 0.8rem;
-  letter-spacing: 0.15em;
-  color: var(--vp-c-brand-1);
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.7);
   margin-bottom: 1rem;
   text-transform: uppercase;
 }
 
 .about-title {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.15;
   margin-bottom: 0.75rem;
-  background: linear-gradient(135deg, var(--vp-c-brand-1), var(--vp-c-gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #fff;
 }
 
 .about-lead {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 500;
-  color: var(--vp-c-text-1);
+  color: rgba(255, 255, 255, 0.9);
   margin-bottom: 0.5rem;
 }
 
 .about-tagline {
   font-size: 0.95rem;
-  color: var(--vp-c-text-2);
+  color: rgba(255, 255, 255, 0.6);
   letter-spacing: 0.06em;
 }
 
 .about-intro {
-  padding: 3rem 0;
+  padding: 4rem 0;
 }
 
 .intro-grid {
   display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 2rem;
+  grid-template-columns: 1fr 340px;
+  gap: 3rem;
   align-items: start;
 }
 
 .intro-main h2 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--vp-c-text-1);
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   letter-spacing: -0.02em;
 }
 
 .intro-main p {
   font-size: 0.95rem;
   color: var(--vp-c-text-2);
-  line-height: 1.85;
-  margin: 0;
+  line-height: 1.9;
+  margin-bottom: 1rem;
 }
 
 .intro-highlight {
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   border-radius: 14px;
-  padding: 1.5rem;
+  padding: 1.75rem;
   border-left: 3px solid var(--vp-c-gold);
 }
 
 .highlight-label {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: var(--vp-c-text-3);
   font-weight: 500;
   letter-spacing: 0.04em;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 
 .highlight-value {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--vp-c-text-1);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
 }
 
 .highlight-desc {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   color: var(--vp-c-brand-1);
   font-weight: 500;
   letter-spacing: 0.02em;
@@ -343,7 +361,7 @@ const techFeatures = [
 .product-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  gap: 16px;
 }
 
 .product-card {
@@ -357,42 +375,42 @@ const techFeatures = [
 }
 
 .product-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
   border-color: var(--vp-c-brand-soft);
 }
 
 .product-tag {
   display: inline-block;
   align-self: flex-start;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  padding: 2px 8px;
+  padding: 3px 10px;
   border-radius: 6px;
   background: var(--vp-c-brand-soft);
   color: var(--vp-c-brand-1);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
 }
 
 .product-card h3 {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
   line-height: 1.4;
 }
 
 .product-card p {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--vp-c-text-2);
-  line-height: 1.65;
-  margin: 0 0 0.8rem;
+  line-height: 1.7;
+  margin: 0 0 1rem;
   flex: 1;
 }
 
 .product-link {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--vp-c-brand-1);
   text-decoration: none;
   font-weight: 500;
@@ -409,34 +427,34 @@ const techFeatures = [
   background: linear-gradient(135deg, rgba(45, 106, 90, 0.06), rgba(201, 168, 76, 0.04));
   border: 1px solid var(--vp-c-divider);
   border-radius: 18px;
-  padding: 2.5rem;
+  padding: 3rem;
   text-align: center;
 }
 
 .academic-badge {
   display: inline-block;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.06em;
-  padding: 3px 12px;
+  padding: 3px 14px;
   border-radius: 6px;
   background: var(--vp-c-gold-soft);
   color: var(--vp-c-gold);
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .academic-card h2 {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--vp-c-text-1);
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .academic-card p {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   color: var(--vp-c-text-2);
-  line-height: 1.8;
-  max-width: 680px;
+  line-height: 1.85;
+  max-width: 700px;
   margin: 0 auto;
 }
 
@@ -447,20 +465,20 @@ const techFeatures = [
 .roadmap-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  gap: 16px;
 }
 
 .roadmap-card {
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   border-radius: 14px;
-  padding: 1.5rem;
+  padding: 1.75rem;
   transition: transform 0.25s, box-shadow 0.25s;
 }
 
 .roadmap-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
 }
 
 .roadmap-card.active {
@@ -471,33 +489,33 @@ const techFeatures = [
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
 }
 
 .phase-code {
   font-family: monospace;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: var(--vp-c-brand-1);
   letter-spacing: 0.1em;
   font-weight: 600;
 }
 
 .phase-label {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: var(--vp-c-text-3);
 }
 
 .roadmap-card h3 {
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 
 .roadmap-card p {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--vp-c-text-2);
-  line-height: 1.75;
+  line-height: 1.8;
   margin: 0;
 }
 
@@ -508,34 +526,34 @@ const techFeatures = [
 .tech-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
+  gap: 16px;
 }
 
 .tech-card {
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   border-radius: 14px;
-  padding: 1.25rem;
+  padding: 1.5rem;
   transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
 }
 
 .tech-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
   border-color: var(--vp-c-brand-soft);
 }
 
 .tech-card h3 {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
 }
 
 .tech-card p {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: var(--vp-c-text-2);
-  line-height: 1.6;
+  line-height: 1.7;
   margin: 0;
 }
 
@@ -546,103 +564,114 @@ const techFeatures = [
 .contact-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  gap: 16px;
 }
 
 .contact-card {
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   border-radius: 14px;
-  padding: 1.5rem;
+  padding: 1.75rem;
   text-align: center;
   text-decoration: none;
   transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
 }
 
 .contact-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
   border-color: var(--vp-c-brand-soft);
 }
 
 .contact-icon {
-  font-size: 1.5rem;
-  margin-bottom: 0.6rem;
+  font-size: 1.6rem;
+  margin-bottom: 0.75rem;
 }
 
 .contact-label {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: var(--vp-c-text-3);
   font-weight: 500;
   letter-spacing: 0.04em;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.35rem;
 }
 
 .contact-value {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   color: var(--vp-c-text-1);
   font-weight: 600;
   word-break: break-all;
 }
 
-.contact-card a .contact-value {
-  color: var(--vp-c-brand-1);
+.about-vision {
+  position: relative;
+  overflow: hidden;
+  margin-top: 2rem;
 }
 
-.about-vision {
-  padding: 2rem 0 5rem;
+.about-vision-bg {
+  position: absolute;
+  inset: 0;
+  background: url('/lanyuejie-blog/images/agriculture.jpg') center/cover no-repeat;
+}
+
+.about-vision-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(15, 40, 35, 0.92) 0%, rgba(30, 60, 50, 0.88) 100%);
 }
 
 .vision-inner {
+  position: relative;
+  z-index: 1;
   text-align: center;
-  padding: 2.5rem 2rem;
-  background: linear-gradient(135deg, rgba(45, 106, 90, 0.06), rgba(201, 168, 76, 0.04));
-  border-radius: 18px;
-  border: 1px solid var(--vp-c-divider);
+  padding: 4rem 2rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .vision-main {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 700;
   font-style: italic;
-  color: var(--vp-c-text-1);
-  margin-bottom: 0.5rem;
+  color: #fff;
+  margin-bottom: 0.6rem;
 }
 
 .vision-sub {
-  font-size: 0.9rem;
-  color: var(--vp-c-text-2);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.65);
   margin: 0;
 }
 
-@media (max-width: 1024px) {
-  .intro-grid {
-    grid-template-columns: 1fr;
-  }
-  .intro-highlight {
-    border-left: none;
-    border-top: 3px solid var(--vp-c-gold);
-  }
+@media (min-width: 1440px) {
+  .section-inner { max-width: 1320px; }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
+  .intro-grid { grid-template-columns: 1fr; }
+  .intro-highlight { border-left: none; border-top: 3px solid var(--vp-c-gold); }
   .product-grid { grid-template-columns: repeat(2, 1fr); }
   .tech-grid { grid-template-columns: repeat(2, 1fr); }
   .roadmap-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 768px) {
-  .about-hero { padding: 3rem 1.25rem 2.5rem; }
-  .about-title { font-size: 2rem; }
-  .section-container { padding: 0 1.25rem; }
-  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .about-hero { min-height: 340px; }
+  .about-hero-inner { padding: 3rem 1.25rem; }
+  .about-title { font-size: 2.2rem; }
+  .section-inner { padding: 0 1.25rem; }
   .product-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
-  .academic-card { padding: 1.5rem; }
+  .academic-card { padding: 2rem 1.5rem; }
+}
+
+@media (max-width: 640px) {
+  .about-title { font-size: 1.9rem; }
+  .tech-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
   .about-title { font-size: 1.7rem; }
-  .tech-grid { grid-template-columns: 1fr; }
 }
 </style>

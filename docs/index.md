@@ -3,32 +3,10 @@ title: 揽月界科技
 ---
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { withBase } from 'vitepress'
+import { computed } from 'vue'
+import { usePosts } from './.vitepress/theme/composables/usePosts.js'
 
-const posts = ref([])
-
-onMounted(async () => {
-  const modules = import.meta.glob('../posts/*.md', { eager: true })
-  const items = Object.entries(modules)
-    .filter(([path]) => !path.endsWith('/index.md'))
-    .map(([path, mod]) => {
-      const fm = mod.frontmatter || {}
-      const slug = path.replace(/^\.\.\/posts\//, '').replace(/\.md$/, '')
-      return {
-        title: fm.title || slug,
-        date: fm.date ? new Date(fm.date).toLocaleDateString('zh-CN', { year: 'numeric', month: 'short', day: 'numeric' }) : '',
-        rawDate: fm.date || '',
-        tags: fm.tags || [],
-        categories: fm.categories || [],
-        excerpt: fm.description || '',
-        link: withBase('/posts/' + slug),
-      }
-    })
-    .sort((a, b) => (a.rawDate > b.rawDate ? -1 : 1))
-  posts.value = items
-})
-
+const { posts } = usePosts()
 const recentPosts = computed(() => posts.value.slice(0, 4))
 
 const products = [
@@ -93,6 +71,8 @@ const stats = [
 
 <div class="home">
   <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
     <div class="hero-inner">
       <p class="hero-overline">Lanyuejie Technology</p>
       <h1 class="hero-title">揽月界科技</h1>
@@ -100,7 +80,7 @@ const stats = [
       <p class="hero-tagline">精准识别 · 精细管理 · 减损增效 · 减灾防灾</p>
       <div class="hero-actions">
         <a href="mailto:samhoclub@163.com" class="btn-primary">联系合作</a>
-        <a :href="withBase('/about')" class="btn-secondary">了解我们</a>
+        <a href="/lanyuejie-blog/about" class="btn-secondary">了解我们</a>
       </div>
     </div>
   </section>
@@ -113,54 +93,62 @@ const stats = [
   </section>
 
   <section class="products">
-    <div class="section-header">
-      <h2>核心产品</h2>
-      <p>从感知到决策，从技术到产品</p>
-    </div>
-    <div class="product-grid">
-      <div v-for="p in products" :key="p.name" class="product-card">
-        <span class="product-tag">{{ p.tag }}</span>
-        <h3>{{ p.name }}</h3>
-        <p>{{ p.desc }}</p>
-        <a v-if="p.url" :href="p.url" target="_blank" rel="noopener" class="product-link">访问平台 →</a>
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>核心产品</h2>
+        <p>从感知到决策，从技术到产品</p>
+      </div>
+      <div class="product-grid">
+        <div v-for="p in products" :key="p.name" class="product-card">
+          <span class="product-tag">{{ p.tag }}</span>
+          <h3>{{ p.name }}</h3>
+          <p>{{ p.desc }}</p>
+          <a v-if="p.url" :href="p.url" target="_blank" rel="noopener" class="product-link">访问平台 →</a>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="tech">
-    <div class="section-header">
-      <h2>技术底座</h2>
-    </div>
-    <div class="tech-grid">
-      <div v-for="t in techFeatures" :key="t.name" class="tech-card">
-        <h3>{{ t.name }}</h3>
-        <p>{{ t.desc }}</p>
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>技术底座</h2>
+      </div>
+      <div class="tech-grid">
+        <div v-for="t in techFeatures" :key="t.name" class="tech-card">
+          <h3>{{ t.name }}</h3>
+          <p>{{ t.desc }}</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="recent">
-    <div class="section-header">
-      <h2>最新研究</h2>
-      <a :href="withBase('/posts/')" class="view-all">查看全部 →</a>
-    </div>
-    <div class="recent-grid">
-      <a v-for="post in recentPosts" :key="post.link" :href="post.link" class="recent-card">
-        <div class="recent-card-cats">
-          <span v-for="cat in post.categories.slice(0, 2)" :key="cat" class="recent-cat">{{ cat }}</span>
-        </div>
-        <h3>{{ post.title }}</h3>
-        <div class="recent-card-footer">
-          <span v-if="post.date" class="recent-date">{{ post.date }}</span>
-          <div class="recent-tags">
-            <span v-for="tag in post.tags.slice(0, 2)" :key="tag" class="recent-tag">{{ tag }}</span>
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>最新研究</h2>
+        <a href="/lanyuejie-blog/posts/" class="view-all">查看全部 →</a>
+      </div>
+      <div class="recent-grid">
+        <a v-for="post in recentPosts" :key="post.link" :href="post.link" class="recent-card">
+          <div class="recent-card-cats">
+            <span v-for="cat in post.categories.slice(0, 2)" :key="cat" class="recent-cat">{{ cat }}</span>
           </div>
-        </div>
-      </a>
+          <h3>{{ post.title }}</h3>
+          <div class="recent-card-footer">
+            <span v-if="post.date" class="recent-date">{{ post.date }}</span>
+            <div class="recent-tags">
+              <span v-for="tag in post.tags.slice(0, 2)" :key="tag" class="recent-tag">{{ tag }}</span>
+            </div>
+          </div>
+        </a>
+      </div>
     </div>
   </section>
 
   <section class="cta">
+    <div class="cta-bg"></div>
+    <div class="cta-overlay"></div>
     <div class="cta-inner">
       <h2>与我们一起，用AI重新定义风控</h2>
       <p>揽月于九天，划界于未来</p>
@@ -176,55 +164,69 @@ const stats = [
 }
 
 .hero {
-  padding: 5rem 2rem 3.5rem;
-  text-align: center;
-  background: linear-gradient(180deg, rgba(45, 106, 90, 0.04) 0%, transparent 100%);
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('/lanyuejie-blog/images/hero-bg.jpg') center/cover no-repeat;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(15, 40, 35, 0.88) 0%, rgba(30, 70, 60, 0.82) 50%, rgba(50, 90, 70, 0.75) 100%);
 }
 
 .hero-inner {
-  max-width: 640px;
-  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 5rem 2rem;
+  max-width: 700px;
 }
 
 .hero-overline {
   font-family: monospace;
-  font-size: 0.8rem;
-  letter-spacing: 0.15em;
-  color: var(--vp-c-brand-1);
-  margin-bottom: 1rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1.2rem;
   text-transform: uppercase;
 }
 
 .hero-title {
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 800;
   letter-spacing: -0.03em;
-  line-height: 1.15;
+  line-height: 1.1;
   margin-bottom: 0.75rem;
-  background: linear-gradient(135deg, var(--vp-c-brand-1), var(--vp-c-gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #fff;
 }
 
 .hero-sub {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 500;
-  color: var(--vp-c-text-1);
+  color: rgba(255, 255, 255, 0.92);
   margin-bottom: 0.5rem;
-  letter-spacing: -0.01em;
 }
 
 .hero-tagline {
-  font-size: 1rem;
-  color: var(--vp-c-text-2);
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.65);
   margin-bottom: 2.5rem;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
 }
 
 .hero-actions {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -232,7 +234,7 @@ const stats = [
 .btn-primary {
   display: inline-flex;
   align-items: center;
-  padding: 10px 28px;
+  padding: 12px 32px;
   border-radius: 10px;
   font-size: 15px;
   font-weight: 600;
@@ -244,49 +246,54 @@ const stats = [
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(45, 106, 90, 0.25);
+  box-shadow: 0 8px 24px rgba(45, 106, 90, 0.4);
 }
 
 .btn-secondary {
   display: inline-flex;
   align-items: center;
-  padding: 10px 28px;
+  padding: 12px 32px;
   border-radius: 10px;
   font-size: 15px;
   font-weight: 600;
-  background: transparent;
-  color: var(--vp-c-text-1);
-  border: 1px solid var(--vp-c-divider);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   text-decoration: none;
-  transition: border-color 0.2s, transform 0.2s;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s, transform 0.2s, background 0.2s;
 }
 
 .btn-secondary:hover {
-  border-color: var(--vp-c-brand-1);
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.18);
   transform: translateY(-2px);
 }
 
 .stats-bar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  max-width: 860px;
-  margin: 0 auto 4rem;
+  max-width: 960px;
+  margin: -2rem auto 0;
+  position: relative;
+  z-index: 2;
   padding: 0 2rem;
   gap: 1px;
   background: var(--vp-c-divider);
   border-radius: 14px;
   overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
 .stat-item {
-  background: var(--vp-c-bg-soft);
-  padding: 1.5rem 1rem;
+  background: var(--vp-c-bg);
+  padding: 1.75rem 1rem;
   text-align: center;
 }
 
 .stat-value {
   display: block;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 800;
   color: var(--vp-c-brand-1);
   letter-spacing: -0.02em;
@@ -303,27 +310,30 @@ const stats = [
   display: block;
   font-size: 0.78rem;
   color: var(--vp-c-text-3);
-  margin-top: 0.3rem;
+  margin-top: 0.35rem;
+}
+
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .products,
 .tech,
-.recent,
-.cta {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0 2rem 4rem;
+.recent {
+  padding: 4rem 0;
 }
 
 .section-header {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .section-header h2 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--vp-c-text-1);
@@ -331,13 +341,13 @@ const stats = [
 }
 
 .section-header p {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: var(--vp-c-text-3);
   margin: 0;
 }
 
 .view-all {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: var(--vp-c-brand-1);
   text-decoration: none;
   font-weight: 500;
@@ -349,7 +359,7 @@ const stats = [
 .product-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  gap: 16px;
 }
 
 .product-card {
@@ -363,42 +373,42 @@ const stats = [
 }
 
 .product-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
   border-color: var(--vp-c-brand-soft);
 }
 
 .product-tag {
   display: inline-block;
   align-self: flex-start;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  padding: 2px 8px;
+  padding: 3px 10px;
   border-radius: 6px;
   background: var(--vp-c-brand-soft);
   color: var(--vp-c-brand-1);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
 }
 
 .product-card h3 {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
   line-height: 1.4;
 }
 
 .product-card p {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--vp-c-text-2);
-  line-height: 1.65;
-  margin: 0 0 0.8rem;
+  line-height: 1.7;
+  margin: 0 0 1rem;
   flex: 1;
 }
 
 .product-link {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--vp-c-brand-1);
   text-decoration: none;
   font-weight: 500;
@@ -410,41 +420,41 @@ const stats = [
 .tech-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
+  gap: 16px;
 }
 
 .tech-card {
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   border-radius: 14px;
-  padding: 1.25rem;
+  padding: 1.5rem;
   transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
 }
 
 .tech-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
   border-color: var(--vp-c-brand-soft);
 }
 
 .tech-card h3 {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
 }
 
 .tech-card p {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: var(--vp-c-text-2);
-  line-height: 1.6;
+  line-height: 1.65;
   margin: 0;
 }
 
 .recent-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  gap: 16px;
 }
 
 .recent-card {
@@ -452,27 +462,27 @@ const stats = [
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   border-radius: 14px;
-  padding: 1.25rem;
+  padding: 1.5rem;
   text-decoration: none;
   color: inherit;
   transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
 }
 
 .recent-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
   border-color: var(--vp-c-brand-soft);
 }
 
 .recent-card-cats {
   display: flex;
   gap: 6px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 
 .recent-cat {
-  font-size: 0.7rem;
-  padding: 1px 8px;
+  font-size: 0.72rem;
+  padding: 2px 10px;
   border-radius: 6px;
   background: var(--vp-c-gold-soft);
   color: var(--vp-c-gold);
@@ -480,7 +490,7 @@ const stats = [
 }
 
 .recent-card h3 {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
   line-height: 1.5;
@@ -499,7 +509,7 @@ const stats = [
 }
 
 .recent-date {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: var(--vp-c-text-3);
 }
 
@@ -509,89 +519,93 @@ const stats = [
 }
 
 .recent-tag {
-  font-size: 0.7rem;
-  padding: 1px 7px;
+  font-size: 0.72rem;
+  padding: 2px 8px;
   border-radius: 8px;
   background: var(--vp-c-brand-soft);
   color: var(--vp-c-brand-1);
 }
 
-.cta { padding-bottom: 5rem; }
+.cta {
+  position: relative;
+  overflow: hidden;
+  margin-top: 2rem;
+}
+
+.cta-bg {
+  position: absolute;
+  inset: 0;
+  background: url('/lanyuejie-blog/images/cta-bg.jpg') center/cover no-repeat;
+}
+
+.cta-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(15, 40, 35, 0.92) 0%, rgba(30, 60, 50, 0.88) 100%);
+}
 
 .cta-inner {
+  position: relative;
+  z-index: 1;
   text-align: center;
-  padding: 3.5rem 2rem;
-  background: linear-gradient(135deg, rgba(45, 106, 90, 0.06), rgba(201, 168, 76, 0.04));
-  border-radius: 20px;
-  border: 1px solid var(--vp-c-divider);
+  padding: 5rem 2rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .cta-inner h2 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  color: var(--vp-c-text-1);
-  margin-bottom: 0.5rem;
+  color: #fff;
+  margin-bottom: 0.6rem;
   letter-spacing: -0.02em;
 }
 
 .cta-inner p {
-  font-size: 1rem;
-  color: var(--vp-c-text-2);
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
   margin-bottom: 2rem;
 }
 
 @media (min-width: 1440px) {
-  .products, .tech, .recent, .cta { max-width: 1200px; }
-  .stats-bar { max-width: 960px; }
-  .product-grid { gap: 16px; }
-  .tech-grid { gap: 16px; }
+  .hero { min-height: 600px; }
+  .hero-title { font-size: 4rem; }
+  .section-inner { max-width: 1320px; }
 }
 
 @media (max-width: 1024px) {
   .product-grid { grid-template-columns: repeat(2, 1fr); }
   .tech-grid { grid-template-columns: repeat(2, 1fr); }
-  .stats-bar { max-width: 680px; }
-}
-
-@media (max-width: 900px) {
-  .product-grid { grid-template-columns: repeat(2, 1fr); }
-  .tech-grid { grid-template-columns: repeat(2, 1fr); }
-  .recent-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 768px) {
-  .hero { padding: 3.5rem 1.25rem 2.5rem; }
-  .hero-title { font-size: 2.2rem; }
-  .hero-sub { font-size: 1.05rem; }
-  .stats-bar { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+  .hero { min-height: 420px; }
+  .hero-inner { padding: 3.5rem 1.25rem; }
+  .hero-title { font-size: 2.5rem; }
+  .hero-sub { font-size: 1.1rem; }
+  .stats-bar { grid-template-columns: repeat(2, 1fr); max-width: 100%; margin-top: -1.5rem; }
   .product-grid { grid-template-columns: 1fr; }
   .tech-grid { grid-template-columns: 1fr 1fr; }
   .recent-grid { grid-template-columns: 1fr; }
-  .cta-inner { padding: 2.5rem 1.5rem; }
-  .products, .tech, .recent, .cta { padding: 0 1.25rem 3rem; }
+  .section-inner { padding: 0 1.25rem; }
+  .cta-inner { padding: 3.5rem 1.5rem; }
 }
 
 @media (max-width: 640px) {
-  .hero { padding: 3rem 1rem 2rem; }
-  .hero-title { font-size: 1.9rem; }
+  .hero-title { font-size: 2rem; }
   .hero-sub { font-size: 1rem; }
-  .hero-tagline { font-size: 0.88rem; }
-  .stats-bar { grid-template-columns: repeat(2, 1fr); border-radius: 10px; }
-  .stat-item { padding: 1rem 0.75rem; }
-  .stat-value { font-size: 1.6rem; }
-  .section-header h2 { font-size: 1.2rem; }
+  .stats-bar { border-radius: 10px; }
+  .stat-item { padding: 1.25rem 0.75rem; }
+  .stat-value { font-size: 1.7rem; }
+  .section-header h2 { font-size: 1.3rem; }
   .tech-grid { grid-template-columns: 1fr; }
-  .cta-inner h2 { font-size: 1.25rem; }
+  .cta-inner h2 { font-size: 1.4rem; }
 }
 
 @media (max-width: 480px) {
-  .hero-title { font-size: 1.7rem; }
-  .stat-value { font-size: 1.4rem; }
-  .stat-value small { font-size: 0.8rem; }
-  .stat-label { font-size: 0.72rem; }
-  .hero-actions { gap: 8px; }
-  .btn-primary, .btn-secondary { padding: 8px 20px; font-size: 14px; }
-  .product-card { padding: 1.25rem; }
-  .tech-card { padding: 1rem; }
+  .hero-title { font-size: 1.75rem; }
+  .stat-value { font-size: 1.5rem; }
+  .hero-actions { gap: 10px; }
+  .btn-primary, .btn-secondary { padding: 10px 24px; font-size: 14px; }
 }
 </style>

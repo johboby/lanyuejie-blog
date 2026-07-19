@@ -2,9 +2,28 @@ import DefaultTheme from 'vitepress/theme'
 import PostHeader from './components/PostHeader.vue'
 import BackToTop from './components/BackToTop.vue'
 import ReadingProgress from './components/ReadingProgress.vue'
+import SiteFooter from './components/SiteFooter.vue'
 import './style.css'
-import { h, onMounted, watch } from 'vue'
+import { h, onMounted, watch, nextTick } from 'vue'
 import { useRoute } from 'vitepress'
+
+function forceFullWidth() {
+  nextTick(() => {
+    const docEl = document.querySelector('.vp-doc')
+    if (!docEl) return
+    if (docEl.querySelector('.home') || docEl.querySelector('.about')) {
+      docEl.style.maxWidth = 'none'
+      docEl.style.padding = '0'
+      const container = docEl.querySelector('.container')
+      if (container) container.style.maxWidth = 'none'
+      const contentContainer = docEl.querySelector('.content-container')
+      if (contentContainer) contentContainer.style.maxWidth = 'none'
+    } else {
+      docEl.style.maxWidth = ''
+      docEl.style.padding = ''
+    }
+  })
+}
 
 export default {
   ...DefaultTheme,
@@ -12,25 +31,24 @@ export default {
     return h(DefaultTheme.Layout, null, {
       'doc-before': () => h(PostHeader),
       'layout': () => [h(JsonLd), h(ReadingProgress), h(BackToTop)],
+      'doc-after': () => h(SiteFooter),
     })
   },
   setup() {
     const route = useRoute()
 
     onMounted(() => {
-      if (typeof document !== 'undefined') {
-        document.documentElement.classList.add('page-ready')
-      }
+      document.documentElement.classList.add('page-ready')
+      forceFullWidth()
     })
 
     watch(() => route.path, () => {
-      if (typeof document !== 'undefined') {
-        const el = document.querySelector('.VPContent')
-        if (el) {
-          el.classList.remove('page-fade-in')
-          void el.offsetWidth
-          el.classList.add('page-fade-in')
-        }
+      forceFullWidth()
+      const el = document.querySelector('.VPContent')
+      if (el) {
+        el.classList.remove('page-fade-in')
+        void el.offsetWidth
+        el.classList.add('page-fade-in')
       }
     })
   },

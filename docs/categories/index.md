@@ -3,30 +3,21 @@ title: 分类
 ---
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { withBase } from 'vitepress'
+import { computed } from 'vue'
+import { usePosts } from '../.vitepress/theme/composables/usePosts.js'
 
-const categories = ref({})
+const { posts } = usePosts()
 
-onMounted(async () => {
-  const modules = import.meta.glob('../posts/*.md', { eager: true })
+const categories = computed(() => {
   const catMap = {}
-  Object.entries(modules).forEach(([path, mod]) => {
-    if (path.endsWith('/index.md')) return
-    const fm = mod.frontmatter || {}
-    const slug = path.replace(/^\.\.\/posts\//, '').replace(/\.md$/, '')
-    const cats = fm.categories || ['未分类']
+  posts.value.forEach(p => {
+    const cats = p.categories.length ? p.categories : ['未分类']
     cats.forEach(cat => {
       if (!catMap[cat]) catMap[cat] = []
-      catMap[cat].push({
-        title: fm.title || slug,
-        link: withBase('/posts/' + slug),
-        date: fm.date ? new Date(fm.date).toLocaleDateString('zh-CN') : '',
-        tags: fm.tags || [],
-      })
+      catMap[cat].push(p)
     })
   })
-  categories.value = catMap
+  return catMap
 })
 </script>
 
@@ -35,13 +26,13 @@ onMounted(async () => {
   <p class="page-desc">按研究领域浏览文章</p>
 
   <div class="category-grid">
-    <div v-for="(posts, cat) in categories" :key="cat" class="category-card">
+    <div v-for="(catPosts, cat) in categories" :key="cat" class="category-card">
       <div class="category-header">
         <h2 class="category-name">{{ cat }}</h2>
-        <span class="category-count">{{ posts.length }} 篇</span>
+        <span class="category-count">{{ catPosts.length }} 篇</span>
       </div>
       <ul class="category-posts">
-        <li v-for="post in posts" :key="post.link">
+        <li v-for="post in catPosts" :key="post.link">
           <a :href="post.link" class="post-link">
             <span class="post-title">{{ post.title }}</span>
             <span class="post-meta-row">

@@ -86,10 +86,29 @@ body {
 
 .vp-doc { max-width: 800px !important; }
 .vp-doc h1:first-child { display: none; }
-.vp-doc:has(.home) { max-width: none !important; padding: 0 !important; }
-.vp-doc:has(.home) h1:first-child { display: none; }
-.vp-doc:has(.about) { max-width: none !important; padding: 0 !important; }
-.vp-doc:has(.about) h1:first-child { display: none; }
+
+.VPDoc .container,
+.VPDoc .content-container {
+  max-width: none !important;
+}
+
+.home .container,
+.home .content-container,
+.about .container,
+.about .content-container {
+  max-width: none !important;
+}
+
+.vp-doc:has(.home),
+.vp-doc:has(.about) {
+  max-width: none !important;
+  padding: 0 !important;
+}
+
+.vp-doc:has(.home) h1:first-child,
+.vp-doc:has(.about) h1:first-child {
+  display: none;
+}
 
 .vp-doc h1:not(:first-child) {
   margin-top: 2rem !important;

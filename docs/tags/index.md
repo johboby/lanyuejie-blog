@@ -3,63 +3,22 @@ title: 标签
 ---
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { withBase } from 'vitepress'
+import { ref, computed, onMounted } from 'vue'
+import { usePosts } from '../.vitepress/theme/composables/usePosts.js'
 
-const tags = ref({})
+const { posts } = usePosts()
 const activeTag = ref('')
-const allPosts = ref([])
 
-onMounted(async () => {
-  const modules = import.meta.glob('../posts/*.md', { eager: true })
+const tags = computed(() => {
   const tagMap = {}
-  const posts = []
-
-  Object.entries(modules).forEach(([path, mod]) => {
-    if (path.endsWith('/index.md')) return
-    const fm = mod.frontmatter || {}
-    const slug = path.replace(/^\.\.\/posts\//, '').replace(/\.md$/, '')
-    const postTags = fm.tags || []
-    const cats = fm.categories || []
-
-    posts.push({
-      title: fm.title || slug,
-      link: withBase('/posts/' + slug),
-      date: fm.date ? new Date(fm.date).toLocaleDateString('zh-CN') : '',
-      rawDate: fm.date || '',
-      categories: cats,
-      tags: postTags,
-    })
-
+  posts.value.forEach(p => {
+    const postTags = p.tags.length ? p.tags : ['未标签']
     postTags.forEach(tag => {
       if (!tagMap[tag]) tagMap[tag] = []
-      tagMap[tag].push({
-        title: fm.title || slug,
-        link: withBase('/posts/' + slug),
-        date: fm.date ? new Date(fm.date).toLocaleDateString('zh-CN') : '',
-        categories: cats,
-      })
+      tagMap[tag].push(p)
     })
-
-    if (postTags.length === 0) {
-      const untagged = '未标签'
-      if (!tagMap[untagged]) tagMap[untagged] = []
-      tagMap[untagged].push({
-        title: fm.title || slug,
-        link: withBase('/posts/' + slug),
-        date: fm.date ? new Date(fm.date).toLocaleDateString('zh-CN') : '',
-        categories: cats,
-      })
-    }
   })
-
-  tags.value = tagMap
-  allPosts.value = posts.sort((a, b) => (a.rawDate > b.rawDate ? -1 : 1))
-
-  const hash = decodeURIComponent(window.location.hash.slice(1))
-  if (hash && tagMap[hash]) {
-    activeTag.value = hash
-  }
+  return tagMap
 })
 
 const sortedTags = computed(() => {
@@ -79,6 +38,13 @@ function selectTag(tag) {
     history.replaceState(null, '', window.location.pathname)
   }
 }
+
+onMounted(() => {
+  const hash = decodeURIComponent(window.location.hash.slice(1))
+  if (hash && tags.value[hash]) {
+    activeTag.value = hash
+  }
+})
 </script>
 
 <div class="tags-page">
@@ -87,13 +53,13 @@ function selectTag(tag) {
 
   <div v-if="sortedTags.length" class="tag-cloud">
     <button
-      v-for="[tag, posts] in sortedTags"
+      v-for="[tag, tagPosts] in sortedTags"
       :key="tag"
       :class="['tag-btn', { active: activeTag === tag }]"
       @click="selectTag(tag)"
     >
       {{ tag }}
-      <span class="tag-count">{{ posts.length }}</span>
+      <span class="tag-count">{{ tagPosts.length }}</span>
     </button>
   </div>
 
@@ -113,10 +79,10 @@ function selectTag(tag) {
     </div>
   </div>
 
-  <div v-else-if="!activeTag && allPosts.length" class="all-posts">
-    <h2 class="section-title">全部文章 · {{ allPosts.length }} 篇</h2>
+  <div v-else-if="!activeTag && posts.length" class="all-posts">
+    <h2 class="section-title">全部文章 · {{ posts.length }} 篇</h2>
     <div class="post-list">
-      <a v-for="post in allPosts" :key="post.link" :href="post.link" class="post-item">
+      <a v-for="post in posts" :key="post.link" :href="post.link" class="post-item">
         <div class="post-item-main">
           <div class="post-item-title">{{ post.title }}</div>
           <div class="post-item-meta">
@@ -130,7 +96,7 @@ function selectTag(tag) {
     </div>
   </div>
 
-  <div v-if="!sortedTags.length && !allPosts.length" class="empty-state">
+  <div v-if="!sortedTags.length && !posts.length" class="empty-state">
     <p>暂无文章</p>
   </div>
 </div>

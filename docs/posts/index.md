@@ -3,33 +3,12 @@ title: 文章列表
 ---
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { withBase } from 'vitepress'
+import { computed, ref } from 'vue'
+import { usePosts } from '../.vitepress/theme/composables/usePosts.js'
 
-const posts = ref([])
+const { posts } = usePosts()
 const selectedCategory = ref('全部')
 const searchQuery = ref('')
-
-onMounted(async () => {
-  const modules = import.meta.glob('../posts/*.md', { eager: true })
-  const items = Object.entries(modules)
-    .filter(([path]) => !path.endsWith('/index.md'))
-    .map(([path, mod]) => {
-      const fm = mod.frontmatter || {}
-      const slug = path.replace(/^\.\.\/posts\//, '').replace(/\.md$/, '')
-      return {
-        title: fm.title || slug,
-        date: fm.date ? new Date(fm.date).toLocaleDateString('zh-CN') : '',
-        rawDate: fm.date || '',
-        tags: fm.tags || [],
-        categories: fm.categories || [],
-        excerpt: fm.description || '',
-        link: withBase('/posts/' + slug),
-      }
-    })
-    .sort((a, b) => (a.rawDate > b.rawDate ? -1 : 1))
-  posts.value = items
-})
 
 const allCategories = computed(() => {
   const cats = new Set()
@@ -138,7 +117,7 @@ const filteredPosts = computed(() => {
           v-for="[cat, count] in categoryStats"
           :key="cat"
           :class="['cat-item', { active: selectedCategory === cat }]"
-          @click="selectedCategory = selectedCategory === cat ? '全部' : cat"
+          @click.prevent="selectedCategory = selectedCategory === cat ? '全部' : cat"
         >
           <span class="cat-name">{{ cat }}</span>
           <span class="cat-count">{{ count }}</span>
@@ -152,7 +131,7 @@ const filteredPosts = computed(() => {
         <a
           v-for="[tag, count] in tagMap"
           :key="tag"
-          :href="withBase('/tags/#' + encodeURIComponent(tag))"
+          :href="'/lanyuejie-blog/tags/#' + encodeURIComponent(tag)"
           class="cloud-tag"
         >{{ tag }}</a>
       </div>
