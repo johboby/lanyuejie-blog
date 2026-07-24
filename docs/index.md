@@ -39,25 +39,19 @@ const techStack = [
       </div>
     </div>
     <div class="hero-visual" aria-hidden="true">
-      <div class="hero-visual-ring"></div>
-      <div class="hero-visual-ring hero-visual-ring-2"></div>
-      <div class="hero-visual-core">
-        <svg viewBox="0 0 120 120" width="100%" height="100%" fill="none" stroke="#ffffff" stroke-width="1.4" stroke-linecap="round">
-          <circle cx="60" cy="60" r="46" opacity="0.35"/>
-          <circle cx="60" cy="60" r="30" opacity="0.55"/>
-          <path d="M60 14 L60 60 L98 78" stroke="#c9a84c" stroke-width="2"/>
-          <circle cx="60" cy="60" r="4" fill="#c9a84c" stroke="none"/>
-        </svg>
+      <img class="hero-visual-img" :src="withBase('/images/agriculture.jpg')" alt="" />
+      <div class="hero-visual-scrim"></div>
+      <div class="hero-visual-content">
+        <div class="hero-stat hero-stat-tl">
+          <span class="hero-stat-num">98%</span>
+          <span class="hero-stat-label">标的识别精度</span>
+        </div>
+        <div class="hero-stat hero-stat-br">
+          <span class="hero-stat-num">-32%</span>
+          <span class="hero-stat-label">灾害损失</span>
+        </div>
+        <div class="hero-visual-mark">LANYUEJIE<br/>TECHNOLOGY</div>
       </div>
-      <div class="hero-stat hero-stat-tl">
-        <span class="hero-stat-num">98%</span>
-        <span class="hero-stat-label">标的识别精度</span>
-      </div>
-      <div class="hero-stat hero-stat-br">
-        <span class="hero-stat-num">-32%</span>
-        <span class="hero-stat-label">灾害损失</span>
-      </div>
-      <div class="hero-visual-mark">LANYUEJIE<br/>TECHNOLOGY</div>
     </div>
   </section>
 
