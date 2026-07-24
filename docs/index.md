@@ -8,6 +8,15 @@ import { data as posts } from './.vitepress/posts.data.js'
 import { withBase } from 'vitepress'
 
 const recentPosts = (posts || []).slice(0, 6)
+const featuredPost = recentPosts[0] || null
+const gridPosts = recentPosts.slice(1)
+
+const metrics = [
+  { num: '98%', label: '标的识别精度' },
+  { num: '-32%', label: '灾害损失' },
+  { num: '5+', label: '行业解决方案' },
+  { num: '12+', label: '研究报告' },
+]
 
 const products = [
   { title: '生猪养殖风险监测', desc: 'IoT + AI图像识别 + 区块链存证，牲畜标的精准追踪与疫病预警', link: 'https://szxt.cycu.top' },
@@ -37,21 +46,12 @@ const techStack = [
         <a class="btn btn-primary" href="#contact">联系合作</a>
         <a class="btn btn-secondary" :href="withBase('/posts/')">浏览研究</a>
       </div>
-    </div>
-    <div class="hero-visual" aria-hidden="true">
-      <img class="hero-visual-img" :src="withBase('/images/agriculture.jpg')" alt="" />
-      <div class="hero-visual-scrim"></div>
-      <div class="hero-visual-content">
-        <div class="hero-stat hero-stat-tl">
-          <span class="hero-stat-num">98%</span>
-          <span class="hero-stat-label">标的识别精度</span>
+      <dl class="hero-metrics">
+        <div v-for="m in metrics" :key="m.label" class="hero-metric">
+          <dt class="hero-metric-label">{{ m.label }}</dt>
+          <dd class="hero-metric-num">{{ m.num }}</dd>
         </div>
-        <div class="hero-stat hero-stat-br">
-          <span class="hero-stat-num">-32%</span>
-          <span class="hero-stat-label">灾害损失</span>
-        </div>
-        <div class="hero-visual-mark">LANYUEJIE<br/>TECHNOLOGY</div>
-      </div>
+      </dl>
     </div>
   </section>
 
@@ -96,8 +96,23 @@ const techStack = [
         <h2 class="section-title">最新研究</h2>
         <p class="section-subtitle">行业深度报告与技术前沿洞察</p>
       </div>
+      <a v-if="featuredPost" :href="withBase(featuredPost.url)" class="featured-card">
+        <div class="featured-media" aria-hidden="true">
+          <img :src="withBase('/images/agriculture.jpg')" alt="" fetchpriority="high" />
+        </div>
+        <div class="featured-body">
+          <span class="eyebrow">FEATURED</span>
+          <h3 class="featured-title">{{ featuredPost.title }}</h3>
+          <p v-if="featuredPost.excerpt" class="featured-excerpt">{{ featuredPost.excerpt }}</p>
+          <div class="post-meta">
+            <span v-if="featuredPost.date" class="post-date">{{ featuredPost.date }}</span>
+            <span v-if="featuredPost.readTime" class="post-read">{{ featuredPost.readTime }}</span>
+            <span v-if="featuredPost.hasLongContent" class="post-badge">长文</span>
+          </div>
+        </div>
+      </a>
       <div class="post-grid">
-        <a v-for="post in recentPosts" :key="post.url" :href="withBase(post.url)" class="post-card">
+        <a v-for="post in gridPosts" :key="post.url" :href="withBase(post.url)" class="post-card">
           <div class="post-meta">
             <span v-if="post.date" class="post-date">{{ post.date }}</span>
             <span v-if="post.readTime" class="post-read">{{ post.readTime }}</span>
