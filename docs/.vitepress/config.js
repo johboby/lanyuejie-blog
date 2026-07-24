@@ -170,7 +170,7 @@ export default defineConfig({
   },
 
   head: [
-    ['link', { rel: 'icon', href: '/favicon.ico' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: './favicon.svg' }],
     ['link', { rel: 'alternate', type: 'application/rss+xml', title: `${SITE_NAME} RSS`, href: `${SITE_URL}/feed.xml` }],
     ['link', { rel: 'dns-prefetch', href: 'https://johboby.github.io' }],
     ['link', { rel: 'preconnect', href: 'https://johboby.github.io', crossorigin: '' }],

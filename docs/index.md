@@ -27,18 +27,36 @@ const techStack = [
 
 <div class="home">
   <section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-inner">
       <p class="hero-badge">AI + 风险控制</p>
       <h1 class="hero-title">揽月界科技</h1>
       <p class="hero-tagline">精准识别 · 精细管理 · 减损增效 · 减灾防灾</p>
       <p class="hero-desc">专注于人工智能与风险控制的前沿科技企业，以"双精两减"理念驱动农业保险与灾害防控的智能化变革</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="mailto:samhoclub@163.com">联系合作</a>
+        <a class="btn btn-primary" href="#contact">联系合作</a>
         <a class="btn btn-secondary" :href="withBase('/posts/')">浏览研究</a>
       </div>
     </div>
     <div class="hero-visual" aria-hidden="true">
       <div class="hero-visual-ring"></div>
+      <div class="hero-visual-ring hero-visual-ring-2"></div>
+      <div class="hero-visual-core">
+        <svg viewBox="0 0 120 120" width="100%" height="100%" fill="none" stroke="#ffffff" stroke-width="1.4" stroke-linecap="round">
+          <circle cx="60" cy="60" r="46" opacity="0.35"/>
+          <circle cx="60" cy="60" r="30" opacity="0.55"/>
+          <path d="M60 14 L60 60 L98 78" stroke="#c9a84c" stroke-width="2"/>
+          <circle cx="60" cy="60" r="4" fill="#c9a84c" stroke="none"/>
+        </svg>
+      </div>
+      <div class="hero-stat hero-stat-tl">
+        <span class="hero-stat-num">98%</span>
+        <span class="hero-stat-label">标的识别精度</span>
+      </div>
+      <div class="hero-stat hero-stat-br">
+        <span class="hero-stat-num">-32%</span>
+        <span class="hero-stat-label">灾害损失</span>
+      </div>
       <div class="hero-visual-mark">LANYUEJIE<br/>TECHNOLOGY</div>
     </div>
   </section>
@@ -46,6 +64,7 @@ const techStack = [
   <section class="section products">
     <div class="section-inner">
       <div class="section-head">
+        <span class="eyebrow">SOLUTIONS</span>
         <h2 class="section-title">核心产品</h2>
         <p class="section-subtitle">从标的识别到理赔存证，全链路智能风控解决方案</p>
       </div>
@@ -63,6 +82,7 @@ const techStack = [
   <section class="section tech">
     <div class="section-inner">
       <div class="section-head">
+        <span class="eyebrow">TECHNOLOGY</span>
         <h2 class="section-title">技术底座</h2>
         <p class="section-subtitle">自主可控的核心技术体系，支撑行业级智能风控</p>
       </div>
@@ -78,6 +98,7 @@ const techStack = [
   <section class="section posts-section">
     <div class="section-inner">
       <div class="section-head">
+        <span class="eyebrow">INSIGHTS</span>
         <h2 class="section-title">最新研究</h2>
         <p class="section-subtitle">行业深度报告与技术前沿洞察</p>
       </div>
@@ -101,16 +122,17 @@ const techStack = [
     </div>
   </section>
 
-  <section class="section contact">
-    <div class="section-inner">
+  <section class="section contact" id="contact">
+    <div class="contact-card">
       <div class="section-head">
+        <span class="eyebrow">CONTACT</span>
         <h2 class="section-title">联系我们</h2>
         <p class="section-subtitle">揽月于九天，划界于未来</p>
       </div>
       <div class="contact-grid">
         <div class="contact-item">
           <span class="contact-label">邮箱</span>
-          <a href="mailto:samhoclub@163.com">samhoclub@163.com</a>
+          <a href="mailto:samhoclub@163.com" class="contact-link">samhoclub@163.com</a>
         </div>
         <div class="contact-item">
           <span class="contact-label">微信</span>
