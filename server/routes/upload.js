@@ -9,6 +9,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const UPLOAD_DIR = path.join(__dirname, '../uploads')
 const PUBLIC_IMAGES_DIR = path.resolve(__dirname, '../../docs/public/images')
 
+fs.ensureDirSync(UPLOAD_DIR)
+fs.ensureDirSync(PUBLIC_IMAGES_DIR)
+
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, UPLOAD_DIR),
   filename: (_req, file, cb) => {

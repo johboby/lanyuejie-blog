@@ -6,7 +6,7 @@ const router = Router()
 router.get('/', (req, res) => {
   try {
     const result = listPosts(req.query)
-    res.json(result.posts)
+    res.json(result)
   } catch (err) {
     res.status(500).json({ error: err.message })
   }

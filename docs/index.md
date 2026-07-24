@@ -8,11 +8,15 @@ import { data as posts } from './.vitepress/posts.data.js'
 import { withBase } from 'vitepress'
 
 const recentPosts = (posts || []).slice(0, 6)
+
 const products = [
-  { title: '生猪养殖风险监测', desc: 'IoT + AI图像识别 + 区块链存证，牲畜标的精准追踪与疫病预警', link: 'https://szxt.cycu.top', icon: '🐷' },
-  { title: '牦牛监测和智能保险', desc: '覆盖标的识别、风险评估、理赔存证的全流程智能保险平台', link: 'https://agri.cycu.top', icon: '🦬' },
-  { title: '农业标准化基础数据库', desc: '整合土壤、气候、作物、养殖多维数据，统一标准驱动精准决策', link: 'https://risk.cycu.top', icon: '🥔' },
+  { title: '生猪养殖风险监测', desc: 'IoT + AI图像识别 + 区块链存证，牲畜标的精准追踪与疫病预警', link: 'https://szxt.cycu.top' },
+  { title: '牦牛监测和智能保险', desc: '覆盖标的识别、风险评估、理赔存证的全流程智能保险平台', link: 'https://agri.cycu.top' },
+  { title: '农业标准化基础数据库', desc: '整合土壤、气候、作物、养殖多维数据，统一标准驱动精准决策', link: 'https://risk.cycu.top' },
+  { title: '马铃薯晚疫病智能监测', desc: '环境传感 + 遥感融合，早防早治降低病害损失', link: 'https://risk.cycu.top' },
+  { title: '水利综合监控雷达软件', desc: '面向水利场景的综合监测与态势感知系统', link: 'https://risk.cycu.top' },
 ]
+
 const techStack = [
   { title: '五层脑启发架构', desc: '感知→认知→决策→执行→价值，模拟生物神经的完整闭环' },
   { title: '物理信息融合AI', desc: '将物理定律嵌入神经网络，复杂工况下保持鲁棒性与可解释性' },
@@ -30,18 +34,24 @@ const techStack = [
       <p class="hero-desc">专注于人工智能与风险控制的前沿科技企业，以"双精两减"理念驱动农业保险与灾害防控的智能化变革</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="mailto:samhoclub@163.com">联系合作</a>
-        <a class="btn btn-secondary" :href="withBase('/posts/')">浏览文章</a>
+        <a class="btn btn-secondary" :href="withBase('/posts/')">浏览研究</a>
       </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-visual-ring"></div>
+      <div class="hero-visual-mark">LANYUEJIE<br/>TECHNOLOGY</div>
     </div>
   </section>
 
   <section class="section products">
     <div class="section-inner">
-      <h2 class="section-title">核心产品</h2>
-      <p class="section-subtitle">从标的识别到理赔存证，全链路智能风控解决方案</p>
+      <div class="section-head">
+        <h2 class="section-title">核心产品</h2>
+        <p class="section-subtitle">从标的识别到理赔存证，全链路智能风控解决方案</p>
+      </div>
       <div class="product-grid">
-        <a v-for="p in products" :key="p.title" :href="p.link" target="_blank" rel="noopener" class="product-card">
-          <span class="product-icon">{{ p.icon }}</span>
+        <a v-for="(p, i) in products" :key="p.title" :href="p.link" target="_blank" rel="noopener" class="product-card">
+          <span class="product-index">{{ String(i + 1).padStart(2, '0') }}</span>
           <h3>{{ p.title }}</h3>
           <p>{{ p.desc }}</p>
           <span class="product-link">访问平台 →</span>
@@ -52,8 +62,10 @@ const techStack = [
 
   <section class="section tech">
     <div class="section-inner">
-      <h2 class="section-title">技术底座</h2>
-      <p class="section-subtitle">自主可控的核心技术体系，支撑行业级智能风控</p>
+      <div class="section-head">
+        <h2 class="section-title">技术底座</h2>
+        <p class="section-subtitle">自主可控的核心技术体系，支撑行业级智能风控</p>
+      </div>
       <div class="tech-grid">
         <div v-for="t in techStack" :key="t.title" class="tech-card">
           <h3>{{ t.title }}</h3>
@@ -65,8 +77,10 @@ const techStack = [
 
   <section class="section posts-section">
     <div class="section-inner">
-      <h2 class="section-title">最新研究</h2>
-      <p class="section-subtitle">行业深度报告与技术前沿洞察</p>
+      <div class="section-head">
+        <h2 class="section-title">最新研究</h2>
+        <p class="section-subtitle">行业深度报告与技术前沿洞察</p>
+      </div>
       <div class="post-grid">
         <a v-for="post in recentPosts" :key="post.url" :href="withBase(post.url)" class="post-card">
           <div class="post-meta">
@@ -89,23 +103,22 @@ const techStack = [
 
   <section class="section contact">
     <div class="section-inner">
-      <h2 class="section-title">联系我们</h2>
-      <p class="section-subtitle">揽月于九天，划界于未来</p>
+      <div class="section-head">
+        <h2 class="section-title">联系我们</h2>
+        <p class="section-subtitle">揽月于九天，划界于未来</p>
+      </div>
       <div class="contact-grid">
         <div class="contact-item">
-          <span class="contact-icon">📧</span>
           <span class="contact-label">邮箱</span>
           <a href="mailto:samhoclub@163.com">samhoclub@163.com</a>
         </div>
         <div class="contact-item">
-          <span class="contact-icon">💬</span>
           <span class="contact-label">微信</span>
-          <span>cy321one</span>
+          <span class="contact-value">cy321one</span>
         </div>
         <div class="contact-item">
-          <span class="contact-icon">📱</span>
           <span class="contact-label">公众号</span>
-          <span>尘渊文化</span>
+          <span class="contact-value">尘渊文化</span>
         </div>
       </div>
     </div>

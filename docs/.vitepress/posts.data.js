@@ -6,6 +6,10 @@ function extractText(src) {
   if (!src) return ''
   return src
     .replace(/^---[\s\S]*?---/, '')
+    .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/{{[^}]+}}/g, '')
     .replace(/^#{1,6}\s+/gm, '')
     .replace(/\*\*|__|\*|_|~~|`{1,3}[^`]*`{1,3}/g, '')
     .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')

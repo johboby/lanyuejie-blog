@@ -134,6 +134,7 @@ function lintPost(filePath) {
 }
 
 function lintAll() {
+  fs.ensureDirSync(POSTS_DIR)
   const files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md') && f !== 'index.md')
   let fixed = 0
   files.forEach(f => {

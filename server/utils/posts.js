@@ -11,6 +11,8 @@ function ensureDir() {
 }
 
 export function listPosts({ status, category, tag, page = 1, pageSize = 20 } = {}) {
+  page = parseInt(page, 10) || 1
+  pageSize = parseInt(pageSize, 10) || 20
   ensureDir()
   const files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md') && f !== 'index.md')
   let posts = files.map(file => {
@@ -33,9 +35,25 @@ export function listPosts({ status, category, tag, page = 1, pageSize = 20 } = {
 
   const total = posts.length
   const start = (page - 1) * pageSize
+
+  function countWords(src) {
+    const text = (src || '')
+      .replace(/^---[\s\S]*?---/, '')
+      .replace(/[#>*_`~\-]/g, ' ')
+      .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    const chinese = (text.match(/[一-龥]/g) || []).length
+    const english = text.replace(/[一-龥]/g, ' ').split(/\s+/).filter(Boolean).length
+    return chinese + english
+  }
+
   posts = posts.slice(start, start + pageSize).map(p => {
     const { content: _, ...rest } = p
-    return rest
+    const wordCount = countWords(p.content)
+    return {
+      ...rest,
+      wordCount,
+      description: rest.description || '',
+    }
   })
 
   return { total, page, pageSize, posts }
@@ -110,8 +128,9 @@ export function getCategories() {
   posts.forEach(p => {
     const cats = p.categories || ['未分类']
     cats.forEach(cat => {
-      if (!catMap[cat]) catMap[cat] = []
-      catMap[cat].push({ title: p.title, slug: p.slug, date: p.date })
+      if (!catMap[cat]) catMap[cat] = { count: 0, posts: [] }
+      catMap[cat].count += 1
+      catMap[cat].posts.push({ title: p.title, slug: p.slug, date: p.date })
     })
   })
   return catMap
@@ -123,6 +142,7 @@ export function searchPosts(keyword) {
   return posts.filter(p =>
     (p.title || '').toLowerCase().includes(kw) ||
     (p.description || '').toLowerCase().includes(kw) ||
+    (p.content || '').toLowerCase().includes(kw) ||
     (p.tags || []).some(t => t.toLowerCase().includes(kw)) ||
     (p.categories || []).some(c => c.toLowerCase().includes(kw))
   )
