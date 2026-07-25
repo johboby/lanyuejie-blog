@@ -1,4 +1,4 @@
----
+﻿---
 title: 能源与气候前沿行业报告
 date: 2026-07-17
 description: 能源与气候前沿按应用场景的行业报告，涵盖新能源、碳市场与气候适应
@@ -977,32 +977,32 @@ https://www.nature.com/articles/s41560-026-01989-9
 ---
 ## 10. 参考资料
 ### 10.1 储能/电池/材料
-- Layered-columnar cathode materials for sodium-ion batteries (Nature Communications, 2025) https://www.nature.com/articles/s41467-025-60823-0
-- Entropy-Driven Design of Stable High-Performance Sodium-Ion Battery Cathodes (EcoEnergy, 2026) https://cronfa.swan.ac.uk/Record/cronfa71363/Download/71363__36162__c515efec489b40d981783e3a6a1bfa62.pdf
-- From Sodium Storage Mechanism to Design of High-Capacity Carbon-Based Anode: A Review (Materials, 2025) https://pdfs.semanticscholar.org/d44d/bf0c9030a07354c151148b2b95e6820fbcf5.pdf
-- Membrane-free redox flow battery with polymer electrolytes (Nature Communications, 2025) https://www.nature.com/articles/s41467-025-63878-1
+- Layered-columnar cathode materials for sodium-ion batteries (Nature Communications, 2025) <a href="https://www.nature.com/articles/s41467-025-60823-0">https://www.nature.com/articles/s41467-025-60823-0</a>
+- Entropy-Driven Design of Stable High-Performance Sodium-Ion Battery Cathodes (EcoEnergy, 2026) <a href="https://cronfa.swan.ac.uk/Record/cronfa71363/Download/71363__36162__c515efec489b40d981783e3a6a1bfa62.pdf">https://cronfa.swan.ac.uk/Record/cronfa71363/Download/71363__36162__c515efec489b40d981783e3a6a1bfa62.pdf</a>
+- From Sodium Storage Mechanism to Design of High-Capacity Carbon-Based Anode: A Review (Materials, 2025) <a href="https://pdfs.semanticscholar.org/d44d/bf0c9030a07354c151148b2b95e6820fbcf5.pdf">https://pdfs.semanticscholar.org/d44d/bf0c9030a07354c151148b2b95e6820fbcf5.pdf</a>
+- Membrane-free redox flow battery with polymer electrolytes (Nature Communications, 2025) <a href="https://www.nature.com/articles/s41467-025-63878-1">https://www.nature.com/articles/s41467-025-63878-1</a>
 - World’s Largest Flow Battery Energy Storage Station Connected to Grid（大连钒液流一期 100MW/400MWh，DICP，2022） http://english.dicp.cas.cn/nc/202210/t20221009_321157.html
-- Google bets big on 30GWh of Form Energy’s iron-air battery storage… (Energy-Storage.news, 行业报道) https://www.energy-storage.news/google-bets-big-on-30gwh-of-form-energys-iron-air-battery-storage-despite-efficiency-trade-offs/
+- Google bets big on 30GWh of Form Energy’s iron-air battery storage… (Energy-Storage.news, 行业报道) <a href="https://www.energy-storage.news/google-bets-big-on-30gwh-of-form-energys-iron-air-battery-storage-despite-efficiency-trade-offs/">https://www.energy-storage.news/google-bets-big-on-30gwh-of-form-energys-iron-air-battery-storage-despite-efficiency-trade-offs/</a>
 - World’s ‘largest’ grid battery part of Google-Xcel Energy agreement（Utility Dive，2026） https://www.utilitydive.com/news/worlds-largest-grid-battery-part-of-google-xcel-energy-agreement/813793/
 - Great River Energy and Form Energy break ground…（Form Energy，2024） https://formenergy.com/great-river-energy-and-form-energy-break-ground-on-first-of-its-kind-multi-day-energy-storage-project/
 - Highview Launches… 2.5GWh Hunterston（Highview Power，2024） https://highviewpower.com/news_announcement/highview-launches-second-phase-of-its-long-duration-energy-storage-ldes-programme-with-2-5gwh-power-plant-at-hunterston-ayrshire/
 - Hydrostor… Silver City 200MW/1,500MWh（Hydrostor，2022） https://www.hydrostor.ca/hydrostors-compressed-air-energy-storage-selected-as-preferred-option-by-transgrid-to-provide-back-up-electricity-for-broken-hill-new-south-wales/
-- Finland inaugurates world’s largest 1 MW/100 MWh sand battery (pv magazine, 行业报道) https://www.pv-magazine.com/2025/08/28/worlds-largest-sand-battery-inaugurated/
+- Finland inaugurates world’s largest 1 MW/100 MWh sand battery (pv magazine, 行业报道) <a href="https://www.pv-magazine.com/2025/08/28/worlds-largest-sand-battery-inaugurated/">https://www.pv-magazine.com/2025/08/28/worlds-largest-sand-battery-inaugurated/</a>
 - Fluence Chosen for 300 MW / 600 MWh Wellington BESS（Fluence，2025） https://ir.fluenceenergy.com/news-releases/news-release-details/fluence-chosen-300-mw-600-mwh-wellington-battery-energy-storage
 - S&P Report Names Fluence Energy Among Top Three Global BESS Providers（媒体转述，2025） https://www.thebatterymagazine.com/sp-report-names-fluence-energy-among-top-three-global-bess-providers/
 - Rondo Powers Up World’s Largest Industrial Heat Battery（Rondo Energy，2025） https://www.rondo.com/news-press/rondo-powers-up-worlds-largest-industrial-heat-battery
 ### 10.2 工业减碳/项目管线
 - MPP Global Project Tracker June 2025 Press Release（含项目数、投资管线、区域结构） https://www.missionpossiblepartnership.org/tracker-insights/jun-25/press-release
-- Green steel: design and cost analysis of hydrogen-based direct iron reduction (Argonne) https://www.anl.gov/argonne-scientific-publications/pub/181792
+- Green steel: design and cost analysis of hydrogen-based direct iron reduction (Argonne) <a href="https://www.anl.gov/argonne-scientific-publications/pub/181792">https://www.anl.gov/argonne-scientific-publications/pub/181792</a>
 - High-Temperature Heat Pumps - Technology status and perspectives（OECD 研讨会材料） https://www.oecd.org/content/dam/oecd/en/events/2025/05/knowledge-sharing-workshop-on-industrial-heat-pumps/session-1-presentation-danish-technological-institute.pdf
 - Heat Pumps in Industrial Applications: Pioneering High-Temperature Solutions（Heat Pumping Technologies Magazine, 2025） https://heatpumpingtechnologies.org/content/uploads/2025/12/Heat-Pumping-Technologies-Magazine_Vol43_No3_2025.pdf
 - HYBRIT Demonstration（H₂-DRI 全尺度示范项目介绍） https://www.hybritdevelopment.se/en/hybrit-demonstration/
 - World premiere… Opening of CCS facility… Brevik CCS（Heidelberg Materials，2025） https://www.heidelbergcement.com/en/pr-2025-06-18
 - Hydrogen electrolyzer manufacturers（行业汇总文章，用于建立初始 OEM 清单） https://climatesort.com/hydrogen-electrolyzer-manufacturers/
 ### 10.3 负排放 / CDR
-- Carbon Dioxide Removal Multi-Year Program Plan (DOE, 2025-01) https://doe.gov/sites/default/files/2025-01/Carbon%20Dioxide%20Removal%20Multi-Year%20Program%20Plan.pdf
-- Electrified reversible surface mineralization of CO2 for direct air capture (Nature Energy, 2026) https://www.nature.com/articles/s41560-026-01989-9
-- Sustainability analysis of electrochemical direct air capture technologies (RSC Sustainability, 2025) https://pubs.rsc.org/en/content/articlepdf/2025/su/d5su00227c
+- Carbon Dioxide Removal Multi-Year Program Plan (DOE, 2025-01) <a href="https://doe.gov/sites/default/files/2025-01/Carbon%20Dioxide%20Removal%20Multi-Year%20Program%20Plan.pdf">https://doe.gov/sites/default/files/2025-01/Carbon%20Dioxide%20Removal%20Multi-Year%20Program%20Plan.pdf</a>
+- Electrified reversible surface mineralization of CO2 for direct air capture (Nature Energy, 2026) <a href="https://www.nature.com/articles/s41560-026-01989-9">https://www.nature.com/articles/s41560-026-01989-9</a>
+- Sustainability analysis of electrochemical direct air capture technologies (RSC Sustainability, 2025) <a href="https://pubs.rsc.org/en/content/articlepdf/2025/su/d5su00227c">https://pubs.rsc.org/en/content/articlepdf/2025/su/d5su00227c</a>
 - Climeworks switches on world’s largest direct air capture plant Mammoth（Climeworks，2024） https://climeworks.com/press-release/climeworks-switches-on-worlds-largest-direct-air-capture-plant-mammoth
 - Occidental and 1PointFive Secure Class VI Permits for STRATOS…（Occidental，2025） https://www.oxy.com/news/news-releases/occidental-and-1pointfive-secure-class-vi-permits-for-stratos-direct-air-capture-facility/
 ---
@@ -1035,10 +1035,10 @@ https://www.nature.com/articles/s41560-026-01989-9
 ---
 ## 附录 B：参考资料补充（电源侧与电池前沿）
 ### 光伏与叠层
-- Perovskite crystallization control via an engineered self-assembled monolayer… (Nature Photonics, 2025/2026) https://www.nature.com/articles/s41566-025-01778-y
-- Amphoteric coplanar conjugated molecules enabling efficient and stable perovskite/silicon tandem… (Nature Communications, 2025) https://www.nature.com/articles/s41467-025-62700-2
+- Perovskite crystallization control via an engineered self-assembled monolayer… (Nature Photonics, 2025/2026) <a href="https://www.nature.com/articles/s41566-025-01778-y">https://www.nature.com/articles/s41566-025-01778-y</a>
+- Amphoteric coplanar conjugated molecules enabling efficient and stable perovskite/silicon tandem… (Nature Communications, 2025) <a href="https://www.nature.com/articles/s41467-025-62700-2">https://www.nature.com/articles/s41467-025-62700-2</a>
 ### 固态/下一代电池（用于“电网侧/车用边界”的理解）
-- Sulfide-Based Anode-Free Solid-State Batteries: Key Challenges and Emerging Solutions (ACS Energy Letters, 2025) https://pubs.acs.org/doi/10.1021/acsenergylett.5c00517
+- Sulfide-Based Anode-Free Solid-State Batteries: Key Challenges and Emerging Solutions (ACS Energy Letters, 2025) <a href="https://pubs.acs.org/doi/10.1021/acsenergylett.5c00517">https://pubs.acs.org/doi/10.1021/acsenergylett.5c00517</a>
 ### 聚变磁体工程化信号
 - Jingtian Magnet Research Published in IEEE TAS Journal（含 DOI） https://www.energysingularity.cn/en/news/news-013.html
 ---

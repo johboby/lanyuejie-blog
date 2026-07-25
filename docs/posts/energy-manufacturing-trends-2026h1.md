@@ -1951,21 +1951,21 @@ PCS、SVG、柔直控制等电力电子设备都离不开功率器件与控制�
 <a id="refs"></a>
 ## 参考文献
 
-[^pmi_202603]: 国家统计局服务业调查中心、中国物流与采购联合会，《2026年3月中国采购经理指数运行情况》（2026-03-31）https://www.stats.gov.cn/sj/zxfb/202603/t20260331_1962889.html
-[^iva_202602]: 国家统计局，《2026年1—2月份规模以上工业增加值增长6.3%》（2026-03-16）https://www.stats.gov.cn/sj/zxfb/202603/t20260316_1962782.html
-[^cec_thepaper]: 澎湃新闻，《中电联：2026年我国太阳能发电装机规模将首次超过煤电》（2026-02-02）https://m.thepaper.cn/newsDetail_forward_32516616
-[^ndrc_114]: 中国政府网，《国家发展改革委 国家能源局关于完善发电侧容量电价机制的通知（发改价格〔2026〕114号）》（成文日期：2026-01-27）https://www.gov.cn/zhengce/zhengceku/202601/content_7056676.htm
-[^sgcc_4trn_ce]: 中国经济网（来源：央视财经），《利好！4万亿元，投资方向确定了！》（2026-02-03）http://www.ce.cn/xwzx/gnsz/gdxw/202602/t20260203_2748848.shtml
-[^ndrc_spot_2025]: 国家发展改革委，《关于全面加快电力现货市场建设工作的通知》（发改办体改〔2025〕394号，发布时间：2025-04-29）https://www.ndrc.gov.cn/xwdt/tzgg/202504/t20250429_1397489.html
-[^people_spot_2025]: 中国城市报，《电力现货市场建设全面提速》（2025-05-12）https://paper.people.com.cn/zgcsb/pc/content/202505/12/content_30072608.html
-[^nes_people_2024]: 人民网（来源：经济日报），《八部门印发方案拓展应用场景 释放新型储能市场潜力》（2025-02-22）http://finance.people.com.cn/n1/2025/0222/c1004-40423452.html
-[^sgcc_psh_2026]: 国家能源局转载国家电网信息，《310亿元！国家电网2026年抽蓄投资计划公布》（2026-03-27）http://www.nea.gov.cn/20260327/a3d77c7487cc4f51ab37de2a8f80d491/c.html
-[^nea_storage_action_2025]: 国家能源局转载人民日报，《8部门印发行动方案 推动新型储能制造业高质量发展》（2025-02-21）http://www.nea.gov.cn/20250221/3f8e98b87d0b4ffd841bb5bfbbeb91c9/c.html
-[^profit_202602]: 国家统计局，《2026年1—2月份全国规模以上工业企业利润增长15.2%》（2026-03-27）https://www.stats.gov.cn/sj/zxfb/202603/t20260327_1962868.html
-[^fai_202602]: 国家统计局，《2026年1—2月份全国固定资产投资同比增长1.8%》（2026-03-16）https://www.stats.gov.cn/sj/zxfb/202603/t20260316_1962784.html
-[^retail_202602]: 国家统计局，《2026年1—2月份社会消费品零售总额增长2.8%》（2026-03-16）https://www.stats.gov.cn/sj/zxfbhjd/202603/t20260316_1962786.html
-[^electricity_202602]: 新华网，《2026年1至2月份全社会用电量同比增长6.1%》（2026-03-18）http://www2.xinhuanet.com/energy/20260318/aea38a3a546047a69537a9445c17908a/c.html
-[^green_cert_2025]: 中国政府网，《国家发展改革委等部门关于促进可再生能源绿色电力证书市场高质量发展的意见（发改能源〔2025〕262号）》（2025-03-06）https://www.gov.cn/zhengce/zhengceku/202503/content_7014341.htm
+[^pmi_202603]: 国家统计局服务业调查中心、中国物流与采购联合会，《2026年3月中国采购经理指数运行情况》（2026-03-31） <a href="https://www.stats.gov.cn/sj/zxfb/202603/t20260331_1962889.html">https://www.stats.gov.cn/sj/zxfb/202603/t20260331_1962889.html</a>
+[^iva_202602]: 国家统计局，《2026年1—2月份规模以上工业增加值增长6.3%》（2026-03-16） <a href="https://www.stats.gov.cn/sj/zxfb/202603/t20260316_1962782.html">https://www.stats.gov.cn/sj/zxfb/202603/t20260316_1962782.html</a>
+[^cec_thepaper]: 澎湃新闻，《中电联：2026年我国太阳能发电装机规模将首次超过煤电》（2026-02-02） <a href="https://m.thepaper.cn/newsDetail_forward_32516616">https://m.thepaper.cn/newsDetail_forward_32516616</a>
+[^ndrc_114]: 中国政府网，《国家发展改革委 国家能源局关于完善发电侧容量电价机制的通知（发改价格〔2026〕114号）》（成文日期：2026-01-27） <a href="https://www.gov.cn/zhengce/zhengceku/202601/content_7056676.htm">https://www.gov.cn/zhengce/zhengceku/202601/content_7056676.htm</a>
+[^sgcc_4trn_ce]: 中国经济网（来源：央视财经），《利好！4万亿元，投资方向确定了！》（2026-02-03） <a href="http://www.ce.cn/xwzx/gnsz/gdxw/202602/t20260203_2748848.shtml">http://www.ce.cn/xwzx/gnsz/gdxw/202602/t20260203_2748848.shtml</a>
+[^ndrc_spot_2025]: 国家发展改革委，《关于全面加快电力现货市场建设工作的通知》（发改办体改〔2025〕394号，发布时间：2025-04-29） <a href="https://www.ndrc.gov.cn/xwdt/tzgg/202504/t20250429_1397489.html">https://www.ndrc.gov.cn/xwdt/tzgg/202504/t20250429_1397489.html</a>
+[^people_spot_2025]: 中国城市报，《电力现货市场建设全面提速》（2025-05-12） <a href="https://paper.people.com.cn/zgcsb/pc/content/202505/12/content_30072608.html">https://paper.people.com.cn/zgcsb/pc/content/202505/12/content_30072608.html</a>
+[^nes_people_2024]: 人民网（来源：经济日报），《八部门印发方案拓展应用场景 释放新型储能市场潜力》（2025-02-22） <a href="http://finance.people.com.cn/n1/2025/0222/c1004-40423452.html">http://finance.people.com.cn/n1/2025/0222/c1004-40423452.html</a>
+[^sgcc_psh_2026]: 国家能源局转载国家电网信息，《310亿元！国家电网2026年抽蓄投资计划公布》（2026-03-27） <a href="http://www.nea.gov.cn/20260327/a3d77c7487cc4f51ab37de2a8f80d491/c.html">http://www.nea.gov.cn/20260327/a3d77c7487cc4f51ab37de2a8f80d491/c.html</a>
+[^nea_storage_action_2025]: 国家能源局转载人民日报，《8部门印发行动方案 推动新型储能制造业高质量发展》（2025-02-21） <a href="http://www.nea.gov.cn/20250221/3f8e98b87d0b4ffd841bb5bfbbeb91c9/c.html">http://www.nea.gov.cn/20250221/3f8e98b87d0b4ffd841bb5bfbbeb91c9/c.html</a>
+[^profit_202602]: 国家统计局，《2026年1—2月份全国规模以上工业企业利润增长15.2%》（2026-03-27） <a href="https://www.stats.gov.cn/sj/zxfb/202603/t20260327_1962868.html">https://www.stats.gov.cn/sj/zxfb/202603/t20260327_1962868.html</a>
+[^fai_202602]: 国家统计局，《2026年1—2月份全国固定资产投资同比增长1.8%》（2026-03-16） <a href="https://www.stats.gov.cn/sj/zxfb/202603/t20260316_1962784.html">https://www.stats.gov.cn/sj/zxfb/202603/t20260316_1962784.html</a>
+[^retail_202602]: 国家统计局，《2026年1—2月份社会消费品零售总额增长2.8%》（2026-03-16） <a href="https://www.stats.gov.cn/sj/zxfbhjd/202603/t20260316_1962786.html">https://www.stats.gov.cn/sj/zxfbhjd/202603/t20260316_1962786.html</a>
+[^electricity_202602]: 新华网，《2026年1至2月份全社会用电量同比增长6.1%》（2026-03-18） <a href="http://www2.xinhuanet.com/energy/20260318/aea38a3a546047a69537a9445c17908a/c.html">http://www2.xinhuanet.com/energy/20260318/aea38a3a546047a69537a9445c17908a/c.html</a>
+[^green_cert_2025]: 中国政府网，《国家发展改革委等部门关于促进可再生能源绿色电力证书市场高质量发展的意见（发改能源〔2025〕262号）》（2025-03-06） <a href="https://www.gov.cn/zhengce/zhengceku/202503/content_7014341.htm">https://www.gov.cn/zhengce/zhengceku/202503/content_7014341.htm</a>
 
 # 📝 关于我们
 

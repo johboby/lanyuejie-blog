@@ -7,3 +7,10 @@ server/uploads/
 Thumbs.db
 .codebuddy/
 111/
+
+# 本地调试 / 构建检查脚本与产物（非站点资源）
+_*.txt
+_*.cjs
+$null
+build_output.txt
+fix_footnote_links.py

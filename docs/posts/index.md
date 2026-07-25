@@ -3,24 +3,36 @@ title: 文章列表
 ---
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { data as allPosts } from '../.vitepress/posts.data.js'
 import { withBase } from 'vitepress'
 
-const API_BASE = import.meta.env.DEV ? '/api' : (import.meta.env.VITE_API_BASE || 'http://localhost:3001')
+// 静态站点（GitHub Pages）没有后端，所有筛选/搜索均基于 SSG 注入的本地数据，
+// 保证生产环境零网络依赖、稳定可用。
 const PAGE_SIZE = 6
 
 const query = ref('')
 const category = ref('')
 const activeTag = ref('')
 const page = ref(1)
-const loading = ref(false)
-const error = ref('')
 const total = ref(0)
-const remotePosts = ref(null)
 
-// Local fallback data (from SSG content loader)
-const localPosts = computed(() => allPosts || [])
+// Local data (from SSG content loader)
+const localPosts = computed(() => (allPosts || []).map(normalize))
+
+function normalize(p) {
+  const date = p.date ? new Date(p.date).toLocaleDateString('zh-CN') : null
+  return {
+    title: p.title,
+    url: withBase(p.url),
+    date,
+    readTime: p.readTime || (p.wordCount ? `${Math.max(1, Math.ceil(p.wordCount / 500))} 分钟` : ''),
+    excerpt: p.excerpt || p.description || '',
+    tags: p.tags || [],
+    categories: p.categories || [],
+    hasLongContent: (p.wordCount || 0) > 3000,
+  }
+}
 
 // Unique tags for filter bar
 const allTags = computed(() => {
@@ -35,9 +47,8 @@ const categories = computed(() => {
   return [...map.entries()].map(([name, count]) => ({ name, count }))
 })
 
-// Posts currently shown (remote if available, else local filtered)
-const displayPosts = computed(() => {
-  if (remotePosts.value) return remotePosts.value
+// Posts currently shown — always filtered locally for consistency across dev/prod
+const filteredPosts = computed(() => {
   let list = localPosts.value
   if (category.value) list = list.filter(p => (p.categories || []).includes(category.value))
   if (activeTag.value) list = list.filter(p => (p.tags || []).includes(activeTag.value))
@@ -49,12 +60,14 @@ const displayPosts = computed(() => {
       (p.tags || []).some(t => t.toLowerCase().includes(q))
     )
   }
-  total.value = list.length
-  const start = (page.value - 1) * PAGE_SIZE
-  return list.slice(start, start + PAGE_SIZE)
+  return list
 })
 
-const totalPages = computed(() => Math.max(1, Math.ceil(total.value / PAGE_SIZE)))
+const totalPages = computed(() => Math.max(1, Math.ceil(filteredPosts.value.length / PAGE_SIZE)))
+const displayPosts = computed(() => {
+  const start = (page.value - 1) * PAGE_SIZE
+  return filteredPosts.value.slice(start, start + PAGE_SIZE)
+})
 const pageNumbers = computed(() => {
   const t = totalPages.value
   const cur = page.value
@@ -67,73 +80,25 @@ let debounceTimer = null
 function onSearchInput() {
   page.value = 1
   clearTimeout(debounceTimer)
-  debounceTimer = setTimeout(fetchFromApi, 350)
-}
-
-async function fetchFromApi() {
-  // Only call backend when filters are active; otherwise rely on SSG data
-  const hasFilters = query.value.trim() || category.value || activeTag.value
-  if (!hasFilters) {
-    remotePosts.value = null
-    error.value = ''
-    total.value = localPosts.value.length
-    return
-  }
-  loading.value = true
-  error.value = ''
-  try {
-    const params = new URLSearchParams()
-    if (query.value.trim()) params.set('q', query.value.trim())
-    if (category.value) params.set('category', category.value)
-    if (activeTag.value) params.set('tag', activeTag.value)
-    params.set('page', String(page.value))
-    params.set('pageSize', String(PAGE_SIZE))
-    const res = await fetch(`${API_BASE}/posts?${params.toString()}`)
-    if (!res.ok) throw new Error('请求失败')
-    const data = await res.json()
-    remotePosts.value = (data.posts || []).map(normalize)
-    total.value = data.total || remotePosts.value.length
-  } catch (e) {
-    // Graceful fallback: filter locally
-    remotePosts.value = null
-    error.value = ''
-  } finally {
-    loading.value = false
-  }
-}
-
-function normalize(p) {
-  const date = p.date ? new Date(p.date).toLocaleDateString('zh-CN') : null
-  return {
-    title: p.title,
-    url: withBase(`/posts/${p.slug}.html`),
-    date,
-    readTime: p.readTime || (p.wordCount ? `${Math.max(1, Math.ceil(p.wordCount / 500))} 分钟` : ''),
-    excerpt: p.description || p.excerpt || '',
-    tags: p.tags || [],
-    hasLongContent: (p.wordCount || 0) > 3000,
-  }
+  debounceTimer = setTimeout(() => { total.value = filteredPosts.value.length }, 200)
 }
 
 function selectCategory(cat) {
   category.value = category.value === cat ? '' : cat
   page.value = 1
-  fetchFromApi()
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 function selectTag(tag) {
   activeTag.value = activeTag.value === tag ? '' : tag
   page.value = 1
-  fetchFromApi()
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 function goPage(p) {
   if (p < 1 || p > totalPages.value) return
   page.value = p
-  fetchFromApi()
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
-function retry() { fetchFromApi() }
 
-watch([category, activeTag], () => { /* handled in select fns */ })
 onMounted(() => { total.value = localPosts.value.length })
 </script>
 
@@ -171,9 +136,7 @@ onMounted(() => { total.value = localPosts.value.length })
     >{{ tag }}</button>
   </div>
 
-  <div v-if="loading" class="state-loading" role="status" aria-live="polite">正在加载…</div>
-
-  <div v-else-if="displayPosts.length" class="post-list">
+  <div v-if="displayPosts.length" class="post-list">
     <a v-for="post in displayPosts" :key="post.url" :href="post.url" class="post-row">
       <h2 class="post-row-title">{{ post.title }}</h2>
       <div class="post-row-meta">

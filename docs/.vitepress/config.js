@@ -158,7 +158,9 @@ export default defineConfig({
 
   vite: {
     build: { target: 'esnext' },
-    esbuild: { target: 'esnext' },
+    esbuild: {
+      target: 'esnext',
+    },
     server: {
       proxy: {
         '/api': {
