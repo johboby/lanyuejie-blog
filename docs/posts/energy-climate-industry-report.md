@@ -53,9 +53,9 @@ categories:
 ### 1.1 近 12 个月最值得跟踪的“硬信号”
 **（1）电网侧储能：锂电仍是主力，但“低成本体系”与“更安全/更长寿命体系”在补位**
 - 钠离子电池（SIB）在电网与部分低速交通的产业化推进，与材料端“结构稳定性/高熵设计/硬碳机理可设计化”形成学术—产业共振：
-  - 正极结构化材料在循环寿命与倍率上给出较强证据（Nature Communications, 2025） https://www.nature.com/articles/s41467-025-60823-0
-  - 高熵策略被系统化总结为“抑制相变与退化”的可复用工具（EcoEnergy, 2026） https://cronfa.swan.ac.uk/Record/cronfa71363/Download/71363__36162__c515efec489b40d981783e3a6a1bfa62.pdf
-  - 硬碳储钠的“斜坡+平台”双机制被进一步梳理为工程化设计参数（Materials, 2025） https://pdfs.semanticscholar.org/d44d/bf0c9030a07354c151148b2b95e6820fbcf5.pdf
+  - 正极结构化材料在循环寿命与倍率上给出较强证据（Nature Communications, 2025）https://www.nature.com/articles/s41467-025-60823-0
+  - 高熵策略被系统化总结为“抑制相变与退化”的可复用工具（EcoEnergy, 2026）https://cronfa.swan.ac.uk/Record/cronfa71363/Download/71363__36162__c515efec489b40d981783e3a6a1bfa62.pdf
+  - 硬碳储钠的“斜坡+平台”双机制被进一步梳理为工程化设计参数（Materials, 2025）https://pdfs.semanticscholar.org/d44d/bf0c9030a07354c151148b2b95e6820fbcf5.pdf
   **（2）LDES：从“技术很多”走向“系统组合”**
 - 资本市场与公用事业开始把 LDES 当作“替代部分燃气调峰与容量资源”的候选。多路线并行的合理解法是：
   - 2–12h：电化学（锂/钠）占优；
@@ -92,60 +92,60 @@ categories:
 
   这些差异看起来显而易见，但在实际项目投研中经常被忽略——特别是当投资团队只看技术指标不看应用场景的时候。这也是为什么本报告坚持按应用场景而非按技术路线来组织内容。
 ### 2.2 本报告使用的“六维评分尺”（可做投委会页）
-| 维度 | 核心问题 | 常见“翻车点” |
+| 维度 | 核心问题 | 常见“翻车点”|
 |---|---|---|
-| 需求匹配 | 是否解决该场景的主要痛点？ | 解决了次要问题但避开主约束 |
-| 工程指标 | 有没有接近真实工况的数据？ | 只在小样/理想条件好看 |
-| 成本路径 | 成本由什么决定？学习曲线在哪里？ | 材料/制造成本被低估 |
-| 供应链与安全 | 关键材料是否稀缺/高风险？ | “可量产”但供应链不可控 |
-| 政策与商业模式 | 收入如何形成？谁付钱？ | 只靠补贴、缺少可持续需求 |
-| MRV/合规 | 结果如何被核证？ | 负排放与绿色溢价无法被证明 |
+| 需求匹配 | 是否解决该场景的主要痛点？| 解决了次要问题但避开主约束 |
+| 工程指标 | 有没有接近真实工况的数据？| 只在小样/理想条件好看 |
+| 成本路径 | 成本由什么决定？学习曲线在哪里？| 材料/制造成本被低估 |
+| 供应链与安全 | 关键材料是否稀缺/高风险？| “可量产”但供应链不可控 |
+| 政策与商业模式 | 收入如何形成？谁付钱？| 只靠补贴、缺少可持续需求 |
+| MRV/合规 | 结果如何被核证？| 负排放与绿色溢价无法被证明 |
 ---
-![](https://gd-hbimg-edge.huaban.com/de3d1c062023e944585aef45ff4ae92f9445d76e5b2af-8MUqv4_fw1200webp?auth_key=1776772800-ba0bae3a4438458ab476b0b14850ac47-0-a100f22d1c370bdcfb123f1b64727a3e)
+![图示](/images/chart-placeholder.svg)
 
 ## 2.3 跨技术对比总表
 
 ### 2.3.1 电力系统灵活性/储能：跨技术对比（覆盖 2h → 多日 → 周/月）
 
-| 技术路线 | 典型时长/定位 | 效率（相对） | 优势（为什么会被选） | 主要瓶颈（为什么会被放弃） | 更适配的场景 | 代表案例（可查来源） |
+| 技术路线 | 典型时长/定位 | 效率（相对）| 优势（为什么会被选）| 主要瓶颈（为什么会被放弃）| 更适配的场景 | 代表案例（可查来源）|
 |:---|:---|:---|:---|:---|:---|:---|
-| 锂电（LFP 为主） | 0.5–4h（部分到 6–8h） | 高 | 响应快、交付强、生态成熟 | 安全与消防、循环/日历衰减、长时成本 | 调频/短时调峰/配网拥塞 | （行业普遍应用；本报告不展开单项目） |
-| 钠离子电池（SIB） | 2–8h（偏低成本/更松供应链） | 高–中 | 钠资源丰富，潜在成本/供应链优势；电网友好 | 能量密度较低；首效/一致性与工艺控制 | 电网侧储能、低温敏感、低速交通 | 材料端进展：NC 2025 正极结构设计 https://www.nature.com/articles/s41467-025-60823-0 |
-| 钒液流电池（VRFB） | 4–12h（可扩到更长） | 中 | 功率/容量解耦，长寿命与安全；适合长时段 | 初始投资与系统复杂度；电解液成本与工程运维 | 长时调峰、可再生消纳、削峰填谷 | 大连 100MW/400MWh（一期）并网（2022）http://english.dicp.cas.cn/nc/202210/t20221009_321157.html |
-| 其他液流/有机液流 | 4–12h（研发→早期示范） | 中 | 有机会降低电解液成本、扩展电压窗口 | 交叉污染、膜/隔膜、寿命与规模验证 | LDES（若成本/寿命验证成功） | 研究信号：膜自由液/凝胶双相（NC 2025）https://www.nature.com/articles/s41467-025-63878-1 |
-| 铁空气/金属空气电池 | 50–100h（多日） | 中–低 | 单位能量成本潜力大，材料廉价；“无排放容量”叙事强 | 效率与系统集成；规模制造与可用率验证 | 多日缺口、替代部分燃气调峰/容量 | Xcel + Google：300MW/30GWh（宣布 2026）；GRE 1.5MW/150MWh 试点（2024） |
-| 液态空气储能（LAES） | 6–20h（可做更长） | 中 | 可提供电网稳定性服务，适配高风光系统 | 工程复杂度、项目交付与融资机制 | LDES、系统稳定性服务 | Highview：Hunterston（2.5GWh/阶段化） |
-| 压缩空气储能（A-CAES） | 5h → 多日 | 中 | 大规模、寿命长；选址潜在更灵活 | 选址与工程、效率链条、审批周期 | 长时调峰/备用、资源型地区 | Hydrostor：Silver City 200MW/1,500MWh |
-| 抽水蓄能（PHS） | 6h → 多日（成熟） | 高–中 | 成熟、寿命长、系统级可靠性强 | 选址受地形约束、周期长 | 区域级长期灵活性 | （成熟技术，按地区项目库尽调） |
-| 热储能（TES） | 小时→季节 | 高（电→热）/低（电→热→电） | 当终端是“热”时成本极强、材料便宜 | 若要回发电效率低；更依赖热负荷与场景 | 区域供热、工业热、热电联供系统 | 芬兰 1MW/100MWh 砂电池（2025） |
-| 氢/氨（Power-to-X→回电） | 周/月级 | 低 | 季节性与跨行业耦合 | 全链条效率低、基础设施重、经济性依赖低价绿电 | 季节性平衡、工业耦合 | 工业项目管线信号：MPP（2025-06） |
+| 锂电（LFP 为主）| 0.5–4h（部分到 6–8h）| 高 | 响应快、交付强、生态成熟 | 安全与消防、循环/日历衰减、长时成本 | 调频/短时调峰/配网拥塞 | （行业普遍应用；本报告不展开单项目）|
+| 钠离子电池（SIB）| 2–8h（偏低成本/更松供应链）| 高–中 | 钠资源丰富，潜在成本/供应链优势；电网友好 | 能量密度较低；首效/一致性与工艺控制 | 电网侧储能、低温敏感、低速交通 | 材料端进展：NC 2025 正极结构设计 https://www.nature.com/articles/s41467-025-60823-0 |
+| 钒液流电池（VRFB）| 4–12h（可扩到更长）| 中 | 功率/容量解耦，长寿命与安全；适合长时段 | 初始投资与系统复杂度；电解液成本与工程运维 | 长时调峰、可再生消纳、削峰填谷 | 大连 100MW/400MWh（一期）并网（2022）http://english.dicp.cas.cn/nc/202210/t20221009_321157.html |
+| 其他液流/有机液流 | 4–12h（研发→早期示范）| 中 | 有机会降低电解液成本、扩展电压窗口 | 交叉污染、膜/隔膜、寿命与规模验证 | LDES（若成本/寿命验证成功）| 研究信号：膜自由液/凝胶双相（NC 2025）https://www.nature.com/articles/s41467-025-63878-1 |
+| 铁空气/金属空气电池 | 50–100h（多日）| 中–低 | 单位能量成本潜力大，材料廉价；“无排放容量”叙事强 | 效率与系统集成；规模制造与可用率验证 | 多日缺口、替代部分燃气调峰/容量 | Xcel + Google：300MW/30GWh（宣布 2026）；GRE 1.5MW/150MWh 试点（2024）|
+| 液态空气储能（LAES）| 6–20h（可做更长）| 中 | 可提供电网稳定性服务，适配高风光系统 | 工程复杂度、项目交付与融资机制 | LDES、系统稳定性服务 | Highview：Hunterston（2.5GWh/阶段化）|
+| 压缩空气储能（A-CAES）| 5h → 多日 | 中 | 大规模、寿命长；选址潜在更灵活 | 选址与工程、效率链条、审批周期 | 长时调峰/备用、资源型地区 | Hydrostor：Silver City 200MW/1,500MWh |
+| 抽水蓄能（PHS）| 6h → 多日（成熟）| 高–中 | 成熟、寿命长、系统级可靠性强 | 选址受地形约束、周期长 | 区域级长期灵活性 | （成熟技术，按地区项目库尽调）|
+| 热储能（TES）| 小时→季节 | 高（电→热）/低（电→热→电）| 当终端是“热”时成本极强、材料便宜 | 若要回发电效率低；更依赖热负荷与场景 | 区域供热、工业热、热电联供系统 | 芬兰 1MW/100MWh 砂电池（2025）|
+| 氢/氨（Power-to-X→回电）| 周/月级 | 低 | 季节性与跨行业耦合 | 全链条效率低、基础设施重、经济性依赖低价绿电 | 季节性平衡、工业耦合 | 工业项目管线信号：MPP（2025-06）|
 ## 2.4 关键术语与缩写
 | 术语/缩写 | 全称 | 本报告语境含义 |
 |---|---|---|
 | BESS | Battery Energy Storage System | 电池储能系统，通常指锂电池储能电站 |
-| LDES | Long-Duration Energy Storage | 长时储能（一般定义为持续放电 >10–12h 的储能技术） |
+| LDES | Long-Duration Energy Storage | 长时储能（一般定义为持续放电 >10–12h 的储能技术）|
 | LCOS | Levelized Cost of Storage | 储能平准化成本（\$/kWh），综合 CAPEX、OPEX、寿命与效率的全周期单位成本指标 |
-| LFP | Lithium Iron Phosphate | 磷酸铁锂（主流电网侧储能电化学体系） |
-| SIB | Sodium-Ion Battery | 钠离子电池（钠资源丰富、低温性能优，为锂电补充路线） |
-| RFB / VRFB | Redox Flow Battery / Vanadium RFB | 液流电池/钒液流电池（功率与容量解耦，适合长时） |
-| LAES | Liquid Air Energy Storage | 液态空气储能（利用空气液化/气化实现储释能） |
-| A-CAES | Advanced Compressed Air Energy Storage | 先进压缩空气储能（绝热/等温设计提升效率） |
+| LFP | Lithium Iron Phosphate | 磷酸铁锂（主流电网侧储能电化学体系）|
+| SIB | Sodium-Ion Battery | 钠离子电池（钠资源丰富、低温性能优，为锂电补充路线）|
+| RFB / VRFB | Redox Flow Battery / Vanadium RFB | 液流电池/钒液流电池（功率与容量解耦，适合长时）|
+| LAES | Liquid Air Energy Storage | 液态空气储能（利用空气液化/气化实现储释能）|
+| A-CAES | Advanced Compressed Air Energy Storage | 先进压缩空气储能（绝热/等温设计提升效率）|
 | PHS | Pumped Hydro Storage | 抽水蓄能 |
-| TES | Thermal Energy Storage | 热储能（砂/盐/岩石等储热介质） |
-| HTHP | High-Temperature Heat Pump | 高温热泵（输出温度 >100°C，可达 160°C+） |
-| H₂-DRI | Hydrogen Direct Reduced Iron | 氢基直接还原铁（用绿氢替代焦炭还原铁矿石） |
+| TES | Thermal Energy Storage | 热储能（砂/盐/岩石等储热介质）|
+| HTHP | High-Temperature Heat Pump | 高温热泵（输出温度 >100°C，可达 160°C+）|
+| H₂-DRI | Hydrogen Direct Reduced Iron | 氢基直接还原铁（用绿氢替代焦炭还原铁矿石）|
 | EAF | Electric Arc Furnace | 电弧炉 |
 | CCUS / CCS | Carbon Capture, Utilization and Storage / Carbon Capture and Storage | 碳捕集、利用与封存/碳捕集与封存 |
-| CDR | Carbon Dioxide Removal | 二氧化碳移除（含 DAC、矿化、海洋等） |
-| DAC | Direct Air Capture | 直接空气捕集（从大气中直接提取 CO₂） |
-| MRV / MMRV | Measurement, Reporting, Verification | 测量、报告、核证（碳信用与负排放的核心合规框架） |
-| FID | Final Investment Decision | 最终投资决策（项目从"宣布"到"动工"的关键里程碑） |
-| LCA | Life Cycle Assessment | 全生命周期评价（评估产品或技术从"摇篮到坟墓"的总环境影响） |
+| CDR | Carbon Dioxide Removal | 二氧化碳移除（含 DAC、矿化、海洋等）|
+| DAC | Direct Air Capture | 直接空气捕集（从大气中直接提取 CO₂）|
+| MRV / MMRV | Measurement, Reporting, Verification | 测量、报告、核证（碳信用与负排放的核心合规框架）|
+| FID | Final Investment Decision | 最终投资决策（项目从"宣布"到"动工"的关键里程碑）|
+| LCA | Life Cycle Assessment | 全生命周期评价（评估产品或技术从"摇篮到坟墓"的总环境影响）|
 | TEA | Techno-Economic Analysis | 技术经济分析 |
 | PPA | Power Purchase Agreement | 购电协议 |
-| SLO | Social License to Operate | 社会许可（社区与公众对项目的接受度） |
+| SLO | Social License to Operate | 社会许可（社区与公众对项目的接受度）|
 | EMS | Energy Management System | 能源管理系统 |
-| PCS | Power Conversion System | 储能变流器（连接电池与电网的核心电力电子设备） |
+| PCS | Power Conversion System | 储能变流器（连接电池与电网的核心电力电子设备）|
 | BMS | Battery Management System | 电池管理系统 |
 > 说明：以上术语仅覆盖本报告高频使用的核心缩写，完整术语表可根据投研需求进一步扩展。
 ---
@@ -183,21 +183,21 @@ categories:
 **锂电的下一步：LMFP 和准固态**
 从技术路线看，磷酸锰铁锂（LMFP）正在从车用渗透到储能。LMFP 比 LFP 电压平台高约 15–20%，能量密度有提升，而且锰资源比镍、钴丰富得多。宁德时代、国轩高科、亿纬锂能等都在推进 LMFP 的产业化。不过 LMFP 目前在循环寿命（特别是高温工况）和锰溶出问题上还没有完全解决，距离大规模进入电网侧可能还需要 2–3 年。准固态电池则更早，主要还是车用和高安全场景的远期方向，在电网侧大规模应用目前看还早。
 
-![](https://gd-hbimg-edge.huaban.com/496eb8c4a50572dfcb1ca8f594ef510e5935a06a185c6-Igp0uw_fw1200webp?auth_key=1776772800-ba0bae3a4438458ab476b0b14850ac47-0-5968a68a10ec14c8d52e10e485069a7c)
+![图示](/images/chart-placeholder.svg)
 
 #### 3.2.2 钠离子电池（SIB）——“电网友好型低成本体系”的代表
 **为什么在电网侧更有机会？**
 电网项目通常对体积能量密度不如车用苛刻，更看重：成本、资源可得性、低温与安全。钠资源更丰富，供应链潜在更松。
 **近 12 个月的材料端进展，解决了什么“现实问题”？**
-- **正极结构稳定性**：通过“层状-柱状”结构设计，兼顾离子通道与低应变（对应寿命）。 https://www.nature.com/articles/s41467-025-60823-0
-- **高熵策略**：把“多元素协同”从经验掺杂推进到体系化的稳定化方法论（对抗相变、抑制迁移）。 https://cronfa.swan.ac.uk/Record/cronfa71363/Download/71363__36162__c515efec489b40d981783e3a6a1bfa62.pdf
-- **硬碳负极可设计化**：把“封闭孔/类石墨域/缺陷”与容量贡献对应起来，利于工艺一致性与规模化。 https://pdfs.semanticscholar.org/d44d/bf0c9030a07354c151148b2b95e6820fbcf5.pdf
+- **正极结构稳定性**：通过“层状-柱状”结构设计，兼顾离子通道与低应变（对应寿命）。https://www.nature.com/articles/s41467-025-60823-0
+- **高熵策略**：把“多元素协同”从经验掺杂推进到体系化的稳定化方法论（对抗相变、抑制迁移）。https://cronfa.swan.ac.uk/Record/cronfa71363/Download/71363__36162__c515efec489b40d981783e3a6a1bfa62.pdf
+- **硬碳负极可设计化**：把“封闭孔/类石墨域/缺陷”与容量贡献对应起来，利于工艺一致性与规模化。https://pdfs.semanticscholar.org/d44d/bf0c9030a07354c151148b2b95e6820fbcf5.pdf
 **产业化观察（投资视角）**
 - 钠电更可能从“电网侧/低速交通/低温敏感”渗透，而不是直接替代高端车用锂电。
 - 关键看点不在单体能量密度，而在：**全生命周期成本（含运维）**、**安全合规成本**、以及**供应链独立性**。
 #### 3.2.3 液流电池（RFB）与“可扩容储能”
 液流的核心价值是“功率与容量解耦”：想要更长时长，主要加大电解液储罐。
-近一年学术界继续在“更高电压窗口/更低成本隔膜/更少交叉污染”上推进。比如 Nature Communications（2025）提出“膜自由”思路：用聚合物电解质构造液/凝胶双相体系，降低对昂贵离子交换膜的依赖（仍需进一步验证规模与成本）。 https://www.nature.com/articles/s41467-025-63878-1
+近一年学术界继续在“更高电压窗口/更低成本隔膜/更少交叉污染”上推进。比如 Nature Communications（2025）提出“膜自由”思路：用聚合物电解质构造液/凝胶双相体系，降低对昂贵离子交换膜的依赖（仍需进一步验证规模与成本）。https://www.nature.com/articles/s41467-025-63878-1
 > 提醒：液流是否在电网侧大规模占优，往往不由单篇论文决定，而由“系统级成本+维护复杂度+安全”共同决定。对投资人更重要的是：能否跑出稳定的项目交付与运维曲线。
 **案例（已并网/示范）：大连钒液流 100MW/400MWh（一期）**
 - 2022 年大连 100MW/400MWh 钒液流储能电站一期并网，被描述为当时全球最大功率与容量的液流储能项目之一；规划最终到 200MW/800MWh。
@@ -213,14 +213,14 @@ PCS（储能变流器）、变压器、开关柜、继电保护、AGC/AVC 调度
 **LCOS 基准：各技术路线的成本对比**
 为建立直观的成本基准，下表汇总了不同技术路线的储能平准化成本（LCOS）。以下数字综合了 BloombergNEF（2024–2025）、Lazard LCOS 报告（v16.0）和行业公开项目的实际数据，仅供方向性参考（实际数字因项目规模、选址、运维策略差异较大）：
 
-| 技术路线 | 时长 | 系统 LCOS 区间（$/MWh） | 关键假设 | 数据来源参考 |
+| 技术路线 | 时长 | 系统 LCOS 区间（$/MWh）| 关键假设 | 数据来源参考 |
 |---|---|---|---|---|
-| LFP BESS（中国，系统级） | 2h | $80–120 | 电芯 ¥0.30–0.35/Wh，循环 6000–8000 次 | BNEF、CNESA |
-| LFP BESS（中国，系统级） | 4h | $120–180 | 同上，时长拉长后 CAPEX 增加但利用率也增 | BNEF |
-| LFP BESS（欧美，系统级） | 4h | $180–280 | 含认证、物流、本地化溢价 | Lazard LCOS v16 |
+| LFP BESS（中国，系统级）| 2h | $80–120 | 电芯 ¥0.30–0.35/Wh，循环 6000–8000 次 | BNEF、CNESA |
+| LFP BESS（中国，系统级）| 4h | $120–180 | 同上，时长拉长后 CAPEX 增加但利用率也增 | BNEF |
+| LFP BESS（欧美，系统级）| 4h | $180–280 | 含认证、物流、本地化溢价 | Lazard LCOS v16 |
 | 钒液流 VRFB | 4–8h | $180–280 | 初始 CAPEX 高但循环寿命长（15000+ 次），电解液残值 | BNEF、Invinity |
 | 钒液流 VRFB | 8h+ | $180–250 | 时长越长 VRFB 的单位能量成本优势越明显 | BNEF |
-| 铁空气（Form Energy） | 100h | 预计 $40–80（规模化后） | 目前只有试点数据，规模化后材料和制造成本的大幅下降是关键假设 | Form Energy 公司口径，尚未独立验证 |
+| 铁空气（Form Energy）| 100h | 预计 $40–80（规模化后）| 目前只有试点数据，规模化后材料和制造成本的大幅下降是关键假设 | Form Energy 公司口径，尚未独立验证 |
 | 抽水蓄能 | 6–12h | $100–200 | 选址依赖性强，新建项目审批周期长 | Lazard LCOS |
 ||||||
 - 铁空气的 $40–80/MWh 是 Form Energy 的公司目标，目前 GRE 剑桥试点项目（1.5MW/150MWh）的实际 LCOS 数据还没有公开，这个数字暂时只能当参考，不能当事实。
@@ -296,7 +296,7 @@ LDES 真正的价值在于对抗系统的“尾部风险”：连续阴雨、低
 | 12–48h | 金属空气、液流、部分热储能、部分压缩空气 | 跨日调峰/容量 | 成本与效率、系统集成 |
 | 48–150h | 金属空气（100h 级）、更大规模液流/热储能 | 多日低风/低光 | 占地、材料耐久、运维 |
 | 周/月级 | 抽蓄、氢/氨、季节性热储能 | 季节性平衡 | 基础设施与效率链条 |
-![](https://gd-hbimg-edge.huaban.com/e9757a5d8b89e2ab40c9c9a63965c35574731f8732aa2f-5PJw3L_fw1200webp?auth_key=1776772800-ba0bae3a4438458ab476b0b14850ac47-0-2f60fc90e0876ea1ccf3d415e77fb36c)
+![图示](/images/chart-placeholder.svg)
 
 
 
@@ -306,7 +306,7 @@ LDES 真正的价值在于对抗系统的“尾部风险”：连续阴雨、低
 用铁的可逆“生锈/除锈”实现电能—化学能转换，材料便宜、能量（kWh）扩容成本潜在低，但效率通常不如锂电。
 **产业信号（近 12 个月）**：
 公用事业与大客户开始宣布 100h 级项目合作（示范/商业化早期）。例如行业媒体报道 Google 与电力公司引入 Form Energy 的 100h 铁空气电池，强调其作为“无排放容量资源”替代部分燃气调峰的潜力（同时也提到效率权衡）。
-参考：Energy-Storage.news（行业报道） https://www.energy-storage.news/google-bets-big-on-30gwh-of-form-energys-iron-air-battery-storage-despite-efficiency-trade-offs/
+参考：Energy-Storage.news（行业报道）https://www.energy-storage.news/google-bets-big-on-30gwh-of-form-energys-iron-air-battery-storage-despite-efficiency-trade-offs/
 **投资要点**：
 铁空气并非要打败锂电，而是要在“多日缺口”场景里，用更低的 \$ /kWh 抢到容量价值。尽调重点应放在：
 1) 可用率与维护；2) 真实工况效率；3) 规模化制造与供应链；4) 与电网调度的适配。
@@ -321,11 +321,11 @@ LDES 真正的价值在于对抗系统的“尾部风险”：连续阴雨、低
 **案例速览（把“叙事”落到“项目”）**
 - **美国明尼苏达：Xcel + Google（宣布 2026）**
   目标部署 **300MW/30GWh** 铁空气电池，定位为“多日时长”支撑高风光系统与数据中心负荷；报道提到 Form 预计 **2028 年底开始交付模块**。
-  来源：Utility Dive（2026-03-04） https://www.utilitydive.com/news/worlds-largest-grid-battery-part-of-google-xcel-energy-agreement/813793/
+  来源：Utility Dive（2026-03-04）https://www.utilitydive.com/news/worlds-largest-grid-battery-part-of-google-xcel-energy-agreement/813793/
 - **美国明尼苏达：Great River Energy Cambridge 项目（开工 2024）**
   **1.5MW/150MWh** 试点，被描述为 Form 铁空气电池的首次商业部署之一，预计 **2025 年底投入运行**并进行多年评估。
-  来源：Form Energy（2024-08-15） https://formenergy.com/great-river-energy-and-form-energy-break-ground-on-first-of-its-kind-multi-day-energy-storage-project/
-### 4.4 重点路线 2：液流电池（RFB）——“工程稳健” vs “成本与复杂度”
+  来源：Form Energy（2024-08-15）https://formenergy.com/great-river-energy-and-form-energy-break-ground-on-first-of-its-kind-multi-day-energy-storage-project/
+### 4.4 重点路线 2：液流电池（RFB）——“工程稳健”vs “成本与复杂度”
 液流电池在 LDES 领域具有天然适配性，但商业化落地取决于系统工程与成本控制。
 
 **钒液流电池的经济性正在改善**
@@ -344,22 +344,22 @@ LDES 真正的价值在于对抗系统的“尾部风险”：连续阴雨、低
 - 在研究端，2025 年 Nature Communications 提出“膜自由”架构，试图绕开膜成本与兼容性问题（仍需进一步产业化验证）：
   https://www.nature.com/articles/s41467-025-63878-1
   **案例补充：液流的“工程化样板”**
-- **大连钒液流（一期 100MW/400MWh 并网）**：见 3.2.3（DICP 新闻） http://english.dicp.cas.cn/nc/202210/t20221009_321157.html
+- **大连钒液流（一期 100MW/400MWh 并网）**：见 3.2.3（DICP 新闻）http://english.dicp.cas.cn/nc/202210/t20221009_321157.html
 
 ### 4.5 非电化学 LDES（LAES、A-CAES）：电力系统资产而非电芯产品
 这类路线往往不是“卖电池”，而是“建电站”：项目周期、土建与许可、融资结构（例如监管型收益机制）对成败影响极大。
 **（1）LAES：把储能与电网稳定性服务绑定**
 - Highview 公告称 Hunterston 项目计划为 **2.5GWh LAES**，并分阶段建设（先做并网与稳定性服务，再做完整储能）。
-  来源：Highview（2024-10-18） https://highviewpower.com/news_announcement/highview-launches-second-phase-of-its-long-duration-energy-storage-ldes-programme-with-2-5gwh-power-plant-at-hunterston-ayrshire/
+  来源：Highview（2024-10-18）https://highviewpower.com/news_announcement/highview-launches-second-phase-of-its-long-duration-energy-storage-ldes-programme-with-2-5gwh-power-plant-at-hunterston-ayrshire/
 - 其 2025 年融资新闻进一步说明 Hunterston 规划为 **3.2GWh 混合 LDES**，并提到“stability island”阶段与后续储能系统投运时间预期（属于公司口径）。
-  来源：Highview（2025-11-11） https://highviewpower.com/news-announcements/highview-surpasses-half-a-billion-pounds-of-funding-with-latest-130m-capital-raise-for-phase-one-of-long-duration-energy-storage-facility-at-hunterston-ayrshire/
+  来源：Highview（2025-11-11）https://highviewpower.com/news-announcements/highview-surpasses-half-a-billion-pounds-of-funding-with-latest-130m-capital-raise-for-phase-one-of-long-duration-energy-storage-facility-at-hunterston-ayrshire/
   **（2）A-CAES：在“更灵活选址”与“长寿命”上竞争**
 - Hydrostor 公告称其 Silver City 项目被澳大利亚 Transgrid 评估为优选方案，规模为 **200MW/1,500MWh（约 8 小时）**，并强调更长寿命与选址特性。
-  来源：Hydrostor（2022-05-26） https://www.hydrostor.ca/hydrostors-compressed-air-energy-storage-selected-as-preferred-option-by-transgrid-to-provide-back-up-electricity-for-broken-hill-new-south-wales/
+  来源：Hydrostor（2022-05-26）https://www.hydrostor.ca/hydrostors-compressed-air-energy-storage-selected-as-preferred-option-by-transgrid-to-provide-back-up-electricity-for-broken-hill-new-south-wales/
 ### 4.6 热储能（TES）：在电→热→用热链条里成本极具竞争力
 当终端需求就是热（区域供热、部分工业热），热储能往往是最便宜的 LDES 之一，因为材料（砂/岩石/盐等）便宜、系统结构相对简单。
 行业案例：芬兰建成 1MW/100MWh 的“砂电池”（以热形式输出），用于区域供热（属于“电转热的 LDES”）。
-参考：pv magazine（行业报道） https://www.pv-magazine.com/2025/08/28/worlds-largest-sand-battery-inaugurated/
+参考：pv magazine（行业报道）https://www.pv-magazine.com/2025/08/28/worlds-largest-sand-battery-inaugurated/
 > 关键提醒：热储能不是“万能电池”。它最适合的商业闭环是：**用低价电制热 → 储热 → 就地供热**。如果要再发电，效率链条会显著下降。
 ### 4.7 氢/氨作为季节性储能与工业耦合载体
 氢在电力系统中的角色更像“跨行业耦合器”而不仅是储能：
@@ -389,7 +389,7 @@ LDES 真正的价值在于对抗系统的“尾部风险”：连续阴雨、低
 2. **电气化与燃料替代**（用电/氢替煤气/天然气）；
 3. **CCUS/CCS**（尤其是水泥等过程排放占比高的行业）。
 MPP 的 Global Project Tracker 最新分析指出：全球清洁工业项目管线已扩至 **约 826 个商业规模工厂**，覆盖近 70 国，但“宣布→融资→开工”的转化速度不足，需要显著提升投资与需求侧政策。
-参考（含关键数与投资管线）： https://www.missionpossiblepartnership.org/tracker-insights/jun-25/press-release
+参考（含关键数与投资管线）：https://www.missionpossiblepartnership.org/tracker-insights/jun-25/press-release
 ### 5.2 工业热是“最大但最分散”的战场
 工业热的温度带决定技术选型：
 - **低/中温（<200°C）**：热泵、电锅炉、余热回收机会大；
@@ -412,8 +412,8 @@ MPP 的 Global Project Tracker 最新分析指出：全球清洁工业项目管�
 3. **平台层**（多工厂/多行业的能源管理优化）：把多个工厂的热负荷、电价信号、储能资源统一优化调度的软件平台。这个层级目前还比较早期，但如果虚拟电厂和工业互联网的发展趋势持续，这类平台可能有不错的规模效应。
 IEA（热泵未来）与行业路线普遍认为：大型热泵目前可达约 140–160°C，且在纸浆、食品、化工等行业存在可观近端机会。
 （注：IEA 页面在本环境中存在访问限制，以下引用可用的替代来源与示例材料）
-- OECD 活动材料（高温热泵技术现状，含典型工况与案例）： https://www.oecd.org/content/dam/oecd/en/events/2025/05/knowledge-sharing-workshop-on-industrial-heat-pumps/session-1-presentation-danish-technological-institute.pdf
-- Heat Pumping Technologies 行业杂志（2025，工业应用专题）： https://heatpumpingtechnologies.org/content/uploads/2025/12/Heat-Pumping-Technologies-Magazine_Vol43_No3_2025.pdf
+- OECD 活动材料（高温热泵技术现状，含典型工况与案例）：https://www.oecd.org/content/dam/oecd/en/events/2025/05/knowledge-sharing-workshop-on-industrial-heat-pumps/session-1-presentation-danish-technological-institute.pdf
+- Heat Pumping Technologies 行业杂志（2025，工业应用专题）：https://heatpumpingtechnologies.org/content/uploads/2025/12/Heat-Pumping-Technologies-Magazine_Vol43_No3_2025.pdf
 
 **核心研判**：高温热泵的商业化闭环通常不依赖于硬件设备的单次销售，而是依托于“热量/蒸汽即服务”或 EPC+长期运维合同。其扩张节奏的核心制约因素在于：1) 工厂停机改造的时间窗口；2) 电价波动与需求响应机制的匹配度；3) 冷媒合规与安全管理规范的演进；4) 设备标准化程度与供应链响应速度。
 
@@ -440,7 +440,7 @@ IEA（热泵未来）与行业路线普遍认为：大型热泵目前可达约 1
 **技术机制与经济性约束**：H₂-DRI 路线的核心在于用绿氢替代焦炭进行铁矿石还原，再经电弧炉（EAF）炼钢。理论上该路线可将吨钢碳排放从传统高炉-转炉（BF-BOF）的 1.8–2.2 吨降至 0.4 吨以下。但落地面临严苛的现实约束：1) 绿氢成本（当前 $4–7/kg，需降至$2/kg 以下才具经济性）；2) 巨额初始资本支出（年产 2.5Mt 工厂需 $15–25 亿投资）；3) 配套绿电与电网容量需求（约 500–700MW）；4) 下游绿色溢价的实际兑付能力。
 **投资研判**：钢铁脱碳的投资窗口呈现明显的分层特征。短期（2026–2028）的alpha主要存在于示范项目及配套设备端（如电解槽、DRI 核心部件、绿色钢铁 offtake 交易平台）；中长期（2028–2032）的核心博弈点在于碳价（如 EU ETS 突破 €100/tCO₂）与绿氢成本的交叉时点。若该交叉点如期而至，重资产属性的 H₂-DRI 一体化工厂将释放规模化红利。当前最大的不确定性在于各方对上述宏观变量拐点的预测存在较大方差。
 
-![](https://gd-hbimg-edge.huaban.com/3308dbffa1db3a5cffb8937d75548ac6241705cc282cc-v8lyYT_fw1200webp?auth_key=1776772800-ba0bae3a4438458ab476b0b14850ac47-0-8b184ca0cf02565d51ccb01517848234)
+![图示](/images/chart-placeholder.svg)
 
 
 
@@ -473,7 +473,7 @@ IEA（热泵未来）与行业路线普遍认为：大型热泵目前可达约 1
 
 ### 5.5 化工与燃料：清洁氨是“工业迁移”的风向标
 MPP 指出“新工业阳光带”国家在清洁氨等领域占据大量投资管线：其底层逻辑是**廉价可再生电 + 政策窗口 + 新贸易走廊**。
-参考： https://www.missionpossiblepartnership.org/tracker-insights/jun-25/press-release
+参考：https://www.missionpossiblepartnership.org/tracker-insights/jun-25/press-release
 对投资人来说，清洁氨的关键不是“能不能做”，而是：
 - 终端需求（肥料/航运燃料）是否能形成长期合同；
 - 氢与氮合成的全流程能效与运维；
@@ -539,7 +539,7 @@ CDR 的需求侧驱动通常来自：
 1) **MRV 方法学是否被主流标准接受**；
 2) **封存端是否具备可扩展、可许可、可担责的路径**（地质封存/矿化/海洋等）。上述两条线的交叉验证，是区分严肃项目与概念项目的核心判据。
 ---
-![](https://gd-hbimg-edge.huaban.com/4dd76753a07e66babfe19bab135e71d893c65e235d904-KyEDcw_fw1200webp?auth_key=1776772800-ba0bae3a4438458ab476b0b14850ac47-0-fe8557c3fd9ac5d7c1a026afd3696d85)
+![图示](/images/chart-placeholder.svg)
 
 ### 6.5 碳市场与碳定价：四个应用场景的"底层汇率"
 
@@ -569,7 +569,7 @@ CBAM 的影响是结构性的：它把 EU ETS 的碳价信号传递到进口产�
 | 电网侧储能 | 间接利好：化石电厂碳成本上升→电力现货价格波动加大→套利空间扩大 | 电力现货市场碳价联动 |
 | LDES | 间接利好：同上，加上燃气调峰碳成本上升→容量价值重估 | 容量市场和辅助服务 |
 | 工业减碳 | 直接利好：替代方案的碳成本优势扩大，绿色溢价更容易被接受 | EU ETS + CBAM |
-| 负排放（CDR） | 直接利好：合规需求（如航空 CORSIA）和企业净零承诺推高需求 | 合规市场 + 自愿市场 |
+| 负排放（CDR）| 直接利好：合规需求（如航空 CORSIA）和企业净零承诺推高需求 | 合规市场 + 自愿市场 |
 ||||
 ---
 **核心研判**：碳市场构成了所有气候科技投资的上游宏观汇率。当前 EU ETS 是最具前瞻指引价值的观测指标，其价格走势与政策调整（如 MSR 参数变化、行业覆盖边界扩展）将产生广泛的系统性外溢。中国碳市场的扩容与 CCER 机制演进同样关键，但短期内价格信号的有效性尚待夯实。对于自愿碳市场，建议避免将其作为独立的投资交易逻辑，而应将其定位为底层减排/移除资产的补充性收益来源。
@@ -614,7 +614,7 @@ CBAM 的影响是结构性的：它把 EU ETS 的碳价信号传递到进口产�
 VPP 的市场规模在快速增长——ENEL X、Tesla（Autobidder）、Kraken（Octopus Energy 的平台）、以及中国的多个虚拟电厂运营商（如国网综能、南网科技等）都在积极布局。从投资角度看，VPP 的核心价值在于它是一种轻资产的模式——不需要建电站、不需要买电池，主要靠软件和聚合能力。但 VPP 的盈利高度依赖电力市场规则（是否允许聚合资源参与所有市场、结算价格是否足够覆盖通信和控制成本），在市场规则不完善的地区很难做起来。
 ### 7.2 氢与衍生物：不只是燃料，更是工业迁移与贸易走廊
 氢的规模化不是单厂问题，而是：
-- 绿电资源 → 电解 → 储运（管网/港口） → 终端需求（钢铁/化工/航运）
+- 绿电资源 → 电解 → 储运（管网/港口）→ 终端需求（钢铁/化工/航运）
 的链条协同。MPP 所谓工业阳光带的崛起，本质上是这条链的地理重构。
 https://www.missionpossiblepartnership.org/tracker-insights/jun-25/press-release
 **绿氢供应链的关键环节与投资热点**
@@ -671,7 +671,7 @@ IEA 在其《关键矿产展望》中多次指出，清洁能源技术对关键�
 3. **制造窗口与良率**：叠层等于“把两套复杂工艺叠加”；
 4. **含铅体系的合规与回收闭环**：需要封装与回收体系把风险外部性内化。
 
-![](https://gd-hbimg-edge.huaban.com/9cd170a812a72e3b5e6368a02a1eb851bf87bfad80e92-DIb9fY_fw1200webp?auth_key=1776772800-ba0bae3a4438458ab476b0b14850ac47-0-80152a86b6136df94b85b01d77531027)
+![图示](/images/chart-placeholder.svg)
 
 #### 7.5.2 高温超导磁体：让“紧凑型托卡马克”更现实，但系统工程仍是长坡
 **为什么重要**：
@@ -726,22 +726,22 @@ IEA 在其《关键矿产展望》中多次指出，清洁能源技术对关键�
 > 目的：把趋势判断落到可核验的项目与论文上，便于后续做项目库/跟踪表。
 
 
-| 场景             | 项目/论文                                  | 地点               | 规模（公开口径）                  | 状态/时间                    | 这件事说明了什么                              | 来源                                                         |
+| 场景             | 项目/论文                                  | 地点               | 规模（公开口径）| 状态/时间                    | 这件事说明了什么                              | 来源                                                         |
 | :--------------- | :----------------------------------------- | :----------------- | :-------------------------------- | :--------------------------- | :-------------------------------------------- | :----------------------------------------------------------- |
-| 电网/LDES        | Xcel + Google + Form 铁空气                | 美国明尼苏达       | 300MW/30GWh（100h 级）            | 2026 宣布；模块交付预计 2028 | 无排放容量开始出现超大订单级信号              | [Utility Dive](https://www.utilitydive.com/news/worlds-largest-grid-battery-part-of-google-xcel-energy-agreement/813793/) |
-| 电网/LDES        | Great River Energy Cambridge（铁空气试点） | 美国明尼苏达       | 1.5MW/150MWh                      | 2024 开工；预计 2025 投运    | 多日储能从实验进入商业试点评估                | [Form Energy](https://formenergy.com/great-river-energy-and-form-energy-break-ground-on-first-of-its-kind-multi-day-energy-storage-project/) |
-| 电网侧储能       | 大连钒液流（一期）                         | 中国大连           | 100MW/400MWh（规划 200MW/800MWh） | 2022 并网/投运               | 液流在电网侧的工程化样板                      | [DICP](http://english.dicp.cas.cn/nc/202210/t20221009_321157.html) |
+| 电网/LDES        | Xcel + Google + Form 铁空气                | 美国明尼苏达       | 300MW/30GWh（100h 级）| 2026 宣布；模块交付预计 2028 | 无排放容量开始出现超大订单级信号              | [Utility Dive](https://www.utilitydive.com/news/worlds-largest-grid-battery-part-of-google-xcel-energy-agreement/813793/) |
+| 电网/LDES        | Great River Energy Cambridge（铁空气试点）| 美国明尼苏达       | 1.5MW/150MWh                      | 2024 开工；预计 2025 投运    | 多日储能从实验进入商业试点评估                | [Form Energy](https://formenergy.com/great-river-energy-and-form-energy-break-ground-on-first-of-its-kind-multi-day-energy-storage-project/) |
+| 电网侧储能       | 大连钒液流（一期）| 中国大连           | 100MW/400MWh（规划 200MW/800MWh）| 2022 并网/投运               | 液流在电网侧的工程化样板                      | [DICP](http://english.dicp.cas.cn/nc/202210/t20221009_321157.html) |
 | 电网侧储能       | 甘肃华能独立储能                           | 中国甘肃           | 1.2GW/2.4GWh                      | 2025 投运                    | 中国单体 BESS 站规模纪录                      | 行业公开报道                                                 |
-| LDES             | Highview Hunterston（LAES）                | 英国苏格兰         | 2.5GWh（公司口径）                | 2024 宣布                    | LAES 走电网稳定性+长时储能两阶段路线          | [Highview](https://highviewpower.com/news_announcement/highview-launches-second-phase-of-its-long-duration-energy-storage-ldes-programme-with-2-5gwh-power-plant-at-hunterston-ayrshire/) |
-| LDES             | Hydrostor Silver City（A-CAES）            | 澳大利亚新南威尔士 | 200MW/1,500MWh                    | 方案优选（2022）             | A-CAES 以长寿命/选址/备用电源定位切入         | [Hydrostor](https://www.hydrostor.ca/hydrostors-compressed-air-energy-storage-selected-as-preferred-option-by-transgrid-to-provide-back-up-electricity-for-broken-hill-new-south-wales/) |
-| LDES（热）       | 砂电池区域供热储能                         | 芬兰               | 1MW/100MWh（热）                  | 2025 报道                    | 电→热→供热在 LDES 上具备成本优势              | [pv magazine](https://www.pv-magazine.com/2025/08/28/worlds-largest-sand-battery-inaugurated/) |
-| 工业减碳（钢铁） | HYBRIT Demonstration                       | 瑞典               | 1.2Mt 粗钢/年；约 500MW 电解      | 目标 2026 引入市场           | H₂-DRI+EAF 进入全尺度示范期                   | [HYBRIT](https://www.hybritdevelopment.se/en/hybrit-demonstration/) |
-| 工业减碳（钢铁） | H2 Green Steel                             | 瑞典 Boden         | 2.5Mt/年                          | 融资 €65 亿；计划 2028 投产  | 绿色钢铁最大单轮融资，offtake 合同质量高      | 行业公开报道                                                 |
-| 工业减碳（钢铁） | ArcelorMittal Hamburg DRI                  | 德国汉堡           | 现有装置改造                      | 计划 2027 年出产品           | 大型钢企的“分步脱碳”务实路线                  | 行业公开报道                                                 |
-| 工业减碳（水泥） | Brevik CCS（Heidelberg）                   | 挪威               | 约 40 万吨 CO₂/年                 | 2025 揭幕                    | 水泥行业 CCS 走到工业规模                     | [Heidelberg](https://www.heidelbergcement.com/en/pr-2025-06-18) |
-| 负排放（DAC）    | Climeworks Mammoth                         | 冰岛               | 3.6 万吨 CO₂/年（名义）           | 2024 启动                    | DAC 进入万级吨/年的连续迭代放大               | [Climeworks](https://climeworks.com/press-release/climeworks-switches-on-worlds-largest-direct-air-capture-plant-mammoth) |
-| 负排放（DAC）    | STRATOS（Occidental）                      | 美国德州           | 50 万吨 CO₂/年（设计）            | 2025 Class VI 许可           | DAC 进入十万—百万吨/年级许可与基建阶段        | [Occidental](https://www.oxy.com/news/news-releases/occidental-and-1pointfive-secure-class-vi-permits-for-stratos-direct-air-capture-facility/) |
-| 负排放（电化学） | MnO₂ 可逆表面矿化 DAC                      | —                  | 文献给出工程指标                  | 2026 发表                    | 电化学 DAC 开始以真实空气工程指标对标传统路线 | [Nature Energy](https://www.nature.com/articles/s41560-026-01989-9) |
+| LDES             | Highview Hunterston（LAES）| 英国苏格兰         | 2.5GWh（公司口径）| 2024 宣布                    | LAES 走电网稳定性+长时储能两阶段路线          | [Highview](https://highviewpower.com/news_announcement/highview-launches-second-phase-of-its-long-duration-energy-storage-ldes-programme-with-2-5gwh-power-plant-at-hunterston-ayrshire/) |
+| LDES             | Hydrostor Silver City（A-CAES）| 澳大利亚新南威尔士 | 200MW/1,500MWh                    | 方案优选（2022）| A-CAES 以长寿命/选址/备用电源定位切入         | [Hydrostor](https://www.hydrostor.ca/hydrostors-compressed-air-energy-storage-selected-as-preferred-option-by-transgrid-to-provide-back-up-electricity-for-broken-hill-new-south-wales/) |
+| LDES（热）| 砂电池区域供热储能                         | 芬兰               | 1MW/100MWh（热）| 2025 报道                    | 电→热→供热在 LDES 上具备成本优势              | [pv magazine](https://www.pv-magazine.com/2025/08/28/worlds-largest-sand-battery-inaugurated/) |
+| 工业减碳（钢铁）| HYBRIT Demonstration                       | 瑞典               | 1.2Mt 粗钢/年；约 500MW 电解      | 目标 2026 引入市场           | H₂-DRI+EAF 进入全尺度示范期                   | [HYBRIT](https://www.hybritdevelopment.se/en/hybrit-demonstration/) |
+| 工业减碳（钢铁）| H2 Green Steel                             | 瑞典 Boden         | 2.5Mt/年                          | 融资 €65 亿；计划 2028 投产  | 绿色钢铁最大单轮融资，offtake 合同质量高      | 行业公开报道                                                 |
+| 工业减碳（钢铁）| ArcelorMittal Hamburg DRI                  | 德国汉堡           | 现有装置改造                      | 计划 2027 年出产品           | 大型钢企的“分步脱碳”务实路线                  | 行业公开报道                                                 |
+| 工业减碳（水泥）| Brevik CCS（Heidelberg）| 挪威               | 约 40 万吨 CO₂/年                 | 2025 揭幕                    | 水泥行业 CCS 走到工业规模                     | [Heidelberg](https://www.heidelbergcement.com/en/pr-2025-06-18) |
+| 负排放（DAC）| Climeworks Mammoth                         | 冰岛               | 3.6 万吨 CO₂/年（名义）| 2024 启动                    | DAC 进入万级吨/年的连续迭代放大               | [Climeworks](https://climeworks.com/press-release/climeworks-switches-on-worlds-largest-direct-air-capture-plant-mammoth) |
+| 负排放（DAC）| STRATOS（Occidental）| 美国德州           | 50 万吨 CO₂/年（设计）| 2025 Class VI 许可           | DAC 进入十万—百万吨/年级许可与基建阶段        | [Occidental](https://www.oxy.com/news/news-releases/occidental-and-1pointfive-secure-class-vi-permits-for-stratos-direct-air-capture-facility/) |
+| 负排放（电化学）| MnO₂ 可逆表面矿化 DAC                      | —| 文献给出工程指标                  | 2026 发表                    | 电化学 DAC 开始以真实空气工程指标对标传统路线 | [Nature Energy](https://www.nature.com/articles/s41560-026-01989-9) |
 
 
 
@@ -800,8 +800,8 @@ IEA 在其《关键矿产展望》中多次指出，清洁能源技术对关键�
 #### 9.1.2 细分赛道 A：电网侧 BESS（储能系统）
 | | **标准化产品交付** | **项目化交付** |
 |---|---|---|
-| **软件/服务/金融驱动** | **A1：软件化系统商 / 收益优化平台**（示例：以“投标软件+资产管理”绑定客户的系统商；或独立的软件/聚合平台） | **A2：长期服务/EPC+绩效担保**（示例：提供 15–25 年服务、可用率 KPI、甚至收益分成的“交钥匙资产化”模式） |
-| **硬件/设备驱动** | **A3：标准机柜/PCS/电芯规模玩家**（示例：电芯/机柜/PCS 的规模化供应商） | **A4：项目型集成/EPC**（示例：以并网、土建、安全合规、工期与成本控制为护城河） |
+| **软件/服务/金融驱动** | **A1：软件化系统商 / 收益优化平台**（示例：以“投标软件+资产管理”绑定客户的系统商；或独立的软件/聚合平台）| **A2：长期服务/EPC+绩效担保**（示例：提供 15–25 年服务、可用率 KPI、甚至收益分成的“交钥匙资产化”模式）|
+| **硬件/设备驱动** | **A3：标准机柜/PCS/电芯规模玩家**（示例：电芯/机柜/PCS 的规模化供应商）| **A4：项目型集成/EPC**（示例：以并网、土建、安全合规、工期与成本控制为护城河）|
 ||||
 - A3→A2 是行业典型升级路径：当市场从“装机导向”转向“可用率与收益兑现”，系统商会把软件与长期服务变成核心护城河。
 - 可核验例子：Fluence 在澳大利亚 Wellington 项目中包含 20 年服务合同，并捆绑 Mosaic 投标软件与 Nispera 资产管理（公司口径）。
@@ -809,8 +809,8 @@ IEA 在其《关键矿产展望》中多次指出，清洁能源技术对关键�
 #### 9.1.3 细分赛道 B：LDES（>12h，多日与长时）
 | | **标准化产品交付** | **项目化交付** |
 |---|---|---|
-| **软件/服务/金融驱动** | **B1：平台化运维/资产运营**（示例：以“长时资产运营 + 电网服务合同”驱动） | **B2：监管收益/容量合同驱动的基础设施开发商**（示例：依赖 Cap-and-Floor、容量市场、可靠性合同的项目公司） |
-| **硬件/设备驱动** | **B3：模块化长时“设备”**（示例：可复制模块 + 工厂化制造，如部分金属空气系统） | **B4：电站型 LDES**（示例：LAES、A-CAES、抽蓄等，强工程与选址许可） |
+| **软件/服务/金融驱动** | **B1：平台化运维/资产运营**（示例：以“长时资产运营 + 电网服务合同”驱动）| **B2：监管收益/容量合同驱动的基础设施开发商**（示例：依赖 Cap-and-Floor、容量市场、可靠性合同的项目公司）|
+| **硬件/设备驱动** | **B3：模块化长时“设备”**（示例：可复制模块 + 工厂化制造，如部分金属空气系统）| **B4：电站型 LDES**（示例：LAES、A-CAES、抽蓄等，强工程与选址许可）|
 ||||
 - **象限解读（LDES）**
 - LDES 的“赢家”常常来自 B4/B2：不是因为化学体系最美，而是因为能跑通**选址—许可—融资—交付—长期合同**。
@@ -821,8 +821,8 @@ IEA 在其《关键矿产展望》中多次指出，清洁能源技术对关键�
 #### 9.1.4 细分赛道 C：工业热（HTHP + 热电池/ETES）
 | | **标准化产品交付** | **项目化交付** |
 |---|---|---|
-| **软件/服务/金融驱动** | **C1：能源服务公司**（示例：按“供热服务/合同能源管理”收费） | **C2：园区/工厂耦合项目开发**（示例：把热电池与 PV/电价套利/蒸汽管网打包） |
-| **硬件/设备驱动** | **C3：设备 OEM**（示例：工业热泵、电锅炉、热电池模块/材料） | **C4：工程集成与改造总包**（示例：与现有锅炉/蒸汽系统并联改造，强调停机窗口与工艺兼容） |
+| **软件/服务/金融驱动** | **C1：能源服务公司**（示例：按“供热服务/合同能源管理”收费）| **C2：园区/工厂耦合项目开发**（示例：把热电池与 PV/电价套利/蒸汽管网打包）|
+| **硬件/设备驱动** | **C3：设备 OEM**（示例：工业热泵、电锅炉、热电池模块/材料）| **C4：工程集成与改造总包**（示例：与现有锅炉/蒸汽系统并联改造，强调停机窗口与工艺兼容）|
 ||||
 - **象限解读（工业热）**
 - 工业热“落地速度”往往由 C4/C1 决定：客户买的不是设备，而是**不停产的改造方案**和可预测的热价。
@@ -831,8 +831,8 @@ IEA 在其《关键矿产展望》中多次指出，清洁能源技术对关键�
 #### 9.1.5 细分赛道 D：绿氢（电解槽 + 项目开发 + 下游消纳）
 | | **标准化产品交付** | **项目化交付** |
 |---|---|---|
-| **软件/服务/金融驱动** | **D1：系统控制/能量管理/电力-氢耦合优化**（示例：调度、电价优化、可用率管理） | **D2：项目平台与贸易/长协撮合**（示例：以长期 offtake、港口与贸易走廊驱动） |
-| **硬件/设备驱动** | **D3：电解槽 OEM**（示例：PEM/碱性/SOEC 厂商） | **D4：绿氢/绿氨/绿甲醇项目开发商**（示例：资源+许可+融资+EPC） |
+| **软件/服务/金融驱动** | **D1：系统控制/能量管理/电力-氢耦合优化**（示例：调度、电价优化、可用率管理）| **D2：项目平台与贸易/长协撮合**（示例：以长期 offtake、港口与贸易走廊驱动）|
+| **硬件/设备驱动** | **D3：电解槽 OEM**（示例：PEM/碱性/SOEC 厂商）| **D4：绿氢/绿氨/绿甲醇项目开发商**（示例：资源+许可+融资+EPC）|
 ||||
 - **象限解读（绿氢）**
 - 绿氢“规模化”主要是 D4 的能力：能否拿到低价绿电与长期买方合同；D3 的差异化更多来自**交付、寿命、售后、以及供应链**。
@@ -841,21 +841,21 @@ IEA 在其《关键矿产展望》中多次指出，清洁能源技术对关键�
 #### 9.1.6 细分赛道 E：工业 CCUS/CCS（捕集—运输—封存全链条）
 | | **标准化产品交付** | **项目化交付** |
 |---|---|---|
-| **软件/服务/金融驱动** | **E1：MRV/合规/资产管理平台**（示例：监测、报告、核证工具链） | **E2：全链条项目开发**（示例：以封存端与运输基础设施为核心资产） |
-| **硬件/设备驱动** | **E3：捕集工艺与设备供应商**（示例：溶剂/吸收塔/压缩液化） | **E4：封存运营商与工程总包**（示例：储层、注入井、监测、长期责任） |
+| **软件/服务/金融驱动** | **E1：MRV/合规/资产管理平台**（示例：监测、报告、核证工具链）| **E2：全链条项目开发**（示例：以封存端与运输基础设施为核心资产）|
+| **硬件/设备驱动** | **E3：捕集工艺与设备供应商**（示例：溶剂/吸收塔/压缩液化）| **E4：封存运营商与工程总包**（示例：储层、注入井、监测、长期责任）|
 ||||
 - **象限解读（CCUS）**
 - CCUS 的“护城河”经常在 E4/E2：许可、储层质量、长期责任与运输基础设施。
 - 可核验例子：Brevik CCS（Heidelberg Materials）作为水泥行业工业规模 CCS 的里程碑之一，强调与 Northern Lights 全链条（新闻稿口径）。
   https://www.heidelbergcement.com/en/pr-2025-06-18
 
-![](https://gd-hbimg-edge.huaban.com/d3fdab6df9411671b5eafe698ee1fe16ba1e89cb7a6d4-Ixvmi5_fw1200webp?auth_key=1776772800-ba0bae3a4438458ab476b0b14850ac47-0-00e082b0004ba97d6c4313a5a734008f)
+![图示](/images/chart-placeholder.svg)
 
 #### 9.1.7 细分赛道 F：CDR/DAC（负排放产品）
 | | **标准化产品交付** | **项目化交付** |
 |---|---|---|
-| **软件/服务/金融驱动** | **F1：MRV/登记/信用化平台**（示例：方法学、核证、交易与采购平台） | **F2：枢纽型开发商**（示例：把 DAC 装置 + 运输 + 储层许可打包） |
-| **硬件/设备驱动** | **F3：模块化 DAC 设备商**（示例：通过模块化迭代提升可用率与单位成本） | **F4：封存端/矿化端运营商**（示例：地质封存、矿化注入、长期监测） |
+| **软件/服务/金融驱动** | **F1：MRV/登记/信用化平台**（示例：方法学、核证、交易与采购平台）| **F2：枢纽型开发商**（示例：把 DAC 装置 + 运输 + 储层许可打包）|
+| **硬件/设备驱动** | **F3：模块化 DAC 设备商**（示例：通过模块化迭代提升可用率与单位成本）| **F4：封存端/矿化端运营商**（示例：地质封存、矿化注入、长期监测）|
 ||||
 - **象限解读（CDR）**
 - 规模化往往需要 F2/F4：没有封存端与 MRV 的确定性，“吨”很难成为可交易产品。
@@ -870,9 +870,9 @@ IEA 在其《关键矿产展望》中多次指出，清洁能源技术对关键�
 | 层级 | 主要玩家类型 | 典型交付物 | 主要收入模式 | 关键进入壁垒/尽调要点 |
 |---|---|---|---|---|
 | 电芯/材料 | 电池制造商、材料供应商 | 电芯、模组 | 出货量/规模优势 | 安全与一致性；质保能力；供应链韧性 |
-| 系统集成 | 系统商/集成商 | 机柜、BMS、热管理、消防、集成测试 | EPC+设备销售；或“系统+20年服务” | 系统工程、并网经验、事故记录、可用率与质保条款 |
+| 系统集成 | 系统商/集成商 | 机柜、BMS、热管理、消防、集成测试 | EPC+设备销售；或“系统+20年服务”| 系统工程、并网经验、事故记录、可用率与质保条款 |
 | PCS/电力电子 | 逆变器/PCS 厂商 | PCS、变压器配套、并网控制 | 设备销售+运维 | 并网认证、故障穿越、调频性能、网络安全 |
-| 软件（投标/资产管理） | 软件公司/系统商软件部门 | 交易策略、投标优化、资产健康管理 | SaaS/分成/捆绑 | 数据与算法、与市场规则适配、可解释性与审计 |
+| 软件（投标/资产管理）| 软件公司/系统商软件部门 | 交易策略、投标优化、资产健康管理 | SaaS/分成/捆绑 | 数据与算法、与市场规则适配、可解释性与审计 |
 | EPC 与 O&M | 工程总包/运维商 | 土建、并网、调试、运维 | EPC+运维费 | 交付能力、工期与成本控制、安全与合规 |
 | 资产与金融 | 公用事业、IPP、基金、数据中心等大用户 | 资产组合与合同 | 容量/辅助服务/套利收益 | 市场规则、合同结构、保险与融资成本 |
 #### 9.2.2 典型玩家与“打法”（示例）
@@ -893,13 +893,13 @@ LDES（>12h）玩家的关键区别往往不是“化学体系”，而是：
 - 你能否提供可融资的长期合同（容量/可靠性/服务）？
 - 你是否有真实工况的 OPEX 与可用率数据？
 #### 9.3.1 路线—玩家对照（以商业化进展为主）
-| 路线 | 代表玩家（举例） | 更像“产品”还是“项目” | 典型买方 | 最关键的商业瓶颈 |
+| 路线 | 代表玩家（举例）| 更像“产品”还是“项目”| 典型买方 | 最关键的商业瓶颈 |
 |---|---|---|---|---|
-| 铁空气/金属空气（多日） | Form Energy 等 | 项目（强交付属性） | 公用事业、数据中心驱动的清洁电力采购 | 可用率与维护；规模制造；融资可接受的性能保证 |
-| LAES（液态空气） | Highview 等 | 项目（电站型资产） | 系统运营商、输电/配电侧需求 | 工程复杂度与交付周期；收益机制（例如稳定性服务） |
-| A-CAES（压缩空气） | Hydrostor 等 | 项目（强选址与许可） | 输电运营商、孤网/备用电源场景 | 选址、许可、土建与工期；性能与成本的可验证性 |
-| 液流（长寿命） | VRFB 系统商（含中国与海外供应商） | 介于产品与项目之间 | 电网侧长时调峰、可再生消纳 | CAPEX+OPEX 的系统经济性；电解液与运维体系 |
-| 工业热电池/ETES | Rondo、Antora 等 | 项目（与工厂耦合） | 工厂（热负荷）、园区/区域供热 | 与工艺集成、热合同结构、厂内改造窗口 |
+| 铁空气/金属空气（多日）| Form Energy 等 | 项目（强交付属性）| 公用事业、数据中心驱动的清洁电力采购 | 可用率与维护；规模制造；融资可接受的性能保证 |
+| LAES（液态空气）| Highview 等 | 项目（电站型资产）| 系统运营商、输电/配电侧需求 | 工程复杂度与交付周期；收益机制（例如稳定性服务）|
+| A-CAES（压缩空气）| Hydrostor 等 | 项目（强选址与许可）| 输电运营商、孤网/备用电源场景 | 选址、许可、土建与工期；性能与成本的可验证性 |
+| 液流（长寿命）| VRFB 系统商（含中国与海外供应商）| 介于产品与项目之间 | 电网侧长时调峰、可再生消纳 | CAPEX+OPEX 的系统经济性；电解液与运维体系 |
+| 工业热电池/ETES | Rondo、Antora 等 | 项目（与工厂耦合）| 工厂（热负荷）、园区/区域供热 | 与工艺集成、热合同结构、厂内改造窗口 |
 #### 9.3.2 案例：工业热电池从“试点”走向“可复制”
 - Rondo Energy 公告其 100MWh 工业热电池投入商业运行，并声称可实现 >97% 的电→热往返效率（公司口径），强调“用低价电小时给工厂提供 24 小时蒸汽”的商业路径。
   https://www.rondo.com/news-press/rondo-powers-up-worlds-largest-industrial-heat-battery
@@ -907,11 +907,11 @@ LDES（>12h）玩家的关键区别往往不是“化学体系”，而是：
 ---
 ### 9.4 工业减碳玩家地图：三条链决定成败（绿电/绿氢、CO₂ 链条、绿色产品溢价）
 工业减碳的“玩家地图”最好按三条链来画：
-1) **绿电/电气化链**：电网 → 电价机制 → 电气化设备（热泵/电锅炉/电炉） → 工厂改造与运维
+1) **绿电/电气化链**：电网 → 电价机制 → 电气化设备（热泵/电锅炉/电炉）→ 工厂改造与运维
 2) **绿氢/Power-to-X 链**：绿电 → 电解槽 → 氢/氨/甲醇 → 工业终端/出口
 3) **CO₂ 链条（CCUS/CCS + CDR）**：捕集 → 压缩/运输 → 注入/封存 → MRV/责任
 #### 9.4.1 绿氢/电解槽玩家分层（把“设备公司”与“项目公司”分开）
-| 层级 | 玩家类型 | 代表玩家（举例） | 关键差异点（尽调要点） |
+| 层级 | 玩家类型 | 代表玩家（举例）| 关键差异点（尽调要点）|
 |---|---|---|---|
 | 电解槽 OEM | 碱性/PEM/SOEC 等设备制造 | Siemens Energy、Nel、ITM Power、Cummins、Topsoe、thyssenkrupp nucera 等 | 技术路线与供应链；交付能力；效率与寿命数据；售后与备件 |
 | 项目开发商/业主 | 绿氢/绿氨/绿甲醇项目公司 | 能源公司、化工公司、IPP、港口平台等 | 绿电资源与合同；并网/水资源；融资结构；长期 offtake |
@@ -963,11 +963,11 @@ https://www.nature.com/articles/s41560-026-01989-9
 ### 9.6 典型合作模式：你会在合同里看到这些结构
 | 合作结构 | 常见于 | 合同核心 | 风险主要落点 |
 |---|---|---|---|
-| EPC + 长期运维（固定服务费） | BESS/LDES | 可用率、响应性能、维修责任 | 系统商与运维商 |
-| “系统 + 软件投标”捆绑 | BESS（市场化电力市场） | 收益提升分成或 SaaS 订阅 | 软件策略与市场规则变化 |
+| EPC + 长期运维（固定服务费）| BESS/LDES | 可用率、响应性能、维修责任 | 系统商与运维商 |
+| “系统 + 软件投标”捆绑 | BESS（市场化电力市场）| 收益提升分成或 SaaS 订阅 | 软件策略与市场规则变化 |
 | Cap-and-Floor / 监管收益 | 英国等地 LDES | 监管锁定收益区间 | 政策/监管框架 |
 | 长期绿色采购 | 绿氢/绿氨/绿钢 | 量、价、绿色属性核证 | 买方信用与政策变化 |
-| 负排放长期采购（CDR offtake） | DAC/CDR | 交付吨数、MRV、封存责任 | MRV 与封存端 |
+| 负排放长期采购（CDR offtake）| DAC/CDR | 交付吨数、MRV、封存责任 | MRV 与封存端 |
 ---
 ### 9.7 投资切入点：在哪些“层级”更容易形成可复制的商业模型？
 1. **软件与运维服务层**：一旦绑定资产组合，具有更强的规模效应与复购；但高度依赖数据积累与市场规则的稳定性。
@@ -981,30 +981,30 @@ https://www.nature.com/articles/s41560-026-01989-9
 - Entropy-Driven Design of Stable High-Performance Sodium-Ion Battery Cathodes (EcoEnergy, 2026) <a href="https://cronfa.swan.ac.uk/Record/cronfa71363/Download/71363__36162__c515efec489b40d981783e3a6a1bfa62.pdf">https://cronfa.swan.ac.uk/Record/cronfa71363/Download/71363__36162__c515efec489b40d981783e3a6a1bfa62.pdf</a>
 - From Sodium Storage Mechanism to Design of High-Capacity Carbon-Based Anode: A Review (Materials, 2025) <a href="https://pdfs.semanticscholar.org/d44d/bf0c9030a07354c151148b2b95e6820fbcf5.pdf">https://pdfs.semanticscholar.org/d44d/bf0c9030a07354c151148b2b95e6820fbcf5.pdf</a>
 - Membrane-free redox flow battery with polymer electrolytes (Nature Communications, 2025) <a href="https://www.nature.com/articles/s41467-025-63878-1">https://www.nature.com/articles/s41467-025-63878-1</a>
-- World’s Largest Flow Battery Energy Storage Station Connected to Grid（大连钒液流一期 100MW/400MWh，DICP，2022） http://english.dicp.cas.cn/nc/202210/t20221009_321157.html
-- Google bets big on 30GWh of Form Energy’s iron-air battery storage… (Energy-Storage.news, 行业报道) <a href="https://www.energy-storage.news/google-bets-big-on-30gwh-of-form-energys-iron-air-battery-storage-despite-efficiency-trade-offs/">https://www.energy-storage.news/google-bets-big-on-30gwh-of-form-energys-iron-air-battery-storage-despite-efficiency-trade-offs/</a>
-- World’s ‘largest’ grid battery part of Google-Xcel Energy agreement（Utility Dive，2026） https://www.utilitydive.com/news/worlds-largest-grid-battery-part-of-google-xcel-energy-agreement/813793/
-- Great River Energy and Form Energy break ground…（Form Energy，2024） https://formenergy.com/great-river-energy-and-form-energy-break-ground-on-first-of-its-kind-multi-day-energy-storage-project/
-- Highview Launches… 2.5GWh Hunterston（Highview Power，2024） https://highviewpower.com/news_announcement/highview-launches-second-phase-of-its-long-duration-energy-storage-ldes-programme-with-2-5gwh-power-plant-at-hunterston-ayrshire/
-- Hydrostor… Silver City 200MW/1,500MWh（Hydrostor，2022） https://www.hydrostor.ca/hydrostors-compressed-air-energy-storage-selected-as-preferred-option-by-transgrid-to-provide-back-up-electricity-for-broken-hill-new-south-wales/
+- World’s Largest Flow Battery Energy Storage Station Connected to Grid（大连钒液流一期 100MW/400MWh，DICP，2022）http://english.dicp.cas.cn/nc/202210/t20221009_321157.html
+- Google bets big on 30GWh of Form Energy’s iron-air battery storage…(Energy-Storage.news, 行业报道) <a href="https://www.energy-storage.news/google-bets-big-on-30gwh-of-form-energys-iron-air-battery-storage-despite-efficiency-trade-offs/">https://www.energy-storage.news/google-bets-big-on-30gwh-of-form-energys-iron-air-battery-storage-despite-efficiency-trade-offs/</a>
+- World’s ‘largest’ grid battery part of Google-Xcel Energy agreement（Utility Dive，2026）https://www.utilitydive.com/news/worlds-largest-grid-battery-part-of-google-xcel-energy-agreement/813793/
+- Great River Energy and Form Energy break ground…（Form Energy，2024）https://formenergy.com/great-river-energy-and-form-energy-break-ground-on-first-of-its-kind-multi-day-energy-storage-project/
+- Highview Launches…2.5GWh Hunterston（Highview Power，2024）https://highviewpower.com/news_announcement/highview-launches-second-phase-of-its-long-duration-energy-storage-ldes-programme-with-2-5gwh-power-plant-at-hunterston-ayrshire/
+- Hydrostor…Silver City 200MW/1,500MWh（Hydrostor，2022）https://www.hydrostor.ca/hydrostors-compressed-air-energy-storage-selected-as-preferred-option-by-transgrid-to-provide-back-up-electricity-for-broken-hill-new-south-wales/
 - Finland inaugurates world’s largest 1 MW/100 MWh sand battery (pv magazine, 行业报道) <a href="https://www.pv-magazine.com/2025/08/28/worlds-largest-sand-battery-inaugurated/">https://www.pv-magazine.com/2025/08/28/worlds-largest-sand-battery-inaugurated/</a>
-- Fluence Chosen for 300 MW / 600 MWh Wellington BESS（Fluence，2025） https://ir.fluenceenergy.com/news-releases/news-release-details/fluence-chosen-300-mw-600-mwh-wellington-battery-energy-storage
-- S&P Report Names Fluence Energy Among Top Three Global BESS Providers（媒体转述，2025） https://www.thebatterymagazine.com/sp-report-names-fluence-energy-among-top-three-global-bess-providers/
-- Rondo Powers Up World’s Largest Industrial Heat Battery（Rondo Energy，2025） https://www.rondo.com/news-press/rondo-powers-up-worlds-largest-industrial-heat-battery
+- Fluence Chosen for 300 MW / 600 MWh Wellington BESS（Fluence，2025）https://ir.fluenceenergy.com/news-releases/news-release-details/fluence-chosen-300-mw-600-mwh-wellington-battery-energy-storage
+- S&P Report Names Fluence Energy Among Top Three Global BESS Providers（媒体转述，2025）https://www.thebatterymagazine.com/sp-report-names-fluence-energy-among-top-three-global-bess-providers/
+- Rondo Powers Up World’s Largest Industrial Heat Battery（Rondo Energy，2025）https://www.rondo.com/news-press/rondo-powers-up-worlds-largest-industrial-heat-battery
 ### 10.2 工业减碳/项目管线
-- MPP Global Project Tracker June 2025 Press Release（含项目数、投资管线、区域结构） https://www.missionpossiblepartnership.org/tracker-insights/jun-25/press-release
+- MPP Global Project Tracker June 2025 Press Release（含项目数、投资管线、区域结构）https://www.missionpossiblepartnership.org/tracker-insights/jun-25/press-release
 - Green steel: design and cost analysis of hydrogen-based direct iron reduction (Argonne) <a href="https://www.anl.gov/argonne-scientific-publications/pub/181792">https://www.anl.gov/argonne-scientific-publications/pub/181792</a>
-- High-Temperature Heat Pumps - Technology status and perspectives（OECD 研讨会材料） https://www.oecd.org/content/dam/oecd/en/events/2025/05/knowledge-sharing-workshop-on-industrial-heat-pumps/session-1-presentation-danish-technological-institute.pdf
-- Heat Pumps in Industrial Applications: Pioneering High-Temperature Solutions（Heat Pumping Technologies Magazine, 2025） https://heatpumpingtechnologies.org/content/uploads/2025/12/Heat-Pumping-Technologies-Magazine_Vol43_No3_2025.pdf
-- HYBRIT Demonstration（H₂-DRI 全尺度示范项目介绍） https://www.hybritdevelopment.se/en/hybrit-demonstration/
-- World premiere… Opening of CCS facility… Brevik CCS（Heidelberg Materials，2025） https://www.heidelbergcement.com/en/pr-2025-06-18
-- Hydrogen electrolyzer manufacturers（行业汇总文章，用于建立初始 OEM 清单） https://climatesort.com/hydrogen-electrolyzer-manufacturers/
+- High-Temperature Heat Pumps - Technology status and perspectives（OECD 研讨会材料）https://www.oecd.org/content/dam/oecd/en/events/2025/05/knowledge-sharing-workshop-on-industrial-heat-pumps/session-1-presentation-danish-technological-institute.pdf
+- Heat Pumps in Industrial Applications: Pioneering High-Temperature Solutions（Heat Pumping Technologies Magazine, 2025）https://heatpumpingtechnologies.org/content/uploads/2025/12/Heat-Pumping-Technologies-Magazine_Vol43_No3_2025.pdf
+- HYBRIT Demonstration（H₂-DRI 全尺度示范项目介绍）https://www.hybritdevelopment.se/en/hybrit-demonstration/
+- World premiere…Opening of CCS facility…Brevik CCS（Heidelberg Materials，2025）https://www.heidelbergcement.com/en/pr-2025-06-18
+- Hydrogen electrolyzer manufacturers（行业汇总文章，用于建立初始 OEM 清单）https://climatesort.com/hydrogen-electrolyzer-manufacturers/
 ### 10.3 负排放 / CDR
 - Carbon Dioxide Removal Multi-Year Program Plan (DOE, 2025-01) <a href="https://doe.gov/sites/default/files/2025-01/Carbon%20Dioxide%20Removal%20Multi-Year%20Program%20Plan.pdf">https://doe.gov/sites/default/files/2025-01/Carbon%20Dioxide%20Removal%20Multi-Year%20Program%20Plan.pdf</a>
 - Electrified reversible surface mineralization of CO2 for direct air capture (Nature Energy, 2026) <a href="https://www.nature.com/articles/s41560-026-01989-9">https://www.nature.com/articles/s41560-026-01989-9</a>
 - Sustainability analysis of electrochemical direct air capture technologies (RSC Sustainability, 2025) <a href="https://pubs.rsc.org/en/content/articlepdf/2025/su/d5su00227c">https://pubs.rsc.org/en/content/articlepdf/2025/su/d5su00227c</a>
-- Climeworks switches on world’s largest direct air capture plant Mammoth（Climeworks，2024） https://climeworks.com/press-release/climeworks-switches-on-worlds-largest-direct-air-capture-plant-mammoth
-- Occidental and 1PointFive Secure Class VI Permits for STRATOS…（Occidental，2025） https://www.oxy.com/news/news-releases/occidental-and-1pointfive-secure-class-vi-permits-for-stratos-direct-air-capture-facility/
+- Climeworks switches on world’s largest direct air capture plant Mammoth（Climeworks，2024）https://climeworks.com/press-release/climeworks-switches-on-worlds-largest-direct-air-capture-plant-mammoth
+- Occidental and 1PointFive Secure Class VI Permits for STRATOS…（Occidental，2025）https://www.oxy.com/news/news-releases/occidental-and-1pointfive-secure-class-vi-permits-for-stratos-direct-air-capture-facility/
 ---
 ## 附录 A：尽调清单（按应用场景）
 > 目的：把“看起来很先进”的叙事，拆成可验证问题。建议直接作为投委会/项目评审的问卷框架。
@@ -1035,12 +1035,12 @@ https://www.nature.com/articles/s41560-026-01989-9
 ---
 ## 附录 B：参考资料补充（电源侧与电池前沿）
 ### 光伏与叠层
-- Perovskite crystallization control via an engineered self-assembled monolayer… (Nature Photonics, 2025/2026) <a href="https://www.nature.com/articles/s41566-025-01778-y">https://www.nature.com/articles/s41566-025-01778-y</a>
-- Amphoteric coplanar conjugated molecules enabling efficient and stable perovskite/silicon tandem… (Nature Communications, 2025) <a href="https://www.nature.com/articles/s41467-025-62700-2">https://www.nature.com/articles/s41467-025-62700-2</a>
+- Perovskite crystallization control via an engineered self-assembled monolayer…(Nature Photonics, 2025/2026) <a href="https://www.nature.com/articles/s41566-025-01778-y">https://www.nature.com/articles/s41566-025-01778-y</a>
+- Amphoteric coplanar conjugated molecules enabling efficient and stable perovskite/silicon tandem…(Nature Communications, 2025) <a href="https://www.nature.com/articles/s41467-025-62700-2">https://www.nature.com/articles/s41467-025-62700-2</a>
 ### 固态/下一代电池（用于“电网侧/车用边界”的理解）
 - Sulfide-Based Anode-Free Solid-State Batteries: Key Challenges and Emerging Solutions (ACS Energy Letters, 2025) <a href="https://pubs.acs.org/doi/10.1021/acsenergylett.5c00517">https://pubs.acs.org/doi/10.1021/acsenergylett.5c00517</a>
 ### 聚变磁体工程化信号
-- Jingtian Magnet Research Published in IEEE TAS Journal（含 DOI） https://www.energysingularity.cn/en/news/news-013.html
+- Jingtian Magnet Research Published in IEEE TAS Journal（含 DOI）https://www.energysingularity.cn/en/news/news-013.html
 ---
 ## 附录 C：数据来源与免责声明
 本报告引用的数据主要来自以下渠道，具体以文中各处标注的链接为准：
@@ -1064,9 +1064,8 @@ https://www.nature.com/articles/s41560-026-01989-9
 **免责声明**
 本报告仅供投资研究和产业分析参考之用，不构成任何投资建议。报告中引用的所有数据、案例和分析均基于公开信息，作者不对信息的准确性、完整性或及时性做出保证。能源和气候行业变化迅速，报告中部分数据在发布时可能已经有所更新。读者在做出投资决策前，应自行进行独立研究和尽职调查。报告中对未来趋势的判断存在高度不确定性，实际结果可能与报告中所述产生重大差异。
 
-# 📝 关于我们
-
+## 关于我们
 - **邮箱：** [mlned@163.com](mailto:mlned@163.com)
 
-![img](https://pic1.zhimg.com/80/v2-77aed7e43dc44ddd627ef4ac285b8296_720w.png)
+![img](/images/photo-placeholder.svg)
 
