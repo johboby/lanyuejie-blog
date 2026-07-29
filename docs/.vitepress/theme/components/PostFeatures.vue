@@ -23,14 +23,19 @@ const externalLinks = computed(() => {
 })
 
 // 自动相关文章：基于分类/标签重合度排序，排除当前文章，最多 4 篇
-const currentUrl = computed(() => page.value?.relativePath || '')
+// 注意 allPosts 的 p.url 是构建路径（/posts/xxx.html），而 relativePath 是源路径（posts/xxx.md），
+// 必须用统一格式比较，否则当前文章无法被排除（此前真实 bug：相关阅读会列出自己）。
+const currentUrl = computed(() => {
+  const rp = page.value?.relativePath || ''
+  return rp ? '/' + rp.replace(/\.md$/, '.html') : ''
+})
 const relatedPosts = computed(() => {
   const fm = frontmatter.value
   const cats = fm.categories || []
   const tags = fm.tags || []
   if (!cats.length && !tags.length) return []
   const scored = (allPosts || [])
-    .filter(p => p.url && p.url !== page.value?.relativePath && !p.url.endsWith('/posts/'))
+    .filter(p => p.url && p.url !== currentUrl.value && !p.url.endsWith('/posts/index.html'))
     .map(p => {
       const cOverlap = (p.categories || []).filter(c => cats.includes(c)).length
       const tOverlap = (p.tags || []).filter(t => tags.includes(t)).length
@@ -49,6 +54,19 @@ const showRelated = computed(() => isPost.value && relatedPosts.value.length > 0
 const showFAQ = computed(() => isPost.value && faqs.value.length >= 3)
 const showExternalLinks = computed(() => isPost.value && externalLinks.value.length >= 2)
 const showCTA = computed(() => isPost.value)
+
+// 上一篇/下一篇：allPosts 已按日期倒序（新→旧），当前项的前一个更旧、后一个更新
+const adjPosts = computed(() => {
+  const list = (allPosts || []).filter(p => p.url && !p.url.endsWith('/posts/index.html'))
+  const idx = list.findIndex(p => p.url === currentUrl.value)
+  if (idx === -1) return { prev: null, next: null }
+  // 列表为倒序：idx-1 是更旧（上一篇），idx+1 是更新（下一篇）
+  return {
+    prev: idx > 0 ? list[idx - 1] : null,
+    next: idx < list.length - 1 ? list[idx + 1] : null,
+  }
+})
+const showAdj = computed(() => isPost.value && (adjPosts.value.prev || adjPosts.value.next))
 </script>
 
 <template>
@@ -85,6 +103,19 @@ const showCTA = computed(() => isPost.value)
         <div class="faq-answer">{{ faq.answer }}</div>
       </div>
     </div>
+
+    <nav v-if="showAdj" class="post-pager" aria-label="上一篇 / 下一篇">
+      <a v-if="adjPosts.prev" :href="withBase(adjPosts.prev.url)" class="pager-link pager-prev">
+        <span class="pager-dir">← 上一篇</span>
+        <span class="pager-title">{{ adjPosts.prev.title }}</span>
+      </a>
+      <span v-else class="pager-link pager-empty"></span>
+      <a v-if="adjPosts.next" :href="withBase(adjPosts.next.url)" class="pager-link pager-next">
+        <span class="pager-dir">下一篇 →</span>
+        <span class="pager-title">{{ adjPosts.next.title }}</span>
+      </a>
+      <span v-else class="pager-link pager-empty"></span>
+    </nav>
 
     <div v-if="showCTA" class="post-cta">
       <div class="cta-content">
@@ -224,6 +255,52 @@ const showCTA = computed(() => isPost.value)
   background: linear-gradient(135deg, var(--vp-c-brand-soft) 0%, transparent 100%);
   border: 1px solid var(--vp-c-divider);
   text-align: center;
+}
+
+.post-pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 2.5rem 0 0;
+}
+.pager-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  background: var(--vp-c-bg-soft);
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  min-width: 0;
+}
+.pager-link:hover {
+  border-color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+  transform: translateY(-2px);
+}
+.pager-next { text-align: right; }
+.pager-dir {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--vp-c-brand-1);
+}
+.pager-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.pager-empty { border: none; background: transparent; }
+@media (max-width: 640px) {
+  .post-pager { grid-template-columns: 1fr; }
+  .pager-next { text-align: left; }
 }
 
 .cta-text {

@@ -4,6 +4,7 @@ layout: page
 ---
 
 <script setup>
+import { computed } from 'vue'
 import { data as posts } from './.vitepress/posts.data.js'
 import { withBase } from 'vitepress'
 
@@ -24,12 +25,20 @@ function mediaStyle(title) {
   }
 }
 
-const metrics = [
-  { num: '98%', label: '标的识别精度' },
-  { num: '-32%', label: '灾害损失' },
-  { num: '5+', label: '行业解决方案' },
-  { num: '12+', label: '研究报告' },
-]
+// 动态指标：基于 SSG 注入的文章数据实时计算，避免写死数字与实际内容脱节
+const metrics = computed(() => {
+  const list = posts || []
+  const catSet = new Set()
+  list.forEach(p => (p.categories || []).forEach(c => catSet.add(c)))
+  const years = list.map(p => p.dateISO || p.date).filter(Boolean).map(d => new Date(d).getFullYear()).filter(Boolean)
+  const maxYear = years.length ? Math.max(...years) : new Date().getFullYear()
+  return [
+    { num: '98%', label: '标的识别精度' },
+    { num: '-32%', label: '灾害损失' },
+    { num: String(catSet.size) + '+', label: '研究分类' },
+    { num: String(list.length) + '+', label: String(maxYear) + ' 研究文章' },
+  ]
+})
 
 const products = [
   { title: '生猪养殖风险监测', desc: 'IoT + AI图像识别 + 区块链存证，牲畜标的精准追踪与疫病预警', link: 'https://szxt.cycu.top' },
