@@ -115,7 +115,8 @@ watch(() => page.value?.relativePath, () => {
 .font-btn.active { background: var(--brand-primary); color: #fff; }
 .font-btn:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 1px; }
 @media (max-width: 768px) {
-  .font-toolbar { right: 10px; bottom: 14px; padding: 3px; }
+  /* 移到左下角，避开 VitePress 默认的右下角"返回顶部"按钮，避免重叠 */
+  .font-toolbar { right: auto; left: 12px; bottom: 16px; padding: 3px; }
   .font-btn { min-width: 30px; height: 30px; }
 }
 </style>
