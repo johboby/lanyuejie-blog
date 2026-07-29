@@ -80,6 +80,10 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "liga" 1, "kern" 1;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 /* Hide default VitePress footer + first h1 duplicate (handled in layout) */
@@ -396,11 +400,12 @@ body {
 .post-card {
   display: flex;
   flex-direction: column;
-  padding: var(--space-5);
+  padding: 0 0 var(--space-5);
   border-radius: var(--radius-md);
   border: 1px solid var(--vp-c-divider);
   background: var(--surface-soft);
   text-decoration: none;
+  overflow: hidden;
   transition: border-color var(--motion-standard) var(--easing),
               box-shadow var(--motion-standard) var(--easing),
               transform var(--motion-standard) var(--easing);
@@ -411,6 +416,37 @@ body {
   transform: translateY(-2px);
 }
 .post-card:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 2px; }
+/* 品牌化缩略图占位：渐变底 + 首字，差异化记忆点，无需逐篇配图 */
+.post-card-media {
+  position: relative;
+  height: 136px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(120% 120% at 0% 0%, var(--brand-accent-soft) 0%, transparent 55%),
+    linear-gradient(135deg, var(--brand-primary-strong) 0%, var(--brand-primary) 100%);
+  overflow: hidden;
+}
+.post-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 80% at 100% 100%, rgba(201,168,76,0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+.post-card-monogram {
+  font-family: var(--font-display);
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.92);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+.post-card > .post-meta,
+.post-card > h3,
+.post-card > .post-excerpt,
+.post-card > .post-tags { padding-left: var(--space-5); padding-right: var(--space-5); }
+.post-card > .post-tags { padding-bottom: 0; }
 .post-meta {
   display: flex;
   gap: var(--space-3);
@@ -747,12 +783,118 @@ body {
   max-width: 720px;
   font-size: 1.02rem;
   line-height: 1.85;
+  /* 中文排版优化：更自然的标点与数字间距 */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "liga" 1, "kern" 1;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 .VPDoc .vp-doc.font-sm { font-size: 0.94rem; line-height: 1.8; }
 .VPDoc .vp-doc.font-lg { font-size: 1.12rem; line-height: 1.95; }
 .VPDoc .vp-doc p { margin: 1.1em 0; }
 .VPDoc .vp-doc h2 { margin-top: 2.2em; padding-top: 0.4em; }
 .VPDoc .vp-doc h3 { margin-top: 1.6em; }
+
+/* 图片：居中、圆角、品牌描边、响应式，绝不横向溢出 */
+.VPDoc .vp-doc img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.6em auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--vp-c-divider);
+  box-shadow: var(--shadow-1);
+}
+.VPDoc .vp-doc figure { margin: 1.8em 0; text-align: center; }
+.VPDoc .vp-doc figure img { margin: 0 auto; }
+.VPDoc .vp-doc figcaption {
+  margin-top: var(--space-2);
+  font-size: 0.82rem;
+  color: var(--vp-c-text-3);
+  line-height: 1.5;
+}
+
+/* 引用块：品牌化左侧竖线 + 柔和底纹，优于默认灰块 */
+.VPDoc .vp-doc blockquote {
+  margin: 1.6em 0;
+  padding: var(--space-4) var(--space-6);
+  border-left: 3px solid var(--brand-primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-text-2);
+  font-style: normal;
+}
+.VPDoc .vp-doc blockquote p { margin: 0.5em 0; }
+.VPDoc .vp-doc blockquote > :first-child { margin-top: 0; }
+.VPDoc .vp-doc blockquote > :last-child { margin-bottom: 0; }
+
+/* 行内代码：品牌色高亮，避免与正文混淆 */
+.VPDoc .vp-doc :not(pre) > code {
+  font-size: 0.88em;
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
+  background: var(--vp-c-brand-soft);
+  color: var(--brand-primary-strong);
+  border: 1px solid var(--vp-c-divider);
+}
+.VPDoc .vp-doc :not(pre) > code::before,
+.VPDoc .vp-doc :not(pre) > code::after { content: ""; }
+
+/* 代码块：统一圆角与品牌描边 */
+.VPDoc .vp-doc div[class*="language-"] {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--vp-c-divider);
+  box-shadow: var(--shadow-1);
+  margin: 1.6em 0;
+}
+.VPDoc .vp-doc div[class*="language-"] pre {
+  border-radius: var(--radius-md);
+}
+
+/* 表格：品牌化、滚动溢出保护、表头底色 */
+.VPDoc .vp-doc table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  margin: 1.6em 0;
+  border-collapse: collapse;
+  overflow-x: auto;
+  font-size: 0.92em;
+}
+.VPDoc .vp-doc th {
+  background: var(--vp-c-bg-alt);
+  color: var(--vp-c-text-1);
+  font-weight: 600;
+}
+.VPDoc .vp-doc th,
+.VPDoc .vp-doc td {
+  border: 1px solid var(--vp-c-divider);
+  padding: 0.5em 0.9em;
+}
+
+/* 分割线（***）：品牌金细线，克制表达 */
+.VPDoc .vp-doc hr {
+  margin: 2.4em 0;
+  border: none;
+  border-top: 1px solid var(--brand-accent);
+  opacity: 0.5;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 链接在正文中的品牌强调 */
+.VPDoc .vp-doc a {
+  color: var(--brand-primary);
+  text-decoration-color: var(--brand-accent);
+  text-underline-offset: 3px;
+  font-weight: 500;
+}
+.VPDoc .vp-doc a:hover {
+  color: var(--brand-primary-hover);
+  text-decoration: underline;
+}
 
 /* ============================================================
    Responsive

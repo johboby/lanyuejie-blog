@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useData, withBase } from 'vitepress'
+import { data as allPosts } from '../../posts.data.js'
 
 const { page } = useData()
 
@@ -15,21 +16,37 @@ const faqs = computed(() => {
   return []
 })
 
-const internalLinks = computed(() => {
-  const fm = frontmatter.value
-  if (fm.internalLinks && Array.isArray(fm.internalLinks)) return fm.internalLinks
-  return []
-})
-
 const externalLinks = computed(() => {
   const fm = frontmatter.value
   if (fm.externalLinks && Array.isArray(fm.externalLinks)) return fm.externalLinks
   return []
 })
 
+// 自动相关文章：基于分类/标签重合度排序，排除当前文章，最多 4 篇
+const currentUrl = computed(() => page.value?.relativePath || '')
+const relatedPosts = computed(() => {
+  const fm = frontmatter.value
+  const cats = fm.categories || []
+  const tags = fm.tags || []
+  if (!cats.length && !tags.length) return []
+  const scored = (allPosts || [])
+    .filter(p => p.url && p.url !== page.value?.relativePath && !p.url.endsWith('/posts/'))
+    .map(p => {
+      const cOverlap = (p.categories || []).filter(c => cats.includes(c)).length
+      const tOverlap = (p.tags || []).filter(t => tags.includes(t)).length
+      const score = cOverlap * 2 + tOverlap
+      return { post: p, score }
+    })
+    .filter(x => x.score > 0)
+    .sort((a, b) => b.score - a.score || new Date(b.post.dateISO || 0) - new Date(a.post.dateISO || 0))
+    .slice(0, 4)
+    .map(x => x.post)
+  return scored
+})
+
 const showReadingTime = computed(() => isPost.value && readingTime.value)
+const showRelated = computed(() => isPost.value && relatedPosts.value.length > 0)
 const showFAQ = computed(() => isPost.value && faqs.value.length >= 3)
-const showInternalLinks = computed(() => isPost.value && internalLinks.value.length >= 3)
 const showExternalLinks = computed(() => isPost.value && externalLinks.value.length >= 2)
 const showCTA = computed(() => isPost.value)
 </script>
@@ -41,12 +58,12 @@ const showCTA = computed(() => isPost.value)
       <span class="reading-time-text">约{{ readingTime }}阅读</span>
     </div>
 
-    <div v-if="showInternalLinks" class="post-links-section">
+    <div v-if="showRelated" class="post-links-section">
       <h3 class="links-title">相关阅读</h3>
       <ul class="internal-links">
-        <li v-for="(link, i) in internalLinks" :key="i" class="internal-link-item">
-          <a :href="withBase(link.url)" class="internal-link">{{ link.title }}</a>
-          <span v-if="link.desc" class="link-desc">{{ link.desc }}</span>
+        <li v-for="post in relatedPosts" :key="post.url" class="internal-link-item">
+          <a :href="withBase(post.url)" class="internal-link">{{ post.title }}</a>
+          <span v-if="post.excerpt" class="link-desc">{{ post.excerpt }}</span>
         </li>
       </ul>
     </div>

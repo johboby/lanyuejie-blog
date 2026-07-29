@@ -113,6 +113,9 @@ const techStack = [
       </a>
       <div class="post-grid">
         <a v-for="post in gridPosts" :key="post.url" :href="withBase(post.url)" class="post-card">
+          <div class="post-card-media" aria-hidden="true">
+            <span class="post-card-monogram">{{ (post.title || '').slice(0, 1) }}</span>
+          </div>
           <div class="post-meta">
             <span v-if="post.date" class="post-date">{{ post.date }}</span>
             <span v-if="post.readTime" class="post-read">{{ post.readTime }}</span>
