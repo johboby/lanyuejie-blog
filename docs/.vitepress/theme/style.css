@@ -351,36 +351,76 @@ body {
   align-items: center;
   justify-content: center;
   gap: var(--space-3);
+  isolation: isolate;
+}
+/* 细品牌网格纹理：增加"图"的质感，避免纯色渐变像占位符 */
+.featured-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 38px 38px;
+  mask-image: radial-gradient(120% 120% at 30% 20%, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(120% 120% at 30% 20%, #000 30%, transparent 75%);
+  z-index: 0;
+  pointer-events: none;
+}
+/* 对角光斑：让不同分类色相渐变更有层次与光感 */
+.featured-media-light {
+  position: absolute;
+  top: -30%;
+  right: -20%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.20) 0%, transparent 60%);
+  filter: blur(8px);
+  z-index: 0;
+  pointer-events: none;
+  transition: transform var(--motion-standard) var(--easing);
 }
 /* 分类母题大字：差异化记忆点，替代单一 agriculture.jpg */
 .featured-media-glyph {
+  position: relative;
+  z-index: 1;
   font-family: var(--font-display);
-  font-size: 4.4rem;
+  font-size: 5rem;
   font-weight: 700;
   line-height: 1;
-  color: rgba(255, 255, 255, 0.94);
-  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.22);
+  color: rgba(255, 255, 255, 0.96);
   letter-spacing: 0.04em;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.18),
+    0 6px 22px rgba(0, 0, 0, 0.28);
+  transform: translateZ(0);
 }
 .featured-media-tag {
-  font-size: 0.78rem;
+  position: relative;
+  z-index: 1;
+  font-size: 0.76rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
-  color: rgba(255, 255, 255, 0.82);
-  padding: 4px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.32);
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 5px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
   border-radius: var(--radius-full);
-  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(3px);
 }
 /* Brand-tinted veil — subtle, keeps brand tone in both themes */
 .featured-media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(150deg, rgba(22,59,50,0.22) 0%, rgba(22,59,50,0.04) 55%, rgba(201,168,76,0.12) 100%);
+  z-index: 0;
+  background: linear-gradient(150deg, rgba(22,59,50,0.20) 0%, rgba(22,59,50,0.02) 55%, rgba(201,168,76,0.14) 100%);
   pointer-events: none;
 }
-.featured-card:hover .featured-media { filter: saturate(1.05); }
+.featured-card:hover .featured-media-glyph { transform: scale(1.04) translateZ(0); }
+.featured-card:hover .featured-media-light { transform: translate(-6px, 6px); }
+.featured-card:hover .featured-media::before { opacity: 0.85; }
+.featured-media::before { transition: opacity var(--motion-standard) var(--easing); }
 .featured-body {
   padding: var(--space-10) var(--space-8);
   display: flex;
@@ -883,6 +923,25 @@ body {
 .VPDoc .vp-doc .scrollable-table {
   position: relative;
   margin: 1.6em 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+/* 右缘渐隐遮罩：暗示右侧还有内容可滑动 */
+.VPDoc .vp-doc .scrollable-table::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 28px;
+  height: 100%;
+  background: linear-gradient(to right, transparent, var(--surface-soft) 92%);
+  opacity: 0;
+  transition: opacity var(--motion-standard) var(--easing);
+  pointer-events: none;
+  z-index: 1;
+}
+.VPDoc .vp-doc .scrollable-table.can-scroll::after {
+  opacity: 1;
 }
 .VPDoc .vp-doc .scrollable-table table {
   margin: 0;
@@ -890,16 +949,18 @@ body {
 .VPDoc .vp-doc .scrollable-table-hint {
   display: none;
   position: absolute;
-  right: 8px;
-  bottom: 8px;
-  padding: 3px 10px;
+  right: 10px;
+  bottom: 10px;
+  padding: 4px 12px;
   font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   color: #fff;
-  background: rgba(31, 79, 66, 0.82);
+  background: rgba(31, 79, 66, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-1);
+  box-shadow: var(--shadow-2);
+  backdrop-filter: blur(4px);
   pointer-events: none;
   z-index: 2;
   white-space: nowrap;
@@ -911,7 +972,7 @@ body {
   }
 }
 @keyframes table-hint-pulse {
-  0%, 100% { opacity: 0.82; transform: translateX(0); }
+  0%, 100% { opacity: 0.86; transform: translateX(0); }
   50% { opacity: 1; transform: translateX(-3px); }
 }
 .VPDoc .vp-doc th {

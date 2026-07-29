@@ -150,6 +150,7 @@ const techStack = [
       </div>
       <a v-if="featuredPost" :href="withBase(featuredPost.url)" class="featured-card">
         <div class="featured-media" aria-hidden="true" :style="featuredMediaStyle">
+          <span class="featured-media-light"></span>
           <span class="featured-media-glyph">{{ featuredTheme(featuredPost).glyph }}</span>
           <span class="featured-media-tag">{{ featuredTheme(featuredPost).label }}</span>
         </div>
