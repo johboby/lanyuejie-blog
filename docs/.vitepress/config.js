@@ -8,6 +8,14 @@ const SITE_NAME_EN = 'Lanyuejie Technology'
 const SITE_DESCRIPTION = '专注于人工智能与风险控制的前沿科技企业'
 const SITE_DESCRIPTION_EN = 'A frontier technology enterprise focused on artificial intelligence and risk control'
 const CHARS_PER_MINUTE = 500
+const MAX_TITLE_LENGTH = 60
+const MAX_DESCRIPTION_LENGTH = 160
+const DESCRIPTION_CTA = ' | 深度阅读'
+const SYNDICATION_PLATFORMS = [
+  { name: 'twitter', url: 'https://twitter.com/intent/tweet' },
+  { name: 'linkedin', url: 'https://www.linkedin.com/sharing/share-offsite' },
+  { name: 'facebook', url: 'https://www.facebook.com/sharer/sharer.php' },
+]
 
 const SEO_EN = {
   'ai-agent-industry-report-2025-2026': {
@@ -142,6 +150,109 @@ function extractHeadings(src) {
   return headings
 }
 
+function enforceTitle(title) {
+  if (!title) return SITE_NAME
+  const clean = String(title).replace(/\s+/g, ' ').trim()
+  if (clean.length <= MAX_TITLE_LENGTH) return clean
+  return clean.slice(0, MAX_TITLE_LENGTH - 1) + '…'
+}
+
+function enforceDescription(desc, fallback = '') {
+  let text = desc || fallback
+  if (!text) return SITE_DESCRIPTION
+  text = String(text).replace(/\s+/g, ' ').trim()
+  const cta = DESCRIPTION_CTA
+  if (text.length + cta.length <= MAX_DESCRIPTION_LENGTH) {
+    return text + cta
+  }
+  const cut = MAX_DESCRIPTION_LENGTH - cta.length
+  return text.slice(0, cut - 1).trim() + '…' + cta
+}
+
+function extractFAQs(src) {
+  if (!src) return []
+  const body = src.replace(/^---[\s\S]*?---/, '')
+  const faqRegex = /^::: faq\s*\n([\s\S]*?)\n::: *$/gm
+  const faqs = []
+  let match
+  while ((match = faqRegex.exec(body)) !== null) {
+    const block = match[1]
+    const qRegex = /^\s*###\s+(.+)$/gm
+    let qMatch
+    const questions = []
+    while ((qMatch = qRegex.exec(block)) !== null) {
+      const qText = qMatch[1].trim().replace(/\*\*|__|\*|_|~~|`{1,3}[^`]*`{1,3}/g, '')
+      const qStart = qMatch.index + qMatch[0].length
+      const nextQ = block.indexOf('\n### ', qStart)
+      const aText = (nextQ === -1 ? block.slice(qStart) : block.slice(qStart, nextQ))
+        .trim()
+        .replace(/^:\s*/, '')
+      questions.push({ question: qText, answer: aText })
+    }
+    faqs.push(...questions)
+  }
+  return faqs.slice(0, 10)
+}
+
+function generateFAQSchema(faqs) {
+  if (!faqs.length) return null
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: f.answer.replace(/<[^>]+>/g, '').replace(/\n+/g, ' ').trim(),
+      },
+    })),
+  })
+}
+
+function extractInternalLinks(src) {
+  if (!src) return []
+  const body = src.replace(/^---[\s\S]*?---/, '')
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g
+  const links = []
+  let match
+  while ((match = linkRegex.exec(body)) !== null) {
+    const href = match[2]
+    if (href.startsWith('/') || href.startsWith('./') || href.startsWith('../') || href.includes('posts/')) {
+      links.push({ text: match[1], href })
+    }
+  }
+  return links
+}
+
+function extractExternalLinks(src) {
+  if (!src) return []
+  const body = src.replace(/^---[\s\S]*?---/, '')
+  const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g
+  const links = []
+  let match
+  while ((match = linkRegex.exec(body)) !== null) {
+    links.push({ text: match[1], href: match[2] })
+  }
+  return links
+}
+
+function extractFirstKeyword(src, fm) {
+  if (fm.keywords && fm.keywords.length) return fm.keywords[0]
+  const body = src.replace(/^---[\s\S]*?---/, '')
+  const tags = fm.tags || []
+  if (tags.length) return tags[0]
+  return ''
+}
+
+function keywordInFirst100Words(src, keyword) {
+  if (!keyword) return false
+  const body = src.replace(/^---[\s\S]*?---/, '')
+  const text = body.replace(/<[^>]+>/g, '').replace(/#{1,6}\s+/g, '').replace(/!\[[^\]]*\]\([^)]*\)/g, '')
+  const words = text.trim().split(/\s+/).slice(0, 100).join(' ')
+  return words.toLowerCase().includes(keyword.toLowerCase())
+}
+
 export default defineConfig({
   lang: 'zh-CN',
   title: SITE_NAME,
@@ -218,29 +329,48 @@ export default defineConfig({
     try {
       src = readFileSync(resolve('docs', pageData.relativePath), 'utf-8')
     } catch {}
-    const title = fm.title || SITE_NAME
-    const description = autoDescription(src, fm.description || SITE_DESCRIPTION)
+    const rawTitle = fm.title || SITE_NAME
+    const title = enforceTitle(rawTitle)
+    const rawDesc = autoDescription(src, fm.description || SITE_DESCRIPTION)
+    const description = enforceDescription(rawDesc, SITE_DESCRIPTION)
     const wordCount = countWords(src)
     const headings = extractHeadings(src)
+    const faqs = extractFAQs(src)
+    const internalLinks = extractInternalLinks(src)
+    const externalLinks = extractExternalLinks(src)
+    const mainKeyword = extractFirstKeyword(src, fm)
+    const keywordInFirst100 = keywordInFirst100Words(src, mainKeyword)
+    const readMinutes = Math.max(1, Math.ceil(wordCount / CHARS_PER_MINUTE))
 
     head.push(['link', { rel: 'canonical', href: url }])
 
+    head.push(['meta', { name: 'description', content: description }])
     head.push(['meta', { property: 'og:url', content: url }])
     head.push(['meta', { property: 'og:title', content: title }])
     head.push(['meta', { property: 'og:description', content: description }])
     head.push(['meta', { property: 'og:type', content: fm.date ? 'article' : 'website' }])
     head.push(['meta', { property: 'og:locale', content: 'zh_CN' }])
 
+    if (fm.date) {
+      head.push(['meta', { name: 'author', content: SITE_NAME }])
+      head.push(['meta', { name: 'article:reading_time', content: `${readMinutes} minutes` }])
+    }
+
     const enMeta = getEnMeta(pageData.relativePath)
     if (enMeta) {
       head.push(['meta', { property: 'og:locale:alternate', content: 'en_US' }])
-      head.push(['meta', { property: 'og:title', content: enMeta.title, 'xml:lang': 'en' }])
-      head.push(['meta', { name: 'description_en', content: enMeta.description }])
+      head.push(['meta', { property: 'og:title', content: enforceTitle(enMeta.title), 'xml:lang': 'en' }])
+      head.push(['meta', { name: 'description_en', content: enforceDescription(enMeta.description, enMeta.description) }])
       head.push(['meta', { name: 'keywords', content: enMeta.keywords }])
     }
 
-    head.push(['meta', { name: 'twitter:title', content: enMeta ? enMeta.title : title }])
-    head.push(['meta', { name: 'twitter:description', content: enMeta ? enMeta.description : description }])
+    head.push(['meta', { name: 'twitter:card', content: 'summary_large_image' }])
+    head.push(['meta', { name: 'twitter:title', content: enMeta ? enforceTitle(enMeta.title) : title }])
+    head.push(['meta', { name: 'twitter:description', content: enMeta ? enforceDescription(enMeta.description, enMeta.description) : description }])
+
+    for (const platform of SYNDICATION_PLATFORMS) {
+      head.push(['link', { rel: 'syndication', href: `${platform.url}?url=${encodeURIComponent(url)}`, title: platform.name }])
+    }
 
     if (fm.date) {
       const isoDate = new Date(fm.date).toISOString()
@@ -253,7 +383,6 @@ export default defineConfig({
 
       const isLongRead = wordCount > 3000
       const articleType = isLongRead ? 'ScholarlyArticle' : 'Article'
-      const readMinutes = Math.max(1, Math.ceil(wordCount / CHARS_PER_MINUTE))
 
       const jsonLd = {
         '@context': 'https://schema.org',
@@ -273,10 +402,11 @@ export default defineConfig({
         mainEntityOfPage: { '@type': 'WebPage', '@id': url },
         wordCount,
         timeRequired: `PT${readMinutes}M`,
+        inLanguage: 'zh-CN',
       }
 
       if (enMeta) {
-        jsonLd.alternateHeadline = enMeta.title
+        jsonLd.alternateHeadline = enforceTitle(enMeta.title)
         jsonLd.inLanguage = ['zh-CN', 'en']
       }
 
@@ -294,14 +424,18 @@ export default defineConfig({
         }))
       }
 
+      if (mainKeyword) {
+        jsonLd.keywords = mainKeyword
+      }
+
       head.push(['script', { type: 'application/ld+json' }, JSON.stringify(jsonLd)])
 
+      const faqSchema = generateFAQSchema(faqs)
+      if (faqSchema) {
+        head.push(['script', { type: 'application/ld+json' }, faqSchema])
+      }
+
       if (isLongRead) {
-        const speakable = JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'SpeakableSpecification',
-          cssSelector: ['.vp-doc h2', '.vp-doc h3'],
-        })
         head.push(['meta', { name: 'speakable', content: JSON.stringify({ cssSelector: ['.vp-doc h2', '.vp-doc h3'] }) }])
       }
 
@@ -311,7 +445,7 @@ export default defineConfig({
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: '首页', item: `${SITE_URL}/` },
           { '@type': 'ListItem', position: 2, name: '文章', item: `${SITE_URL}/posts/` },
-          { '@type': 'ListItem', position: 3, name: enMeta ? `${title} / ${enMeta.title}` : title, item: url },
+          { '@type': 'ListItem', position: 3, name: enMeta ? `${title} / ${enforceTitle(enMeta.title)}` : title, item: url },
         ],
       })
       head.push(['script', { type: 'application/ld+json' }, breadcrumb])
@@ -366,18 +500,18 @@ export default defineConfig({
     const items = posts.map(post => {
       const link = `${SITE_URL}${post.url}`
       const src = post.src || ''
-      const desc = autoDescription(src, post.frontmatter.description || '')
+      const desc = enforceDescription(autoDescription(src, post.frontmatter.description || ''), SITE_DESCRIPTION)
       const slug = post.url.replace('/posts/', '').replace(/\/$/, '').replace('.html', '')
       const enMeta = SEO_EN[slug]
       const enDescLine = enMeta ? `\n      <content:encoded>${escapeXml(`<p><strong>EN:</strong> ${enMeta.title}</p><p>${enMeta.description}</p>`)}</content:encoded>` : ''
       return `    <item>
-      <title>${escapeXml(post.frontmatter.title)}${enMeta ? ` / ${escapeXml(enMeta.title)}` : ''}</title>
-      <link>${link}</link>
-      <description>${escapeXml(desc)}</description>${enDescLine}
-      <pubDate>${new Date(post.frontmatter.date).toUTCString()}</pubDate>
-      <guid isPermaLink="true">${link}</guid>
+       <title>${escapeXml(enforceTitle(post.frontmatter.title))}${enMeta ? ` / ${escapeXml(enforceTitle(enMeta.title))}` : ''}</title>
+       <link>${link}</link>
+       <description>${escapeXml(desc)}</description>${enDescLine}
+       <pubDate>${new Date(post.frontmatter.date).toUTCString()}</pubDate>
+       <guid isPermaLink="true">${link}</guid>
 ${(post.frontmatter.tags || []).map(t => `      <category>${escapeXml(t)}</category>`).join('\n')}${enMeta ? `\n      <category>${escapeXml(enMeta.keywords)}</category>` : ''}
-    </item>`
+     </item>`
     }).join('\n')
 
     const rss = `<?xml version="1.0" encoding="UTF-8"?>
@@ -409,7 +543,7 @@ ${items}
       '',
       ...posts.map(post => {
         const src = post.src || ''
-        const desc = autoDescription(src, post.frontmatter.description || '')
+        const desc = enforceDescription(autoDescription(src, post.frontmatter.description || ''), SITE_DESCRIPTION)
         const wc = countWords(src)
         const rt = Math.max(1, Math.ceil(wc / CHARS_PER_MINUTE))
         const tags = (post.frontmatter.tags || []).join('、')
@@ -417,7 +551,7 @@ ${items}
         const slug = post.url.replace('/posts/', '').replace(/\/$/, '').replace('.html', '')
         const enMeta = SEO_EN[slug]
         return [
-          `## ${post.frontmatter.title}${enMeta ? ` / ${enMeta.title}` : ''}`,
+          `## ${enforceTitle(post.frontmatter.title)}${enMeta ? ` / ${enforceTitle(enMeta.title)}` : ''}`,
           '',
           `- URL: ${SITE_URL}${post.url}`,
           `- Date: ${dateStr}`,
