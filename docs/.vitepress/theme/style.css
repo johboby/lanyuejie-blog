@@ -378,6 +378,7 @@ body {
   filter: blur(8px);
   z-index: 0;
   pointer-events: none;
+  transform: translate(0, 0);
   transition: transform var(--motion-standard) var(--easing);
 }
 /* 分类母题大字：差异化记忆点，替代单一 agriculture.jpg */

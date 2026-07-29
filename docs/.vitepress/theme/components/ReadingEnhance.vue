@@ -77,6 +77,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', onScroll)
   window.removeEventListener('resize', onScroll)
+  window.removeEventListener('resize', updateTableHints)
 })
 
 watch(() => page.value?.relativePath, () => {

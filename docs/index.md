@@ -25,22 +25,26 @@ function mediaStyle(title) {
   }
 }
 
-// Featured 卡：按分类驱动差异化视觉母题，与品牌绿-金体系一致，避免所有文章共用一张 agriculture.jpg
-const CATEGORY_THEME = {
-  'AI与科技': { hue: 168, glyph: 'AI', label: '智能科技' },
-  '人工智能': { hue: 168, glyph: 'AI', label: '智能科技' },
-  '农业与保险': { hue: 96, glyph: '农', label: '农业保险' },
-  '农业保险': { hue: 96, glyph: '农', label: '农业保险' },
-  '风险管理': { hue: 38, glyph: '险', label: '风险控制' },
-  '行业研究': { hue: 210, glyph: '研', label: '行业研究' },
-  '数字经济': { hue: 280, glyph: '数', label: '数字经济' },
-  '能源与制造': { hue: 18, glyph: '能', label: '能源制造' },
-}
+// Featured 卡：按分类关键词聚类驱动差异化视觉母题，与品牌绿-金体系一致。
+// 真实分类是碎片化的（深度分析/AI生产力工具/经济与政策…），故用关键词命中归类，
+// 同类文章共享 hue + 语义化 glyph，形成稳定的分类视觉记忆，避免标题首字杂乱无意义。
+const CATEGORY_GROUPS = [
+  { hue: 168, glyph: 'AI', label: '智能科技', keys: ['AI', '智能体', '大模型', '技术', '科技', '算法', '机器人', '视频技术'] },
+  { hue: 32,  glyph: '经', label: '经济理财', keys: ['经济', '理财', '投资', '金融', '市场', '产业', '政策', '价值链'] },
+  { hue: 96,  glyph: '能', label: '能源制造', keys: ['能源', '气候', '制造', '绿色'] },
+  { hue: 280, glyph: '学', label: '成长方法', keys: ['学习', '成长', '方法', '认知', '心理', '教育', '职业', '效率', '自我'] },
+  { hue: 210, glyph: '战', label: '实战复盘', keys: ['复盘', '实战', '增长', 'SEO', '工具', '应用', '部署'] },
+  { hue: 188, glyph: '析', label: '深度分析', keys: ['分析', '调查', '研究', '思考', '趋势', '展望', '洞察', '行业'] },
+  { hue: 350, glyph: '文', label: '人文伦理', keys: ['人文', '伦理', '社会'] },
+]
 function featuredTheme(post) {
   if (!post) return { hue: 158, glyph: '★', label: '精选研究' }
-  const cat = (post.categories && post.categories[0]) || ''
-  const t = CATEGORY_THEME[cat] || { hue: 158 + (hueOf(post.title || '') % 30), glyph: (post.title || '★').slice(0, 1), label: cat || '精选研究' }
-  return t
+  const cats = post.categories || []
+  const hay = cats.join('/')
+  for (const g of CATEGORY_GROUPS) {
+    if (g.keys.some(k => hay.includes(k))) return g
+  }
+  return { hue: 158, glyph: '★', label: '精选研究' }
 }
 
 // Featured 媒体区背景：分类主题色相驱动的品牌渐变（computed 避免 SSG 阶段 TDZ 执行）
