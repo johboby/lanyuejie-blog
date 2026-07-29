@@ -12,6 +12,7 @@ tags:
 categories:
   - 深度分析
   - 个人理财
+  - 研究
 ---
 
 <p class="reading-time">⏱️ 阅读时间：约 16 分钟</p>

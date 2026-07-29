@@ -12,8 +12,8 @@ tags:
   - 内容创作BGM
 categories:
   - AI生产力工具
+  - 研究
 ---
-
 <p class="reading-time">⏱️ 阅读时间：约 14 分钟</p>
 
 <div class="toc">

@@ -14,8 +14,8 @@ tags:
 categories:
   - 效率工具
   - 知识管理
+  - 研究
 ---
-
 <p class="reading-time">⏱️ 阅读时间：约 16 分钟</p>
 
 <div class="toc">

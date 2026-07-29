@@ -13,8 +13,8 @@ tags:
   - 一人公司
 categories:
   - AI生产力工具
+  - 研究
 ---
-
 <p class="reading-time">⏱️ 阅读时间：约 16 分钟</p>
 
 <div class="toc">

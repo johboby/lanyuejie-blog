@@ -14,8 +14,8 @@ tags:
 categories:
   - 生产力工具
   - AI应用
+  - 研究
 ---
-
 <p class="reading-time">⏱️ 阅读时间：约 16 分钟</p>
 
 <div class="toc">

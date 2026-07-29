@@ -17,8 +17,8 @@ categories:
   - 深度调查
   - 消费维权
   - 实用指南
+  - 研究
 ---
-
 <p class="reading-time">⏱️ 阅读时间：约20分钟</p>
 
 <div class="toc">

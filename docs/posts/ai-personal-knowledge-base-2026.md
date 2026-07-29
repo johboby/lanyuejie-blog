@@ -14,8 +14,8 @@ tags:
 categories:
   - AI生产力工具
   - 知识管理
+  - 研究
 ---
-
 <p class="reading-time">⏱️ 阅读时间：约 17 分钟</p>
 
 <div class="toc">

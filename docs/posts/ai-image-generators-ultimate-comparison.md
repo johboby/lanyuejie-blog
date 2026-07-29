@@ -12,8 +12,8 @@ tags:
   - 创意工具
 categories:
   - AI工具实战
+  - 研究
 ---
-
 <p class="reading-time">⏱️ 阅读时间：约 12 分钟</p>
 
 <div class="toc">

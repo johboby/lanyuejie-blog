@@ -13,8 +13,8 @@ tags:
 categories:
   - 工具推荐
   - 自我管理
+  - 研究
 ---
-
 <p class="reading-time">⏱️ 阅读时间：约 15 分钟</p>
 
 <div class="toc">

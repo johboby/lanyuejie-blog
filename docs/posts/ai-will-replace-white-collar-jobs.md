@@ -12,8 +12,8 @@ tags:
 categories:
   - 深度分析
   - 未来趋势
+  - 研究
 ---
-
 <p class="reading-time">⏱️ 阅读时间：约20分钟</p>
 
 <div class="toc">

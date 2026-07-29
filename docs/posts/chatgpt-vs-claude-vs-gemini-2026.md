@@ -11,8 +11,8 @@ tags:
   - 生产力工具
 categories:
   - AI工具评测
+  - 研究
 ---
-
 <!--
 JSON-LD Schema: Article + FAQPage
 -->

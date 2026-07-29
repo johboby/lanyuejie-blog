@@ -12,8 +12,8 @@ tags:
 categories:
   - 深度思考
   - 成长方法论
+  - 研究
 ---
-
 <p class="reading-time">⏱️ 阅读时间：约16分钟</p>
 
 <div class="toc">

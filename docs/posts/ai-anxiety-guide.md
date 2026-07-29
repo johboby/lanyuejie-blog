@@ -17,8 +17,8 @@ categories:
   - 深度思考
   - 心理成长
   - 认知科学
+  - 研究
 ---
-
 <p class="reading-time">⏱️ 阅读时间：约22分钟</p>
 
 <div class="toc">

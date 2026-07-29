@@ -12,8 +12,8 @@ tags:
   - 长文写作
 categories:
   - AI工具实战
+  - 研究
 ---
-
 # AI辅助万字长文写作：一天完成的完整工作流拆解
 
 <p class="reading-time">⏱️ 阅读时间：约 12 分钟</p>

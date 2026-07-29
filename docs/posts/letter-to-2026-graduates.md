@@ -17,8 +17,8 @@ categories:
   - 深度长文
   - 职业发展
   - 教育思考
+  - 研究
 ---
-
 <p class="reading-time">⏱️ 阅读时间：约22分钟</p>
 
 <div class="toc">

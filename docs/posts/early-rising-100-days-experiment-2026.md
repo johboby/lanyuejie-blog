@@ -13,8 +13,8 @@ tags:
 categories:
   - 自我管理
   - 健康
+  - 研究
 ---
-
 <p class="reading-time">⏱️ 阅读时间：约 16 分钟</p>
 
 <div class="toc">

@@ -556,7 +556,10 @@ body {
   color: var(--vp-c-text-3);
   pointer-events: none;
 }
-.filter-select {
+.filter-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   min-height: 44px;
   padding: 0 var(--space-4);
   font-size: 0.9rem;
@@ -565,10 +568,51 @@ body {
   border: 1px solid var(--vp-c-divider);
   border-radius: var(--radius-sm);
   cursor: pointer;
+  white-space: nowrap;
+  transition: border-color var(--motion-fast) var(--easing);
 }
-.filter-select:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 1px; }
+.filter-toggle:hover { border-color: var(--brand-primary); }
+.filter-toggle.active { border-color: var(--brand-primary); color: var(--brand-primary); font-weight: 600; }
+.filter-toggle:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 1px; }
+.filter-toggle .chevron { transition: transform var(--motion-standard) var(--easing); }
+.filter-toggle .chevron.open { transform: rotate(180deg); }
 
-.tag-bar { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-6); }
+.cat-panel {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-5);
+  padding: var(--space-4);
+  background: var(--surface-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: var(--radius-md);
+}
+.cat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--vp-c-divider);
+  background: var(--surface-base);
+  color: var(--vp-c-text-2);
+  cursor: pointer;
+  transition: all var(--motion-fast) var(--easing);
+}
+.cat-chip:hover { border-color: var(--brand-primary); color: var(--brand-primary); }
+.cat-chip.active { background: var(--brand-primary); border-color: var(--brand-primary); color: #fff; }
+.cat-chip:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 2px; }
+.cat-count {
+  font-size: 0.68rem;
+  padding: 0 6px;
+  border-radius: var(--radius-full);
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+}
+.cat-chip.active .cat-count { background: rgba(255,255,255,0.25); color: #fff; }
+
+.tag-bar { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-5); }
 .tag-chip {
   font-size: 0.78rem;
   padding: var(--space-1) 12px;
@@ -586,6 +630,29 @@ body {
   color: #fff;
 }
 .tag-chip:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 2px; }
+.tag-more { font-weight: 600; color: var(--brand-primary); border-style: dashed; }
+
+.filter-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-5);
+  font-size: 0.85rem;
+  color: var(--vp-c-text-3);
+}
+.clear-filter {
+  font-size: 0.82rem;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--vp-c-divider);
+  background: transparent;
+  color: var(--brand-primary);
+  cursor: pointer;
+  transition: all var(--motion-fast) var(--easing);
+}
+.clear-filter:hover { background: var(--vp-c-brand-soft); border-color: var(--brand-primary); }
 
 .post-list { display: flex; flex-direction: column; gap: var(--space-5); }
 .post-row {
@@ -672,6 +739,20 @@ body {
 .page-btn:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 2px; }
 .page-btn.active { background: var(--brand-primary); border-color: var(--brand-primary); color: #fff; }
 .page-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ============================================================
+   ARTICLE READING ENHANCEMENTS
+   ============================================================ */
+.VPDoc .vp-doc {
+  max-width: 720px;
+  font-size: 1.02rem;
+  line-height: 1.85;
+}
+.VPDoc .vp-doc.font-sm { font-size: 0.94rem; line-height: 1.8; }
+.VPDoc .vp-doc.font-lg { font-size: 1.12rem; line-height: 1.95; }
+.VPDoc .vp-doc p { margin: 1.1em 0; }
+.VPDoc .vp-doc h2 { margin-top: 2.2em; padding-top: 0.4em; }
+.VPDoc .vp-doc h3 { margin-top: 1.6em; }
 
 /* ============================================================
    Responsive

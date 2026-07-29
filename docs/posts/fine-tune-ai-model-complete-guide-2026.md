@@ -16,8 +16,8 @@ tags:
 categories:
   - AI工程
   - 模型训练
+  - 研究
 ---
-
 <p class="reading-time">⏱️ 阅读时间：约 18 分钟</p>
 
 <div class="toc">

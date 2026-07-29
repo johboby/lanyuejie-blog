@@ -34,18 +34,28 @@ function normalize(p) {
   }
 }
 
-// Unique tags for filter bar
+// Unique tags for filter bar (sorted by frequency, most useful first)
 const allTags = computed(() => {
   const set = new Map()
   localPosts.value.forEach(p => (p.tags || []).forEach(t => set.set(t, (set.get(t) || 0) + 1)))
   return [...set.entries()].sort((a, b) => b[1] - a[1]).map(([t]) => t)
 })
+const VISIBLE_TAGS = 12
+const tagsExpanded = ref(false)
+const visibleTags = computed(() =>
+  tagsExpanded.value ? allTags.value : allTags.value.slice(0, VISIBLE_TAGS)
+)
+const hasMoreTags = computed(() => allTags.value.length > VISIBLE_TAGS)
 
+// Categories, sorted by frequency; foldable panel collapsed by default
 const categories = computed(() => {
   const map = new Map()
   localPosts.value.forEach(p => (p.categories || ['未分类']).forEach(c => map.set(c, (map.get(c) || 0) + 1)))
-  return [...map.entries()].map(([name, count]) => ({ name, count }))
+  return [...map.entries()].map(([name, count]) => ({ name, count })).sort((a, b) => b.count - a.count)
 })
+const catsExpanded = ref(false)
+const activeCatLabel = computed(() => category.value || '全部分类')
+function toggleCats() { catsExpanded.value = !catsExpanded.value }
 
 // Posts currently shown — always filtered locally for consistency across dev/prod
 const filteredPosts = computed(() => {
@@ -119,21 +129,46 @@ onMounted(() => { total.value = localPosts.value.length })
         aria-label="搜索文章"
       />
     </div>
-    <select class="filter-select" :value="category" @change="selectCategory($event.target.value)" aria-label="按分类筛选">
-      <option value="">全部分类</option>
-      <option v-for="c in categories" :key="c.name" :value="c.name">{{ c.name }} ({{ c.count }})</option>
-    </select>
+    <button
+      class="filter-toggle"
+      :class="{ active: category }"
+      @click="toggleCats"
+      :aria-expanded="catsExpanded"
+      aria-label="按分类筛选"
+    >
+      <span>{{ activeCatLabel }}</span>
+      <svg class="chevron" :class="{ open: catsExpanded }" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+  </div>
+
+  <div class="cat-panel" v-show="catsExpanded" v-if="categories.length">
+    <button
+      v-for="c in categories"
+      :key="c.name"
+      class="cat-chip"
+      :class="{ active: category === c.name }"
+      @click="selectCategory(c.name)"
+      :aria-pressed="category === c.name"
+    >{{ c.name }} <span class="cat-count">{{ c.count }}</span></button>
   </div>
 
   <div class="tag-bar" v-if="allTags.length">
     <button
-      v-for="tag in allTags"
+      v-for="tag in visibleTags"
       :key="tag"
       class="tag-chip"
       :class="{ active: activeTag === tag }"
       @click="selectTag(tag)"
       :aria-pressed="activeTag === tag"
     >{{ tag }}</button>
+    <button v-if="hasMoreTags" class="tag-chip tag-more" @click="tagsExpanded = !tagsExpanded">
+      {{ tagsExpanded ? '收起' : `更多 ${allTags.length - VISIBLE_TAGS} 个` }}
+    </button>
+  </div>
+
+  <div class="filter-status" v-if="category || activeTag || query.trim()">
+    <span>已筛选：<template v-if="category">{{ category }}</template><template v-if="activeTag"> · {{ activeTag }}</template><template v-if="query.trim()"> · “{{ query.trim() }}”</template></span>
+    <button class="clear-filter" @click="category='';activeTag='';query='';page=1;total=filteredPosts.length">清除筛选</button>
   </div>
 
   <div v-if="displayPosts.length" class="post-list">

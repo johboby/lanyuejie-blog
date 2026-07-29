@@ -14,8 +14,8 @@ tags:
 categories:
   - AI工具评测
   - 效率省钱
+  - 研究
 ---
-
 <p class="reading-time">⏱️ 阅读时间：约 15 分钟</p>
 
 <div class="toc">

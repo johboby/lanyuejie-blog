@@ -12,6 +12,7 @@ tags:
 categories:
   - 深度分析
   - 理财决策
+  - 研究
 ---
 
 <p class="reading-time">⏱️ 阅读时间：约18分钟</p>

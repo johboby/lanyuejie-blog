@@ -351,6 +351,13 @@ export default defineConfig({
     head.push(['meta', { property: 'og:type', content: fm.date ? 'article' : 'website' }])
     head.push(['meta', { property: 'og:locale', content: 'zh_CN' }])
 
+    // Default social share image (always present so crawlers never fall back to a random crop)
+    const ogImage = `${SITE_URL}/images/agriculture.jpg`
+    head.push(['meta', { property: 'og:image', content: ogImage }])
+    head.push(['meta', { property: 'og:image:width', content: '1200' }])
+    head.push(['meta', { property: 'og:image:height', content: '630' }])
+    head.push(['meta', { name: 'twitter:image', content: ogImage }])
+
     if (fm.date) {
       head.push(['meta', { name: 'author', content: SITE_NAME }])
       head.push(['meta', { name: 'article:reading_time', content: `${readMinutes} minutes` }])
@@ -381,6 +388,10 @@ export default defineConfig({
         }
       }
 
+      if (fm.categories && fm.categories.length) {
+        head.push(['meta', { property: 'article:section', content: fm.categories[0] }])
+      }
+
       const isLongRead = wordCount > 3000
       const articleType = isLongRead ? 'ScholarlyArticle' : 'Article'
 
@@ -396,10 +407,21 @@ export default defineConfig({
           name: SITE_NAME,
           alternateName: SITE_NAME_EN,
           url: SITE_URL,
-          logo: { '@type': 'ImageObject', url: `${SITE_URL}/favicon.ico` },
+          logo: {
+            '@type': 'ImageObject',
+            url: `${SITE_URL}/favicon.svg`,
+            width: 512,
+            height: 512,
+          },
         },
         url,
         mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+        image: {
+          '@type': 'ImageObject',
+          url: ogImage,
+          width: 1200,
+          height: 630,
+        },
         wordCount,
         timeRequired: `PT${readMinutes}M`,
         inLanguage: 'zh-CN',

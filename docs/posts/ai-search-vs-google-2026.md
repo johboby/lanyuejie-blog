@@ -13,8 +13,8 @@ tags:
 categories:
   - AI生产力工具
   - 搜索引擎
+  - 研究
 ---
-
 <p class="reading-time">⏱️ 阅读时间：约 15 分钟</p>
 
 <div class="toc">

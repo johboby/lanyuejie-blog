@@ -12,8 +12,8 @@ tags:
 categories:
   - 深度复盘
   - 效率方法论
+  - 研究
 ---
-
 <p class="reading-time">⏱️ 阅读时间：约15分钟</p>
 
 <div class="toc">
