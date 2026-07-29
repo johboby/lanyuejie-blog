@@ -462,6 +462,22 @@ export default defineConfig({
     },
   },
 
+  // 给正文所有图片注入 loading="lazy"，避免长文（如含 107 张图的报告）首屏并发请求拖慢 LCP。
+  // 跨目录 public 图已改为 /md_assets/ 绝对路径，此处只补懒加载属性。
+  markdown: {
+    config(md) {
+      const defaultImage = md.renderer.rules.image
+      md.renderer.rules.image = (tokens, idx, options, env, self) => {
+        const token = tokens[idx]
+        const aIndex = token.attrIndex('loading')
+        if (aIndex < 0) {
+          token.attrPush(['loading', 'lazy'])
+        }
+        return defaultImage(tokens, idx, options, env, self)
+      }
+    },
+  },
+
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/lanyuejie-blog/favicon.svg' }],
     ['link', { rel: 'alternate', type: 'application/rss+xml', title: `${SITE_NAME} RSS`, href: `${SITE_URL}/feed.xml` }],
