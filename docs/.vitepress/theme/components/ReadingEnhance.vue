@@ -34,13 +34,44 @@ function cycleFont() {
   setFont(next)
 }
 
+// 移动端长表格横向滚动：用带提示条的容器包裹可横向溢出的表格
+function setupScrollableTables() {
+  const doc = document.querySelector('.vp-doc')
+  if (!doc) return
+  const tables = doc.querySelectorAll('table')
+  tables.forEach(table => {
+    if (table.closest('.scrollable-table')) return
+    const wrap = document.createElement('div')
+    wrap.className = 'scrollable-table'
+    table.parentNode.insertBefore(wrap, table)
+    wrap.appendChild(table)
+    const hint = document.createElement('span')
+    hint.className = 'scrollable-table-hint'
+    hint.setAttribute('aria-hidden', 'true')
+    hint.textContent = '← 左右滑动查看完整表格 →'
+    wrap.appendChild(hint)
+  })
+  updateTableHints()
+}
+
+function updateTableHints() {
+  document.querySelectorAll('.scrollable-table').forEach(wrap => {
+    const table = wrap.querySelector('table')
+    if (!table) return
+    const overflow = table.scrollWidth - table.clientWidth > 4
+    wrap.classList.toggle('can-scroll', overflow)
+  })
+}
+
 onMounted(() => {
   const saved = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10)
   if (!Number.isNaN(saved)) fontSize.value = saved
   applyFont()
   window.addEventListener('scroll', onScroll, { passive: true })
   window.addEventListener('resize', onScroll)
+  window.addEventListener('resize', updateTableHints)
   onScroll()
+  requestAnimationFrame(setupScrollableTables)
 })
 
 onBeforeUnmount(() => {
@@ -51,7 +82,7 @@ onBeforeUnmount(() => {
 watch(() => page.value?.relativePath, () => {
   // reset progress on navigation; font persists
   progress.value = 0
-  requestAnimationFrame(() => { applyFont(); onScroll() })
+  requestAnimationFrame(() => { applyFont(); onScroll(); setupScrollableTables() })
 })
 </script>
 

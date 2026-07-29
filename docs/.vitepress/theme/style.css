@@ -346,25 +346,41 @@ body {
   min-height: 280px;
   overflow: hidden;
   background: var(--brand-primary-strong);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
 }
-.featured-media img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(0.72) contrast(1.02);
-  transition: transform 600ms var(--easing);
+/* 分类母题大字：差异化记忆点，替代单一 agriculture.jpg */
+.featured-media-glyph {
+  font-family: var(--font-display);
+  font-size: 4.4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.94);
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.22);
+  letter-spacing: 0.04em;
 }
-/* Brand-tinted veil — subtle, keeps photo visible in both themes */
+.featured-media-tag {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.82);
+  padding: 4px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(2px);
+}
+/* Brand-tinted veil — subtle, keeps brand tone in both themes */
 .featured-media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(150deg, rgba(22,59,50,0.30) 0%, rgba(22,59,50,0.06) 55%, rgba(201,168,76,0.10) 100%);
+  background: linear-gradient(150deg, rgba(22,59,50,0.22) 0%, rgba(22,59,50,0.04) 55%, rgba(201,168,76,0.12) 100%);
   pointer-events: none;
 }
-.featured-card:hover .featured-media img { transform: scale(1.04); }
+.featured-card:hover .featured-media { filter: saturate(1.05); }
 .featured-body {
   padding: var(--space-10) var(--space-8);
   display: flex;
@@ -857,10 +873,46 @@ body {
   display: block;
   width: max-content;
   max-width: 100%;
-  margin: 1.6em 0;
+  margin: 0;
   border-collapse: collapse;
   overflow-x: auto;
   font-size: 0.92em;
+  -webkit-overflow-scrolling: touch;
+}
+/* 移动端长表格横向滚动容器 + 提示条（仅当内容实际可横向溢出时显示） */
+.VPDoc .vp-doc .scrollable-table {
+  position: relative;
+  margin: 1.6em 0;
+}
+.VPDoc .vp-doc .scrollable-table table {
+  margin: 0;
+}
+.VPDoc .vp-doc .scrollable-table-hint {
+  display: none;
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  padding: 3px 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: rgba(31, 79, 66, 0.82);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-1);
+  pointer-events: none;
+  z-index: 2;
+  white-space: nowrap;
+}
+@media (max-width: 768px) {
+  .VPDoc .vp-doc .scrollable-table.can-scroll .scrollable-table-hint {
+    display: inline-block;
+    animation: table-hint-pulse 2.4s var(--easing) infinite;
+  }
+}
+@keyframes table-hint-pulse {
+  0%, 100% { opacity: 0.82; transform: translateX(0); }
+  50% { opacity: 1; transform: translateX(-3px); }
 }
 .VPDoc .vp-doc th {
   background: var(--vp-c-bg-alt);
