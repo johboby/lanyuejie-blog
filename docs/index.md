@@ -7,9 +7,22 @@ layout: page
 import { data as posts } from './.vitepress/posts.data.js'
 import { withBase } from 'vitepress'
 
-const recentPosts = (posts || []).slice(0, 6)
+const recentPosts = (posts || []).slice(0, 9)
 const featuredPost = recentPosts[0] || null
 const gridPosts = recentPosts.slice(1)
+
+// 基于标题生成稳定色相，让各卡片缩略图差异化（仍在品牌绿-金区间内），避免首字雷同
+function hueOf(title = '') {
+  let h = 0
+  for (let i = 0; i < title.length; i++) h = (h * 31 + title.charCodeAt(i)) % 360
+  return h
+}
+function mediaStyle(title) {
+  const h = hueOf(title)
+  return {
+    background: `radial-gradient(120% 120% at 0% 0%, hsla(${(h + 40) % 360},45%,55%,0.18) 0%, transparent 55%), linear-gradient(135deg, hsl(${h},38%,32%) 0%, hsl(${(h + 20) % 360},42%,26%) 100%)`,
+  }
+}
 
 const metrics = [
   { num: '98%', label: '标的识别精度' },
@@ -113,7 +126,7 @@ const techStack = [
       </a>
       <div class="post-grid">
         <a v-for="post in gridPosts" :key="post.url" :href="withBase(post.url)" class="post-card">
-          <div class="post-card-media" aria-hidden="true">
+          <div class="post-card-media" aria-hidden="true" :style="mediaStyle(post.title)">
             <span class="post-card-monogram">{{ (post.title || '').slice(0, 1) }}</span>
           </div>
           <div class="post-meta">

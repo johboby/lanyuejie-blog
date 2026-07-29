@@ -78,6 +78,186 @@ const SEO_EN = {
     description: 'March 2026 market trends analysis focusing on emerging industries, technology trends, and market opportunities including semiconductor innovation.',
     keywords: 'market analysis, emerging industry, semiconductor, Moore Law, technology trends',
   },
+  '2026-h2-economy-save-or-invest': {
+    title: '2026 H2 Economy: Should You Save or Invest?',
+    description: 'A practitioner guide to personal finance decisions in the second half of 2026, weighing saving, investing, and risk under economic uncertainty.',
+    keywords: 'economy 2026, save or invest, personal finance, economic outlook, investment strategy',
+  },
+  '2026-h2-economy-save-or-invest-zh': {
+    title: '2026 H2 Economy (Chinese): Save or Invest?',
+    description: '面向普通人的 2026 下半年经济展望：在不确定性中如何权衡储蓄与投资、控制风险并规划资产。',
+    keywords: '2026经济, 存钱还是投资, 个人理财, 经济展望, 资产配置',
+  },
+  'ai-10000-word-article-workflow': {
+    title: 'AI-Assisted 10,000-Word Article Workflow',
+    description: 'A complete, repeatable workflow for drafting a 10,000-word long-form article in a single day with AI assistance, broken down step by step.',
+    keywords: 'AI writing, long-form content, writing workflow, content production, productivity',
+  },
+  'ai-anxiety-guide': {
+    title: 'AI Anxiety Is a Real Condition: How to Live with Uncertainty',
+    description: 'A guide to understanding and coping with AI-induced anxiety, and finding peace while living alongside rapid technological uncertainty.',
+    keywords: 'AI anxiety, mental health, technology anxiety, coping, uncertainty',
+  },
+  'ai-app-dev-knowledge-graph-2026': {
+    title: 'Prompt to System Design: AI Dev Knowledge Graph 2026',
+    description: 'How to move from prompts to structured system design using an AI-driven development knowledge graph in 2026.',
+    keywords: 'AI development, knowledge graph, system design, software engineering, prompt engineering',
+  },
+  'ai-bulk-seo-30-day-experiment': {
+    title: 'AI SEO in 30 Days: Publishing 90 Articles, Here Is the Data',
+    description: 'A 30-day bulk SEO experiment publishing 90 AI-assisted articles, with honest traffic, ranking, and revenue data.',
+    keywords: 'AI SEO, content marketing, bulk publishing, SEO experiment, traffic growth',
+  },
+  'ai-data-analysis-excel-to-charts': {
+    title: 'AI Data Analysis 2026: Excel In, Charts and Insights Out',
+    description: 'How to turn raw Excel data into clear charts and actionable insights using AI data analysis tools in 2026.',
+    keywords: 'AI data analysis, Excel, data visualization, business intelligence, charts',
+  },
+  'ai-image-editing-tools-2026': {
+    title: '12 AI Image Editing Tools 2026: Cutout, Retouch, Outpaint Tested',
+    description: 'Hands-on testing of 12 AI image editing tools in 2026 covering cutout, retouching, and outpainting workflows.',
+    keywords: 'AI image editing, photo retouch, cutout, outpaint, image tools',
+  },
+  'ai-image-generators-ultimate-comparison': {
+    title: 'AI Art Generators Ultimate Showdown: Midjourney vs DALL-E vs Stable Diffusion 2026',
+    description: 'The definitive 2026 comparison of leading AI art generators Midjourney, DALL-E, and Stable Diffusion across quality, control, and cost.',
+    keywords: 'AI art, Midjourney, DALL-E, Stable Diffusion, image generation',
+  },
+  'ai-music-generation-suno-vs-udio-2026': {
+    title: 'AI Music 2026: Suno vs Udio, Can AI Make Good Songs?',
+    description: 'A 2026 comparison of AI music generators Suno and Udio, examining whether AI can produce genuinely good songs.',
+    keywords: 'AI music, Suno, Udio, music generation, generative audio',
+  },
+  'ai-personal-knowledge-base-2026': {
+    title: 'AI Knowledge Base 2026: From Notes to Smart Q&A System',
+    description: 'Build a personal AI knowledge base in 2026 that turns scattered notes into a searchable, conversational Q&A system.',
+    keywords: 'AI knowledge base, personal knowledge management, RAG, second brain, Q&A',
+  },
+  'ai-search-vs-google-2026': {
+    title: 'AI Search vs Google 2026: Perplexity, ChatGPT and Arc Tested',
+    description: 'A 2026 hands-on comparison of AI search engines Perplexity, ChatGPT, and Arc against traditional Google search.',
+    keywords: 'AI search, Perplexity, ChatGPT search, Google, search engines',
+  },
+  'ai-solo-social-media-sop-2026': {
+    title: 'AI Solo SOP: Run Social Media from Topic to Publish (2026)',
+    description: 'A standard operating procedure for solo creators to run an entire social media pipeline from topic research to publishing with AI in 2026.',
+    keywords: 'social media, AI workflow, content SOP, solo creator, automation',
+  },
+  'ai-subscription-bill-2026': {
+    title: 'My AI Subscription Bill in 2026: What I Pay and How I Cut It',
+    description: 'A transparent breakdown of one creator real AI subscription costs in 2026 and practical tips to cut the bill without losing capability.',
+    keywords: 'AI subscription, SaaS cost, cost cutting, productivity tools, AI stack',
+  },
+  'ai-training-avoid-scams': {
+    title: 'AI Training Courses: The Most Honest Scam-Avoidance Guide',
+    description: 'A no-nonsense guide to spotting and avoiding scams in the booming AI training course market.',
+    keywords: 'AI training, scam avoidance, online courses, AI education, pitfalls',
+  },
+  'ai-video-generation-2026-sora-kling-runway': {
+    title: 'AI Video 2026: Sora vs Kling vs Runway, Which Is Best?',
+    description: 'The 2026 showdown of AI video generators Sora, Kling, and Runway across quality, motion, and usability.',
+    keywords: 'AI video, Sora, Kling, Runway, video generation',
+  },
+  'ai-will-replace-white-collar-jobs': {
+    title: 'Will AI Replace 50% of White-Collar Jobs in 2 Years? A Calm Analysis',
+    description: 'A practitioner calmly analyzes whether AI will replace half of white-collar jobs within two years, separating hype from reality.',
+    keywords: 'AI jobs, white-collar, automation, future of work, employment',
+  },
+  'ai-will-replace-white-collar-jobs-2026-analysis': {
+    title: 'AI and White-Collar Jobs 2026: An Honest Analysis',
+    description: 'An honest 2026 analysis of how AI is reshaping white-collar work, with realistic timelines and actionable advice.',
+    keywords: 'AI jobs, white-collar, future of work, automation, career',
+  },
+  'blog-seo-growth-0-to-100k': {
+    title: 'From 0 to 100K: My Blog SEO Growth Retrospective (18-Month Data)',
+    description: 'A full retrospective of growing a blog from zero to 100K followers through SEO, with 18 months of real data and lessons.',
+    keywords: 'blog SEO, growth, organic traffic, content strategy, retrospective',
+  },
+  'chatgpt-vs-claude-vs-gemini-2026': {
+    title: 'ChatGPT vs Claude vs Gemini: 2026 In-Depth AI Comparison',
+    description: 'A 2026 deep comparison of ChatGPT, Claude, and Gemini across coding, writing, reasoning, multimodal, and pricing.',
+    keywords: 'ChatGPT, Claude, Gemini, AI comparison, LLM benchmark',
+  },
+  'deep-work-2026-short-video-focus': {
+    title: 'Deep Work in 2026: 4-Hour Focus in the Short-Video Era',
+    description: 'Practical strategies to achieve four hours of deep focus daily in 2026 despite the distraction of the short-video era.',
+    keywords: 'deep work, focus, productivity, attention, short video',
+  },
+  'early-rising-100-days': {
+    title: '100 Days Early Rising Experiment: Sleep Data, Productivity, Mood',
+    description: 'A complete record of a 100-day early rising experiment covering sleep data, work efficiency, and emotional changes.',
+    keywords: 'early rising, habit, sleep, productivity, self-experiment',
+  },
+  'early-rising-100-days-experiment-2026': {
+    title: '100 Days Early Rising: Data, Sleep and Mood (2026)',
+    description: 'A 2026 data-driven account of a 100-day early rising challenge, tracking sleep, mood, and productivity.',
+    keywords: 'early rising, habit tracking, sleep data, productivity, experiment',
+  },
+  'feynman-learning-method-ai-2026': {
+    title: 'Feynman Plus AI: Learn Any Skill by Teaching (2026)',
+    description: 'Combine the Feynman learning technique with AI to master any skill faster by teaching and getting instant feedback.',
+    keywords: 'Feynman technique, AI learning, skill acquisition, teaching, study method',
+  },
+  'feynman-technique-ai-2026': {
+    title: 'Feynman Technique Plus AI: Master Any Skill by Teaching',
+    description: 'How to use the Feynman technique powered by AI to truly master any skill through teaching and explanation.',
+    keywords: 'Feynman technique, AI tutor, learning method, mastery, study',
+  },
+  'fine-tune-ai-model-complete-guide-2026': {
+    title: 'Fine-Tune Your Own AI Model: Full Pipeline 2026',
+    description: 'A complete, practical pipeline for fine-tuning your own AI model in 2026, from data to deployment.',
+    keywords: 'fine-tuning, LLM training, model deployment, machine learning, custom model',
+  },
+  'humanoid-robot-home-2026': {
+    title: 'Humanoid Robots at Home 2026: Progress and Reality',
+    description: 'An assessment of humanoid robot progress for home use in 2026, separating demo hype from real-world capability.',
+    keywords: 'humanoid robot, robotics, home automation, AI hardware, 2026',
+  },
+  'letter-to-2026-graduates': {
+    title: 'A Letter to the 2026 Graduates: What Is Truly Irreplaceable in the AI Era',
+    description: 'A letter to 2026 graduates on the human abilities that remain irreplaceable as AI reshapes the workforce.',
+    keywords: 'graduation, AI era, career advice, future of work, human skills',
+  },
+  'local-llm-deployment-guide-llama4-qwen3': {
+    title: 'Local LLM Guide: Llama 4 and Qwen 3 Deployment plus Hardware',
+    description: 'A practical guide to deploying local LLMs Llama 4 and Qwen 3, including hardware requirements and setup.',
+    keywords: 'local LLM, Llama 4, Qwen 3, self-hosting, AI hardware',
+  },
+  'minimalist-app-stack-2026': {
+    title: 'Minimalist App Stack 2026: 8 Apps to Run My Whole Life',
+    description: 'How a minimalist app stack of just 8 applications runs an entire life and work system in 2026.',
+    keywords: 'minimalism, app stack, productivity, tools, digital minimalism',
+  },
+  'minimalist-tool-stack': {
+    title: 'Minimalist Toolism: Only 8 Apps to Manage My Whole Life and Work',
+    description: 'A minimalist approach using just eight apps to manage all of life and work, cutting tool sprawl and cognitive load.',
+    keywords: 'minimalism, productivity tools, app stack, digital declutter, workflow',
+  },
+  'notion-ai-second-brain-2026': {
+    title: 'Notion AI Second Brain 2026: PARA Setup and Free Template',
+    description: 'Build a Notion AI second brain in 2026 with a PARA setup and a free downloadable template.',
+    keywords: 'Notion AI, second brain, PARA, knowledge management, template',
+  },
+  'notion-ai-second-brain-guide': {
+    title: 'Notion Plus AI Second Brain: My Complete Setup and Free Template',
+    description: 'My complete Notion and AI second brain setup with a free template to replicate the system.',
+    keywords: 'Notion, AI second brain, PARA, productivity, template',
+  },
+  'python-ai-customer-service-bot': {
+    title: 'Python Plus AI: Build a Smart Customer Service Bot in 100 Lines',
+    description: 'A step-by-step tutorial to build a smart AI customer service bot in about 100 lines of Python.',
+    keywords: 'Python, AI bot, customer service, chatbot, tutorial',
+  },
+  'web3-2026-real-use-cases': {
+    title: 'Is Web3 Dead? Real Blockchain Use Cases in 2026',
+    description: 'An honest look at whether Web3 is dead and the blockchain use cases that are actually working in 2026.',
+    keywords: 'Web3, blockchain, use cases, crypto, decentralized',
+  },
+  'why-start-blogging-now': {
+    title: 'Why I Urge You to Start Blogging Now (Even If No One Reads)',
+    description: 'A sincere argument for starting a blog in 2026 even with zero audience, for clarity, knowledge compounding, and career opportunity.',
+    keywords: 'blogging, writing, personal growth, knowledge compounding, digital garden',
+  },
 }
 
 function getEnMeta(relativePath) {
@@ -590,5 +770,42 @@ ${items}
     ].join('\n')
 
     writeFileSync(resolve(outDir, 'llms-full.txt'), llmsFull, { encoding: 'utf-8' })
+
+    // 精简版 llms.txt：从 SSG 数据自动生成完整文章清单，避免手写遗漏（原先静态仅 12 篇）
+    const llmsIndex = [
+      `# ${SITE_NAME}`,
+      '',
+      `> ${SITE_DESCRIPTION} | ${SITE_URL}`,
+      '',
+      '揽月界科技是一家专注于人工智能与风险控制的前沿科技企业，核心业务涵盖智能保险、畜牧业风险监测、农业标准化数据库。',
+      '',
+      '## 联系方式',
+      '',
+      '- 邮箱：samhoclub@163.com',
+      '- 微信：cy321one',
+      '- 公众号：尘渊文化',
+      '',
+      '## 产品平台',
+      '',
+      '- 生猪养殖风险监测：https://szxt.cycu.top',
+      '- 牦牛监测和智能保险：https://agri.cycu.top',
+      '- 农业标准化基础数据库：https://risk.cycu.top',
+      '',
+      '## 研究报告',
+      '',
+      ...posts.map(post => {
+        const slug = post.url.replace('/posts/', '').replace(/\/$/, '').replace('.html', '')
+        const enMeta = SEO_EN[slug]
+        const title = enMeta ? `${enforceTitle(post.frontmatter.title)} / ${enforceTitle(enMeta.title)}` : enforceTitle(post.frontmatter.title)
+        return `- [${title}](${SITE_URL}${post.url})`
+      }),
+      '',
+      '## 可选：详细内容',
+      '',
+      `- [llms-full.txt](${SITE_URL}/llms-full.txt) — 包含所有文章摘要的完整版`,
+      '',
+    ].join('\n')
+
+    writeFileSync(resolve(outDir, 'llms.txt'), llmsIndex, { encoding: 'utf-8' })
   },
 })
