@@ -1,0 +1,13 @@
+diff --git a/node_modules/vitepress/dist/node/chunk-D3CUZ4fa.js b/node_modules/vitepress/dist/node/chunk-D3CUZ4fa.js
+index 6ffdd2d..8745f65 100644
+--- a/node_modules/vitepress/dist/node/chunk-D3CUZ4fa.js
++++ b/node_modules/vitepress/dist/node/chunk-D3CUZ4fa.js
+@@ -49506,7 +49506,7 @@ function resolvePageImports(config, page, result, appChunk) {
+   }
+   srcPath = normalizePath(srcPath);
+   const pageChunk = result.output.find(
+-    (chunk) => chunk.type === "chunk" && chunk.facadeModuleId === srcPath
++    (chunk) => chunk.type === "chunk" && chunk.facadeModuleId && chunk.facadeModuleId.toLowerCase() === srcPath.toLowerCase()
+   );
+   return [
+     ...appChunk.imports,

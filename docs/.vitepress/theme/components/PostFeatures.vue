@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useData, withBase } from 'vitepress'
 import { data as allPosts } from '../../posts.data.js'
 
@@ -54,6 +54,36 @@ const showRelated = computed(() => isPost.value && relatedPosts.value.length > 0
 const showFAQ = computed(() => isPost.value && faqs.value.length >= 3)
 const showExternalLinks = computed(() => isPost.value && externalLinks.value.length >= 2)
 const showCTA = computed(() => isPost.value)
+
+// 社交分享：优先调用原生 Web Share API，降级到各平台分享链接
+const shareUrl = computed(() => {
+  const rp = page.value?.relativePath || ''
+  return rp ? `${SITE_URL}/${rp.replace(/\.md$/, '.html')}` : SITE_URL
+})
+const shareTitle = computed(() => frontmatter.value.title || SITE_NAME)
+function shareNative() {
+  if (navigator.share) {
+    navigator.share({ title: shareTitle.value, url: shareUrl.value }).catch(() => {})
+  }
+}
+function shareTo(platform) {
+  const u = encodeURIComponent(shareUrl.value)
+  const t = encodeURIComponent(shareTitle.value)
+  const map = {
+    weibo: `https://service.weibo.com/share/share.php?url=${u}&title=${t}`,
+    twitter: `https://twitter.com/intent/tweet?url=${u}&text=${t}`,
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${u}`,
+  }
+  if (map[platform]) window.open(map[platform], '_blank', 'noopener')
+}
+async function copyLink() {
+  try {
+    await navigator.clipboard.writeText(shareUrl.value)
+    copied.value = true
+    setTimeout(() => (copied.value = false), 1800)
+  } catch {}
+}
+const copied = ref(false)
 
 // 上一篇/下一篇：allPosts 已按日期倒序（新→旧），当前项的前一个更旧、后一个更新
 const adjPosts = computed(() => {
@@ -121,9 +151,15 @@ const showAdj = computed(() => isPost.value && (adjPosts.value.prev || adjPosts.
       <div class="cta-content">
         <p class="cta-text">觉得这篇文章对您有帮助？</p>
         <div class="cta-actions">
-          <a :href="withBase('/posts/')" class="cta-btn cta-collect">收藏文章</a>
-          <a href="mailto:samhoclub@163.com" class="cta-btn cta-comment">评论反馈</a>
+          <button class="cta-btn cta-share" @click="shareNative" aria-label="分享文章">分享给朋友</button>
+          <a href="mailto:samhoclub@163.com?subject=文章反馈" class="cta-btn cta-comment">评论反馈</a>
           <a :href="withBase('/feed.xml')" class="cta-btn cta-subscribe">订阅 RSS</a>
+        </div>
+        <div class="share-row" role="group" aria-label="分享到社交平台">
+          <button class="share-btn" @click="shareTo('weibo')" aria-label="分享到微博">微博</button>
+          <button class="share-btn" @click="shareTo('twitter')" aria-label="分享到 Twitter">Twitter</button>
+          <button class="share-btn" @click="shareTo('linkedin')" aria-label="分享到 LinkedIn">LinkedIn</button>
+          <button class="share-btn" @click="copyLink" :aria-label="copied ? '已复制' : '复制链接'">{{ copied ? '已复制 ✓' : '复制链接' }}</button>
         </div>
       </div>
     </div>
@@ -336,6 +372,18 @@ const showAdj = computed(() => isPost.value && (adjPosts.value.prev || adjPosts.
   border: 1px solid var(--vp-c-brand-1);
 }
 
+.cta-share {
+  background: var(--vp-c-brand-1);
+  color: #fff;
+  border: 1px solid var(--vp-c-brand-1);
+  cursor: pointer;
+}
+.cta-share:hover {
+  background: var(--vp-c-brand-2);
+  border-color: var(--vp-c-brand-2);
+  transform: translateY(-1px);
+}
+
 .cta-collect:hover {
   background: var(--vp-c-brand-2);
   border-color: var(--vp-c-brand-2);
@@ -364,6 +412,32 @@ const showAdj = computed(() => isPost.value && (adjPosts.value.prev || adjPosts.
   border-color: var(--vp-c-accent-hover, #b89a3a);
   transform: translateY(-1px);
 }
+
+.share-row {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+.share-btn {
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-2);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s var(--easing);
+}
+.share-btn:hover {
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+  transform: translateY(-1px);
+}
+.share-btn:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 1px; }
 
 @media (max-width: 768px) {
   .post-features {

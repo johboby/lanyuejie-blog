@@ -192,6 +192,21 @@ const techStack = [
     </div>
   </section>
 
+  <section class="section subscribe">
+    <div class="subscribe-card">
+      <div class="subscribe-inner">
+        <span class="eyebrow">STAY UPDATED</span>
+        <h2 class="section-title">订阅研究更新</h2>
+        <p class="section-subtitle">第一时间获取 AI 与风险控制前沿深度报告，不打扰、可随时退订</p>
+        <div class="subscribe-actions">
+          <a :href="withBase('/feed.xml')" class="btn btn-primary">订阅 RSS</a>
+          <a href="mailto:samhoclub@163.com?subject=订阅研究更新" class="btn btn-secondary">邮件订阅</a>
+        </div>
+        <p class="subscribe-note">或微信搜索公众号「尘渊文化」获取最新研究</p>
+      </div>
+    </div>
+  </section>
+
   <section class="section contact" id="contact">
     <div class="contact-card">
       <div class="section-head">

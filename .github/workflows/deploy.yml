@@ -52,16 +52,20 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: IndexNow - Submit sitemap to search engines
+      - name: Notify search engines (IndexNow + sitemap ping)
         if: success()
         run: |
           KEY="Lb9E0UHr7c6jRwtmJlQzZa3BqvfPoYeK"
           HOST="johboby.github.io"
           SITEMAP_URL="https://johboby.github.io/lanyuejie-blog/sitemap.xml"
-          # 提交站点地图，自动覆盖全部文章，无需硬编码 URL 列表
+          # IndexNow：覆盖 Bing / Yandex / Seznam 等国际引擎，自动收录全部文章
           BODY="{\"host\":\"${HOST}\",\"key\":\"${KEY}\",\"url\":\"${SITEMAP_URL}\"}"
           echo "Submitting sitemap to IndexNow endpoints..."
           curl -s -o /dev/null -w "IndexNow API: %{http_code}\n" -X POST "https://api.indexnow.org/indexnow" -H "Content-Type: application/json" -d "$BODY" || true
           curl -s -o /dev/null -w "Bing: %{http_code}\n" -X POST "https://www.bing.com/indexnow" -H "Content-Type: application/json" -d "$BODY" || true
           curl -s -o /dev/null -w "Yandex: %{http_code}\n" -X POST "https://yandex.com/indexnow" -H "Content-Type: application/json" -d "$BODY" || true
           curl -s -o /dev/null -w "Seznam: %{http_code}\n" -X POST "https://search.seznam.cz/indexnow" -H "Content-Type: application/json" -d "$BODY" || true
+          # 中文搜索引擎 sitemap ping（无需 token，主动通知更新，加速百度/搜狗收录）
+          echo "Pinging Chinese search engines with sitemap..."
+          curl -s -o /dev/null -w "Baidu ping: %{http_code}\n" "https://www.baidu.com/ping?sitemap=${SITEMAP_URL}" || true
+          curl -s -o /dev/null -w "Sogou ping: %{http_code}\n" "https://www.sogou.com/ping?sitemap=${SITEMAP_URL}" || true

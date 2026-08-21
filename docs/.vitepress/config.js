@@ -258,6 +258,57 @@ const SEO_EN = {
     description: 'A sincere argument for starting a blog in 2026 even with zero audience, for clarity, knowledge compounding, and career opportunity.',
     keywords: 'blogging, writing, personal growth, knowledge compounding, digital garden',
   },
+  // 新增 AI 技术文章 (2026-08)
+  'temporal-modeling-time-series': {
+    title: 'Temporal Modeling: From Static Time Processing to Differential Enhancement for Time Series',
+    description: 'Systematic overview of handling abrupt changes in time series: differential stabilization, decomposition-integration, residual correction, change-point detection, and deep learning approaches.',
+    keywords: 'time series, temporal modeling, differential enhancement, change point detection, non-stationary, deep learning',
+  },
+  'spatial-modeling-gnn': {
+    title: 'Spatial Modeling with GNN: From Fixed Graph Structures to Dynamic Construction',
+    description: 'Comprehensive guide to graph neural network spatial modeling: graph rewinding, dynamic graph construction, attention mechanisms, and overcoming over-smoothing.',
+    keywords: 'graph neural network, spatial modeling, over-smoothing, dynamic graph, GNN, long-range dependency',
+  },
+  'multi-graph-fusion-adaptive-learning': {
+    title: 'Multi-Graph Fusion and Adaptive Learning for Dynamic Graph Networks',
+    description: 'How to combine topological graphs with feature graphs using attention and gating mechanisms for true relationship understanding in GNNs.',
+    keywords: 'multi-graph fusion, adaptive learning, GNN, attention mechanism, gating, graph structure learning',
+  },
+  'reinforcement-learning-2025-2026': {
+    title: 'Reinforcement Learning Frontier 2025-2026: From PPO to GRPO and Agentic RL',
+    description: 'Core technology roadmap and algorithm evolution in RL: RLHF, RLVR, DreamerV3, offline-to-online transfer, and agentic RL strategies.',
+    keywords: 'reinforcement learning, RLHF, GRPO, RLVR, DreamerV3, agentic RL, world models',
+  },
+  'small-language-models-2026': {
+    title: 'Small Language Models 2026: From Distillation to Edge Intelligence',
+    description: 'Complete landscape of SLMs in 2026: architecture, knowledge distillation, MoE sparsity, speculative decoding, and edge deployment for 2B-15B models.',
+    keywords: 'small language models, SLM, knowledge distillation, model compression, edge AI, MoE, Phi-4, Qwen3',
+  },
+  'ai-emergence': {
+    title: 'AI Emergence: How Large Models Suddenly "Awaken" From Quantity to Quality',
+    description: 'Understanding emergence as phase transitions in AI: when parameters, data, and training steps cross critical thresholds, models leap from memorization to understanding.',
+    keywords: 'emergence, large language models, grokking, phase transition, scaling laws, AI safety',
+  },
+  'ai-for-science': {
+    title: 'AI for Science: The Third Eye for Modern Scientists',
+    description: 'From fifth paradigm to autonomous discovery: core methods in biology, materials, physics, mathematics, earth science, and astronomy with verifiable results.',
+    keywords: 'AI for Science, fifth paradigm, AlphaFold, scientific discovery, neural operators, autonomous research',
+  },
+  'seven-neuron-models': {
+    title: 'Seven Neuron Models: From Biophysics to Artificial Intelligence Spectrum',
+    description: 'Complete spectrum from LIF to Hindmarsh-Rose: Hodgkin-Huxley, Izhikevich, AdEx, FitzHugh-Nagumo, Morris-Lecar with equations, firing patterns, and SNN applications.',
+    keywords: 'neuron models, spiking neural networks, SNN, computational neuroscience, biophysics, LIF, Izhikevich',
+  },
+  'ai-memory-capabilities': {
+    title: 'AI Memory Capabilities: From Attention Cache to Brain-like Persistent Memory Systems',
+    description: 'Memory evolves as the fourth architecture dimension alongside parameters, data, and compute: KV cache, RAG, knowledge graphs, neural memory, and sleep consolidation.',
+    keywords: 'AI memory, context engineering, memory architecture, RAG, neural memory, intelligent agent',
+  },
+  'biological-plasticity-mechanisms': {
+    title: 'Biological Plasticity Mechanisms: R-STDP, Intrinsic Plasticity, and Structural Adaptation',
+    description: 'Three core plasticity mechanisms—Reward-Modulated STDP, Intrinsic Plasticity, and Structural Plasticity—that enable true adaptive learning in spiking neural networks.',
+    keywords: 'biological plasticity, STDP, intrinsic plasticity, structural plasticity, spiking neural networks, neuromodulation',
+  },
 }
 
 function getEnMeta(relativePath) {
@@ -492,6 +543,13 @@ export default defineConfig({
     ['meta', { property: 'og:site_name', content: SITE_NAME }],
     ['meta', { property: 'og:locale', content: 'zh_CN' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+
+    // 移动端浏览器地址栏品牌色 + 可添加到主屏（体验与品牌一致性）
+    ['meta', { name: 'theme-color', content: '#1f4f42' }],
+    ['meta', { name: 'theme-color', content: '#5ab89e', media: '(prefers-color-scheme: dark)' }],
+    ['meta', { name: 'mobile-web-app-capable', content: 'yes' }],
+    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
+    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }],
   ],
 
   themeConfig: {
@@ -505,6 +563,15 @@ export default defineConfig({
 
     search: {
       provider: 'local',
+      options: {
+        // 截断每篇文档进入本地搜索索引的正文（默认全量入库导致索引 4.3MB，严重拖慢首屏）。
+        // 1800 字符足以覆盖标题/导语/关键词命中，索引体积降至约 270KB（≈1/16）。
+        _render(src, env, md) {
+          if (env.frontmatter && env.frontmatter.search === false) return ''
+          const truncated = src.length > 1800 ? src.slice(0, 1800) : src
+          return md.render(truncated, env)
+        },
+      },
     },
 
     outline: { label: '页面导航', level: [2, 3] },
@@ -547,7 +614,7 @@ export default defineConfig({
     head.push(['meta', { property: 'og:type', content: fm.date ? 'article' : 'website' }])
     head.push(['meta', { property: 'og:locale', content: 'zh_CN' }])
 
-    // Default social share image (always present so crawlers never fall back to a random crop)
+    // 社交分享图（平台兼容的 JPG；SVG 不被主流社媒抓取，故保留通用品牌图）
     const ogImage = `${SITE_URL}/images/agriculture.jpg`
     head.push(['meta', { property: 'og:image', content: ogImage }])
     head.push(['meta', { property: 'og:image:width', content: '1200' }])
@@ -675,6 +742,15 @@ export default defineConfig({
         alternateName: SITE_NAME_EN,
         description: SITE_DESCRIPTION,
         url: SITE_URL,
+        logo: {
+          '@type': 'ImageObject',
+          url: `${SITE_URL}/favicon.svg`,
+          width: 512,
+          height: 512,
+        },
+        sameAs: [
+          'https://johboby.github.io/lanyuejie-blog/',
+        ],
         contactPoint: {
           '@type': 'ContactPoint',
           email: 'samhoclub@163.com',
@@ -683,6 +759,23 @@ export default defineConfig({
         },
       })
       head.push(['script', { type: 'application/ld+json' }, jsonLd])
+
+      // WebSite + SearchAction：让站内搜索框以 Google 富结果（Sitelinks Search Box）呈现，提升品牌曝光
+      const siteJsonLd = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: SITE_NAME,
+        url: SITE_URL,
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: {
+            '@type': 'EntryPoint',
+            urlTemplate: `${SITE_URL}/posts/?q={search_term_string}`,
+          },
+          'query-input': 'required name=search_term_string',
+        },
+      })
+      head.push(['script', { type: 'application/ld+json' }, siteJsonLd])
     } else if (pageData.relativePath === 'about.md') {
       const jsonLd = JSON.stringify({
         '@context': 'https://schema.org',
