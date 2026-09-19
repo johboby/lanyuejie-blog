@@ -1,9 +1,9 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
+import { computed, ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import { useData } from 'vitepress'
 
 const { page } = useData()
-const isPost = () => page.value?.relativePath?.startsWith('posts/') && !page.value?.relativePath?.endsWith('index.md')
+const isPost = computed(() => page.value?.relativePath?.startsWith('posts/') && !page.value?.relativePath?.endsWith('index.md'))
 
 const progress = ref(0)
 // 字号状态：-1 小号 / 0 标准 / 1 大号
@@ -89,7 +89,7 @@ watch(() => page.value?.relativePath, () => {
 </script>
 
 <template>
-  <div v-if="isPost()">
+  <div v-if="isPost">
     <div class="reading-bar" :class="{ visible: progress > 0 }" aria-hidden="true">
       <div class="reading-bar-fill" :style="{ width: progress + '%' }"></div>
     </div>

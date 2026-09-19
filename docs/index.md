@@ -1,4 +1,4 @@
----
+﻿---
 title: 揽月界科技
 layout: page
 ---
@@ -88,9 +88,16 @@ const techStack = [
   { title: '自适应进化引擎', desc: '动态反馈驱动算法持续优化，系统越用越精准' },
   { title: '安全合规闭环', desc: '国密算法 + 零信任架构 + 区块链存证，全链路可追溯' },
 ]
+
+const newsItems = [
+  { title: '2026年AI风控行业趋势报告', desc: '基于大模型的智能风控系统正在重塑农业保险与灾害防控格局', date: '2026-09-15', tag: '趋势' },
+  { title: '多模态AI在牲畜识别中的应用实践', desc: '融合图像与传感器的多模态方案大幅提升标的识别准确率', date: '2026-08-28', tag: '技术' },
+  { title: '农业保险智能化转型白皮书', desc: '从传统理赔到智能风控，全链路数字化转型的实践与思考', date: '2026-08-10', tag: '行业' },
+]
 </script>
 
 <div class="home">
+  <!-- Hero: Unitree 风格大视觉 Hero -->
   <section class="hero">
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-inner">
@@ -111,6 +118,7 @@ const techStack = [
     </div>
   </section>
 
+  <!-- Products: Unitree 风格编号卡片网格 -->
   <section class="section products">
     <div class="section-inner">
       <div class="section-head">
@@ -129,6 +137,7 @@ const techStack = [
     </div>
   </section>
 
+  <!-- Tech: Unitree 风格技术卡片 -->
   <section class="section tech">
     <div class="section-inner">
       <div class="section-head">
@@ -138,6 +147,7 @@ const techStack = [
       </div>
       <div class="tech-grid">
         <div v-for="t in techStack" :key="t.title" class="tech-card">
+          <span class="tech-card-icon" aria-hidden="true">◆</span>
           <h3>{{ t.title }}</h3>
           <p>{{ t.desc }}</p>
         </div>
@@ -145,6 +155,7 @@ const techStack = [
     </div>
   </section>
 
+  <!-- Posts: 精选研究 -->
   <section class="section posts-section">
     <div class="section-inner">
       <div class="section-head">
@@ -192,6 +203,26 @@ const techStack = [
     </div>
   </section>
 
+  <!-- News/Events: Unitree 风格新闻时间线 -->
+  <section class="section news">
+    <div class="section-inner">
+      <div class="section-head">
+        <span class="eyebrow">NEWS</span>
+        <h2 class="section-title">最新动态</h2>
+        <p class="section-subtitle">行业洞察与技术前沿，第一时间送达</p>
+      </div>
+      <div class="news-list">
+        <a v-for="item in newsItems" :key="item.title" href="#" class="news-item">
+          <span class="news-date">{{ item.date }}</span>
+          <span class="news-tag">{{ item.tag }}</span>
+          <h3 class="news-title">{{ item.title }}</h3>
+          <p class="news-desc">{{ item.desc }}</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subscribe -->
   <section class="section subscribe">
     <div class="subscribe-card">
       <div class="subscribe-inner">
@@ -207,6 +238,7 @@ const techStack = [
     </div>
   </section>
 
+  <!-- Contact -->
   <section class="section contact" id="contact">
     <div class="contact-card">
       <div class="section-head">

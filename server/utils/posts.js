@@ -10,6 +10,31 @@ function ensureDir() {
   fs.ensureDirSync(POSTS_DIR)
 }
 
+/**
+ * 只读 frontmatter（不同步读取全文），返回 { slug, filename, fm, raw }
+ * 用于仅需元数据的场景（统计/搜索/分类），避免全量 readFileSync + matter 解析
+ */
+function readFrontmatter(file) {
+  const raw = fs.readFileSync(path.join(POSTS_DIR, file), 'utf-8')
+  const fmMatch = raw.match(/^---\s*\n([\s\S]*?)\n---/)
+  const fm = {}
+  if (fmMatch) {
+    fmMatch[1].split('\n').forEach(line => {
+      const idx = line.indexOf(':')
+      if (idx < 0) return
+      const key = line.slice(0, idx).trim()
+      let val = line.slice(idx + 1).trim()
+      if (val.startsWith('[')) {
+        try { val = JSON.parse(val) } catch { val = val.replace(/^\[|\]$/g, '').split(',').map(s => s.trim().replace(/^["']|["']$/g, '')) }
+      } else if (val.startsWith('"') || val.startsWith("'")) {
+        val = val.slice(1, -1)
+      }
+      fm[key] = val
+    })
+  }
+  return { slug: file.replace('.md', ''), filename: file, fm, raw }
+}
+
 export function listPosts({ status, category, tag, page = 1, pageSize = 20 } = {}) {
   page = parseInt(page, 10) || 1
   pageSize = parseInt(pageSize, 10) || 20
@@ -17,14 +42,8 @@ export function listPosts({ status, category, tag, page = 1, pageSize = 20 } = {
   const files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md') && f !== 'index.md')
   let posts = files.map(file => {
     const raw = fs.readFileSync(path.join(POSTS_DIR, file), 'utf-8')
-    const { data, content } = matter(raw)
-    return {
-      slug: file.replace('.md', ''),
-      filename: file,
-      ...data,
-      content,
-      status: data.status || 'published',
-    }
+    const { data: fm, content } = matter(raw)
+    return { slug: file.replace('.md', ''), filename: file, ...fm, content, status: fm.status || 'published' }
   })
 
   if (status) posts = posts.filter(p => p.status === status)
@@ -35,28 +54,24 @@ export function listPosts({ status, category, tag, page = 1, pageSize = 20 } = {
 
   const total = posts.length
   const start = (page - 1) * pageSize
+  const paged = posts.slice(start, start + pageSize)
 
-  function countWords(src) {
-    const text = (src || '')
-      .replace(/^---[\s\S]*?---/, '')
-      .replace(/[#>*_`~\-]/g, ' ')
-      .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
-    const chinese = (text.match(/[一-龥]/g) || []).length
-    const english = text.replace(/[一-龥]/g, ' ').split(/\s+/).filter(Boolean).length
-    return chinese + english
-  }
+  return { total, page, pageSize, posts: paged.map(p => ({
+    ...p,
+    wordCount: countWords(p.content),
+    description: p.description || '',
+  })) }
+}
 
-  posts = posts.slice(start, start + pageSize).map(p => {
-    const { content: _, ...rest } = p
-    const wordCount = countWords(p.content)
-    return {
-      ...rest,
-      wordCount,
-      description: rest.description || '',
-    }
-  })
-
-  return { total, page, pageSize, posts }
+/** 模块级工具：字数统计（从正文文本计算） */
+function countWords(src) {
+  const text = (src || '')
+    .replace(/^---[\s\S]*?---/, '')
+    .replace(/[#>*_`~\-]/g, ' ')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+  const chinese = (text.match(/[一-龥]/g) || []).length
+  const english = text.replace(/[一-龥]/g, ' ').split(/\s+/).filter(Boolean).length
+  return chinese + english
 }
 
 export function getPost(slug) {
@@ -123,20 +138,22 @@ export function deletePost(slug) {
 }
 
 export function getCategories() {
-  const { posts } = listPosts()
+  ensureDir()
+  const files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md') && f !== 'index.md')
   const catMap = {}
-  posts.forEach(p => {
-    const cats = p.categories || ['未分类']
+  for (const file of files) {
+    const { fm } = readFrontmatter(file)
+    const cats = fm.categories || ['未分类']
     cats.forEach(cat => {
       if (!catMap[cat]) catMap[cat] = { count: 0, posts: [] }
       catMap[cat].count += 1
-      catMap[cat].posts.push({ title: p.title, slug: p.slug, date: p.date })
+      catMap[cat].posts.push({ title: fm.title, slug: file.replace('.md', ''), date: fm.date })
     })
-  })
+  }
   return catMap
 }
 
-// 轻量统计：仅读取 frontmatter，不解析全文，避免 pageSize: 1000 暴力读取全文
+// 轻量统计：仅读取 frontmatter，不解析全文
 export function getPostStats() {
   ensureDir()
   const files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md') && f !== 'index.md')
@@ -146,23 +163,8 @@ export function getPostStats() {
   let latestDate = null
   for (const file of files) {
     try {
-      const raw = fs.readFileSync(path.join(POSTS_DIR, file), 'utf-8')
-      const fmMatch = raw.match(/^---\s*\n([\s\S]*?)\n---/)
-      if (!fmMatch) continue
+      const { fm } = readFrontmatter(file)
       total++
-      const fm = {}
-      fmMatch[1].split('\n').forEach(line => {
-        const idx = line.indexOf(':')
-        if (idx < 0) return
-        const key = line.slice(0, idx).trim()
-        let val = line.slice(idx + 1).trim()
-        if (val.startsWith('[')) {
-          try { val = JSON.parse(val) } catch { val = val.replace(/^\[|\]$/g, '').split(',').map(s => s.trim().replace(/^["']|["']$/g, '')) }
-        } else if (val.startsWith('"') || val.startsWith("'")) {
-          val = val.slice(1, -1)
-        }
-        fm[key] = val
-      })
       const cats = fm.categories || ['未分类']
       cats.forEach(cat => { catMap[cat] = (catMap[cat] || 0) + 1 })
       ;(fm.tags || []).forEach(t => { tagMap[t] = (tagMap[t] || 0) + 1 })
@@ -184,12 +186,14 @@ export function getPostStats() {
 }
 
 export function searchPosts(keyword) {
-  const { posts } = listPosts()
+  ensureDir()
+  const files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md') && f !== 'index.md')
   const kw = keyword.toLowerCase()
-  return posts.filter(p =>
-    (p.title || '').toLowerCase().includes(kw) ||
-    (p.description || '').toLowerCase().includes(kw) ||
-    (p.tags || []).some(t => t.toLowerCase().includes(kw)) ||
-    (p.categories || []).some(c => c.toLowerCase().includes(kw))
-  )
+  return files.map(f => readFrontmatter(f)).filter(({ fm }) => {
+    const title = (fm.title || '').toLowerCase()
+    const desc = (fm.description || '').toLowerCase()
+    const tags = (fm.tags || []).map(t => t.toLowerCase())
+    const cats = (fm.categories || []).map(c => c.toLowerCase())
+    return title.includes(kw) || desc.includes(kw) || tags.some(t => t.includes(kw)) || cats.some(c => c.includes(kw))
+  }).map(({ slug, fm }) => ({ slug, ...fm }))
 }

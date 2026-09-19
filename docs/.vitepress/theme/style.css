@@ -60,6 +60,7 @@
   --content-max: 1152px;
   --reading-max: 760px;
   --section-pad: 72px;
+  --vp-custom-spacing: 3rem;
 }
 
 .dark {
@@ -1078,4 +1079,343 @@ body {
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
+}
+/* News/Events Timeline — Unitree 风格新闻动态区
+   Timeline entry: date tag + title + description, left accent bar */
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.news-item {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: var(--space-5);
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--vp-c-divider);
+  text-decoration: none;
+  color: var(--vp-c-text-1);
+  transition: background var(--motion-fast) var(--easing);
+}
+.news-item:hover {
+  background: var(--vp-c-brand-soft);
+  margin: 0 calc(-1 * var(--space-6));
+  padding-left: var(--space-6);
+  padding-right: var(--space-6);
+  border-radius: var(--radius-sm);
+}
+.news-item:last-child { border-bottom: none; }
+.news-date {
+  font-size: 0.82rem;
+  color: var(--brand-primary);
+  font-weight: 600;
+  white-space: nowrap;
+  padding-top: 2px;
+}
+.news-tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--brand-accent-soft);
+  color: var(--brand-accent);
+  margin-bottom: var(--space-2);
+  letter-spacing: 0.04em;
+}
+.news-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 var(--space-2);
+  color: var(--vp-c-text-1);
+  line-height: 1.45;
+}
+.news-item:hover .news-title { color: var(--brand-primary); }
+.news-desc {
+  font-size: 0.88rem;
+  color: var(--vp-c-text-3);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Product cards — enhanced hover with Unitree 风格 */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-8) var(--space-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--vp-c-divider);
+  background: var(--surface-soft);
+  text-decoration: none;
+  color: var(--vp-c-text-1);
+  transition: border-color var(--motion-standard) var(--easing),
+              box-shadow var(--motion-standard) var(--easing),
+              transform var(--motion-standard) var(--easing);
+}
+.product-card:hover {
+  border-color: var(--brand-primary);
+  box-shadow: var(--shadow-3);
+  transform: translateY(-4px);
+}
+.product-card:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 2px; }
+.product-index {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--brand-primary);
+  opacity: 0.18;
+  line-height: 1;
+  margin-bottom: var(--space-4);
+}
+.product-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 var(--space-3);
+  color: var(--vp-c-text-1);
+}
+.product-card p {
+  font-size: 0.9rem;
+  color: var(--vp-c-text-3);
+  line-height: 1.65;
+  margin: 0 0 var(--space-5);
+  flex: 1;
+}
+.product-link {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--brand-primary);
+  text-decoration: none;
+  transition: color var(--motion-fast) var(--easing);
+}
+.product-link:hover { color: var(--brand-primary-hover); text-decoration: underline; }
+
+/* Tech cards — enhanced with icon */
+.tech-card {
+  padding: var(--space-8) var(--space-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--vp-c-divider);
+  background: var(--surface-soft);
+  transition: border-color var(--motion-standard) var(--easing),
+              box-shadow var(--motion-standard) var(--easing);
+}
+.tech-card:hover {
+  border-color: var(--brand-primary);
+  box-shadow: var(--shadow-2);
+}
+.tech-card-icon {
+  display: inline-block;
+  font-size: 1.4rem;
+  color: var(--brand-accent);
+  margin-bottom: var(--space-4);
+  opacity: 0.7;
+}
+.tech-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 var(--space-3);
+  color: var(--vp-c-text-1);
+}
+.tech-card p {
+  font-size: 0.88rem;
+  color: var(--vp-c-text-3);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* News section spacing */
+.news { padding-top: var(--space-16); }
+.news .section-head { margin-bottom: var(--space-8); }
+
+/* Product grid responsive */
+@media (max-width: 768px) {
+  .product-grid { grid-template-columns: 1fr; }
+  .tech-grid { grid-template-columns: 1fr; }
+  .news-item { grid-template-columns: 1fr; gap: var(--space-2); }
+  .news-date { padding-top: 0; }
+}
+/* ============================================================
+   POSTS ARCHIVE — Agnes AI 风格卡片布局
+   ============================================================ */
+.post-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-5);
+}
+.post-card-article {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--vp-c-divider);
+  background: var(--surface-soft);
+  text-decoration: none;
+  color: var(--vp-c-text-1);
+  transition: border-color var(--motion-standard) var(--easing),
+              box-shadow var(--motion-standard) var(--easing),
+              transform var(--motion-standard) var(--easing);
+}
+.post-card-article:hover {
+  border-color: var(--brand-primary);
+  box-shadow: var(--shadow-2);
+  transform: translateY(-2px);
+}
+.post-card-article:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 2px; }
+.post-card-article-head {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  margin-bottom: var(--space-3);
+  font-size: 0.78rem;
+  color: var(--vp-c-text-3);
+}
+.post-card-date { font-weight: 600; color: var(--brand-primary); }
+.post-card-read { color: var(--vp-c-text-3); }
+.post-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.45;
+  margin: 0 0 var(--space-3);
+  color: var(--vp-c-text-1);
+}
+.post-card-excerpt {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--vp-c-text-3);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0 0 var(--space-4);
+  flex: 1;
+}
+.post-card-tags { display: flex; gap: var(--space-1); flex-wrap: wrap; margin-bottom: var(--space-4); }
+.post-card-tag {
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+}
+.post-card-link {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--brand-primary);
+  text-decoration: none;
+  transition: color var(--motion-fast) var(--easing);
+}
+.post-card-link:hover { color: var(--brand-primary-hover); text-decoration: underline; }
+
+/* Archive responsive */
+@media (max-width: 768px) {
+  .post-cards { grid-template-columns: 1fr; }
+}
+/* ============================================================
+   Callout Boxes — Agnes AI 风格提示框
+   ============================================================ */
+.VPDoc .vp-doc .callout {
+  margin: 1.6em 0;
+  padding: var(--space-5) var(--space-6);
+  border-radius: var(--radius-md);
+  border-left: 3px solid;
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+.VPDoc .vp-doc .callout-info {
+  background: var(--vp-c-brand-soft);
+  border-color: var(--brand-primary);
+  color: var(--vp-c-text-2);
+}
+.VPDoc .vp-doc .callout-warning {
+  background: rgba(201, 168, 76, 0.08);
+  border-color: var(--brand-accent);
+  color: var(--vp-c-text-2);
+}
+.VPDoc .vp-doc .callout-tip {
+  background: rgba(31, 79, 66, 0.06);
+  border-color: var(--brand-primary);
+  color: var(--vp-c-text-2);
+}
+.VPDoc .vp-doc .callout-title {
+  font-weight: 700;
+  font-size: 0.88rem;
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.VPDoc .vp-doc .callout-info .callout-title { color: var(--brand-primary); }
+.VPDoc .vp-doc .callout-warning .callout-title { color: var(--brand-accent); }
+.VPDoc .vp-doc .callout-tip .callout-title { color: var(--brand-primary); }
+.VPDoc .vp-doc .callout > :first-child { margin-top: 0; }
+.VPDoc .vp-doc .callout > :last-child { margin-bottom: 0; }
+
+/* ============================================================
+   Steps Component — Agnes AI 风格步骤指引
+   ============================================================ */
+.VPDoc .vp-doc .steps {
+  margin: 1.6em 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+.VPDoc .vp-doc .steps li {
+  counter-increment: step;
+  position: relative;
+  padding: var(--space-4) 0 var(--space-4) 3rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+.VPDoc .vp-doc .steps li:last-child { border-bottom: none; }
+.VPDoc .vp-doc .steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: var(--space-4);
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--brand-primary);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+.VPDoc .vp-doc .steps li p { margin: 0; }
+.VPDoc .vp-doc .steps li code {
+  font-size: 0.88em;
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
+  background: var(--vp-c-brand-soft);
+  color: var(--brand-primary-strong);
+  border: 1px solid var(--vp-c-divider);
+}
+
+/* ============================================================
+   Article Page Improvements — Agnes AI 风格
+   ============================================================ */
+.VPDoc .vp-doc h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-top: 2.4em;
+  padding-top: 0.4em;
+  letter-spacing: -0.02em;
+}
+.VPDoc .vp-doc h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 1.8em;
+}
+.VPDoc .vp-doc h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 1.4em;
+}
+.VPDoc .vp-doc p { margin: 1.1em 0; }
+.VPDoc .vp-doc ul, .VPDoc .vp-doc ol { padding-left: 1.5em; }
+.VPDoc .vp-doc li { margin: 0.4em 0; line-height: 1.7; }
+
+/* Strong first paragraph after h2/h3 */
+.VPDoc .vp-doc h2 + p, .VPDoc .vp-doc h3 + p {
+  font-size: 1.05rem;
+  color: var(--vp-c-text-2);
 }

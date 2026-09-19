@@ -1,4 +1,4 @@
----
+﻿---
 title: 文章列表
 ---
 
@@ -167,22 +167,24 @@ onMounted(() => { total.value = localPosts.value.length })
   </div>
 
   <div class="filter-status" v-if="category || activeTag || query.trim()">
-    <span>已筛选：<template v-if="category">{{ category }}</template><template v-if="activeTag"> · {{ activeTag }}</template><template v-if="query.trim()"> · “{{ query.trim() }}”</template></span>
+    <span>已筛选：<template v-if="category">{{ category }}</template><template v-if="activeTag"> · {{ activeTag }}</template><template v-if="query.trim()"> · "{{ query.trim() }}"</template></span>
     <button class="clear-filter" @click="category='';activeTag='';query='';page=1;total=filteredPosts.length">清除筛选</button>
   </div>
 
-  <div v-if="displayPosts.length" class="post-list">
-    <a v-for="post in displayPosts" :key="post.url" :href="post.url" class="post-row">
-      <h2 class="post-row-title">{{ post.title }}</h2>
-      <div class="post-row-meta">
-        <span v-if="post.date">{{ post.date }}</span>
-        <span v-if="post.readTime">{{ post.readTime }}</span>
+  <!-- Agnes AI 风格卡片网格 -->
+  <div v-if="displayPosts.length" class="post-cards">
+    <a v-for="post in displayPosts" :key="post.url" :href="post.url" class="post-card-article">
+      <div class="post-card-article-head">
+        <span v-if="post.date" class="post-card-date">{{ post.date }}</span>
+        <span v-if="post.readTime" class="post-card-read">{{ post.readTime }}</span>
         <span v-if="post.hasLongContent" class="post-badge">长文</span>
       </div>
-      <p v-if="post.excerpt" class="post-row-excerpt">{{ post.excerpt }}</p>
-      <div v-if="post.tags && post.tags.length" class="post-row-tags">
-        <span v-for="tag in post.tags.slice(0,4)" :key="tag" class="post-row-tag">{{ tag }}</span>
+      <h3 class="post-card-title">{{ post.title }}</h3>
+      <p v-if="post.excerpt" class="post-card-excerpt">{{ post.excerpt }}</p>
+      <div v-if="post.tags && post.tags.length" class="post-card-tags">
+        <span v-for="tag in post.tags.slice(0,3)" :key="tag" class="post-card-tag">{{ tag }}</span>
       </div>
+      <span class="post-card-link">阅读全文 →</span>
     </a>
   </div>
 
