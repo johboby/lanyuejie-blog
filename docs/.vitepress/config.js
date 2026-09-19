@@ -361,6 +361,9 @@ export default defineConfig({
     const src = pm.src || ''
     const rawTitle = fm.title || SITE_NAME
     const title = enforceTitle(rawTitle)
+    const enMeta = getEnMeta(pageData.relativePath)
+    // 每页设置正确的 <title>：文章页优先英文标题，非文章页用 frontmatter title
+    head.push(['title', enMeta?.title || title])
     const rawDesc = pm.description || fm.description || SITE_DESCRIPTION
     const description = enforceDescription(rawDesc, SITE_DESCRIPTION)
     const wordCount = pm.wordCount || 0
@@ -393,7 +396,6 @@ export default defineConfig({
       head.push(['meta', { name: 'article:reading_time', content: `${readMinutes} minutes` }])
     }
 
-    const enMeta = getEnMeta(pageData.relativePath)
     if (enMeta) {
       head.push(['meta', { property: 'og:locale:alternate', content: 'en_US' }])
       head.push(['meta', { property: 'og:title', content: enforceTitle(enMeta.title), 'xml:lang': 'en' }])
