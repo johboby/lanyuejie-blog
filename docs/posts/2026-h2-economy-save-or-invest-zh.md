@@ -2,6 +2,9 @@
 title: "2026下半年经济展望：普通人应该存钱还是投资？"
 date: 2026-07-28
 description: "2026年下半年，六大行三年定存1.25%、国债1.63%、黄金880元/克、10年期国债1.73%、人民币6.82。存还是投？本文用最新数据帮你算清这笔账。"
+enTitle: "2026 H2 Economy: Should You Save or Invest?"
+enDescription: "A practitioner guide to personal finance decisions in the second half of 2026, weighing saving, investing, and risk under economic uncertainty."
+enKeywords: "economy 2026, save or invest, personal finance, economic outlook, investment strategy"
 tags:
   - 经济展望
   - 个人理财

@@ -353,7 +353,7 @@ body {
   gap: var(--space-3);
   isolation: isolate;
 }
-/* 细品牌网格纹理：增加"图"的质感，避免纯色渐变像占位符 */
+/* Fine brand grid texture: adds depth so the gradient never reads as a flat placeholder */
 .featured-media::before {
   content: "";
   position: absolute;
@@ -367,7 +367,7 @@ body {
   z-index: 0;
   pointer-events: none;
 }
-/* 对角光斑：让不同分类色相渐变更有层次与光感 */
+/* Diagonal light spot: adds depth and glow to per-category hue gradients */
 .featured-media-light {
   position: absolute;
   top: -30%;
@@ -381,7 +381,7 @@ body {
   transform: translate(0, 0);
   transition: transform var(--motion-standard) var(--easing);
 }
-/* 分类母题大字：差异化记忆点，替代单一 agriculture.jpg */
+/* Category motif glyph: differentiated visual anchor instead of a single shared image */
 .featured-media-glyph {
   position: relative;
   z-index: 1;
@@ -473,7 +473,7 @@ body {
   transform: translateY(-2px);
 }
 .post-card:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 2px; }
-/* 品牌化缩略图占位：渐变底 + 首字，差异化记忆点，无需逐篇配图 */
+/* Branded thumbnail placeholder: gradient + first character, no need for per-post imagery */
 .post-card-media {
   position: relative;
   height: 136px;
@@ -559,7 +559,7 @@ body {
   border: 1px solid var(--vp-c-divider);
   box-shadow: var(--shadow-1);
 }
-/* 订阅区块：品牌渐变卡，提升读者留存与回访 */
+/* Subscribe block: branded gradient card to improve reader retention and revisits */
 .subscribe-card {
   max-width: 760px;
   margin: 0 auto;
@@ -880,7 +880,7 @@ body {
   max-width: 720px;
   font-size: 1.02rem;
   line-height: 1.85;
-  /* 中文排版优化：更自然的标点与数字间距 */
+  /* CJK typography tweaks: improved punctuation and digit spacing */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   font-feature-settings: "liga" 1, "kern" 1;
@@ -893,7 +893,7 @@ body {
 .VPDoc .vp-doc h2 { margin-top: 2.2em; padding-top: 0.4em; }
 .VPDoc .vp-doc h3 { margin-top: 1.6em; }
 
-/* 图片：居中、圆角、品牌描边、响应式，绝不横向溢出 */
+/* Images: centered, rounded corners, branded border, responsive, never overflow horizontally */
 .VPDoc .vp-doc img {
   display: block;
   max-width: 100%;
@@ -912,7 +912,7 @@ body {
   line-height: 1.5;
 }
 
-/* 引用块：品牌化左侧竖线 + 柔和底纹，优于默认灰块 */
+/* Blockquote: branded left bar + soft tint, better than the default gray block */
 .VPDoc .vp-doc blockquote {
   margin: 1.6em 0;
   padding: var(--space-4) var(--space-6);
@@ -926,7 +926,7 @@ body {
 .VPDoc .vp-doc blockquote > :first-child { margin-top: 0; }
 .VPDoc .vp-doc blockquote > :last-child { margin-bottom: 0; }
 
-/* 行内代码：品牌色高亮，避免与正文混淆 */
+/* Inline code: brand-highlighted to avoid blending with body text */
 .VPDoc .vp-doc :not(pre) > code {
   font-size: 0.88em;
   padding: 0.15em 0.4em;
@@ -938,7 +938,7 @@ body {
 .VPDoc .vp-doc :not(pre) > code::before,
 .VPDoc .vp-doc :not(pre) > code::after { content: ""; }
 
-/* 代码块：统一圆角与品牌描边 */
+/* Code blocks: consistent rounded corners and branded border */
 .VPDoc .vp-doc div[class*="language-"] {
   border-radius: var(--radius-md);
   border: 1px solid var(--vp-c-divider);
@@ -949,7 +949,7 @@ body {
   border-radius: var(--radius-md);
 }
 
-/* 表格：品牌化、滚动溢出保护、表头底色 */
+/* Tables: branded styling, scroll-overflow protection, header tint */
 .VPDoc .vp-doc table {
   display: block;
   width: max-content;
@@ -960,14 +960,14 @@ body {
   font-size: 0.92em;
   -webkit-overflow-scrolling: touch;
 }
-/* 移动端长表格横向滚动容器 + 提示条（仅当内容实际可横向溢出时显示） */
+/* Mobile wide-table horizontal scroll container + hint bar (shown only when content actually overflows) */
 .VPDoc .vp-doc .scrollable-table {
   position: relative;
   margin: 1.6em 0;
   border-radius: var(--radius-md);
   overflow: hidden;
 }
-/* 右缘渐隐遮罩：暗示右侧还有内容可滑动 */
+/* Right-edge fade mask: hints that more content can be scrolled into view */
 .VPDoc .vp-doc .scrollable-table::after {
   content: "";
   position: absolute;
@@ -1027,7 +1027,7 @@ body {
   padding: 0.5em 0.9em;
 }
 
-/* 分割线（***）：品牌金细线，克制表达 */
+/* Horizontal rule: thin brand-gold line, restrained expression */
 .VPDoc .vp-doc hr {
   margin: 2.4em 0;
   border: none;
@@ -1038,7 +1038,7 @@ body {
   margin-right: auto;
 }
 
-/* 链接在正文中的品牌强调 */
+/* In-body links: branded emphasis */
 .VPDoc .vp-doc a {
   color: var(--brand-primary);
   text-decoration-color: var(--brand-accent);

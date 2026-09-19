@@ -1,6 +1,6 @@
-﻿import { createContentLoader } from 'vitepress'
+import { createContentLoader } from 'vitepress'
 
 export default createContentLoader('posts/*.md', {
-  excerpt: true,
+  excerpt: '---',
   render: false,
 })

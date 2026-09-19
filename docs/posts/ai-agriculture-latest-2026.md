@@ -2,6 +2,9 @@
 title: "AI × 农业：从种子到餐桌的全链条智能革命（2025–2026 最新技术全景）"
 description: "覆盖精准感知、智能决策、自主执行、基因组育种、农业大模型、数字孪生、供应链溯源七大板块，附 12 场景选型表与 10 方法横评"
 date: 2026-08-17
+enTitle: "AI × Agriculture: Full-Chain Intelligent Revolution from Seed to Table (2025–2026)"
+enDescription: "Seven major sections: precision sensing, intelligent decision-making, autonomous execution, genomic breeding, agricultural LLM, digital twin, supply chain traceability. Includes 12 scenario selection tables and 10 method comparisons."
+enKeywords: "AI agriculture, precision agriculture, smart farming, crop breeding, agricultural robot, digital twin, remote sensing, LLM"
 tags: [AI, 农业, 精准农业, 智慧农业, 作物育种, 农业机器人, 数字孪生, 遥感, 大模型, 供应链溯源]
 reading_time: "约 55 分钟"
 ---

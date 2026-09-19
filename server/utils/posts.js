@@ -136,13 +136,59 @@ export function getCategories() {
   return catMap
 }
 
+// 轻量统计：仅读取 frontmatter，不解析全文，避免 pageSize: 1000 暴力读取全文
+export function getPostStats() {
+  ensureDir()
+  const files = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md') && f !== 'index.md')
+  let total = 0
+  const catMap = {}
+  const tagMap = {}
+  let latestDate = null
+  for (const file of files) {
+    try {
+      const raw = fs.readFileSync(path.join(POSTS_DIR, file), 'utf-8')
+      const fmMatch = raw.match(/^---\s*\n([\s\S]*?)\n---/)
+      if (!fmMatch) continue
+      total++
+      const fm = {}
+      fmMatch[1].split('\n').forEach(line => {
+        const idx = line.indexOf(':')
+        if (idx < 0) return
+        const key = line.slice(0, idx).trim()
+        let val = line.slice(idx + 1).trim()
+        if (val.startsWith('[')) {
+          try { val = JSON.parse(val) } catch { val = val.replace(/^\[|\]$/g, '').split(',').map(s => s.trim().replace(/^["']|["']$/g, '')) }
+        } else if (val.startsWith('"') || val.startsWith("'")) {
+          val = val.slice(1, -1)
+        }
+        fm[key] = val
+      })
+      const cats = fm.categories || ['未分类']
+      cats.forEach(cat => { catMap[cat] = (catMap[cat] || 0) + 1 })
+      ;(fm.tags || []).forEach(t => { tagMap[t] = (tagMap[t] || 0) + 1 })
+      if (fm.date && (!latestDate || fm.date > latestDate)) latestDate = fm.date
+    } catch (err) {
+      console.error('[getPostStats] skip', file, err.message)
+    }
+  }
+  const topTags = Object.entries(tagMap)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 20)
+    .map(([name, count]) => ({ name, count }))
+  return {
+    totalPosts: total,
+    categories: Object.entries(catMap).map(([name, info]) => ({ name, count: info.count })),
+    topTags,
+    lastUpdated: latestDate,
+  }
+}
+
 export function searchPosts(keyword) {
   const { posts } = listPosts()
   const kw = keyword.toLowerCase()
   return posts.filter(p =>
     (p.title || '').toLowerCase().includes(kw) ||
     (p.description || '').toLowerCase().includes(kw) ||
-    (p.content || '').toLowerCase().includes(kw) ||
     (p.tags || []).some(t => t.toLowerCase().includes(kw)) ||
     (p.categories || []).some(c => c.toLowerCase().includes(kw))
   )

@@ -2,6 +2,9 @@
 title: "AI会在2年内取代50%的白领工作吗？一个从业者的冷静分析"
 date: 2026-07-28
 description: "2026年AI对白领工作的真实冲击：Goldman Sachs/Stanford/麦肯锡/WEF数据全解析，\"50%\"这个数字对不对、谁会被取代、谁能活下来、普通人现在该做什么——一篇冷静的从业者视角分析。"
+enTitle: "Will AI Replace 50% of White-Collar Jobs in 2 Years? A Calm Analysis"
+enDescription: "A practitioner calmly analyzes whether AI will replace half of white-collar jobs within two years, separating hype from reality."
+enKeywords: "AI jobs, white-collar, automation, future of work, employment"
 tags:
   - AI与就业
   - 白领工作

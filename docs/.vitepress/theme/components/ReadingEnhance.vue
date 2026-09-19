@@ -6,7 +6,8 @@ const { page } = useData()
 const isPost = () => page.value?.relativePath?.startsWith('posts/') && !page.value?.relativePath?.endsWith('index.md')
 
 const progress = ref(0)
-const fontSize = ref(0) // -1 small, 0 normal, 1 large
+// 字号状态：-1 小号 / 0 标准 / 1 大号
+const fontLevel = ref(0)
 const STORAGE_KEY = 'lyj-reading-font'
 
 function onScroll() {
@@ -19,18 +20,18 @@ function applyFont() {
   const el = document.querySelector('.vp-doc')
   if (!el) return
   el.classList.remove('font-sm', 'font-lg')
-  if (fontSize.value === -1) el.classList.add('font-sm')
-  if (fontSize.value === 1) el.classList.add('font-lg')
+  if (fontLevel.value === -1) el.classList.add('font-sm')
+  if (fontLevel.value === 1) el.classList.add('font-lg')
 }
 
 function setFont(v) {
-  fontSize.value = v
+  fontLevel.value = v
   localStorage.setItem(STORAGE_KEY, String(v))
   applyFont()
 }
 
 function cycleFont() {
-  const next = fontSize.value >= 1 ? -1 : fontSize.value + 1
+  const next = fontLevel.value >= 1 ? -1 : fontLevel.value + 1
   setFont(next)
 }
 
@@ -65,7 +66,7 @@ function updateTableHints() {
 
 onMounted(() => {
   const saved = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10)
-  if (!Number.isNaN(saved)) fontSize.value = saved
+  if (!Number.isNaN(saved)) fontLevel.value = saved
   applyFont()
   window.addEventListener('scroll', onScroll, { passive: true })
   window.addEventListener('resize', onScroll)
@@ -93,9 +94,9 @@ watch(() => page.value?.relativePath, () => {
       <div class="reading-bar-fill" :style="{ width: progress + '%' }"></div>
     </div>
     <div class="font-toolbar" role="group" aria-label="正文字号调节">
-      <button class="font-btn" :class="{ active: fontSize === -1 }" @click="setFont(-1)" aria-label="小字号">A⁻</button>
-      <button class="font-btn" :class="{ active: fontSize === 0 }" @click="setFont(0)" aria-label="标准字号">A</button>
-      <button class="font-btn" :class="{ active: fontSize === 1 }" @click="setFont(1)" aria-label="大字号">A⁺</button>
+      <button class="font-btn" :class="{ active: fontLevel === -1 }" @click="setFont(-1)" aria-label="小字号">A⁻</button>
+      <button class="font-btn" :class="{ active: fontLevel === 0 }" @click="setFont(0)" aria-label="标准字号">A</button>
+      <button class="font-btn" :class="{ active: fontLevel === 1 }" @click="setFont(1)" aria-label="大字号">A⁺</button>
     </div>
   </div>
 </template>

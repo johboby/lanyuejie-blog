@@ -2,6 +2,9 @@
 title: "从0到10万粉：我的博客SEO增长全复盘（18个月数据）"
 date: 2026-07-28
 description: "18个月、从0到10万粉的博客SEO全复盘：内容集群策略、关键词体系、流量漏斗、邮件转化、AI搜索适配——附完整数据曲线和每个阶段踩过的坑。"
+enTitle: "From 0 to 100K Followers: My Blog SEO Growth Retrospective (18-Month Data)"
+enDescription: "A full retrospective of growing a blog from zero to 100K followers through SEO, with 18 months of real data and lessons."
+enKeywords: "blog SEO, growth, organic traffic, content strategy, retrospective"
 tags:
   - 博客SEO
   - 内容营销

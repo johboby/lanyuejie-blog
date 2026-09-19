@@ -41,6 +41,11 @@ app.use('/api/upload', uploadRoutes)
 app.use('/api/search', searchRoutes)
 app.use('/api/stats', statsRoutes)
 
+// 健康检查
+app.get('/api/health', (_req, res) => {
+  res.json({ status: 'ok', uptime: process.uptime() })
+})
+
 // 404 for unknown API routes
 app.use('/api', (_req, res) => {
   res.status(404).json({ error: '接口不存在' })
