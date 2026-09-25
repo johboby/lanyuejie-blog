@@ -151,7 +151,7 @@ const showAdj = computed(() => isPost.value && (adjPosts.value.prev || adjPosts.
 
     <div v-if="showCTA" class="post-cta">
       <div class="cta-content">
-        <p class="cta-text">觉得这篇文章对您有帮助？</p>
+        <p class="cta-text">对这篇文章有看法？</p>
         <div class="cta-actions">
           <button class="cta-btn cta-share" @click="shareNative" aria-label="分享文章">分享给朋友</button>
           <a href="mailto:samhoclub@163.com?subject=文章反馈" class="cta-btn cta-comment">评论反馈</a>
