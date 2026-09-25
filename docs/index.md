@@ -8,10 +8,10 @@ import { computed, ref } from 'vue'
 import { data as posts } from './.vitepress/posts.data.js'
 import { withBase } from 'vitepress'
 
-const allPosts = computed(() => posts || [])
-const recentPosts = allPosts.value.slice(0, 8)
-const featuredPost = recentPosts.value[0] || null
-const gridPosts = recentPosts.value.slice(1)
+const allPosts = computed(() => posts.value || [])
+const recentPosts = computed(() => allPosts.value.slice(0, 8))
+const featuredPost = computed(() => recentPosts.value[0] || null)
+const gridPosts = computed(() => recentPosts.value.slice(1))
 
 // 基于标题生成稳定色相
 function hueOf(title = '') {
