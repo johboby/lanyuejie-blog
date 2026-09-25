@@ -3,6 +3,8 @@ import { computed, ref } from 'vue'
 import { useData, withBase } from 'vitepress'
 import { data as allPosts } from '../../posts.data.js'
 
+const SITE_URL = 'https://johboby.github.io/lanyuejie-blog'
+
 const { page } = useData()
 
 const frontmatter = computed(() => page.value?.frontmatter || {})
