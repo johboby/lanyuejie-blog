@@ -1,18 +1,19 @@
-﻿---
+---
 title: 揽月界科技
 layout: page
 ---
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { data as posts } from './.vitepress/posts.data.js'
 import { withBase } from 'vitepress'
 
-const recentPosts = (posts || []).slice(0, 9)
-const featuredPost = recentPosts[0] || null
-const gridPosts = recentPosts.slice(1)
+const allPosts = computed(() => posts || [])
+const recentPosts = allPosts.value.slice(0, 8)
+const featuredPost = recentPosts.value[0] || null
+const gridPosts = recentPosts.value.slice(1)
 
-// 基于标题生成稳定色相，让各卡片缩略图差异化（仍在品牌绿-金区间内），避免首字雷同
+// 基于标题生成稳定色相
 function hueOf(title = '') {
   let h = 0
   for (let i = 0; i < title.length; i++) h = (h * 31 + title.charCodeAt(i)) % 360
@@ -25,9 +26,7 @@ function mediaStyle(title) {
   }
 }
 
-// Featured 卡：按分类关键词聚类驱动差异化视觉母题，与品牌绿-金体系一致。
-// 真实分类是碎片化的（深度分析/AI生产力工具/经济与政策…），故用关键词命中归类，
-// 同类文章共享 hue + 语义化 glyph，形成稳定的分类视觉记忆，避免标题首字杂乱无意义。
+// Featured 卡：分类关键词聚类驱动差异化视觉母题
 const CATEGORY_GROUPS = [
   { hue: 168, glyph: 'AI', label: '智能科技', keys: ['AI', '智能体', '大模型', '技术', '科技', '算法', '机器人', '视频技术'] },
   { hue: 32,  glyph: '经', label: '经济理财', keys: ['经济', '理财', '投资', '金融', '市场', '产业', '政策', '价值链'] },
@@ -47,7 +46,6 @@ function featuredTheme(post) {
   return { hue: 158, glyph: '★', label: '精选研究' }
 }
 
-// Featured 媒体区背景：分类主题色相驱动的品牌渐变（computed 避免 SSG 阶段 TDZ 执行）
 const featuredMediaStyle = computed(() => {
   if (!featuredPost) return {}
   const t = featuredTheme(featuredPost)
@@ -59,45 +57,35 @@ const featuredMediaStyle = computed(() => {
   }
 })
 
-// 动态指标：基于 SSG 注入的文章数据实时计算，避免写死数字与实际内容脱节
+// 动态指标：基于 SSG 注入的文章数据实时计算
 const metrics = computed(() => {
-  const list = posts || []
+  const list = allPosts.value
   const catSet = new Set()
   list.forEach(p => (p.categories || []).forEach(c => catSet.add(c)))
   const years = list.map(p => p.dateISO || p.date).filter(Boolean).map(d => new Date(d).getFullYear()).filter(Boolean)
   const maxYear = years.length ? Math.max(...years) : new Date().getFullYear()
   return [
+    { num: String(list.length), label: '研究文章' },
+    { num: String(catSet.size), label: '研究分类' },
     { num: '98%', label: '标的识别精度' },
     { num: '-32%', label: '灾害损失' },
-    { num: String(catSet.size) + '+', label: '研究分类' },
-    { num: String(list.length) + '+', label: String(maxYear) + ' 研究文章' },
   ]
 })
 
-const products = [
-  { title: '生猪养殖风险监测', desc: 'IoT + AI图像识别 + 区块链存证，牲畜标的精准追踪与疫病预警', link: 'https://szxt.cycu.top' },
-  { title: '牦牛监测和智能保险', desc: '覆盖标的识别、风险评估、理赔存证的全流程智能保险平台', link: 'https://agri.cycu.top' },
-  { title: '农业标准化基础数据库', desc: '整合土壤、气候、作物、养殖多维数据，统一标准驱动精准决策', link: 'https://risk.cycu.top' },
-  { title: '马铃薯晚疫病智能监测', desc: '环境传感 + 遥感融合，早防早治降低病害损失', link: 'https://risk.cycu.top' },
-  { title: '水利综合监控雷达软件', desc: '面向水利场景的综合监测与态势感知系统', link: 'https://risk.cycu.top' },
-]
-
-const techStack = [
-  { title: '五层脑启发架构', desc: '感知→认知→决策→执行→价值，模拟生物神经的完整闭环' },
-  { title: '物理信息融合AI', desc: '将物理定律嵌入神经网络，复杂工况下保持鲁棒性与可解释性' },
-  { title: '自适应进化引擎', desc: '动态反馈驱动算法持续优化，系统越用越精准' },
-  { title: '安全合规闭环', desc: '国密算法 + 零信任架构 + 区块链存证，全链路可追溯' },
-]
-
-const newsItems = [
-  { title: '2026年AI风控行业趋势报告', desc: '基于大模型的智能风控系统正在重塑农业保险与灾害防控格局', date: '2026-09-15', tag: '趋势' },
-  { title: '多模态AI在牲畜识别中的应用实践', desc: '融合图像与传感器的多模态方案大幅提升标的识别准确率', date: '2026-08-28', tag: '技术' },
-  { title: '农业保险智能化转型白皮书', desc: '从传统理赔到智能风控，全链路数字化转型的实践与思考', date: '2026-08-10', tag: '行业' },
+// 分类导航数据
+const categoryNav = [
+  { name: '智能科技', count: recentPosts.value.filter(p => (p.categories || []).some(c => /AI|智能体|大模型|技术|科技|算法|机器人|视频技术/.test(c))).length, glyph: 'AI' },
+  { name: '经济理财', count: recentPosts.value.filter(p => (p.categories || []).some(c => /经济|理财|投资|金融|市场|产业|政策|价值链/.test(c))).length, glyph: '经' },
+  { name: '能源制造', count: recentPosts.value.filter(p => (p.categories || []).some(c => /能源|气候|制造|绿色/.test(c))).length, glyph: '能' },
+  { name: '成长方法', count: recentPosts.value.filter(p => (p.categories || []).some(c => /学习|成长|方法|认知|心理|教育|职业|效率|自我/.test(c))).length, glyph: '学' },
+  { name: '实战复盘', count: recentPosts.value.filter(p => (p.categories || []).some(c => /复盘|实战|增长|SEO|工具|应用|部署/.test(c))).length, glyph: '战' },
+  { name: '深度分析', count: recentPosts.value.filter(p => (p.categories || []).some(c => /分析|调查|研究|思考|趋势|展望|洞察|行业/.test(c))).length, glyph: '析' },
+  { name: '人文伦理', count: recentPosts.value.filter(p => (p.categories || []).some(c => /人文|伦理|社会/.test(c))).length, glyph: '文' },
 ]
 </script>
 
 <div class="home">
-  <!-- Hero: Unitree 风格大视觉 Hero -->
+  <!-- Hero: Agnes AI 风格大视觉 Hero -->
   <section class="hero">
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-inner">
@@ -107,61 +95,40 @@ const newsItems = [
       <p class="hero-desc">专注于人工智能与风险控制的前沿科技企业，以"双精两减"理念驱动农业保险与灾害防控的智能化变革</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#contact">联系合作</a>
-        <a class="btn btn-secondary" :href="withBase('/posts/')">浏览研究</a>
+        <a class="btn btn-secondary" :href="withBase('/posts/')">浏览研究 →</a>
       </div>
-      <dl class="hero-metrics">
-        <div v-for="m in metrics" :key="m.label" class="hero-metric">
-          <dt class="hero-metric-label">{{ m.label }}</dt>
-          <dd class="hero-metric-num">{{ m.num }}</dd>
-        </div>
-      </dl>
     </div>
   </section>
 
-  <!-- Products: Unitree 风格编号卡片网格 -->
-  <section class="section products">
-    <div class="section-inner">
-      <div class="section-head">
-        <span class="eyebrow">SOLUTIONS</span>
-        <h2 class="section-title">核心产品</h2>
-        <p class="section-subtitle">从标的识别到理赔存证，全链路智能风控解决方案</p>
+  <!-- Metrics bar: Agnes AI 风格数据指标 -->
+  <section class="metrics">
+    <div class="metrics-inner">
+      <div v-for="m in metrics" :key="m.label" class="metric">
+        <span class="metric-num">{{ m.num }}</span>
+        <span class="metric-label">{{ m.label }}</span>
       </div>
-      <div class="product-grid">
-        <a v-for="(p, i) in products" :key="p.title" :href="p.link" target="_blank" rel="noopener" class="product-card">
-          <span class="product-index">{{ String(i + 1).padStart(2, '0') }}</span>
-          <h3>{{ p.title }}</h3>
-          <p>{{ p.desc }}</p>
-          <span class="product-link">访问平台 →</span>
+    </div>
+  </section>
+
+  <!-- Category Quick Nav: Agnes AI 风格分类导航 -->
+  <section class="section cat-nav">
+    <div class="section-inner">
+      <div class="cat-nav-grid">
+        <a v-for="cat in categoryNav" :key="cat.name" :href="withBase('/posts/')" class="cat-nav-card">
+          <span class="cat-nav-glyph">{{ cat.glyph }}</span>
+          <span class="cat-nav-name">{{ cat.name }}</span>
+          <span class="cat-nav-count">{{ cat.count }} 篇</span>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Tech: Unitree 风格技术卡片 -->
-  <section class="section tech">
+  <!-- Featured Post -->
+  <section class="section featured-section">
     <div class="section-inner">
       <div class="section-head">
-        <span class="eyebrow">TECHNOLOGY</span>
-        <h2 class="section-title">技术底座</h2>
-        <p class="section-subtitle">自主可控的核心技术体系，支撑行业级智能风控</p>
-      </div>
-      <div class="tech-grid">
-        <div v-for="t in techStack" :key="t.title" class="tech-card">
-          <span class="tech-card-icon" aria-hidden="true">◆</span>
-          <h3>{{ t.title }}</h3>
-          <p>{{ t.desc }}</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Posts: 精选研究 -->
-  <section class="section posts-section">
-    <div class="section-inner">
-      <div class="section-head">
-        <span class="eyebrow">INSIGHTS</span>
-        <h2 class="section-title">最新研究</h2>
-        <p class="section-subtitle">行业深度报告与技术前沿洞察</p>
+        <span class="eyebrow">FEATURED</span>
+        <h2 class="section-title">精选研究</h2>
       </div>
       <a v-if="featuredPost" :href="withBase(featuredPost.url)" class="featured-card">
         <div class="featured-media" aria-hidden="true" :style="featuredMediaStyle">
@@ -180,6 +147,17 @@ const newsItems = [
           </div>
         </div>
       </a>
+    </div>
+  </section>
+
+  <!-- Recent Articles -->
+  <section class="section articles-section">
+    <div class="section-inner">
+      <div class="section-head">
+        <span class="eyebrow">INSIGHTS</span>
+        <h2 class="section-title">最新研究</h2>
+        <p class="section-subtitle">行业深度报告与技术前沿洞察</p>
+      </div>
       <div class="post-grid">
         <a v-for="post in gridPosts" :key="post.url" :href="withBase(post.url)" class="post-card">
           <div class="post-card-media" aria-hidden="true" :style="mediaStyle(post.title)">
@@ -199,25 +177,6 @@ const newsItems = [
       </div>
       <div class="posts-more">
         <a :href="withBase('/posts/')" class="btn btn-secondary">查看全部文章 →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- News/Events: Unitree 风格新闻时间线 -->
-  <section class="section news">
-    <div class="section-inner">
-      <div class="section-head">
-        <span class="eyebrow">NEWS</span>
-        <h2 class="section-title">最新动态</h2>
-        <p class="section-subtitle">行业洞察与技术前沿，第一时间送达</p>
-      </div>
-      <div class="news-list">
-        <a v-for="item in newsItems" :key="item.title" href="#" class="news-item">
-          <span class="news-date">{{ item.date }}</span>
-          <span class="news-tag">{{ item.tag }}</span>
-          <h3 class="news-title">{{ item.title }}</h3>
-          <p class="news-desc">{{ item.desc }}</p>
-        </a>
       </div>
     </div>
   </section>

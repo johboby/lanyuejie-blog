@@ -278,6 +278,16 @@ export default defineConfig({
         },
       },
     },
+    plugins: [
+      {
+        name: 'md-assets-handler',
+        resolveId(source) {
+          if (source.startsWith('/md_assets/')) {
+            return resolve('docs/public', source)
+          }
+        }
+      }
+    ]
   },
 
   // Inject loading="lazy" on all in-body images to avoid first-view LCP degradation

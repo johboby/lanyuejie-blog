@@ -1,4 +1,4 @@
-﻿---
+---
 title: 文章列表
 ---
 
@@ -7,8 +7,6 @@ import { ref, computed, onMounted } from 'vue'
 import { data as allPosts } from '../.vitepress/posts.data.js'
 import { withBase } from 'vitepress'
 
-// 静态站点（GitHub Pages）没有后端，所有筛选/搜索均基于 SSG 注入的本地数据，
-// 保证生产环境零网络依赖、稳定可用。
 const PAGE_SIZE = 6
 
 const query = ref('')
@@ -17,7 +15,6 @@ const activeTag = ref('')
 const page = ref(1)
 const total = ref(0)
 
-// Local data (from SSG content loader)
 const localPosts = computed(() => (allPosts || []).map(normalize))
 
 function normalize(p) {
@@ -34,7 +31,7 @@ function normalize(p) {
   }
 }
 
-// Unique tags for filter bar (sorted by frequency, most useful first)
+// Unique tags for filter bar (sorted by frequency)
 const allTags = computed(() => {
   const set = new Map()
   localPosts.value.forEach(p => (p.tags || []).forEach(t => set.set(t, (set.get(t) || 0) + 1)))
@@ -47,17 +44,25 @@ const visibleTags = computed(() =>
 )
 const hasMoreTags = computed(() => allTags.value.length > VISIBLE_TAGS)
 
-// Categories, sorted by frequency; foldable panel collapsed by default
+// Categories, sorted by frequency
 const categories = computed(() => {
   const map = new Map()
   localPosts.value.forEach(p => (p.categories || ['未分类']).forEach(c => map.set(c, (map.get(c) || 0) + 1)))
   return [...map.entries()].map(([name, count]) => ({ name, count })).sort((a, b) => b.count - a.count)
 })
-const catsExpanded = ref(false)
 const activeCatLabel = computed(() => category.value || '全部分类')
-function toggleCats() { catsExpanded.value = !catsExpanded.value }
+function selectCategory(cat) {
+  category.value = category.value === cat ? '' : cat
+  page.value = 1
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+function selectTag(tag) {
+  activeTag.value = activeTag.value === tag ? '' : tag
+  page.value = 1
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
 
-// Posts currently shown — always filtered locally for consistency across dev/prod
+// Posts currently shown
 const filteredPosts = computed(() => {
   let list = localPosts.value
   if (category.value) list = list.filter(p => (p.categories || []).includes(category.value))
@@ -93,16 +98,6 @@ function onSearchInput() {
   debounceTimer = setTimeout(() => { total.value = filteredPosts.value.length }, 200)
 }
 
-function selectCategory(cat) {
-  category.value = category.value === cat ? '' : cat
-  page.value = 1
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-}
-function selectTag(tag) {
-  activeTag.value = activeTag.value === tag ? '' : tag
-  page.value = 1
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-}
 function goPage(p) {
   if (p < 1 || p > totalPages.value) return
   page.value = p
@@ -112,97 +107,96 @@ function goPage(p) {
 onMounted(() => { total.value = localPosts.value.length })
 </script>
 
-<div class="archive">
-  <div class="archive-head">
-    <h1 class="archive-title">研究文章</h1>
-    <p class="archive-sub">行业深度报告、技术前沿洞察与跨领域研究合集</p>
-  </div>
-
-  <div class="archive-toolbar">
-    <div class="search-box">
-      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input
-        type="search"
-        v-model="query"
-        @input="onSearchInput"
-        placeholder="搜索标题、标签或摘要…"
-        aria-label="搜索文章"
-      />
+<div class="archive-layout">
+  <!-- 左侧侧边栏 -->
+  <aside class="archive-sidebar">
+    <div class="sidebar-section">
+      <h3 class="sidebar-title">分类</h3>
+      <div class="cat-list">
+        <button
+          v-for="c in categories"
+          :key="c.name"
+          class="cat-item"
+          :class="{ active: category === c.name }"
+          @click="selectCategory(c.name)"
+        >
+          <span>{{ c.name }}</span>
+          <span class="cat-count">{{ c.count }}</span>
+        </button>
+      </div>
     </div>
-    <button
-      class="filter-toggle"
-      :class="{ active: category }"
-      @click="toggleCats"
-      :aria-expanded="catsExpanded"
-      aria-label="按分类筛选"
-    >
-      <span>{{ activeCatLabel }}</span>
-      <svg class="chevron" :class="{ open: catsExpanded }" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
-  </div>
-
-  <div class="cat-panel" v-show="catsExpanded" v-if="categories.length">
-    <button
-      v-for="c in categories"
-      :key="c.name"
-      class="cat-chip"
-      :class="{ active: category === c.name }"
-      @click="selectCategory(c.name)"
-      :aria-pressed="category === c.name"
-    >{{ c.name }} <span class="cat-count">{{ c.count }}</span></button>
-  </div>
-
-  <div class="tag-bar" v-if="allTags.length">
-    <button
-      v-for="tag in visibleTags"
-      :key="tag"
-      class="tag-chip"
-      :class="{ active: activeTag === tag }"
-      @click="selectTag(tag)"
-      :aria-pressed="activeTag === tag"
-    >{{ tag }}</button>
-    <button v-if="hasMoreTags" class="tag-chip tag-more" @click="tagsExpanded = !tagsExpanded">
-      {{ tagsExpanded ? '收起' : `更多 ${allTags.length - VISIBLE_TAGS} 个` }}
-    </button>
-  </div>
-
-  <div class="filter-status" v-if="category || activeTag || query.trim()">
-    <span>已筛选：<template v-if="category">{{ category }}</template><template v-if="activeTag"> · {{ activeTag }}</template><template v-if="query.trim()"> · "{{ query.trim() }}"</template></span>
-    <button class="clear-filter" @click="category='';activeTag='';query='';page=1;total=filteredPosts.length">清除筛选</button>
-  </div>
-
-  <!-- Agnes AI 风格卡片网格 -->
-  <div v-if="displayPosts.length" class="post-cards">
-    <a v-for="post in displayPosts" :key="post.url" :href="post.url" class="post-card-article">
-      <div class="post-card-article-head">
-        <span v-if="post.date" class="post-card-date">{{ post.date }}</span>
-        <span v-if="post.readTime" class="post-card-read">{{ post.readTime }}</span>
-        <span v-if="post.hasLongContent" class="post-badge">长文</span>
+    <div class="sidebar-section" v-if="allTags.length">
+      <h3 class="sidebar-title">标签</h3>
+      <div class="tag-list">
+        <button
+          v-for="tag in allTags"
+          :key="tag"
+          class="tag-item"
+          :class="{ active: activeTag === tag }"
+          @click="selectTag(tag)"
+        >{{ tag }}</button>
       </div>
-      <h3 class="post-card-title">{{ post.title }}</h3>
-      <p v-if="post.excerpt" class="post-card-excerpt">{{ post.excerpt }}</p>
-      <div v-if="post.tags && post.tags.length" class="post-card-tags">
-        <span v-for="tag in post.tags.slice(0,3)" :key="tag" class="post-card-tag">{{ tag }}</span>
+    </div>
+  </aside>
+
+  <!-- 主内容区 -->
+  <main class="archive-main">
+    <div class="archive-head">
+      <h1 class="archive-title">研究文章</h1>
+      <p class="archive-sub">行业深度报告、技术前沿洞察与跨领域研究合集</p>
+    </div>
+
+    <div class="archive-toolbar">
+      <div class="search-box">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input
+          type="search"
+          v-model="query"
+          @input="onSearchInput"
+          placeholder="搜索标题、标签或摘要…"
+          aria-label="搜索文章"
+        />
       </div>
-      <span class="post-card-link">阅读全文 →</span>
-    </a>
-  </div>
+    </div>
 
-  <div v-else class="state-empty">
-    <p>没有找到匹配的文章。</p>
-    <p>试试调整关键词或清除筛选条件。</p>
-  </div>
+    <div class="filter-status" v-if="category || activeTag || query.trim()">
+      <span>已筛选：<template v-if="category">{{ category }}</template><template v-if="activeTag"> · {{ activeTag }}</template><template v-if="query.trim()"> · "{{ query.trim() }}"</template></span>
+      <button class="clear-filter" @click="category='';activeTag='';query='';page=1;total=filteredPosts.length">清除筛选</button>
+    </div>
 
-  <nav class="pagination" v-if="totalPages > 1" aria-label="分页">
-    <button class="page-btn" @click="goPage(page - 1)" :disabled="page === 1" aria-label="上一页">‹</button>
-    <button
-      v-for="n in pageNumbers"
-      :key="n"
-      class="page-btn"
-      :class="{ active: n === page }"
-      @click="goPage(n)"
-      :aria-current="n === page ? 'page' : undefined"
-    >{{ n }}</button>
-    <button class="page-btn" @click="goPage(page + 1)" :disabled="page === totalPages" aria-label="下一页">›</button>
-  </nav>
+    <!-- Agnes AI 风格卡片网格 -->
+    <div v-if="displayPosts.length" class="post-cards">
+      <a v-for="post in displayPosts" :key="post.url" :href="post.url" class="post-card-article">
+        <div class="post-card-article-head">
+          <span v-if="post.date" class="post-card-date">{{ post.date }}</span>
+          <span v-if="post.readTime" class="post-card-read">{{ post.readTime }}</span>
+          <span v-if="post.hasLongContent" class="post-badge">长文</span>
+        </div>
+        <h3 class="post-card-title">{{ post.title }}</h3>
+        <p v-if="post.excerpt" class="post-card-excerpt">{{ post.excerpt }}</p>
+        <div v-if="post.tags && post.tags.length" class="post-card-tags">
+          <span v-for="tag in post.tags.slice(0,3)" :key="tag" class="post-card-tag">{{ tag }}</span>
+        </div>
+        <span class="post-card-link">阅读全文 →</span>
+      </a>
+    </div>
+
+    <div v-else class="state-empty">
+      <p>没有找到匹配的文章。</p>
+      <p>试试调整关键词或清除筛选条件。</p>
+    </div>
+
+    <nav class="pagination" v-if="totalPages > 1" aria-label="分页">
+      <button class="page-btn" @click="goPage(page - 1)" :disabled="page === 1" aria-label="上一页">‹</button>
+      <button
+        v-for="n in pageNumbers"
+        :key="n"
+        class="page-btn"
+        :class="{ active: n === page }"
+        @click="goPage(n)"
+        :aria-current="n === page ? 'page' : undefined"
+      >{{ n }}</button>
+      <button class="page-btn" @click="goPage(page + 1)" :disabled="page === totalPages" aria-label="下一页">›</button>
+    </nav>
+  </main>
 </div>

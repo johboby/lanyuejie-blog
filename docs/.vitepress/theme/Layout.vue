@@ -5,6 +5,7 @@ import { useData } from 'vitepress'
 import PostFeatures from './components/PostFeatures.vue'
 import ReadingEnhance from './components/ReadingEnhance.vue'
 import PostBreadcrumb from './components/PostBreadcrumb.vue'
+import DocSidebar from './components/DocSidebar.vue'
 
 const { Layout } = DefaultTheme
 const { page } = useData()
@@ -23,6 +24,9 @@ const isPost = computed(() => {
     </template>
     <template #doc-bottom>
       <PostFeatures v-if="isPost" />
+    </template>
+    <template #doc-sidebar>
+      <DocSidebar v-if="isPost" />
     </template>
   </Layout>
 </template>

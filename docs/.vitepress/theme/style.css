@@ -136,10 +136,10 @@ body {
   margin: 0;
 }
 
-/* Hero — magazine-cover editorial: centered serif masthead + metrics bar */
+/* Hero — Agnes AI 风格大视觉 Hero */
 .hero {
   position: relative;
-  padding: var(--space-16) 0 var(--space-12);
+  padding: var(--space-20) 0 var(--space-12);
   text-align: center;
   overflow: hidden;
 }
@@ -147,8 +147,8 @@ body {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(55% 65% at 50% 0%, var(--brand-accent-soft) 0%, transparent 65%),
-    radial-gradient(50% 60% at 100% 100%, var(--vp-c-brand-soft) 0%, transparent 55%);
+    radial-gradient(60% 70% at 50% 0%, var(--brand-accent-soft) 0%, transparent 60%),
+    radial-gradient(50% 50% at 100% 100%, var(--vp-c-brand-soft) 0%, transparent 50%);
   pointer-events: none;
 }
 .hero-inner { position: relative; }
@@ -165,22 +165,22 @@ body {
   margin-bottom: var(--space-6);
 }
 .hero-title {
-  font-size: clamp(2.6rem, 7vw, 4.2rem);
+  font-size: clamp(2.8rem, 8vw, 5rem);
   font-weight: 900;
   letter-spacing: 0.04em;
-  line-height: 1.15;
+  line-height: 1.1;
   margin: 0 0 var(--space-5);
   color: var(--brand-primary-strong);
 }
 .hero-tagline {
-  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
   font-weight: 600;
   color: var(--brand-accent);
   letter-spacing: 0.24em;
   margin: 0 0 var(--space-5);
 }
 .hero-desc {
-  font-size: 1.02rem;
+  font-size: 1.05rem;
   line-height: 1.85;
   color: var(--vp-c-text-3);
   max-width: 560px;
@@ -188,6 +188,86 @@ body {
 }
 .hero-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; justify-content: center; }
 
+/* Metrics bar — Agnes AI 风格数据指标 */
+.metrics {
+  padding: var(--space-10) 0;
+  border-top: 1px solid var(--vp-c-divider);
+  border-bottom: 1px solid var(--vp-c-divider);
+  background: var(--surface-soft);
+}
+.metrics-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+.metric {
+  flex: 1 1 180px;
+  max-width: 240px;
+  padding: var(--space-6) var(--space-8);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.metric + .metric { border-left: 1px solid var(--vp-c-divider); }
+.metric-num {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--brand-primary);
+}
+.metric-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--vp-c-text-3);
+}
+
+/* Category Quick Nav — Agnes AI 风格分类导航 */
+.cat-nav { padding-top: var(--space-8); padding-bottom: var(--space-4); }
+.cat-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-4);
+}
+.cat-nav-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--vp-c-divider);
+  background: var(--surface-soft);
+  text-decoration: none;
+  transition: all var(--motion-standard) var(--easing);
+  cursor: pointer;
+}
+.cat-nav-card:hover {
+  border-color: var(--brand-primary);
+  box-shadow: var(--shadow-2);
+  transform: translateY(-2px);
+}
+.cat-nav-card:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 2px; }
+.cat-nav-glyph {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--brand-primary);
+  line-height: 1;
+}
+.cat-nav-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+.cat-nav-count {
+  font-size: 0.72rem;
+  color: var(--vp-c-text-3);
+}
 /* Metrics bar — hairline-separated editorial stats */
 .hero-metrics {
   display: flex;
@@ -634,12 +714,177 @@ body {
 .contact-link:hover { text-decoration: underline; }
 
 /* ============================================================
-   POSTS ARCHIVE (lists/posts)
+   Archive Layout — Agnes AI 风格两栏布局
    ============================================================ */
-.archive {
-  max-width: var(--reading-max);
+.archive-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: var(--space-8);
+  max-width: var(--content-max);
   margin: 0 auto;
-  padding: var(--space-12) var(--space-6);
+  padding: var(--space-10) var(--space-6);
+  align-items: start;
+}
+.archive-sidebar {
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  padding-right: var(--space-4);
+  border-right: 1px solid var(--vp-c-divider);
+}
+.sidebar-section {
+  margin-bottom: var(--space-8);
+}
+.sidebar-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--vp-c-text-3);
+  margin: 0 0 var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+.cat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 0.88rem;
+  color: var(--vp-c-text-2);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--motion-fast) var(--easing);
+}
+.cat-item:hover {
+  background: var(--vp-c-brand-soft);
+  color: var(--brand-primary);
+}
+.cat-item.active {
+  background: var(--brand-primary);
+  color: #fff;
+  font-weight: 600;
+}
+.cat-item:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 1px; }
+.cat-count {
+  font-size: 0.72rem;
+  padding: 1px 7px;
+  border-radius: var(--radius-full);
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+  flex-shrink: 0;
+}
+.cat-item.active .cat-count {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+}
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+.tag-item {
+  font-size: 0.78rem;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--vp-c-divider);
+  background: transparent;
+  color: var(--vp-c-text-2);
+  cursor: pointer;
+  transition: all var(--motion-fast) var(--easing);
+}
+.tag-item:hover { border-color: var(--brand-primary); color: var(--brand-primary); }
+.tag-item.active {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+  color: #fff;
+}
+.tag-item:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 1px; }
+
+/* ============================================================
+   Doc Sidebar — 文档大纲侧边栏
+   ============================================================ */
+.doc-sidebar {
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  width: 200px;
+  flex-shrink: 0;
+  padding: var(--space-6) var(--space-4);
+  border-left: 1px solid var(--vp-c-divider);
+  margin-left: var(--space-6);
+}
+.doc-sidebar-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--vp-c-text-3);
+  margin: 0 0 var(--space-4);
+}
+.doc-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.doc-sidebar-link {
+  display: block;
+  padding: 4px 10px;
+  font-size: 0.84rem;
+  color: var(--vp-c-text-3);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  border-left: 2px solid transparent;
+  transition: all var(--motion-fast) var(--easing);
+  line-height: 1.5;
+}
+.doc-sidebar-link:hover {
+  color: var(--brand-primary);
+  background: var(--vp-c-brand-soft);
+}
+.doc-sidebar-link.active {
+  color: var(--brand-primary);
+  border-left-color: var(--brand-primary);
+  font-weight: 600;
+  background: var(--vp-c-brand-soft);
+}
+.doc-sidebar-link-h3 {
+  padding-left: 24px;
+  font-size: 0.8rem;
+}
+
+/* ============================================================
+   Archive Responsive
+   ============================================================ */
+@media (max-width: 960px) {
+  .archive-layout {
+    grid-template-columns: 1fr;
+    padding: var(--space-8) var(--space-4);
+  }
+  .archive-sidebar {
+    position: static;
+    max-height: none;
+    border-right: none;
+    border-bottom: 1px solid var(--vp-c-divider);
+    padding-right: 0;
+    padding-bottom: var(--space-6);
+    margin-bottom: var(--space-6);
+  }
+}
+@media (max-width: 768px) {
+  .archive-layout { gap: var(--space-4); }
+  .post-cards { grid-template-columns: 1fr; }
 }
 .archive-head { margin-bottom: var(--space-8); }
 .archive-title {
