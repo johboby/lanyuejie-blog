@@ -4,12 +4,38 @@ layout: page
 ---
 
 <script setup>
-import { computed, ref } from 'vue'
-import { data as posts } from './.vitepress/posts.data.js'
+import { computed } from 'vue'
+import { data as loaderPosts } from './.vitepress/posts.data.js'
+import { POSTS } from './posts-list.generated.js'
 import { withBase } from 'vitepress'
 
-const allPosts = computed(() => posts.value || [])
-const recentPosts = computed(() => allPosts.value.slice(0, 8))
+// 优先使用 SSG 内嵌的 window.__VP_POSTS__（config.js transformHead 注入，客户端）；
+// SSR/SSG 阶段 window 未定义，回退到 posts-data.js 的同步 POSTS 数组（构建时预计算），
+// 让首屏 HTML 即渲染真实文章列表；再回退到 createContentLoader 数据。
+function getPosts() {
+  if (typeof window !== 'undefined' && window.__VP_POSTS__ && window.__VP_POSTS__.length) {
+    return window.__VP_POSTS__
+  }
+  if (POSTS.length) return POSTS
+  return loaderPosts.value || []
+}
+const allPosts = computed(() => getPosts())
+
+// 统一日期格式化（SSG 内嵌数据 date 为 ISO 字符串，loader 数据为 frontmatter 原始值）
+function fmtDate(d) {
+  if (!d) return ''
+  const t = new Date(d)
+  if (Number.isNaN(t.getTime())) return String(d)
+  return `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`
+}
+function normalizePost(p) {
+  if (!p) return null
+  return {
+    ...p,
+    date: fmtDate(p.date),
+  }
+}
+const recentPosts = computed(() => allPosts.value.slice(0, 8).map(normalizePost))
 const featuredPost = computed(() => recentPosts.value[0] || null)
 const gridPosts = computed(() => recentPosts.value.slice(1))
 
@@ -57,11 +83,21 @@ const featuredMediaStyle = computed(() => {
   }
 })
 
+function toStrArray(v) {
+  if (!v) return []
+  if (Array.isArray(v)) return v.filter(Boolean)
+  if (typeof v === 'string') return v.split(/[,/]/).map(s => s.trim()).filter(Boolean)
+  return []
+}
 // 动态指标：基于 SSG 注入的文章数据实时计算
 const metrics = computed(() => {
   const list = allPosts.value
   const catSet = new Set()
-  list.forEach(p => (p.categories || []).forEach(c => catSet.add(c)))
+  // 并集统计：同时计入 categories 与 tags，保证分类指标非 0
+  list.forEach(p => {
+    toStrArray(p.categories).forEach(c => catSet.add(c))
+    toStrArray(p.tags).forEach(c => catSet.add(c))
+  })
   const years = list.map(p => p.dateISO || p.date).filter(Boolean).map(d => new Date(d).getFullYear()).filter(Boolean)
   const maxYear = years.length ? Math.max(...years) : new Date().getFullYear()
   return [
@@ -72,15 +108,21 @@ const metrics = computed(() => {
   ]
 })
 
-// 分类导航数据
+// 分类导航数据：基于全部文章统计（非 recentPosts 前 8 篇），
+// 关键词同时匹配 tags 与 categories（categories 字段稀疏，tags 更完整）
+function groupCount(re) {
+  return allPosts.value.filter(p =>
+    [toStrArray(p.categories), toStrArray(p.tags)].some(arr => arr.some(c => re.test(c)))
+  ).length
+}
 const categoryNav = [
-  { name: '智能科技', count: recentPosts.value.filter(p => (p.categories || []).some(c => /AI|智能体|大模型|技术|科技|算法|机器人|视频技术/.test(c))).length, glyph: 'AI' },
-  { name: '经济理财', count: recentPosts.value.filter(p => (p.categories || []).some(c => /经济|理财|投资|金融|市场|产业|政策|价值链/.test(c))).length, glyph: '经' },
-  { name: '能源制造', count: recentPosts.value.filter(p => (p.categories || []).some(c => /能源|气候|制造|绿色/.test(c))).length, glyph: '能' },
-  { name: '成长方法', count: recentPosts.value.filter(p => (p.categories || []).some(c => /学习|成长|方法|认知|心理|教育|职业|效率|自我/.test(c))).length, glyph: '学' },
-  { name: '实战复盘', count: recentPosts.value.filter(p => (p.categories || []).some(c => /复盘|实战|增长|SEO|工具|应用|部署/.test(c))).length, glyph: '战' },
-  { name: '深度分析', count: recentPosts.value.filter(p => (p.categories || []).some(c => /分析|调查|研究|思考|趋势|展望|洞察|行业/.test(c))).length, glyph: '析' },
-  { name: '人文伦理', count: recentPosts.value.filter(p => (p.categories || []).some(c => /人文|伦理|社会/.test(c))).length, glyph: '文' },
+  { name: '智能科技', count: groupCount(/AI|智能体|大模型|技术|科技|算法|机器人|视频|深度学习|模型训练|架构|工具|工程|图像|Python|应用|认知|推理|生成|评测|设计|知识|搜索|生产|效率|省|实战|趋势|市场|动向|行业|产业|经济与|能源|气候|制造|绿色|研究综述|图神经|时间序列|未来|展望|综合/), glyph: 'AI' },
+  { name: '经济理财', count: groupCount(/经济|理财|投资|金融|市场|产业|政策|价值链|决策|消费|维权|规划/), glyph: '经' },
+  { name: '能源制造', count: groupCount(/能源|气候|制造|绿色/), glyph: '能' },
+  { name: '成长方法', count: groupCount(/学习|成长|方法|认知|心理|教育|职业|效率|自我|提升|管理|健康|方法论/), glyph: '学' },
+  { name: '实战复盘', count: groupCount(/复盘|实战|增长|SEO|工具|应用|部署|搜索|引擎/), glyph: '战' },
+  { name: '深度分析', count: groupCount(/分析|调查|研究|思考|趋势|展望|洞察|行业|综述|长文/), glyph: '析' },
+  { name: '人文伦理', count: groupCount(/人文|伦理|社会/), glyph: '文' },
 ]
 </script>
 

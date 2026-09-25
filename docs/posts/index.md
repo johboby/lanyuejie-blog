@@ -5,8 +5,20 @@ layout: page
 
 <script setup>
 import { ref, computed, onMounted, h } from 'vue'
-import { data as allPosts } from '../.vitepress/posts.data.js'
+import { data as loaderPosts } from '../.vitepress/posts.data.js'
+import { POSTS } from '../posts-list.generated.js'
 import { withBase } from 'vitepress'
+
+// 优先使用 SSG 内嵌的 window.__VP_POSTS__（config.js transformHead 注入，客户端）；
+// SSR/SSG 阶段 window 未定义，回退到 posts-data.js 的同步 POSTS 数组（构建时预计算），
+// 让首屏 HTML 即渲染真实文章列表；再回退到 createContentLoader 数据。
+function getSourcePosts() {
+  if (typeof window !== 'undefined' && window.__VP_POSTS__ && window.__VP_POSTS__.length) {
+    return window.__VP_POSTS__
+  }
+  if (POSTS.length) return POSTS
+  return loaderPosts.value || []
+}
 
 const PAGE_SIZE = 6
 const query = ref('')
@@ -15,21 +27,39 @@ const activeTag = ref('')
 const page = ref(1)
 const total = ref(0)
 
-const localPosts = computed(() => (allPosts.value || []).map(normalize))
+function toStrArray(v) {
+  if (!v) return []
+  if (Array.isArray(v)) return v.filter(Boolean)
+  if (typeof v === 'string') return v.split(/[,/]/).map(s => s.trim()).filter(Boolean)
+  return []
+}
+
+const localPosts = computed(() => getSourcePosts().map(normalize))
 
 function normalize(p) {
   if (!p) return { title: '', url: '', date: null, readTime: '', excerpt: '', tags: [], categories: [], hasLongContent: false }
-  const date = p.date ? new Date(p.date).toLocaleDateString('zh-CN') : null
+  // SSG 内嵌数据 date 为 ISO 字符串，loader 数据为 frontmatter 原始值；统一格式化为 YYYY-MM-DD
+  const date = p.date ? fmtDate(p.date) : null
   return {
     title: p.title,
     url: withBase(p.url),
     date,
+    // 优先使用 SSG 内嵌的预计算 readTime；loader 数据按 wordCount 估算
     readTime: p.readTime || (p.wordCount ? `${Math.max(1, Math.ceil(p.wordCount / 500))} 分钟` : ''),
     excerpt: p.excerpt || p.description || '',
-    tags: p.tags || [],
-    categories: p.categories || [],
-    hasLongContent: (p.wordCount || 0) > 3000,
+    tags: toStrArray(p.tags),
+    categories: toStrArray(p.categories),
+    // 优先使用 SSG 内嵌的预计算 hasLongContent；loader 数据按 wordCount 计算
+    hasLongContent: p.hasLongContent !== undefined ? p.hasLongContent : (p.wordCount || 0) > 3000,
   }
+}
+
+// 统一日期格式化为 YYYY-MM-DD（兼容 ISO 字符串与 frontmatter 原始值）
+function fmtDate(d) {
+  if (!d) return null
+  const t = new Date(d)
+  if (Number.isNaN(t.getTime())) return String(d)
+  return `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`
 }
 
 const allTags = computed(() => {
@@ -44,9 +74,18 @@ const hasMoreTags = computed(() => allTags.value.length > VISIBLE_TAGS)
 
 const categories = computed(() => {
   const map = new Map()
-  localPosts.value.forEach(p => (p.categories || ['未分类']).forEach(c => map.set(c, (map.get(c) || 0) + 1)))
+  localPosts.value.forEach(p => {
+    // 并集统计：同时计入 categories 与 tags（categories 字段稀疏，tags 更完整）
+    const set = new Set([...(p.categories || []), ...(p.tags || [])])
+    if (set.size === 0) set.add('未分类')
+    set.forEach(c => map.set(c, (map.get(c) || 0) + 1))
+  })
   return [...map.entries()].map(([name, count]) => ({ name, count })).sort((a, b) => b.count - a.count)
 })
+
+function postHasCategory(p, cat) {
+  return [...(p.categories || []), ...(p.tags || [])].includes(cat)
+}
 
 function selectCategory(cat) {
   category.value = category.value === cat ? '' : cat
@@ -61,7 +100,7 @@ function selectTag(tag) {
 
 const filteredPosts = computed(() => {
   let list = localPosts.value
-  if (category.value) list = list.filter(p => (p.categories || []).includes(category.value))
+  if (category.value) list = list.filter(p => postHasCategory(p, category.value))
   if (activeTag.value) list = list.filter(p => (p.tags || []).includes(activeTag.value))
   if (query.value.trim()) {
     const q = query.value.toLowerCase()

@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-import { writeFileSync, readFileSync, readdirSync } from 'fs'
+import { writeFileSync, readFileSync, readdirSync, mkdirSync } from 'fs'
 import { resolve } from 'path'
 
 const SITE_URL = 'https://johboby.github.io/lanyuejie-blog'
@@ -59,6 +59,31 @@ const POST_META = (() => {
     }
   } catch {}
   return meta
+})()
+
+// 构建时精简文章数据（SSG 阶段内嵌到 HTML，让首屏即含真实文章列表，
+// 不依赖客户端 JS hydration；同时供 index/posts 列表页与 transformHead 使用）
+const POSTS_DATA = (() => {
+  const list = []
+  for (const [slug, pm] of Object.entries(POST_META)) {
+    const fm = pm.fm
+    if (!fm.title || !fm.date) continue // 跳过 index.md / about.md 等
+    const wc = pm.wordCount || 0
+    list.push({
+      url: `/posts/${slug}.html`,
+      title: fm.title,
+      date: new Date(fm.date).toISOString(),
+      description: pm.description || '',
+      tags: Array.isArray(fm.tags) ? fm.tags : [],
+      categories: Array.isArray(fm.categories) ? fm.categories : [],
+      excerpt: pm.description || '',
+      wordCount: wc,
+      readTime: `${Math.max(1, Math.ceil(wc / CHARS_PER_MINUTE))} 分钟`,
+      hasLongContent: wc > 3000,
+    })
+  }
+  list.sort((a, b) => new Date(b.date) - new Date(a.date))
+  return list
 })()
 
 function loadSEOMap() {
@@ -280,6 +305,27 @@ export default defineConfig({
     },
     plugins: [
       {
+        // 构建时把同步文章列表数据生成到 docs/posts-list.generated.js，
+        // 供 index.md / posts/index.md 在 SSR/SSG 阶段直接 import（构建时预计算），
+        // 解决 createContentLoader 数据只在客户端、SSR 阶段为空导致的"文章全都不见了"。
+        name: 'generate-posts-list',
+        buildStart() {
+          const list = POSTS_DATA.map(p => ({
+            url: p.url, title: p.title, date: p.date,
+            tags: p.tags, categories: p.categories,
+            wordCount: p.wordCount, readTime: p.readTime,
+            hasLongContent: p.hasLongContent,
+          }))
+          const outPath = resolve('docs', 'posts-list.generated.js')
+          writeFileSync(
+            outPath,
+            `// 构建时自动生成的同步文章列表数据（勿手改，由 config.js buildStart 重写）\n` +
+              `export const POSTS = ${JSON.stringify(list, null, 2)};\n`,
+            { encoding: 'utf-8' }
+          )
+        },
+      },
+      {
         name: 'md-assets-handler',
         resolveId(source) {
           if (source.startsWith('/md_assets/')) {
@@ -386,6 +432,18 @@ export default defineConfig({
     const readMinutes = Math.max(1, Math.ceil(wordCount / CHARS_PER_MINUTE))
 
     head.push(['link', { rel: 'canonical', href: url }])
+
+    // 把文章数据内嵌到每页 HTML，让 SSG 首屏即渲染出真实文章列表
+    // （createContentLoader 的数据只在客户端 JS chunk 里，SSR 阶段为空，
+    //   不内嵌会导致首页/文章列表页首屏 0 篇、空网格、"文章全都不见了"）
+    // 只保留列表展示所需字段，控制内嵌体积
+    const postsInline = POSTS_DATA.map(p => ({
+      url: p.url, title: p.title, date: p.date,
+      tags: p.tags, categories: p.categories,
+      excerpt: p.excerpt.slice(0, 120),
+      readTime: p.readTime, hasLongContent: p.hasLongContent,
+    }))
+    head.push(['script', {}, `window.__VP_POSTS__=${JSON.stringify(postsInline)};`])
 
     head.push(['meta', { name: 'description', content: description }])
     head.push(['meta', { property: 'og:url', content: url }])
@@ -695,5 +753,31 @@ ${items}
     ].join('\n')
 
     writeFileSync(resolve(outDir, 'llms.txt'), llmsIndex, { encoding: 'utf-8' })
+
+    // 生成 data/posts.json：把文章 frontmatter 数据内嵌到构建产物，
+    // 供 SSR 阶段 Layout.vue 预加载到 window.__VP_POSTS__，让首屏 HTML 就包含真实文章数据。
+    // （createContentLoader 的数据只在客户端 JS chunk 里，SSR 阶段为空，
+    //   导致 dist/*.html 文章网格全部空、指标全 0，用户看到"文章全都不见了"）
+    const postsJson = posts.map(post => {
+      const fm = post.frontmatter || {}
+      const src = post.src || ''
+      const wc = countWords(src)
+      return {
+        url: post.url,
+        title: fm.title || '',
+        date: fm.date ? new Date(fm.date).toISOString() : null,
+        description: fm.description || autoDescription(src, ''),
+        tags: fm.tags || [],
+        categories: fm.categories || [],
+        excerpt: autoDescription(src, fm.description || ''),
+        wordCount: wc,
+        readTime: `${Math.max(1, Math.ceil(wc / CHARS_PER_MINUTE))} 分钟`,
+        enTitle: fm.enTitle || '',
+        enDescription: fm.enDescription || '',
+      }
+    })
+    const dataDir = resolve(outDir, 'data')
+    mkdirSync(dataDir, { recursive: true })
+    writeFileSync(resolve(dataDir, 'posts.json'), JSON.stringify(postsJson, null, 0), { encoding: 'utf-8' })
   },
 })
