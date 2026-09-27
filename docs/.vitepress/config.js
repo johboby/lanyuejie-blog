@@ -358,6 +358,9 @@ export default defineConfig({
     ['link', { rel: 'alternate', type: 'application/rss+xml', title: `${SITE_NAME} RSS`, href: `${SITE_URL}/feed.xml` }],
     ['link', { rel: 'dns-prefetch', href: 'https://johboby.github.io' }],
     ['link', { rel: 'preconnect', href: 'https://johboby.github.io', crossorigin: '' }],
+    // Webmention — 接收其他站点的引用通知
+    ['link', { rel: 'webmention', href: 'https://webmention.io/johboby/lanyuejie-blog/webmention' }],
+    ['link', { rel: 'pingback', href: 'https://webmention.io/johboby/lanyuejie-blog/xmlrpc' }],
 
     ['meta', { name: 'keywords', content: '揽月界科技,Lanyuejie Technology,AI风控,智能保险,畜牧业监测,双精两减,防灾减损,人工智能,风险控制,AI risk control,intelligent insurance,disaster prevention' }],
     ['meta', { name: 'author', content: SITE_NAME }],

@@ -7,6 +7,7 @@ import categoryRoutes from './routes/categories.js'
 import uploadRoutes from './routes/upload.js'
 import searchRoutes from './routes/search.js'
 import statsRoutes from './routes/stats.js'
+import subscribeRoutes from './routes/subscribe.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const app = express()
@@ -40,6 +41,7 @@ app.use('/api/categories', categoryRoutes)
 app.use('/api/upload', uploadRoutes)
 app.use('/api/search', searchRoutes)
 app.use('/api/stats', statsRoutes)
+app.use('/api/subscribe', subscribeRoutes)
 
 // 健康检查
 app.get('/api/health', (_req, res) => {

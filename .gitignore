@@ -4,6 +4,7 @@ docs/.vitepress/cache/
 docs/.vitepress/.temp/
 docs/posts-list.generated.js
 server/uploads/
+server/subscribers.json
 *.log
 .DS_Store
 Thumbs.db
