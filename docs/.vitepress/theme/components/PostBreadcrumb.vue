@@ -17,6 +17,7 @@ const postDate = computed(() => {
 
 <template>
   <div class="post-head">
+    <h1 class="post-title">{{ postTitle }}</h1>
     <nav class="post-breadcrumb" aria-label="面包屑导航">
       <a :href="withBase('/')" class="crumb">首页</a>
       <span class="crumb-sep" aria-hidden="true">›</span>
@@ -39,6 +40,15 @@ const postDate = computed(() => {
 
 <style scoped>
 .post-head { margin-bottom: 1.2rem; }
+.post-title {
+  font-size: 1.75rem;
+  font-weight: 900;
+  line-height: 1.3;
+  margin: 0 0 0.75rem;
+  color: var(--vp-c-text-1);
+  font-family: var(--vp-font-family-display);
+  letter-spacing: -0.02em;
+}
 .post-breadcrumb {
   display: flex;
   flex-wrap: wrap;

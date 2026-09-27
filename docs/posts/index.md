@@ -152,6 +152,10 @@ const filterLabel = computed(() => {
   return '已筛选：' + parts.join('')
 })
 
+// 总目录折叠状态
+const tocCollapsed = ref(false)
+function toggleToc() { tocCollapsed.value = !tocCollapsed.value }
+
 // 按年份分组总目录
 const tocByYear = computed(() => {
   const map = new Map()
@@ -172,9 +176,16 @@ const ArchiveList = {
     return () => h('div', { class: 'archive-layout' }, [
       // 侧边栏
       h('aside', { class: 'archive-sidebar' }, [
-        // 总目录（最上层）
-        h('div', { class: 'sidebar-section' }, [
-          h('h3', { class: 'sidebar-title' }, '总目录'),
+        // 总目录（最上层）— 可折叠
+        h('div', { class: ['sidebar-section', 'toc-section', { collapsed: tocCollapsed.value }] }, [
+          h('button', {
+            class: 'toc-toggle',
+            onClick: toggleToc,
+            'aria-expanded': !tocCollapsed.value,
+          }, [
+            h('span', { class: 'toc-toggle-label' }, '总目录'),
+            h('span', { class: ['toc-chevron', { open: !tocCollapsed.value }], 'aria-hidden': 'true' }, '▾'),
+          ]),
           h('div', { class: 'toc-list' },
             tocByYear.value.map(([year, posts]) =>
               h('div', { key: year, class: 'toc-year' }, [
