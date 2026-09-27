@@ -155,6 +155,47 @@ if (typeof window !== 'undefined') {
     if (countEl) countEl.textContent = posts.length;
   } catch(e) { /* noop */ }
 
+  // 动态渲染：用内嵌文章数据填充首页占位元素
+  try {
+    var posts = window.__VP_POSTS__ || [];
+
+    // 按日期降序排列
+    var sorted = posts.slice().sort(function(a, b) {
+      return new Date(b.date || 0) - new Date(a.date || 0);
+    });
+
+    // withBase 兜底：VitePress 全局可用，否则手动拼接 base
+    var base = (typeof withBase === 'function') ? withBase : function(p) { return '/lanyuejie-blog' + p; };
+
+    // 1. 精选文章：取第一篇
+    if (sorted.length > 0) {
+      var fp = sorted[0];
+      var featTitle = document.querySelector('.featured-title');
+      var featCard = document.querySelector('.featured-card');
+      if (featTitle) featTitle.textContent = fp.title || '暂无文章';
+      if (featCard && fp.url) featCard.href = base(fp.url);
+    }
+
+    // 2. 文章网格：取第 2-4 篇
+    var gridCards = document.querySelectorAll('.post-grid .post-card');
+    gridCards.forEach(function(card, i) {
+      if (sorted[i + 1]) {
+        var p = sorted[i + 1];
+        var h3 = card.querySelector('h3');
+        if (h3) h3.textContent = p.title || '暂无文章';
+        if (p.url) card.href = base(p.url);
+      }
+    });
+
+    // 3. 分类导航计数
+    var catCount = document.querySelector('.cat-nav-count');
+    if (catCount) catCount.textContent = posts.length + ' 篇';
+
+    // 4. "查看全部"链接
+    var moreLink = document.querySelector('[data-part="articles-more"]');
+    if (moreLink) moreLink.textContent = '查看全部 ' + posts.length + ' 篇研究 →';
+  } catch(e) { /* noop — 静态占位符保持可见 */ }
+
   // 订阅表单反馈
   var form = document.querySelector('.subscribe-form');
   if (form) {
