@@ -567,47 +567,6 @@ body {
 .VPDoc .vp-doc .callout > :first-child { margin-top: 0; }
 .VPDoc .vp-doc .callout > :last-child { margin-bottom: 0; }
 
-/* Reading-time badge */
-.VPDoc .vp-doc .reading-time {
-  display: inline-block;
-  padding: 4px 12px;
-  margin: 0 0 var(--space-5);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--brand-primary);
-  background: var(--vp-c-brand-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: var(--radius-full);
-}
-
-/* Manual article TOC (article-embedded, complements VitePress outline) */
-.VPDoc .vp-doc .toc {
-  margin: var(--space-6) 0;
-  padding: var(--space-5) var(--space-6);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--vp-c-divider);
-  background: var(--vp-c-brand-soft);
-}
-.VPDoc .vp-doc .toc h2,
-.VPDoc .vp-doc .toc h3 {
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--brand-primary);
-  margin: 0 0 var(--space-3);
-  padding-top: 0;
-}
-.VPDoc .vp-doc .toc ul { list-style: none; padding: 0; margin: 0; }
-.VPDoc .vp-doc .toc li { margin: 0.35em 0; line-height: 1.55; }
-.VPDoc .vp-doc .toc a {
-  color: var(--vp-c-text-2);
-  font-weight: 500;
-  text-decoration: none;
-}
-.VPDoc .vp-doc .toc a:hover { color: var(--brand-primary); text-decoration: underline; }
-
 /* CTA box (end-of-article call-to-action) */
 .VPDoc .vp-doc .cta-box {
   margin: 1.8em 0;

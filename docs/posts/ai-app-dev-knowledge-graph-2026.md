@@ -18,27 +18,6 @@ categories:
  - 架构设计
  - 研究
 ---
-<p class="reading-time">⏱️ 阅读时间：约 18 分钟</p>
-
-<div class="toc">
-
-## 📑 目录
-
-- [为什么你需要这张知识图谱](#为什么你需要这张知识图谱)
-- [全局视图：AI应用开发的六层架构](#全局视图ai应用开发的六层架构)
-- [Layer 1：Prompt Engineering（提示词工程）](#layer-1prompt-engineering提示词工程)
-- [Layer 2：Context Engineering（上下文工程）](#layer-2context-engineering上下文工程)
-- [Layer 3：RAG（检索增强生成）](#layer-3rag检索增强生成)
-- [Layer 4：Agent & Multi-Agent（智能体）](#layer-4agent--multi-agent智能体)
-- [Layer 5：Eval & Observability（评估与可观测性）](#layer-5eval--observability评估与可观测性)
-- [Layer 6：Production System Design（生产系统设计）](#layer-6production-system-design生产系统设计)
-- [技术选型矩阵](#技术选型矩阵)
-- [学习路径（6阶段）](#学习路径6阶段)
-- [常见架构反模式](#常见架构反模式)
-- [FAQ](#faq)
-- [写在最后](#写在最后)
-
-</div>
 
 ---
 
@@ -742,7 +721,7 @@ Anthropic 2025年9月提出，核心观点：上下文是"有限的注意力预�
 
 <div class="cta-box">
 
-### 🗺️ 开始绘制你的AI开发知识图谱
+### 开始绘制你的AI开发知识图谱
 
 1. **现在**：在纸上画出你的六层架构（哪怕很粗糙）
 2. **今天**：写出第一版四层系统提示（用文章模板）

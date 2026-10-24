@@ -7,8 +7,6 @@ description: 2026 被称为具身智能规模部署元年。本文基于中国�
 enKeywords: "embodied AI, humanoid robot, physical AI, world model, VLA, scale deployment, industrial application"
 ---
 
-<p class="reading-time">⏱️ 阅读时间：约18分钟</p>
-
 ## 先说结论
 
 2026 年具身智能最大的叙事切换，不是"又跑出了一个更强模型"，而是行业集体从**技术验证**滑向**规模交付**。世界机器人大会上 373 家企业 3000 件展品，但真正被记住的不再是机器人翻跟头的短视频，而是"它今天替谁干了多少件活"。上海在工博会上定下硬指标：到 2028 年推动 8000 台人形机器人进工厂，工业机器人密度达每万人 600 台。这个数字本身就是对"规模"一词最直接的注脚。

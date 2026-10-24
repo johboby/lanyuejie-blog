@@ -7,8 +7,6 @@ description: 2026 端侧 AI 从概念走向量产现实。本文基于 WAIC 大�
 enKeywords: "edge AI, edge computing, AI glasses, on-device agent, smart cockpit, low-power always-on"
 ---
 
-<p class="reading-time">⏱️ 阅读时间：约14分钟</p>
-
 ## 先说结论
 
 2026 年 AI 最安静的变化，发生在"智能离开云端"的那一刻。世界人工智能大会（WAIC）上最显著的信号不是哪个新模型又刷了榜，而是端侧应用——"看得见、可实操、能落地"——成了主流。AI 正从云端向产线、桌面、可穿戴设备延伸，角色从"回答问题"转向"执行任务"。

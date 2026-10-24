@@ -16,33 +16,6 @@ categories:
  - AI应用
  - 研究
 ---
-<p class="reading-time">⏱️ 阅读时间：约 16 分钟</p>
-
-<div class="toc">
-
-## 📑 目录
-
-- [为什么你需要一个"第二大脑"？](#为什么你需要一个第二大脑)
-- [我的系统现状（2026年7月）](#我的系统现状2026年7月)
-- [核心框架：PARA方法论](#核心框架para方法论)
-- [6个数据库的完整架构](#6个数据库的完整架构)
-- [Step 1: 搭建Inbox（5分钟）](#step-1搭建inbox5分钟)
-- [Step 2: 配置Projects数据库](#step-2配置projects数据库)
-- [Step 3: 配置Areas数据库](#step-3配置areas数据库)
-- [Step 4: 配置Resources数据库](#step-4配置resources数据库)
-- [Step 5: 配置Archives + Daily Notes](#step-5配置archives--daily-notes)
-- [Step 6: 连接AI Autofill（核心步骤）](#step-6连接ai-autofill核心步骤)
-- [Step 7: 设置每周回顾工作流](#step-7设置每周回顾工作流)
-- [AI Connectors：跨平台检索](#ai-connectors跨平台检索)
-- [Notion AI 2026新功能实测](#notion-ai-2026新功能实测)
-- [定价分析：免费版够用吗？](#定价分析免费版够用吗)
-- [我的日常使用流](#我的日常使用流)
-- [常见翻车场景与对策](#常见翻车场景与对策)
-- [免费模板分享](#免费模板分享)
-- [FAQ](#faq)
-- [写在最后](#写在最后)
-
-</div>
 
 ---
 
@@ -785,7 +758,7 @@ AI帮你摘要、标签、分类、提醒——但"这条笔记对我意味着�
 
 <div class="cta-box">
 
-### 🧠 开始搭建你的第二大脑
+### 开始搭建你的第二大脑
 
 1. **现在**：点击模板链接 → Duplicate到你的工作区
 2. **今天**：创建Inbox + 写第一条Daily Note

@@ -347,8 +347,6 @@ MHRA 案例已经说明：压幻觉会抬遗漏。0% 幻觉 + 10.5% 遗漏的系
 [28. 朱小佩（清华大学）. "AI 与人类幻觉现象研究：Mirror Illusion Art." CVPR 2026 Highlight / ACM MM 2026. 智源社区 Talk, 2026-08.
 [29] Bayerlein Reimund, et al. "On Hallucinations in Artificial Intelligence–Generated Content for Nuclear Medicine Imaging: The DREAM Report." Journal of Nuclear Medicine, 2025-11.
 
-
-
 *本文基于截至 2026 年 8 月的公开资料、学术文献与行业测评整理。文中模型幻觉率数据均来自公开基准与第三方汇总，实际生产表现请以自行测试为准；涉及具体案例细节以法院原始文书与权威媒体报道为准。*
 
 ---

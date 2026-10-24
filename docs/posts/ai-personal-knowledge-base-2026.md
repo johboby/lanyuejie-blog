@@ -16,28 +16,6 @@ categories:
   - 知识管理
   - 研究
 ---
-<p class="reading-time">⏱️ 阅读时间：约 17 分钟</p>
-
-<div class="toc">
-
-## 📑 目录
-
-- [先说结论：知识库的ROI藏在"可问性"里](#先说结论知识库的roi藏在可问性里)
-- [RAG是什么：三句话讲透原理](#rag是什么三句话讲透原理)
-- [三种路线总览：从零门槛到硬核](#三种路线总览从零门槛到硬核)
-- [路线A：NotebookLM（零门槛·云端）](#路线anotebooklm零门槛云端)
-- [路线B：AnythingLLM（低门槛·可本地）](#路线banythingllm低门槛可本地)
-- [路线C：Obsidian+Ollama（硬核·完全本地）](#路线cobsidianollama硬核完全本地)
-- [8款工具六维度横评](#8款工具六维度横评)
-- [Obsidian vault架构规范（让AI读得懂你的笔记）](#obsidian-vault架构规范让ai读得懂你的笔记)
-- [完整配置教程：Obsidian+Copilot+Ollama](#完整配置教程obsidiancopilotollama)
-- [5种日常AI工作流](#5种日常ai工作流)
-- [常见问题排查](#常见问题排查)
-- [按人群选型指南](#按人群选型指南)
-- [FAQ](#faq)
-- [写在最后](#写在最后)
-
-</div>
 
 ---
 
@@ -672,7 +650,7 @@ RAG（Retrieval-Augmented Generation，检索增强生成）是让AI回答你私
 
 <div class="cta-box">
 
-### 🧠 开始搭建你的AI知识库
+### 开始搭建你的AI知识库
 
 1. **零门槛起步**：打开 NotebookLM（免费），上传你的第一篇文档，问它一个问题——今天就开始
 2. **评论区告诉我**：你目前用什么工具管理知识？最想解决的痛点是什么？

@@ -7,8 +7,6 @@ description: 月之暗面 Kimi K3 以 2.8 万亿参数、100 万上下文登顶 
 enKeywords: "Kimi K3, open source model, LLM, LMArena, coding benchmark, US-China AI, DeepSeek V4.1"
 ---
 
-<p class="reading-time">⏱️ 阅读时间：约15分钟</p>
-
 ## 先说结论
 
 一个一直被视为"默认设定"的等式正在松动：**闭源旗舰 = 最强编程模型**。过去两年，行业里最聪明的代码能力几乎都锁在需要付费调用的闭源系统里——OpenAI、Anthropic、Google。开源模型追得再近，也总差那一步。

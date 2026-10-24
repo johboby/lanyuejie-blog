@@ -18,29 +18,6 @@ categories:
  - 模型训练
  - 研究
 ---
-<p class="reading-time">⏱️ 阅读时间：约 18 分钟</p>
-
-<div class="toc">
-
-## 📑 目录
-
-- [为什么2026年还要学微调？](#为什么2026年还要学微调)
-- [微调决策树：你真的需要微调吗？](#微调决策树你真的需要微调吗)
-- [完整流程图：从数据到部署](#完整流程图从数据到部署)
-- [Stage 1：数据准备（最关键的阶段）](#stage-1数据准备最关键的阶段)
-- [Stage 2：选择基础模型](#stage-2选择基础模型)
-- [Stage 3：训练方法选型（SFT/DPO/RLHF）](#stage-3训练方法选型sftdporlhf)
-- [Stage 4：LoRA/QLoRA配置详解](#stage-4loraqlora配置详解)
-- [Stage 5：训练执行（Unsloth实战）](#stage-5训练执行unsloth实战)
-- [Stage 6：评估体系](#stage-6评估体系)
-- [Stage 7：导出与部署](#stage-7导出与部署)
-- [RAG + 微调混合架构](#rag--微调混合架构)
-- [成本全景](#成本全景)
-- [常见翻车与对策](#常见翻车与对策)
-- [FAQ](#faq)
-- [写在最后](#写在最后)
-
-</div>
 
 ---
 
@@ -838,7 +815,7 @@ python -m vllm.entrypoints.openai.api_server \
 
 <div class="cta-box">
 
-### 🔧 开始你的第一次微调
+### 开始你的第一次微调
 
 1. **现在**：安装Unsloth（`pip install unsloth[cu121-torch240]`）
 2. **今天**：下载Qwen3-7B-Instruct + 准备50条样本
