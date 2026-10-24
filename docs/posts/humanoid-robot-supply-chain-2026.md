@@ -4,7 +4,7 @@ description: 人形机器人 2026 年的量产瓶颈不在软件，而在供应�
 date: 2026-10-24
 categories: [行业分析, 具身智能, 供应链]
 tags: [具身智能, 人形机器人, 关节模组, 丝杠, 谐波减速器, 灵巧手, 电机, 供应链, 量产, 机器人零部件]
-keywords: 具身智能, 人形机器人, 关节模组, 丝杠, 谐波减速器, 灵巧手, 电机, 供应链, 量产, 机器人零部件
+enKeywords: "humanoid robot, joint module, planetary roller screw, harmonic drive, dexterous hand, motor, robotics supply chain, mass production"
 author: 蓝月亮
 ---
 

@@ -4,7 +4,7 @@ description: 2026 年 AI 芯片竞争不再是"谁能跑更大的模型"，而�
 date: 2026-10-24
 categories: [技术原理, 前沿科技, 行业分析]
 tags: [AI芯片, NPU, GPU, ASIC, 3D堆叠, 光子计算, 推理芯片, 端侧算力, 自研芯片, HBM]
-keywords: AI芯片, NPU, GPU, ASIC, 3D堆叠, 光子计算, 推理芯片, 端侧算力, 自研芯片, HBM
+enKeywords: "AI chip, NPU, GPU, ASIC, 3D stacking, HBM, edge inference, custom silicon, photonics, AI accelerator"
 author: 蓝月亮
 ---
 

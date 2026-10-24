@@ -4,7 +4,7 @@ description: 2026 年 AI 办公 Agent 最大的变化，是计费模式正在从
 date: 2026-10-24
 categories: [行业分析, 商业化]
 tags: [AI办公, Agent, MCP, A2A协议, 企业级AI, SaaS, 智能体, 商业化, 工具调用]
-keywords: AI办公, Agent, MCP, A2A协议, 企业级AI, 按结果收费, SaaS, 智能体, 工具调用, 商业化
+enKeywords: "AI office, agent, MCP, A2A protocol, enterprise AI, outcome pricing, SaaS, tool calling, commercialization"
 author: 蓝月亮
 ---
 

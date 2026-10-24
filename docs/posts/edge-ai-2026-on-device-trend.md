@@ -4,7 +4,7 @@ date: 2026-10-24
 tags: [端侧AI, 边缘计算, AI眼镜, 端侧Agent, 智能终端]
 categories: [前沿科技, 行业观察]
 description: 2026 端侧 AI 从概念走向量产现实。本文基于 WAIC 大会信号、中科创达滴水 AIOS 3.0、TurboX 自主智能物联网平台，拆解端侧 Agent 在 AI 眼镜、智能座舱、智能戒指上的三条落地路径，以及"端侧"为何成为 2026 年最被低估的 AI 战场。
-keywords: 端侧AI, 边缘计算, AI眼镜, 端侧Agent, 智能座舱, 低功耗常驻
+enKeywords: "edge AI, edge computing, AI glasses, on-device agent, smart cockpit, low-power always-on"
 ---
 
 <p class="reading-time">⏱️ 阅读时间：约14分钟</p>

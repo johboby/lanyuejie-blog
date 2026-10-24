@@ -4,7 +4,7 @@ description: 中国开源模型 2026 年在全球开源生态中的位置，需�
 date: 2026-10-24
 categories: [行业分析, 开源生态]
 tags: [开源模型, Hugging Face, Qwen, DeepSeek, Kimi, 模型出海, Apache 2.0, 开源生态, 中国AI]
-keywords: 开源模型, Hugging Face, 模型出海, Apache 2.0, 开源生态, Qwen, DeepSeek, Kimi, Token调用量, 权重下载量
+enKeywords: "open source model, Hugging Face, model export, Apache 2.0, open source ecosystem, Qwen, DeepSeek, Kimi, token usage, weight downloads"
 author: 蓝月亮
 ---
 

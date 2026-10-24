@@ -4,7 +4,7 @@ description: AI 对就业的影响在 2026 年从"会不会替代"转向"怎么�
 date: 2026-10-24
 categories: [深度思考, 行业分析]
 tags: [AI就业, 白领工作, 任务替代, 岗位重组, 招聘, 技能, 提示工程, AI协作, 劳动市场]
-keywords: AI就业, 白领工作, 任务替代, 岗位重组, 招聘, 技能, 提示工程, AI协作, 劳动市场, 职业
+enKeywords: "AI employment, white collar jobs, task automation, job restructuring, AI collaboration, prompt engineering, future of work, labor market"
 author: 蓝月亮
 ---
 

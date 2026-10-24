@@ -4,7 +4,7 @@ description: 中国数据要素市场在 2026 年进入'有政策、有市场、
 date: 2026-10-24
 categories: [行业分析, 数据要素, 合规]
 tags: [数据要素, 数据资产, 数据交易, 数据合规, 数据交易所, 个人信息保护, 数据出境, 公共数据]
-keywords: 数据要素, 数据资产, 数据交易, 数据合规, 数据交易所, 个人信息保护, 数据出境, 公共数据, 数据产品, 数据安全
+enKeywords: "data element market, data asset, data exchange, data compliance, data trading, public data, cross-border data, personal information protection"
 author: 蓝月亮
 ---
 

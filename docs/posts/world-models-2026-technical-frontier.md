@@ -4,7 +4,7 @@ description: 世界模型是 2026 年具身智能和自动驾驶领域最活跃�
 date: 2026-10-24
 categories: [技术原理, 前沿科技]
 tags: [世界模型, 具身智能, 自动驾驶, 视频生成, Physical AI, 物理一致性, 合成数据, 强化学习]
-keywords: 世界模型, 具身智能, 物理一致性, 合成数据, Physical AI, Cosmos, Qwen-RobotWorld, 自动驾驶, 视频生成, ODEWorld
+enKeywords: "world model, embodied AI, physical consistency, synthetic data, Physical AI, Cosmos, Qwen-RobotWorld, autonomous driving, video generation, ODEWorld"
 author: 蓝月亮
 ---
 

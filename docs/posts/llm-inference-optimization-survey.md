@@ -4,7 +4,7 @@ description: 大模型推理正在成为 AI 产业的核心瓶颈。2026 年的�
 date: 2026-10-24
 categories: [技术原理, 前沿科技]
 tags: [推理优化, 量化, 端侧AI, 大模型, LLM, 智能体, 推理引擎, 部署]
-keywords: 推理优化, 量化, 端侧AI, 大模型, LLM, Mix-Quant, 推理引擎, 部署, 投机解码, 电路保护
+enKeywords: "inference optimization, quantization, edge AI, LLM, Mix-Quant, inference engine, deployment, speculative decoding, circuit protection"
 author: 蓝月亮
 ---
 

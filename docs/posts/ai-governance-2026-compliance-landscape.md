@@ -4,7 +4,7 @@ description: 2026 年是中国 AI 治理'小快灵'立法密集落地的一年�
 date: 2026-10-24
 categories: [行业分析, 合规, 数据安全]
 tags: [AI治理, 数据安全, 个人信息保护, 算法备案, 网络安全法, 拟人化互动, 合规, 伦理审查, 数据要素]
-keywords: AI治理, 数据安全, 算法备案, 合规, 网络安全法, 拟人化互动, 个人信息保护, 数据要素, 可解释性, 伦理审查
+enKeywords: "AI governance, data security, algorithm filing, compliance, Cybersecurity Law, anthropomorphic interaction, personal information protection, data element, interpretability, ethics review"
 author: 蓝月亮
 ---
 

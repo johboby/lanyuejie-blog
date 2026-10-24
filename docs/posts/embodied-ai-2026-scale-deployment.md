@@ -4,7 +4,7 @@ date: 2026-10-24
 tags: [具身智能, 人形机器人, 物理AI, 工业落地]
 categories: [深度思考, 行业观察]
 description: 2026 被称为具身智能规模部署元年。本文基于中国信通院具身智能发展报告、世界物理 AI 大会、工博会一线信号，拆解行业从'能跑会跳'走向'能想会干'的三重瓶颈：数据闭环、模型泛化、工程量产，以及真正的商业化拐点在哪里。
-keywords: 具身智能, 人形机器人, 物理AI, 世界模型, VLA, 规模部署, 工业落地
+enKeywords: "embodied AI, humanoid robot, physical AI, world model, VLA, scale deployment, industrial application"
 ---
 
 <p class="reading-time">⏱️ 阅读时间：约18分钟</p>

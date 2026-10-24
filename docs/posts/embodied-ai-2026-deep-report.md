@@ -4,7 +4,7 @@ description: 具身智能连续两年写入政府工作报告，但 2026 年的�
 date: 2026-10-24
 categories: [前沿观察, 行业分析, 具身智能]
 tags: [具身智能, 人形机器人, VLA模型, 世界模型, 机器人, 物理AI, 自动驾驶, 制造业]
-keywords: 具身智能, 人形机器人, VLA模型, 世界模型, 物理AI, 数据瓶颈, 量产, 商业闭环, ICLR, WAIC
+enKeywords: "embodied AI, humanoid robot, VLA model, world model, physical AI, data bottleneck, mass production, commercial loop, ICLR, WAIC"
 author: 蓝月亮
 ---
 

@@ -4,7 +4,7 @@ date: 2026-10-24
 tags: [开源模型, Kimi K3, DeepSeek, 大模型, 中美AI竞争]
 categories: [深度思考, 前沿科技]
 description: 月之暗面 Kimi K3 以 2.8 万亿参数、100 万上下文登顶 LMArena 前端代码榜，首次让开源模型在编程基准上压过闭源旗舰。本文拆解 K3 的 KDA 混合线性注意力与注意力残差技术，以及 DeepSeek V4.1 Flash、Qwen 3.8 同场竞技背后的中美开源模型格局。
-keywords: Kimi K3, 开源模型, 大模型, LMArena, 编程榜, 中美AI, DeepSeek V4.1
+enKeywords: "Kimi K3, open source model, LLM, LMArena, coding benchmark, US-China AI, DeepSeek V4.1"
 ---
 
 <p class="reading-time">⏱️ 阅读时间：约15分钟</p>

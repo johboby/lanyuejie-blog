@@ -4,7 +4,7 @@ description: 国家数据局 2026 年 3 月正式确定 Token 的中文名'词�
 date: 2026-10-24
 categories: [前沿观察, 行业分析]
 tags: [词元经济, 推理, 智能体, 算力, 大模型, MaaS, 推理成本]
-keywords: 词元经济, Token, 推理成本, 算力, 大模型, MaaS, 智能体, 词元, 推理调用量, 数据要素
+enKeywords: "token economy, inference cost, compute, LLM, MaaS, agent, token, inference volume, data element"
 author: 蓝月亮
 ---
 
