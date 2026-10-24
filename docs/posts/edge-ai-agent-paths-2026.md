@@ -1,11 +1,10 @@
 ---
-title: 端侧 AI 2026：智能离开云端的三条落地路径
-enTitle: Edge AI in 2026: Three Paths for Intelligence Leaving the Cloud
-description: 2026 年端侧 AI 最显著的变化，是"AI 不再回答问题，而是执行任务"。这篇文章把端侧 Agent 的三条落地路径——AI 眼镜、智能座舱、智能戒指——拆开来讲，分析各自的技术约束、量产节奏和商业逻辑，并给出对开发者的实操建议。
-enDescription: The most significant change in edge AI in 2026 is "AI no longer answers questions, it executes tasks." This article breaks down the three deployment paths of edge Agents — AI glasses, smart cockpits, smart rings — analyzing each one's technical constraints, mass-production cadence, and commercial logic, with practical advice for developers.
+title: "端侧 AI 2026：智能离开云端的三条落地路径"
+description: 2026 年端侧 AI 最显著的变化，是'AI 不再回答问题，而是执行任务'。这篇文章把端侧 Agent 的三条落地路径——AI 眼镜、智能座舱、智能戒指——拆开来讲，分析各自的技术约束、量产节奏和商业逻辑，并给出对开发者的实操建议。
 date: 2026-10-24
-category: 行业分析
+categories: [行业分析, 端侧AI]
 tags: [端侧AI, 智能体, AI眼镜, 智能座舱, 可穿戴设备, NPU, 嵌入式, 智能戒指, 边缘计算]
+keywords: 端侧AI, 智能体, AI眼镜, 智能座舱, 可穿戴设备, NPU, 边缘计算, 嵌入式, 智能戒指, 端侧大模型
 author: 蓝月亮
 ---
 

@@ -1,11 +1,10 @@
 ---
-title: 大模型推理优化技术综述：从量化到端侧部署的完整图谱
-enTitle: A Survey of LLM Inference Optimization: From Quantization to Edge Deployment
+title: "大模型推理优化技术综述：从量化到端侧部署的完整图谱"
 description: 大模型推理正在成为 AI 产业的核心瓶颈。2026 年的前沿进展集中在三条主线上：阶段感知量化（prefill 和 decode 解耦）、推理电路保护压缩、以及端侧弹性推理。这篇文章梳理了关键技术脉络和代表性论文，给出一个可落地的技术决策框架。
-enDescription: LLM inference has become the core bottleneck of the AI industry. The 2026 frontier progress concentrates on three main lines: phase-aware quantization (decoupling prefill and decode), reasoning-circuit protection compression, and edge elastic inference. This article maps out the key technical trajectories and representative papers, and provides a practical decision framework.
 date: 2026-10-24
-category: 技术原理
+categories: [技术原理, 前沿科技]
 tags: [推理优化, 量化, 端侧AI, 大模型, LLM, 智能体, 推理引擎, 部署]
+keywords: 推理优化, 量化, 端侧AI, 大模型, LLM, Mix-Quant, 推理引擎, 部署, 投机解码, 电路保护
 author: 蓝月亮
 ---
 

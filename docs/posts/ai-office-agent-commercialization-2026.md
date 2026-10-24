@@ -1,11 +1,10 @@
 ---
-title: AI 办公 Agent 2026：从"能用"到"按结果收费"的商业化拐点
-enTitle: AI Office Agents in 2026: The Commercialization Turning Point from "Usable" to "Paying for Outcomes"
-description: 2026 年 AI 办公 Agent 最大的变化，是计费模式正在从"按 Token 收费"转向"按任务完成结果收费"。这篇文章把 MCP/A2A 协议标准化、Agent 工具调用生态、企业部署三条线放在一起，分析商业化拐点背后的技术结构和商业逻辑，并给出对开发者和企业采购方的实操建议。
-enDescription: The biggest change in AI office agents in 2026 is that the billing model is shifting from "per-token pricing" to "per-outcome pricing." This article places the MCP/A2A protocol standardization, the agent tool-calling ecosystem, and enterprise deployment on the table, analyzes the technical structure and commercial logic behind the commercialization turning point, and gives practical advice for developers and enterprise procurement teams.
+title: "AI 办公 Agent 2026：从'能用'到'按结果收费'的商业化拐点"
+description: 2026 年 AI 办公 Agent 最大的变化，是计费模式正在从'按 Token 收费'转向'按任务完成结果收费'。这篇文章把 MCP/A2A 协议标准化、Agent 工具调用生态、企业部署三条线放在一起，分析商业化拐点背后的技术结构和商业逻辑，并给出对开发者和企业采购方的实操建议。
 date: 2026-10-24
-category: 行业分析
+categories: [行业分析, 商业化]
 tags: [AI办公, Agent, MCP, A2A协议, 企业级AI, SaaS, 智能体, 商业化, 工具调用]
+keywords: AI办公, Agent, MCP, A2A协议, 企业级AI, 按结果收费, SaaS, 智能体, 工具调用, 商业化
 author: 蓝月亮
 ---
 

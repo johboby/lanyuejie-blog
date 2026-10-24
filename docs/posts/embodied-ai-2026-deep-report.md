@@ -1,11 +1,10 @@
 ---
-title: 具身智能 2026：从"能跳"到"进厂"的产业全景深度报告
-enTitle: Embodied AI in 2026: A Deep-Dive Industry Report from "Can Jump" to "Factory Floor"
-description: 具身智能连续两年写入政府工作报告，但 2026 年的产业现状是"热中有冷"。这篇文章基于信通院《具身智能发展报告（2026）》、ICLR 2026 论文、WAIC 展会一线观察，把全球与国内的技术路线、数据瓶颈、量产进度和商业闭环拆开来讲，并给出三条可执行的判断。
-enDescription: Embodied AI has been written into the government work report for two consecutive years, but the 2026 industry reality is "hot yet cold." Based on CAICT's 2026 report, ICLR 2026 papers, and first-hand WAIC observations, this article breaks down the global and domestic technology routes, data bottlenecks, mass-production progress, and commercial closed loops, and offers three actionable judgments.
+title: "具身智能 2026：从'能跳'到'进厂'的产业全景深度报告"
+description: 具身智能连续两年写入政府工作报告，但 2026 年的产业现状是'热中有冷'。这篇文章基于信通院《具身智能发展报告（2026）》、ICLR 2026 论文、WAIC 展会一线观察，把全球与国内的技术路线、数据瓶颈、量产进度和商业闭环拆开来讲，并给出三条可执行的判断。
 date: 2026-10-24
-category: 前沿观察
+categories: [前沿观察, 行业分析, 具身智能]
 tags: [具身智能, 人形机器人, VLA模型, 世界模型, 机器人, 物理AI, 自动驾驶, 制造业]
+keywords: 具身智能, 人形机器人, VLA模型, 世界模型, 物理AI, 数据瓶颈, 量产, 商业闭环, ICLR, WAIC
 author: 蓝月亮
 ---
 

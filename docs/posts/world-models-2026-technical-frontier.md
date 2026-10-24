@@ -1,11 +1,10 @@
 ---
-title: 世界模型 2026：从"生成视频"到"物理世界模拟器"的技术拐点
-enTitle: World Models in 2026: The Technical Turning Point from Video Generation to Physical World Simulation
-description: 世界模型是 2026 年具身智能和自动驾驶领域最活跃的研究方向。这篇文章把 Qwen-RobotWorld、NVIDIA Cosmos-Predict2.5、PAN、PhyGenesis、ODEWorld 五条代表性技术路线放在一起，梳理它们各自解决的核心问题，并给出"世界模型 2.0"与"世界模型 1.0"的清晰区分。
-enDescription: World models are the most active research direction in embodied AI and autonomous driving in 2026. This article places five representative technical routes — Qwen-RobotWorld, NVIDIA Cosmos-Predict2.5, PAN, PhyGenesis, and ODEWorld — side by side, mapping out the core problem each one solves, and drawing a clear line between "world model 2.0" and "world model 1.0".
+title: "世界模型 2026：从'生成视频'到'物理世界模拟器'的技术拐点"
+description: 世界模型是 2026 年具身智能和自动驾驶领域最活跃的研究方向。这篇文章把 Qwen-RobotWorld、NVIDIA Cosmos-Predict2.5、PAN、PhyGenesis、ODEWorld 五条代表性技术路线放在一起，梳理它们各自解决的核心问题，并给出'世界模型 2.0'与'世界模型 1.0'的清晰区分。
 date: 2026-10-24
-category: 技术原理
+categories: [技术原理, 前沿科技]
 tags: [世界模型, 具身智能, 自动驾驶, 视频生成, Physical AI, 物理一致性, 合成数据, 强化学习]
+keywords: 世界模型, 具身智能, 物理一致性, 合成数据, Physical AI, Cosmos, Qwen-RobotWorld, 自动驾驶, 视频生成, ODEWorld
 author: 蓝月亮
 ---
 

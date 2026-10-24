@@ -1,11 +1,10 @@
 ---
-title: AI 治理 2026：从"小快灵"立法到算法备案的合规全景
-enTitle: AI Governance in 2026: From "Small, Fast, Smart" Legislation to Algorithm Filing — A Compliance Landscape
-description: 2026 年是中国 AI 治理"小快灵"立法密集落地的一年。修改后的《网络安全法》正式将 AI 纳入国家网络安全法律体系，《人工智能拟人化互动服务管理暂行办法》成为首部拟人化服务专门立法，T/ISC 0134—2026 标准给 AI 可解释性定了通用技术规范。这篇文章把 2026 年的关键治理节点串起来，回答一个问题：做 AI 产品的团队，现在最应该优先做什么。
-enDescription: 2026 is a year of dense "small, fast, smart" AI legislation in China. The amended Cybersecurity Law formally brings AI into the national cybersecurity legal system; the Interim Measures for Anthropomorphic AI Interaction Services becomes the first dedicated legislation; T/ISC 0134—2026 sets a general technical standard for AI interpretability. This article connects the key 2026 governance milestones and answers one question: what should AI product teams prioritize right now?
+title: "AI 治理 2026：从'小快灵'立法到算法备案的合规全景"
+description: 2026 年是中国 AI 治理'小快灵'立法密集落地的一年。修改后的《网络安全法》正式将 AI 纳入国家网络安全法律体系，《人工智能拟人化互动服务管理暂行办法》成为首部拟人化服务专门立法，T/ISC 0134—2026 标准给 AI 可解释性定了通用技术规范。这篇文章把 2026 年的关键治理节点串起来，回答一个问题：做 AI 产品的团队，现在最应该优先做什么。
 date: 2026-10-24
-category: 行业分析
+categories: [行业分析, 合规, 数据安全]
 tags: [AI治理, 数据安全, 个人信息保护, 算法备案, 网络安全法, 拟人化互动, 合规, 伦理审查, 数据要素]
+keywords: AI治理, 数据安全, 算法备案, 合规, 网络安全法, 拟人化互动, 个人信息保护, 数据要素, 可解释性, 伦理审查
 author: 蓝月亮
 ---
 

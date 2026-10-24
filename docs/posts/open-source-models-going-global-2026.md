@@ -1,11 +1,10 @@
 ---
-title: 开源模型出海 2026：权重下载量与 Token 调用量的两张地图
-enTitle: Open-Source Models Going Global in 2026: Two Maps of Weight Downloads vs Token Usage
-description: 中国开源模型 2026 年在全球开源生态中的位置，需要两张地图来看：一张是 Hugging Face 权重下载量，一张是 OpenRouter Token 调用量。这篇文章把 ATOM 报告、Hugging Face 2026 夏季报告、Mozilla 开发者调研数据放在一起，解释为什么"中国模型下载量第一"和"中国模型收入占比低"可以同时为真，以及中国开源策略的真正护城河在哪里。
-enDescription: China's position in the global open-source ecosystem in 2026 requires two maps: one is Hugging Face weight downloads, the other is OpenRouter token usage. This article places the ATOM report, Hugging Face's summer 2026 report, and Mozilla's developer survey data side by side, explaining why "Chinese models lead in downloads" and "Chinese models have a low revenue share" can both be true simultaneously, and where the real moat of China's open-source strategy lies.
+title: "开源模型出海 2026：权重下载量与 Token 调用量的两张地图"
+description: 中国开源模型 2026 年在全球开源生态中的位置，需要两张地图来看：一张是 Hugging Face 权重下载量，一张是 OpenRouter Token 调用量。这篇文章把 ATOM 报告、Hugging Face 2026 夏季报告、Mozilla 开发者调研数据放在一起，解释为什么'中国模型下载量第一'和'中国模型收入占比低'可以同时为真，以及中国开源策略的真正护城河在哪里。
 date: 2026-10-24
-category: 行业分析
+categories: [行业分析, 开源生态]
 tags: [开源模型, Hugging Face, Qwen, DeepSeek, Kimi, 模型出海, Apache 2.0, 开源生态, 中国AI]
+keywords: 开源模型, Hugging Face, 模型出海, Apache 2.0, 开源生态, Qwen, DeepSeek, Kimi, Token调用量, 权重下载量
 author: 蓝月亮
 ---
 

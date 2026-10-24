@@ -1,11 +1,10 @@
 ---
-title: 词元经济 2026：Token 如何成为 AI 时代的计量单位
-enTitle: The Token Economy in 2026: How Tokens Became the Unit of Measurement for the AI Era
-description: 国家数据局 2026 年 3 月正式确定 Token 的中文名"词元"。2024 年初 1000 亿/日的调用量，到 2026 年 3 月已是 140 万亿/日，两年 1000 倍。这篇文章把散落的官方数据、Gartner 预测、信通院三份报告串成一条完整的证据链，回答一个核心问题：词元经济到底是什么，它对产业格局意味着什么。
-enDescription: The National Data Bureau officially named "Token" in Chinese as "词元" in March 2026. Daily call volume jumped from 100 billion (early 2024) to 140 trillion (March 2026) — a 1000× growth in two years. This article stitches together official data, Gartner forecasts, and three CAICT reports into a single evidence chain, answering one core question: what exactly is the token economy, and what does it mean for the industry landscape.
+title: "词元经济 2026：Token 如何成为 AI 时代的计量单位"
+description: 国家数据局 2026 年 3 月正式确定 Token 的中文名'词元'。2024 年初 1000 亿/日的调用量，到 2026 年 3 月已是 140 万亿/日，两年 1000 倍。这篇文章把散落的官方数据、Gartner 预测、信通院三份报告串成一条完整的证据链，回答一个核心问题：词元经济到底是什么，它对产业格局意味着什么。
 date: 2026-10-24
-category: 前沿观察
+categories: [前沿观察, 行业分析]
 tags: [词元经济, 推理, 智能体, 算力, 大模型, MaaS, 推理成本]
+keywords: 词元经济, Token, 推理成本, 算力, 大模型, MaaS, 智能体, 词元, 推理调用量, 数据要素
 author: 蓝月亮
 ---
 
