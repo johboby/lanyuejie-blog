@@ -3,18 +3,18 @@ title: "My AI Subscription Bill in 2026: What I Pay & How I Cut It"
 date: 2026-07-26
 description: "2026年AI工具订阅月账单公开：从¥688/月砍到¥200/月的完整省钱方案，含10款工具真实费用明细、免费替代对比和ROI评估框架。"
 tags:
-  - AI工具
-  - 订阅费用
-  - 省钱攻略
-  - ChatGPT
-  - Claude
-  - Cursor
-  - Midjourney
-  - 性价比
+ - AI工具
+ - 订阅费用
+ - 省钱攻略
+ - ChatGPT
+ - Claude
+ - Cursor
+ - Midjourney
+ - 性价比
 categories:
-  - AI工具评测
-  - 效率省钱
-  - 研究
+ - AI工具评测
+ - 效率省钱
+ - 研究
 ---
 <p class="reading-time">⏱️ 阅读时间：约 15 分钟</p>
 
@@ -46,7 +46,7 @@ categories:
 
 > 上个月翻开信用卡账单，一排$20扣款让我愣了好几秒。加起来一算——**一个月¥688（约$95），还有一半功能从没打开过**。
 
-这不只是我的故事。2026年行业调查显示：普通人用4-7个AI工具，月均支出$110-150（¥800-1100），但**67%的订阅产生负ROI**——付的钱比省下的时间还贵 [citation:24][citation:28]。
+这不只是我的故事。2026年行业调查显示：普通人用4-7个AI工具，月均支出$110-150（¥800-1100），但**67%的订阅产生负ROI**——付的钱比省下的时间还贵。
 
 | 阶段 | 月费 | 工具数 | 实际利用率 |
 |---|---|---|---|
@@ -70,26 +70,26 @@ categories:
 | 多工具用户占比 | 67% | 84% | **92%** | 📈 接近全员 |
 | "觉得花多了"占比 | 28% | 51% | **68%** | 📈 订阅疲劳蔓延 |
 
-> 关键洞察：**支出增速（3.1倍/2年）远超利用率（降至42%）**。你付的钱越来越多，但每个工具用得越来越少 [citation:28]。
+> 关键洞察：**支出增速（3.1倍/2年）远超利用率（降至42%）**。你付的钱越来越多，但每个工具用得越来越少。
 
 ### 为什么会出现"AI订阅疲劳"
 
 ```
 心理陷阱1："才$20而已"
-  → 每加一个工具时都不心疼
-  → 但6个$20 = $120/月 = ¥870
+ → 每加一个工具时都不心疼
+ → 但6个$20 = $120/月 = ¥870
 
 心理陷阱2："万一用到呢"
-  → Midjourney这个月只画了3张图
-  → 但"保不齐下周要出图"——于是继续付$30
+ → Midjourney这个月只画了3张图
+ → 但"保不齐下周要出图"——于是继续付$30
 
 心理陷阱3："免费版不够用"
-  → 但实测：ChatGPT Free每3小时40条
-  → 你一天真的需要超过40次对话吗？
+ → 但实测：ChatGPT Free每3小时40条
+ → 你一天真的需要超过40次对话吗？
 
 心理陷阱4：年付"更划算"
-  → 年付省16-20%，但工具可能涨价或你不用了
-  → ChatGPT 2026年7月刚从$100涨到$200 [citation:3]
+ → 年付省16-20%，但工具可能涨价或你不用了
+ → ChatGPT 2026年7月刚从$100涨到$200 
 ```
 
 ---
@@ -138,26 +138,26 @@ categories:
 
 ```
 Step 1：列出所有AI订阅（5分钟）
-  → 查信用卡账单（搜"AI""OpenAI""Anthropic"等关键词）
-  → 查PayPal订阅
-  → 查App Store/Google Play订阅
-  → 我找到了10个（其中2个忘了自己订阅过）
+ → 查信用卡账单（搜"AI""OpenAI""Anthropic"等关键词）
+ → 查PayPal订阅
+ → 查App Store/Google Play订阅
+ → 我找到了10个（其中2个忘了自己订阅过）
 
 Step 2：查每个工具的使用统计（5分钟）
-  → ChatGPT：Settings → Usage
-  → Claude：Settings → Usage Dashboard
-  → Cursor：Settings → Billing → Usage
-  → Midjourney：/info 命令
-  → 大多数工具都有"过去30天"数据
+ → ChatGPT：Settings → Usage
+ → Claude：Settings → Usage Dashboard
+ → Cursor：Settings → Billing → Usage
+ → Midjourney：/info 命令
+ → 大多数工具都有"过去30天"数据
 
 Step 3：标红"僵尸"（5分钟）
-  → 30天内打开<5次 → 🔴 候选砍掉
-  → 30天内打开5-15次 → 🟡 评估
-  → 30天内打开>15次 → 🟢 保留
+ → 30天内打开<5次 → 🔴 候选砍掉
+ → 30天内打开5-15次 → 🟡 评估
+ → 30天内打开>15次 → 🟢 保留
 
 Step 4：找免费替代（5分钟）
-  → 对每款🔴工具，找免费/更便宜的替代
-  → 试用一周 → 能用就退订
+ → 对每款🔴工具，找免费/更便宜的替代
+ → 试用一周 → 能用就退订
 ```
 
 ### 我的审计结果
@@ -181,7 +181,7 @@ Step 4：找免费替代（5分钟）
 
 ### ① ChatGPT Plus（$20/月）→ 保留
 
-**为什么留**：使用频率最高（85次/月），DALL·E生图、Advanced Voice、GPTs生态无可替代。是我真正的"主力工作台" [citation:1]。
+**为什么留**：使用频率最高（85次/月），DALL·E生图、Advanced Voice、GPTs生态无可替代。是我真正的"主力工作台"。
 
 **能不能用Free替代？** 试过一周——每3小时40条的限制，在赶稿日会撞到上限。省$20但损失流畅度，不划算。
 
@@ -193,43 +193,43 @@ Step 4：找免费替代（5分钟）
 
 ### ③ Cursor Pro（$20/月）→ 保留
 
-**为什么留**：每天编程2-4小时，Tab补全和Agent模式是核心生产力。试过降级到Hobby版（有限额度），第三天就撞上限了 [citation:4]。
+**为什么留**：每天编程2-4小时，Tab补全和Agent模式是核心生产力。试过降级到Hobby版（有限额度），第三天就撞上限了。
 
 **省钱尝试**：试过Cline插件+Claude API（按量付费），结果API费用比$20月费还贵。Cursor Pro的固定月费对小用量反而是最优解。
 
 ### ④ Midjourney（$30/月）→ 降级到Basic $10
 
-**为什么砍**：月用3次，付$30太亏。但完全退掉也不行——偶尔确实需要高质量AI图 [citation:26]。
+**为什么砍**：月用3次，付$30太亏。但完全退掉也不行——偶尔确实需要高质量AI图。
 
 **降级后**：Basic $10/月（3.3小时Fast GPU），3次/月完全够。日常配图改用Canva Free + 通义万相（免费）。
 
 ### ⑤ Perplexity Pro（$20/月）→ 降级到Free
 
-**为什么砍**：月用5次，Free版的基础搜索够用。Pro版的"无限Pro搜索"我用不上 [citation:1]。
+**为什么砍**：月用5次，Free版的基础搜索够用。Pro版的"无限Pro搜索"我用不上。
 
 **替代方案**：研究场景改用NotebookLM（免费，更擅长文献整理）。
 
 ### ⑥ Notion AI（$10/月）→ 退订
 
-**为什么砍**：30天打开0次。忘了自己订阅过。AI功能对我不值$10/月 [citation:1]。
+**为什么砍**：30天打开0次。忘了自己订阅过。AI功能对我不值$10/月。
 
 **替代**：笔记管理用Obsidian（免费），AI问答接Ollama本地（免费）。
 
 ### ⑦ Suno Pro（$6/月）→ 降级到Free
 
-**为什么砍**：月用8次，Free版每天50积分≈10首歌，够用 [citation:25]。
+**为什么砍**：月用8次，Free版每天50积分≈10首歌，够用。
 
 ### ⑧ Grammarly Pro（$12/月）→ 降级到Free
 
-**为什么砍**：15次/月，Free版的基础语法检查够用。Pro的"语调调整""全文重写"我用ChatGPT Plus替代了 [citation:31]。
+**为什么砍**：15次/月，Free版的基础语法检查够用。Pro的"语调调整""全文重写"我用ChatGPT Plus替代了。
 
 ### ⑨ Claude API（浮动$10-30）→ 改用Free+Ollama
 
-**为什么砍**：API按量付费，月均$20但波动大（有时$10有时$50）。改用Ollama本地跑qwen2.5:14b（免费）+ Claude Free补充，月省$10-30 [citation:2]。
+**为什么砍**：API按量付费，月均$20但波动大（有时$10有时$50）。改用Ollama本地跑qwen2.5:14b（免费）+ Claude Free补充，月省$10-30。
 
 ### ⑩ Runway（$15/月）→ 退订
 
-**为什么砍**：月用4次，积分制不够灵活。国产免费工具（可灵/海螺/即梦）的免费额度覆盖了90%需求 [citation:25]。
+**为什么砍**：月用4次，积分制不够灵活。国产免费工具（可灵/海螺/即梦）的免费额度覆盖了90%需求。
 
 ---
 
@@ -239,28 +239,28 @@ Step 4：找免费替代（5分钟）
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    每日工作流                                    │
+│ 每日工作流 │
 ├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  写作/头脑风暴/图像 → ChatGPT Plus（$20/月）                    │
-│       ↓ 长文档/代码分析                                         │
-│  Claude Free（每小时20条，够用）                                │
-│       ↓ 编程                                                    │
-│  Cursor Pro（$20/月）+ Ollama本地（免费）                       │
-│       ↓ 配图/封面                                               │
-│  Canva Free + 通义万相（免费）                                  │
-│       ↓ 视频                                                    │
-│  剪映 + 可灵Kling（免费）                                       │
-│       ↓ 研究/文献                                               │
-│  NotebookLM（免费）                                             │
-│       ↓ 音乐BGM                                                 │
-│  Suno Free（每天10首）                                          │
-│       ↓ 笔记/知识库                                             │
-│  Obsidian + Ollama（免费）                                      │
-│       ↓ 语法检查                                                │
-│  Grammarly Free / ChatGPT检查                                   │
-│                                                                 │
-│  月总支出：$40 ≈ ¥290（按实际汇率约¥200-290）                   │
+│ │
+│ 写作/头脑风暴/图像 → ChatGPT Plus（$20/月） │
+│ ↓ 长文档/代码分析 │
+│ Claude Free（每小时20条，够用） │
+│ ↓ 编程 │
+│ Cursor Pro（$20/月）+ Ollama本地（免费） │
+│ ↓ 配图/封面 │
+│ Canva Free + 通义万相（免费） │
+│ ↓ 视频 │
+│ 剪映 + 可灵Kling（免费） │
+│ ↓ 研究/文献 │
+│ NotebookLM（免费） │
+│ ↓ 音乐BGM │
+│ Suno Free（每天10首） │
+│ ↓ 笔记/知识库 │
+│ Obsidian + Ollama（免费） │
+│ ↓ 语法检查 │
+│ Grammarly Free / ChatGPT检查 │
+│ │
+│ 月总支出：$40 ≈ ¥290（按实际汇率约¥200-290） │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -315,7 +315,7 @@ Step 4：找免费替代（5分钟）
 | 2026年7月 | Business档 $25→$20 | 小幅降价 |
 | 2026年7月 | 从6档变7档 | 更多选择 |
 
-> **教训：AI工具的定价极其不稳定。** 2026年6月刚降价庆祝，7月就涨回来了 [citation:3]。年付锁价有风险——你以为锁了$100/月，结果厂商改档位后你的"年付价"反而比新月的还贵。
+> **教训：AI工具的定价极其不稳定。** 2026年6月刚降价庆祝，7月就涨回来了。年付锁价有风险——你以为锁了$100/月，结果厂商改档位后你的"年付价"反而比新月的还贵。
 
 ### Claude的涨价信号
 
@@ -343,18 +343,18 @@ Step 4：找免费替代（5分钟）
 
 ```
 Q1: 过去30天打开过几次？
-    < 5次  → 不值，降级/退订
-    5-15次 → 评估：每次使用的价值 > 月费/次数？
-    > 15次 → 可能值得
+ < 5次 → 不值，降级/退订
+ 5-15次 → 评估：每次使用的价值 > 月费/次数？
+ > 15次 → 可能值得
 
 Q2: 去掉它我的工作会停吗？
-    会     → 必须留（即使贵）
-    不会   → 可以替代或不要
+ 会 → 必须留（即使贵）
+ 不会 → 可以替代或不要
 
 Q3: 付费版比免费版好多少？
-    < 20%  → 不值，用免费
-    20-50% → 边际效用，算算值不值
-    > 50%  → 值得付费
+ < 20% → 不值，用免费
+ 20-50% → 边际效用，算算值不值
+ > 50% → 值得付费
 ```
 
 ### 用"时薪"思维算ROI
@@ -364,14 +364,14 @@ Q3: 付费版比免费版好多少？
 
 问：它每月帮你省多少时间？
 答：每天约30分钟（写初稿/搜索/格式化）
-    → 30天 × 30分钟 = 15小时/月
+ → 30天 × 30分钟 = 15小时/月
 
 问：你的时薪是多少？
 答：¥100/小时（按自由职业者标准）
 
 计算：省下15小时 × ¥100 = ¥1500/月
-     成本 ¥145/月
-     ROI = 1500/145 ≈ 10倍 ✅ 值得
+ 成本 ¥145/月
+ ROI = 1500/145 ≈ 10倍 ✅ 值得
 
 例：Midjourney $30/月 ≈ ¥217
 
@@ -382,8 +382,8 @@ Q3: 付费版比免费版好多少？
 答：¥100/小时
 
 计算：省下1小时 × ¥100 = ¥100/月
-     成本 ¥217/月
-     ROI = 100/217 ≈ 0.46倍 ❌ 不值
+ 成本 ¥217/月
+ ROI = 100/217 ≈ 0.46倍 ❌ 不值
 ```
 
 > **公式：ROI =（每月省下小时数 × 时薪）÷ 月费。** 大于2倍就值得，小于1倍就砍。
@@ -466,8 +466,8 @@ Q3: 付费版比免费版好多少？
 ```
 你确定未来12个月每天都会用？
 ├── 是 → 月费≤$20？
-│       ├── 是 → 年付（省16-20%）
-│       └── 否 → 月付（防涨价）
+│ ├── 是 → 年付（省16-20%）
+│ └── 否 → 月付（防涨价）
 └── 否 → 月付（保持灵活）
 ```
 
@@ -477,27 +477,27 @@ Q3: 付费版比免费版好多少？
 
 ### 1. 2026年普通人AI工具月均花多少？
 
-根据2026年多份行业调查：平均每人月支出$110-150（约¥800-1100），使用3-7个工具 [citation:24][citation:28]。但67%的AI订阅产生负ROI——付的钱比省下的时间还贵。典型"AI打工人"组合：ChatGPT Plus $20 + Claude Pro $20 + 一个编程工具$10-20 + 一个图像工具$10-30 + 1-2个专项工具$10-40。很多人以为自己只花$20，实际打开账单发现$143——因为每加一个都觉得"才$20而已" [citation:24]。
+根据2026年多份行业调查：平均每人月支出$110-150（约¥800-1100），使用3-7个工具。但67%的AI订阅产生负ROI——付的钱比省下的时间还贵。典型"AI打工人"组合：ChatGPT Plus $20 + Claude Pro $20 + 一个编程工具$10-20 + 一个图像工具$10-30 + 1-2个专项工具$10-40。很多人以为自己只花$20，实际打开账单发现$143——因为每加一个都觉得"才$20而已"。
 
 ### 2. 怎么判断一个AI订阅值不值得续费？
 
-用"三问测试"：① 过去30天打开过几次？少于10次→不值；② 它不可替代的功能是什么？如果和免费版区别只是"更快更多"→算算多花的钱值不值省下的等待；③ 去掉它工作会停吗？不会→退掉。实操：登录每个工具的"使用统计"页面看30天实际用量。我发现自己付$20的Perplexity一个月只用了不到5次——直接降级到免费版 [citation:1]。
+用"三问测试"：① 过去30天打开过几次？少于10次→不值；② 它不可替代的功能是什么？如果和免费版区别只是"更快更多"→算算多花的钱值不值省下的等待；③ 去掉它工作会停吗？不会→退掉。实操：登录每个工具的"使用统计"页面看30天实际用量。我发现自己付$20的Perplexity一个月只用了不到5次——直接降级到免费版。
 
 ### 3. ChatGPT Plus和Claude Pro有必要同时订阅吗？
 
-对大多数人——没必要。ToolChase 2026调查显示两者有70%功能重叠 [citation:24]。选一个$20的即可，另一个用免费版。选ChatGPT Plus如果你需要DALL·E生图/Sora视频/Advanced Voice/插件生态。选Claude Pro如果你写长文/分析文档/写代码/需要200K长上下文。我的方案：ChatGPT Plus付费 + Claude Free（每小时20条够用），月省$20 [citation:1][citation:5]。
+对大多数人——没必要。ToolChase 2026调查显示两者有70%功能重叠。选一个$20的即可，另一个用免费版。选ChatGPT Plus如果你需要DALL·E生图/Sora视频/Advanced Voice/插件生态。选Claude Pro如果你写长文/分析文档/写代码/需要200K长上下文。我的方案：ChatGPT Plus付费 + Claude Free（每小时20条够用），月省$20。
 
 ### 4. 哪些AI工具有真正好用的免费版？
 
-2026年免费版已经很能打的：① ChatGPT Free（GPT-5.4-mini，每3小时40条）；② Claude Free（Sonnet 4.6，每小时20条，200K上下文）；③ Google Gemini Free（2.5 Pro，带Gmail/Docs集成）；④ NotebookLM完全免费；⑤ DeepSeek中文理解和代码极强且免费；⑥ Perplexity Free基础搜索够用；⑦ 通义万相/即梦AI中文AI生图免费；⑧ 剪映视频剪辑免费版完整；⑨ Photopea浏览器PS替代免费；⑩ Suno Free每天50积分约10首歌 [citation:25][citation:29]。
+2026年免费版已经很能打的：① ChatGPT Free（GPT-5.4-mini，每3小时40条）；② Claude Free（Sonnet 4.6，每小时20条，200K上下文）；③ Google Gemini Free（2.5 Pro，带Gmail/Docs集成）；④ NotebookLM完全免费；⑤ DeepSeek中文理解和代码极强且免费；⑥ Perplexity Free基础搜索够用；⑦ 通义万相/即梦AI中文AI生图免费；⑧ 剪映视频剪辑免费版完整；⑨ Photopea浏览器PS替代免费；⑩ Suno Free每天50积分约10首歌。
 
 ### 5. 年度付费能省多少？
 
-大多数工具年付比月付省16-20%。ChatGPT Plus年付约省$40（等效$16.7/月）；Claude Pro年付$17/月（省15%）；Cursor Pro年付约省$48；Midjourney年付省20%（Basic年$96=月$8）；Grammarly Pro年付$9.6/月。但年付有风险：ChatGPT 2026年7月刚从$100涨到$200 [citation:3]，年付锁价的用户反而亏。建议：只给"确定用满一年"的工具年付，探索期工具保持月付。
+大多数工具年付比月付省16-20%。ChatGPT Plus年付约省$40（等效$16.7/月）；Claude Pro年付$17/月（省15%）；Cursor Pro年付约省$48；Midjourney年付省20%（Basic年$96=月$8）；Grammarly Pro年付$9.6/月。但年付有风险：ChatGPT 2026年7月刚从$100涨到$200，年付锁价的用户反而亏。建议：只给"确定用满一年"的工具年付，探索期工具保持月付。
 
 ### 6. 有没有一站式替代多个订阅的方案？
 
-有，但各有取舍。① 多模型聚合器（如Poe $19.99/月）——一个界面调GPT/Claude/Gemini/Llama，省去多个订阅但单次对话质量略低于官方；② Google AI Pro $19.99/月——Gemini+Gmail/Docs/NotebookLM一站式，Google生态用户最优解 [citation:1]；③ 国产全家桶（豆包+通义+即梦+剪映）——几乎全免费，中文场景覆盖广；④ API自建按量付费——灵活但需技术能力。非技术用户最简方案：Google AI Pro或Poe一键替代多个订阅 [citation:28]。
+有，但各有取舍。① 多模型聚合器（如Poe $19.99/月）——一个界面调GPT/Claude/Gemini/Llama，省去多个订阅但单次对话质量略低于官方；② Google AI Pro $19.99/月——Gemini+Gmail/Docs/NotebookLM一站式，Google生态用户最优解；③ 国产全家桶（豆包+通义+即梦+剪映）——几乎全免费，中文场景覆盖广；④ API自建按量付费——灵活但需技术能力。非技术用户最简方案：Google AI Pro或Poe一键替代多个订阅。
 
 ---
 
@@ -549,103 +549,103 @@ Q3: 付费版比免费版好多少？
 
 <style>
 .reading-time {
-  background: #fefce8;
-  border-left: 4px solid #eab308;
-  padding: 8px 16px;
-  margin: 16px 0;
-  border-radius: 4px;
-  font-size: 0.95em;
-  color: #713f12;
+ background: #fefce8;
+ border-left: 4px solid #eab308;
+ padding: 8px 16px;
+ margin: 16px 0;
+ border-radius: 4px;
+ font-size: 0.95em;
+ color: #713f12;
 }
 .toc {
-  background: #fafbfc;
-  border: 1px solid #e4e6eb;
-  border-radius: 10px;
-  padding: 20px 28px;
-  margin: 24px 0 32px;
+ background: #fafbfc;
+ border: 1px solid #e4e6eb;
+ border-radius: 10px;
+ padding: 20px 28px;
+ margin: 24px 0 32px;
 }
 .toc h2 {
-  margin-top: 0;
-  font-size: 1.1em;
+ margin-top: 0;
+ font-size: 1.1em;
 }
 .toc a {
-  color: #713f12;
-  text-decoration: none;
-  display: block;
-  padding: 3px 0;
+ color: #713f12;
+ text-decoration: none;
+ display: block;
+ padding: 3px 0;
 }
 .toc a:hover {
-  color: #eab308;
-  text-decoration: underline;
+ color: #eab308;
+ text-decoration: underline;
 }
 .cta-box {
-  background: linear-gradient(135deg, #eab308 0%, #f97316 100%);
-  color: white;
-  border-radius: 16px;
-  padding: 28px 32px;
-  margin: 40px 0 24px;
-  text-align: center;
+ background: linear-gradient(135deg, #eab308 0%, #f97316 100%);
+ color: white;
+ border-radius: 16px;
+ padding: 28px 32px;
+ margin: 40px 0 24px;
+ text-align: center;
 }
 .cta-box h3 {
-  color: white;
-  margin-top: 0;
+ color: white;
+ margin-top: 0;
 }
 .cta-box a {
-  color: #fef9c3;
+ color: #fef9c3;
 }
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 16px 0 24px;
-  font-size: 0.85em;
+ width: 100%;
+ border-collapse: collapse;
+ margin: 16px 0 24px;
+ font-size: 0.85em;
 }
 th {
-  background: #eab308;
-  color: white;
-  padding: 10px 12px;
-  text-align: left;
-  font-weight: 600;
+ background: #eab308;
+ color: white;
+ padding: 10px 12px;
+ text-align: left;
+ font-weight: 600;
 }
 td {
-  padding: 9px 12px;
-  border-bottom: 1px solid #e4e6eb;
+ padding: 9px 12px;
+ border-bottom: 1px solid #e4e6eb;
 }
 tr:nth-child(even) {
-  background: #fefce8;
+ background: #fefce8;
 }
 tr:hover {
-  background: #fef08a;
+ background: #fef08a;
 }
 .green { color: #16a34a; font-weight: 600; }
 .red { color: #dc2626; font-weight: 600; }
 .yellow { color: #d97706; font-weight: 600; }
 blockquote {
-  border-left: 4px solid #f97316;
-  padding: 12px 20px;
-  margin: 16px 0;
-  background: #fff7ed;
-  font-style: italic;
-  color: #7c2d12;
+ border-left: 4px solid #f97316;
+ padding: 12px 20px;
+ margin: 16px 0;
+ background: #fff7ed;
+ font-style: italic;
+ color: #7c2d12;
 }
 code {
-  background: #f1f3f5;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-size: 0.9em;
-  font-family: 'SF Mono', 'Fira Code', monospace;
+ background: #f1f3f5;
+ padding: 2px 6px;
+ border-radius: 3px;
+ font-size: 0.9em;
+ font-family: 'SF Mono', 'Fira Code', monospace;
 }
 pre {
-  background: #1e293b;
-  color: #e2e8f0;
-  padding: 16px 20px;
-  border-radius: 8px;
-  overflow-x: auto;
-  font-size: 0.85em;
-  line-height: 1.6;
+ background: #1e293b;
+ color: #e2e8f0;
+ padding: 16px 20px;
+ border-radius: 8px;
+ overflow-x: auto;
+ font-size: 0.85em;
+ line-height: 1.6;
 }
 pre code {
-  background: none;
-  color: inherit;
-  padding: 0;
+ background: none;
+ color: inherit;
+ padding: 0;
 }
 </style>

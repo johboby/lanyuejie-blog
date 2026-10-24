@@ -3,20 +3,20 @@ title: "Fine-Tune Your Own AI Model: Full Pipeline 2026"
 date: 2026-07-26
 description: "从数据准备到部署上线：Fine-tune专属AI模型完整流程。覆盖LoRA/QLoRA、Unsloth、SFT/DPO、评估体系、vLLM部署、RAG+FT混合架构与成本分析。"
 tags:
-  - Fine-tuning
-  - LoRA
-  - QLoRA
-  - Unsloth
-  - vLLM
-  - 模型微调
-  - SFT
-  - DPO
-  - 部署上线
-  - 数据准备
+ - Fine-tuning
+ - LoRA
+ - QLoRA
+ - Unsloth
+ - vLLM
+ - 模型微调
+ - SFT
+ - DPO
+ - 部署上线
+ - 数据准备
 categories:
-  - AI工程
-  - 模型训练
-  - 研究
+ - AI工程
+ - 模型训练
+ - 研究
 ---
 <p class="reading-time">⏱️ 阅读时间：约 18 分钟</p>
 
@@ -52,7 +52,7 @@ categories:
 
 **没有过时，但角色变了。**
 
-2026年的共识是：**微调不再是为了"让模型变聪明"（那是基模型的事），而是为了让模型"变成你想要的样子"**——固定的输出格式、一致的品牌语调、特定的领域推理模式、稳定的工具调用行为 [citation:2]。
+2026年的共识是：**微调不再是为了"让模型变聪明"（那是基模型的事），而是为了让模型"变成你想要的样子"**——固定的输出格式、一致的品牌语调、特定的领域推理模式、稳定的工具调用行为。
 
 | 你遇到的问题 | 该用微调吗？ |
 |---|---|
@@ -72,26 +72,26 @@ categories:
 你的痛点是什么？
 │
 ├─ "输出格式/风格/语调不稳定"
-│   → ✅ 微调（SFT，100-500条样本）
+│ → ✅ 微调（SFT，100-500条样本）
 │
 ├─ "模型不懂我们行业的术语和推理方式"
-│   → ✅ 微调（SFT + 少量领域数据）
+│ → ✅ 微调（SFT + 少量领域数据）
 │
 ├─ "模型不知道最新信息/内部文档"
-│   → ❌ 先用RAG
-│   → 如果RAG不够好 → 考虑 RAG + 微调混合
+│ → ❌ 先用RAG
+│ → 如果RAG不够好 → 考虑 RAG + 微调混合
 │
 ├─ "回答需要可溯源到具体文档"
-│   → ❌ RAG（微调做不到溯源）
+│ → ❌ RAG（微调做不到溯源）
 │
 ├─ "高频调用，每查询成本敏感"
-│   → ✅ 微调长期更省（固定成本摊薄）
+│ → ✅ 微调长期更省（固定成本摊薄）
 │
 └─ "低频调用，数据经常变"
-    → ❌ RAG（微调每次重训太贵）
+ → ❌ RAG（微调每次重训太贵）
 ```
 
-> **Menlo Ventures 2025调研**：51%生产AI系统用RAG，仅9%主要用微调，16%是真正的Agent系统。2026年默认是**RAG优先**，微调在需要时叠加 [citation:6]。
+> **Menlo Ventures 2025调研**：51%生产AI系统用RAG，仅9%主要用微调，16%是真正的Agent系统。2026年默认是**RAG优先**，微调在需要时叠加。
 
 ---
 
@@ -99,50 +99,50 @@ categories:
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
-│                                                                  │
-│  Stage 1           Stage 2          Stage 3                      │
-│  数据准备 ──────→ 选基模型 ──────→ 选训练方法                    │
-│  (最关键的阶段)    (Llama/Qwen/    (SFT/DPO/                     │
-│                   Mistral)         RLHF)                         │
-│       │               │               │                          │
-│       ▼               ▼               ▼                          │
-│  ┌─────────┐    ┌─────────┐    ┌─────────┐                      │
-│  │ 收集/清洗│    │8B/32B/  │    │SFT: 教  │                      │
-│  │ 格式化  │    │70B?     │    │  怎么做  │                      │
-│  │ 增强    │    │本地/云端│    │DPO: 教  │                      │
-│  │ 质检    │    │         │    │  好坏选择│                      │
-│  └────┬────┘    └────┬────┘    └────┬────┘                      │
-│       └───────────────┴───────────────┘                          │
-│                           │                                      │
-│                           ▼                                      │
-│                    Stage 4: LoRA配置                              │
-│                    r=16/32, alpha, target_modules                 │
-│                    QLoRA 4-bit (消费级GPU)                        │
-│                           │                                      │
-│                           ▼                                      │
-│                    Stage 5: 训练                                  │
-│                    Unsloth / Axolotl / TRL                        │
-│                    监控loss + 验证集                              │
-│                           │                                      │
-│                           ▼                                      │
-│                    Stage 6: 评估                                  │
-│                    通用benchmark + 领域测试集 + 主观对比           │
-│                           │                                      │
-│                  ┌────────┴────────┐                             │
-│                  ▼                 ▼                             │
-│              达标 → Stage 7    不达标 → 回Stage 1                 │
-│                  导出部署                              (补数据/调参)│
-│                  │                                               │
-│          ┌───────┼───────┐                                       │
-│          ▼       ▼       ▼                                       │
-│      LoRA    Merged   GGUF                                       │
-│      Adapter  Model   量化                                       │
-│      (100MB)  (8-16GB)(2-4GB)                                    │
-│          │       │       │                                       │
-│          ▼       ▼       ▼                                       │
-│      vLLM    vLLM/   Ollama/                                    │
-│      多LoRA   TGI     llama.cpp                                 │
-│      动态切换  生产    本地/边缘                                  │
+│ │
+│ Stage 1 Stage 2 Stage 3 │
+│ 数据准备 ──────→ 选基模型 ──────→ 选训练方法 │
+│ (最关键的阶段) (Llama/Qwen/ (SFT/DPO/ │
+│ Mistral) RLHF) │
+│ │ │ │ │
+│ ▼ ▼ ▼ │
+│ ┌─────────┐ ┌─────────┐ ┌─────────┐ │
+│ │ 收集/清洗│ │8B/32B/ │ │SFT: 教 │ │
+│ │ 格式化 │ │70B? │ │ 怎么做 │ │
+│ │ 增强 │ │本地/云端│ │DPO: 教 │ │
+│ │ 质检 │ │ │ │ 好坏选择│ │
+│ └────┬────┘ └────┬────┘ └────┬────┘ │
+│ └───────────────┴───────────────┘ │
+│ │ │
+│ ▼ │
+│ Stage 4: LoRA配置 │
+│ r=16/32, alpha, target_modules │
+│ QLoRA 4-bit (消费级GPU) │
+│ │ │
+│ ▼ │
+│ Stage 5: 训练 │
+│ Unsloth / Axolotl / TRL │
+│ 监控loss + 验证集 │
+│ │ │
+│ ▼ │
+│ Stage 6: 评估 │
+│ 通用benchmark + 领域测试集 + 主观对比 │
+│ │ │
+│ ┌────────┴────────┐ │
+│ ▼ ▼ │
+│ 达标 → Stage 7 不达标 → 回Stage 1 │
+│ 导出部署 (补数据/调参)│
+│ │ │
+│ ┌───────┼───────┐ │
+│ ▼ ▼ ▼ │
+│ LoRA Merged GGUF │
+│ Adapter Model 量化 │
+│ (100MB) (8-16GB)(2-4GB) │
+│ │ │ │ │
+│ ▼ ▼ ▼ │
+│ vLLM vLLM/ Ollama/ │
+│ 多LoRA TGI llama.cpp │
+│ 动态切换 生产 本地/边缘 │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -152,7 +152,7 @@ categories:
 
 ### 质量 >> 数量
 
-> **1000条高质量数据 > 10000条低质量数据** [citation:1][citation:4]
+> **1000条高质量数据 > 10000条低质量数据** 
 
 这是微调成功与否的最大单一因素。大部分项目不是败在训练，而是败在数据。
 
@@ -182,29 +182,29 @@ categories:
 ```json
 // Alpaca格式（单轮指令微调）
 {
-  "instruction": "将以下用户反馈分类为：bug/feature/question/complaint",
-  "input": "App在iPhone 15上每次打开都闪退，已经卸载重装三次了",
-  "output": "bug",
-  "category": "classification"
+ "instruction": "将以下用户反馈分类为：bug/feature/question/complaint",
+ "input": "App在iPhone 15上每次打开都闪退，已经卸载重装三次了",
+ "output": "bug",
+ "category": "classification"
 }
 
 // 对话格式（多轮对话微调）
 {
-  "messages": [
-    {"role": "system", "content": "你是XX公司的技术支持助手，回答简洁专业。"},
-    {"role": "user", "content": "我的订单什么时候到？"},
-    {"role": "assistant", "content": "请提供订单号，我帮你查询。"},
-    {"role": "user", "content": "ORD-20260715-001"},
-    {"role": "assistant", "content": "该订单预计7月18日送达。物流单号：SF1234567890"}
-  ]
+ "messages": [
+ {"role": "system", "content": "你是XX公司的技术支持助手，回答简洁专业。"},
+ {"role": "user", "content": "我的订单什么时候到？"},
+ {"role": "assistant", "content": "请提供订单号，我帮你查询。"},
+ {"role": "user", "content": "ORD-20260715-001"},
+ {"role": "assistant", "content": "该订单预计7月18日送达。物流单号：SF1234567890"}
+ ]
 }
 
 // 偏好对格式（DPO训练）
 {
-  "prompt": "写一封催款邮件给逾期30天的客户",
-  "chosen": "尊敬的客户，您的账户有款项已逾期30天...",
-  "rejected": "你欠钱不还，赶紧打款！否则...",
-  "criteria": "专业、礼貌、有CTA"
+ "prompt": "写一封催款邮件给逾期30天的客户",
+ "chosen": "尊敬的客户，您的账户有款项已逾期30天...",
+ "rejected": "你欠钱不还，赶紧打款！否则...",
+ "criteria": "专业、礼貌、有CTA"
 }
 ```
 
@@ -218,7 +218,7 @@ categories:
 | **Augmentoolkit** | 从PDF/书籍自动生成QA对 | 有源文档 | 需后处理 |
 | **NeMo Curator** (NVIDIA) | 大规模去重/过滤/PII移除 | 企业级 | 重工具 |
 
-> ⚠️ 纯合成数据的陷阱：**模型坍塌**（diversity collapse）。必须有人工抽检+AI Judge过滤 [citation:26]。
+> ⚠️ 纯合成数据的陷阱：**模型坍塌**（diversity collapse）。必须有人工抽检+AI Judge过滤。
 
 ### 数据准备检查清单
 
@@ -292,7 +292,7 @@ categories:
 └─ "追求最后1-3%的对齐质量" → RLHF（或交给专业团队）
 ```
 
-> **现代对齐范式**：SFT → DPO（覆盖90%+场景）。RLHF仅用于前沿模型最后打磨 [citation:23][citation:27]。
+> **现代对齐范式**：SFT → DPO（覆盖90%+场景）。RLHF仅用于前沿模型最后打磨。
 
 ### 进阶变体速览
 
@@ -317,40 +317,40 @@ categories:
 | 可训练参数 | 8B（100%）| ~20M（0.25%）|
 | 效果 | 基准 | 全量90%+ |
 
-> LoRA不是最先进的，而是在成本/效果/灵活性之间取得最佳平衡的 [citation:4]。
+> LoRA不是最先进的，而是在成本/效果/灵活性之间取得最佳平衡的。
 
 ### 核心超参数（2026最佳实践）
 
 ```yaml
 # LoRA配置（HuggingFace PEFT格式）
 lora_config:
-  r: 16                    # rank（核心参数）
-  lora_alpha: 32           # 通常 = 2 * r
-  lora_dropout: 0.05       # 防止过拟合
-  target_modules: "all-linear"  # 应用到所有线性层
-  bias: "none"
-  task_type: "CAUSAL_LM"
+ r: 16 # rank（核心参数）
+ lora_alpha: 32 # 通常 = 2 * r
+ lora_dropout: 0.05 # 防止过拟合
+ target_modules: "all-linear" # 应用到所有线性层
+ bias: "none"
+ task_type: "CAUSAL_LM"
 
 # QLoRA配置（4-bit量化训练）
 qlora_config:
-  load_in_4bit: true
-  bnb_4bit_quant_type: "nf4"
-  bnb_4bit_compute_dtype: "bfloat16"
-  bnb_4bit_use_double_quant: true
-  # 训练精度=推理精度（避免质量下降）
+ load_in_4bit: true
+ bnb_4bit_quant_type: "nf4"
+ bnb_4bit_compute_dtype: "bfloat16"
+ bnb_4bit_use_double_quant: true
+ # 训练精度=推理精度（避免质量下降）
 
 # 训练超参数
 training_config:
-  learning_rate: 2e-4       # 稳定值，跨模型通用
-  lr_scheduler: "cosine"    # 余弦衰减
-  warmup_ratio: 0.03-0.05   # 3-5%预热
-  num_epochs: 1-3           # 静态数据不要多epoch
-  max_seq_length: 4096      # 按需调整
-  gradient_accumulation: 4  # 有效batch = 2*4 = 8
-  micro_batch: 2
-  bf16: true                # 混合精度
-  flash_attention: true     # 加速
-  sample_packing: true      # 打包多条样本，大幅提速
+ learning_rate: 2e-4 # 稳定值，跨模型通用
+ lr_scheduler: "cosine" # 余弦衰减
+ warmup_ratio: 0.03-0.05 # 3-5%预热
+ num_epochs: 1-3 # 静态数据不要多epoch
+ max_seq_length: 4096 # 按需调整
+ gradient_accumulation: 4 # 有效batch = 2*4 = 8
+ micro_batch: 2
+ bf16: true # 混合精度
+ flash_attention: true # 加速
+ sample_packing: true # 打包多条样本，大幅提速
 ```
 
 ### 超参数速查表
@@ -364,7 +364,7 @@ training_config:
 | **epochs** | 1-3 | 多epoch常导致过拟合 |
 | **batch_size** | 越大越好（受显存限制）| 有效batch 16-32 |
 
-> ⚠️ **精度匹配原则**：计划4-bit部署 → 用QLoRA 4-bit训练。精度不匹配会悄悄降质 [citation:1]。
+> ⚠️ **精度匹配原则**：计划4-bit部署 → 用QLoRA 4-bit训练。精度不匹配会悄悄降质。
 
 ---
 
@@ -379,7 +379,7 @@ training_config:
 | 最大上下文(8B/24GB) | 5,789 tokens | **78,475 tokens** |
 | 消费级GPU友好 | 一般 | ✅ 极佳 |
 
-> Unsloth在NVIDIA GPU上的benchmark：Llama 3.1 8B QLoRA，24GB显存跑到78K上下文长度（标准FA2只有5.8K）[citation:3]。
+> Unsloth在NVIDIA GPU上的benchmark：Llama 3.1 8B QLoRA，24GB显存跑到78K上下文长度（标准FA2只有5.8K）。
 
 ### 完整训练代码
 
@@ -392,20 +392,20 @@ from datasets import load_dataset
 
 # ① 加载模型（4-bit量化）
 model, tokenizer = FastLanguageModel.from_pretrained(
-    model_name = "Qwen/Qwen3-7B-Instruct",  # 或 meta-llama/Llama-3.1-8B-Instruct
-    max_seq_length = 4096,
-    dtype = None,  # 自动选择
-    load_in_4bit = True,  # QLoRA
+ model_name = "Qwen/Qwen3-7B-Instruct", # 或 meta-llama/Llama-3.1-8B-Instruct
+ max_seq_length = 4096,
+ dtype = None, # 自动选择
+ load_in_4bit = True, # QLoRA
 )
 
 # ② 添加LoRA适配器
 model = FastLanguageModel.get_peft_model(
-    model,
-    r = 16,
-    lora_alpha = 32,
-    lora_dropout = 0.05,
-    target_modules = "all-linear",
-    use_gradient_checkpointing = "unsloth",  # 显存优化
+ model,
+ r = 16,
+ lora_alpha = 32,
+ lora_dropout = 0.05,
+ target_modules = "all-linear",
+ use_gradient_checkpointing = "unsloth", # 显存优化
 )
 
 # ③ 加载数据
@@ -413,27 +413,27 @@ dataset = load_dataset("json", data_files="train.jsonl", split="train")
 
 # ④ 训练配置
 trainer = SFTTrainer(
-    model = model,
-    tokenizer = tokenizer,
-    train_dataset = dataset,
-    eval_dataset = eval_dataset,  # 验证集
-    args = SFTConfig(
-        output_dir = "./outputs/qwen3-finetuned",
-        num_train_epochs = 3,
-        per_device_train_batch_size = 2,
-        gradient_accumulation_steps = 4,  # 有效batch=8
-        learning_rate = 2e-4,
-        lr_scheduler_type = "cosine",
-        warmup_ratio = 0.03,
-        logging_steps = 10,
-        eval_steps = 100,
-        save_steps = 200,
-        bf16 = is_bfloat16_supported(),
-        fp16 = not is_bfloat16_supported(),
-        max_seq_length = 4096,
-        packing = True,  # sample packing加速
-        report_to = "wandb",  # 可选：可视化
-    ),
+ model = model,
+ tokenizer = tokenizer,
+ train_dataset = dataset,
+ eval_dataset = eval_dataset, # 验证集
+ args = SFTConfig(
+ output_dir = "./outputs/qwen3-finetuned",
+ num_train_epochs = 3,
+ per_device_train_batch_size = 2,
+ gradient_accumulation_steps = 4, # 有效batch=8
+ learning_rate = 2e-4,
+ lr_scheduler_type = "cosine",
+ warmup_ratio = 0.03,
+ logging_steps = 10,
+ eval_steps = 100,
+ save_steps = 200,
+ bf16 = is_bfloat16_supported(),
+ fp16 = not is_bfloat16_supported(),
+ max_seq_length = 4096,
+ packing = True, # sample packing加速
+ report_to = "wandb", # 可选：可视化
+ ),
 )
 
 # ⑤ 开始训练
@@ -478,9 +478,9 @@ pip install lm-eval
 
 # 评估微调模型
 lm_eval --model hf \
-  --model_args pretrained=./outputs/merged \
-  --tasks mmlu,hellaswag,truthfulqa_mc1,arc_challenge \
-  --num_fewshot 0 --batch_size 8 --device cuda
+ --model_args pretrained=./outputs/merged \
+ --tasks mmlu,hellaswag,truthfulqa_mc1,arc_challenge \
+ --num_fewshot 0 --batch_size 8 --device cuda
 ```
 
 | Benchmark | 测什么 | 基模型参考 | 红线 |
@@ -490,7 +490,7 @@ lm_eval --model hf \
 | **TruthfulQA** | 抗幻觉 | 7-8B: 0.35-0.45 | 下降>5% = 更爱编 |
 | **ARC-Challenge** | 科学推理 | 7-8B: 0.45-0.55 | 下降>5% = 知识丢失 |
 
-> **关键**：同一套benchmark跑基模型和微调模型，对比差值才是你的"微调delta" [citation:25]。
+> **关键**：同一套benchmark跑基模型和微调模型，对比差值才是你的"微调delta"。
 
 #### ② 领域任务评估（最重要的评估）
 
@@ -500,24 +500,24 @@ eval_set = load_jsonl("test_set.jsonl")
 
 results = []
 for item in eval_set:
-    prompt = item["instruction"]
-    expected = item["output"]
-    
-    # 生成回答
-    response = generate(model, tokenizer, prompt)
-    
-    # 自动评分
-    score = {
-        "exact_match": response.strip() == expected.strip(),
-        "format_valid": is_valid_json(response),  # 格式检查
-        "length_ok": 50 <= len(response) <= 500,   # 长度检查
-    }
-    
-    # LLM-as-Judge（主观质量）
-    judge_score = llm_judge(prompt, response, expected)
-    score["judge_score"] = judge_score
-    
-    results.append(score)
+ prompt = item["instruction"]
+ expected = item["output"]
+ 
+ # 生成回答
+ response = generate(model, tokenizer, prompt)
+ 
+ # 自动评分
+ score = {
+ "exact_match": response.strip() == expected.strip(),
+ "format_valid": is_valid_json(response), # 格式检查
+ "length_ok": 50 <= len(response) <= 500, # 长度检查
+ }
+ 
+ # LLM-as-Judge（主观质量）
+ judge_score = llm_judge(prompt, response, expected)
+ score["judge_score"] = judge_score
+ 
+ results.append(score)
 
 # 汇总
 avg_judge = mean([r["judge_score"] for r in results])
@@ -530,16 +530,16 @@ print(f"Avg judge score: {avg_judge:.2f}/5")
 
 ```
 做法：
-  ① 准备20-50条prompt
-  ② 分别用基模型和微调模型生成
-  ③ 打乱顺序（去掉模型标识）
-  ④ 找3-5人盲评（选A/B/平局 + 理由）
-  ⑤ 统计偏好率
+ ① 准备20-50条prompt
+ ② 分别用基模型和微调模型生成
+ ③ 打乱顺序（去掉模型标识）
+ ④ 找3-5人盲评（选A/B/平局 + 理由）
+ ⑤ 统计偏好率
 
 判断标准：
-  - 微调模型胜率 > 60% → 有效
-  - 胜率 < 50% → 失败，回炉
-  - 平局多 → 可能任务太简单，微调增益有限
+ - 微调模型胜率 > 60% → 有效
+ - 胜率 < 50% → 失败，回炉
+ - 平局多 → 可能任务太简单，微调增益有限
 ```
 
 ### 评估检查清单
@@ -586,11 +586,11 @@ pip install vllm>=1.2.0
 
 # 启动服务（OpenAI兼容API）
 python -m vllm.entrypoints.openai.api_server \
-  --model ./outputs/merged \
-  --tensor-parallel-size 1 \
-  --gpu-memory-utilization 0.90 \
-  --max-model-len 8192 \
-  --port 8000
+ --model ./outputs/merged \
+ --tensor-parallel-size 1 \
+ --gpu-memory-utilization 0.90 \
+ --max-model-len 8192 \
+ --port 8000
 ```
 
 ```python
@@ -598,14 +598,14 @@ python -m vllm.entrypoints.openai.api_server \
 from openai import OpenAI
 
 client = OpenAI(
-    base_url="http://localhost:8000/v1",
-    api_key="dummy"  # vLLM不需要真实key
+ base_url="http://localhost:8000/v1",
+ api_key="dummy" # vLLM不需要真实key
 )
 
 response = client.chat.completions.create(
-    model="qwen3-finetuned",
-    messages=[{"role": "user", "content": "你的测试问题"}],
-    temperature=0.7,
+ model="qwen3-finetuned",
+ messages=[{"role": "user", "content": "你的测试问题"}],
+ temperature=0.7,
 )
 print(response.choices[0].message.content)
 ```
@@ -615,20 +615,20 @@ print(response.choices[0].message.content)
 ```bash
 # 启动时可加载多个LoRA
 python -m vllm.entrypoints.openai.api_server \
-  --model Qwen/Qwen3-7B-Instruct \
-  --enable-lora \
-  --lora-modules \
-    support=./loras/support-adapter \
-    sales=./loras/sales-adapter \
-    tech=./loras/tech-adapter \
-  --max-lora-rank 32
+ --model Qwen/Qwen3-7B-Instruct \
+ --enable-lora \
+ --lora-modules \
+ support=./loras/support-adapter \
+ sales=./loras/sales-adapter \
+ tech=./loras/tech-adapter \
+ --max-lora-rank 32
 ```
 
 ```python
 # 请求时指定用哪个LoRA
 client.chat.completions.create(
-    model="support",  # 对应lora-modules里的key
-    messages=[...],
+ model="support", # 对应lora-modules里的key
+ messages=[...],
 )
 # 同一进程、同一基模型，动态切换不同行为
 ```
@@ -667,12 +667,12 @@ CMD ["bash", "/start.sh"]
 # start.sh
 #!/bin/bash
 python -m vllm.entrypoints.openai.api_server \
-  --model /model \
-  --tensor-parallel-size ${TP_SIZE:-1} \
-  --gpu-memory-utilization ${GPU_MEM:-0.85} \
-  --max-model-len ${MAX_LEN:-4096} \
-  --port 8000 \
-  --host 0.0.0.0
+ --model /model \
+ --tensor-parallel-size ${TP_SIZE:-1} \
+ --gpu-memory-utilization ${GPU_MEM:-0.85} \
+ --max-model-len ${MAX_LEN:-4096} \
+ --port 8000 \
+ --host 0.0.0.0
 ```
 
 ### 生产监控指标
@@ -692,26 +692,26 @@ python -m vllm.entrypoints.openai.api_server \
 
 ### 2026年最佳实践：二者结合
 
-> "微调管行为，RAG管知识" [citation:1][citation:6]
+> "微调管行为，RAG管知识" 
 
 ```
 ┌─────────────────────────────────────────────────┐
-│             用户查询                              │
+│ 用户查询 │
 └────────────────┬────────────────────────────────┘
-                 ▼
+ ▼
 ┌─────────────────────────────────────────────────┐
-│  Fine-tuned Model（行为层）                      │
-│  - 知道怎么推理（推理模式）                       │
-│  - 输出格式正确（JSON/结构化）                    │
-│  - 语调一致（品牌声音）                           │
-│  - 工具调用规范                                  │
+│ Fine-tuned Model（行为层） │
+│ - 知道怎么推理（推理模式） │
+│ - 输出格式正确（JSON/结构化） │
+│ - 语调一致（品牌声音） │
+│ - 工具调用规范 │
 └────────────────┬────────────────────────────────┘
-                 ▼
+ ▼
 ┌─────────────────────────────────────────────────┐
-│  RAG（知识层）                                  │
-│  - 检索最新文档/政策/产品信息                     │
-│  - 提供可追溯的来源                               │
-│  - 知识更新只需更新索引                           │
+│ RAG（知识层） │
+│ - 检索最新文档/政策/产品信息 │
+│ - 提供可追溯的来源 │
+│ - 知识更新只需更新索引 │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -722,7 +722,7 @@ python -m vllm.entrypoints.openai.api_server \
 | 微调层 | 推理模式（鉴别诊断思路）、输出格式（标准临床报告）、术语使用 | SFT + 2000条专家标注病例 |
 | RAG层 | 最新药物交互、治疗指南更新、患者具体检验数据 | 向量库 + 每日更新索引 |
 
-> 二者单独都不够：只微调→知识冻结在训练时；只RAG→格式和推理质量不稳定 [citation:1]。
+> 二者单独都不够：只微调→知识冻结在训练时；只RAG→格式和推理质量不稳定。
 
 ### 成本对比（1M查询/月）
 
@@ -732,7 +732,7 @@ python -m vllm.entrypoints.openai.api_server \
 | **Fine-tune-only** | ~$6,260 | 格式完美、长期便宜 | 知识冻结、重训贵 |
 | **Hybrid** | ~$5,710 | 各取所长 | 架构复杂 |
 
-> 100M查询/月时差距更大：RAG $643K vs 微调 $3.11M（RAG便宜79%）[citation:6]。
+> 100M查询/月时差距更大：RAG $643K vs 微调 $3.11M（RAG便宜79%）。
 
 ---
 
@@ -785,27 +785,27 @@ python -m vllm.entrypoints.openai.api_server \
 
 ### 1. 微调真的比RAG好吗？我该选哪个？
 
-2026年答案是大多数先RAG，需要时再加微调，二者混合。RAG解决"不知道的事实"（检索+生成），微调解决"不会做的事"（格式/风格/推理模式）。成本：1M查询/月RAG约$2,260，纯微调约$6,260，混合约$5,710——RAG便宜64%。但微调在高频稳定任务上长期更省（每查询成本随量下降）。选择标准：输出格式/品牌语调/分类路由→微调；知识更新频繁/需溯源/监管行业→RAG；二者都需要→混合。Menlo Ventures调研：51%生产系统用RAG，仅9%主要用微调 [citation:2][citation:6]。
+2026年答案是大多数先RAG，需要时再加微调，二者混合。RAG解决"不知道的事实"（检索+生成），微调解决"不会做的事"（格式/风格/推理模式）。成本：1M查询/月RAG约$2,260，纯微调约$6,260，混合约$5,710——RAG便宜64%。但微调在高频稳定任务上长期更省（每查询成本随量下降）。选择标准：输出格式/品牌语调/分类路由→微调；知识更新频繁/需溯源/监管行业→RAG；二者都需要→混合。Menlo Ventures调研：51%生产系统用RAG，仅9%主要用微调。
 
 ### 2. 需要多少数据才能微调？我没有几万条怎么办？
 
-远没想象那么多。2026实证：100-500条高质量样本足够做分类/提取/结构化生成；1000-5000条覆盖复杂领域推理。关键在"高质量"而非"大规模"——200条专家验证 > 2000条匆忙收集。数据增强方案：① Self-Instruct（种子让LLM生成新指令+答案）；② Distilabel（HF合成数据框架含AI评估过滤）；③ Magpie技术（空prompt自生成）；④ Augmentoolkit（PDF/书籍自动生成QA）。注意纯合成数据会导致"模型坍塌"，必须人工抽检过滤 [citation:1][citation:5][citation:26]。
+远没想象那么多。2026实证：100-500条高质量样本足够做分类/提取/结构化生成；1000-5000条覆盖复杂领域推理。关键在"高质量"而非"大规模"——200条专家验证 > 2000条匆忙收集。数据增强方案：① Self-Instruct（种子让LLM生成新指令+答案）；② Distilabel（HF合成数据框架含AI评估过滤）；③ Magpie技术（空prompt自生成）；④ Augmentoolkit（PDF/书籍自动生成QA）。注意纯合成数据会导致"模型坍塌"，必须人工抽检过滤。
 
 ### 3. RTX 4090能微调多大的模型？要多久？
 
-单张RTX 4090（24GB）用QLoRA可微调：Llama 3.1 8B（序列长度78K tokens，Unsloth优化）、Qwen3-7B/14B（轻松）、Qwen3-32B（需GGUF+swap较慢）。时间：8B/2000条/QLoRA/r=32约2-4小时；32B/5000条约8-16小时。无本地GPU？RunPod/Vast.ai租A100约$1-2/小时，完整微调$5-20搞定。关键技巧：Unsloth优化内核（显存降40-60%吞吐翻倍）、梯度检查点开、bf16混合精度、r=16-32 [citation:1][citation:3][citation:5]。
+单张RTX 4090（24GB）用QLoRA可微调：Llama 3.1 8B（序列长度78K tokens，Unsloth优化）、Qwen3-7B/14B（轻松）、Qwen3-32B（需GGUF+swap较慢）。时间：8B/2000条/QLoRA/r=32约2-4小时；32B/5000条约8-16小时。无本地GPU？RunPod/Vast.ai租A100约$1-2/小时，完整微调$5-20搞定。关键技巧：Unsloth优化内核（显存降40-60%吞吐翻倍）、梯度检查点开、bf16混合精度、r=16-32。
 
 ### 4. SFT、DPO、RLHF到底选哪个？
 
-90%情况先做SFT，需要再上DPO。SFT最简单最快最便宜，教模型"怎么做事"，100-10K条单GPU。DPO解决"好坏选择"，不需奖励模型，单GPU几小时，1K-5K偏好对，2026已成对齐默认。RLHF仅适合前沿对齐（最后1-3%质量），需SFT→奖励模型→PPO多阶段，多GPU集群，数天到周，$5K-50K+。决策：教新技能→SFT；调偏好/风格→DPO；顶级对齐→RLHF。现代模型（Llama 3 Instruct/Qwen 2.5 Instruct）都已SFT+DPO对齐 [citation:23][citation:27]。
+90%情况先做SFT，需要再上DPO。SFT最简单最快最便宜，教模型"怎么做事"，100-10K条单GPU。DPO解决"好坏选择"，不需奖励模型，单GPU几小时，1K-5K偏好对，2026已成对齐默认。RLHF仅适合前沿对齐（最后1-3%质量），需SFT→奖励模型→PPO多阶段，多GPU集群，数天到周，$5K-50K+。决策：教新技能→SFT；调偏好/风格→DPO；顶级对齐→RLHF。现代模型（Llama 3 Instruct/Qwen 2.5 Instruct）都已SFT+DPO对齐。
 
 ### 5. 怎么评估微调后的模型有没有变好？
 
-三层评估：① 通用能力保留——lm-evaluation-harness跑MMLU/HellaSwag/TruthfulQA/ARC，对比基模型。MMLU降超3-5%=灾难性遗忘。② 领域任务——构建hold-out测试集（50-200条），算准确率/F1/ROUGE + LLM-as-Judge(1-5分)。这是最重要的。③ 主观盲测——同prompt跑两模型，3-5人盲评。常见陷阱：只在训练分布上评估（过拟合假象）、不跑通用benchmark（不知忘了什么）、vibes评估（"感觉还行"→翻车）。推荐：lm-eval-harness + LangSmith Trace [citation:1][citation:5][citation:25]。
+三层评估：① 通用能力保留——lm-evaluation-harness跑MMLU/HellaSwag/TruthfulQA/ARC，对比基模型。MMLU降超3-5%=灾难性遗忘。② 领域任务——构建hold-out测试集（50-200条），算准确率/F1/ROUGE + LLM-as-Judge(1-5分)。这是最重要的。③ 主观盲测——同prompt跑两模型，3-5人盲评。常见陷阱：只在训练分布上评估（过拟合假象）、不跑通用benchmark（不知忘了什么）、vibes评估（"感觉还行"→翻车）。推荐：lm-eval-harness + LangSmith Trace。
 
 ### 6. 微调后怎么部署？三种格式怎么选？
 
-三种格式各有所长：① LoRA Adapter（100-500MB）——开发测试/多适配器切换，vLLM原生动态加载不重启；② Merged Model（8-16GB）——vLLM/TGI生产/HF分享，独立不依赖基模型；③ GGUF量化（2-4GB Q4_K_M）——CPU/Ollama/llama.cpp/边缘设备。生产推荐vLLM + Merged Model（continuous batching最大化吞吐，OpenAI兼容API开箱即用）。本地推荐Ollama + GGUF（Modelfile一行导入）。关键：训练精度=推理精度，计划4-bit部署就用QLoRA 4-bit训练 [citation:1][citation:5][citation:24]。
+三种格式各有所长：① LoRA Adapter（100-500MB）——开发测试/多适配器切换，vLLM原生动态加载不重启；② Merged Model（8-16GB）——vLLM/TGI生产/HF分享，独立不依赖基模型；③ GGUF量化（2-4GB Q4_K_M）——CPU/Ollama/llama.cpp/边缘设备。生产推荐vLLM + Merged Model（continuous batching最大化吞吐，OpenAI兼容API开箱即用）。本地推荐Ollama + GGUF（Modelfile一行导入）。关键：训练精度=推理精度，计划4-bit部署就用QLoRA 4-bit训练。
 
 ---
 
@@ -859,103 +859,103 @@ python -m vllm.entrypoints.openai.api_server \
 
 <style>
 .reading-time {
-  background: #fdf2f8;
-  border-left: 4px solid #db2777;
-  padding: 8px 16px;
-  margin: 16px 0;
-  border-radius: 4px;
-  font-size: 0.95em;
-  color: #831843;
+ background: #fdf2f8;
+ border-left: 4px solid #db2777;
+ padding: 8px 16px;
+ margin: 16px 0;
+ border-radius: 4px;
+ font-size: 0.95em;
+ color: #831843;
 }
 .toc {
-  background: #fafbfc;
-  border: 1px solid #e4e6eb;
-  border-radius: 10px;
-  padding: 20px 28px;
-  margin: 24px 0 32px;
+ background: #fafbfc;
+ border: 1px solid #e4e6eb;
+ border-radius: 10px;
+ padding: 20px 28px;
+ margin: 24px 0 32px;
 }
 .toc h2 {
-  margin-top: 0;
-  font-size: 1.1em;
+ margin-top: 0;
+ font-size: 1.1em;
 }
 .toc a {
-  color: #831843;
-  text-decoration: none;
-  display: block;
-  padding: 3px 0;
+ color: #831843;
+ text-decoration: none;
+ display: block;
+ padding: 3px 0;
 }
 .toc a:hover {
-  color: #db2777;
-  text-decoration: underline;
+ color: #db2777;
+ text-decoration: underline;
 }
 .cta-box {
-  background: linear-gradient(135deg, #db2777 0%, #9333ea 50%, #2563eb 100%);
-  color: white;
-  border-radius: 16px;
-  padding: 28px 32px;
-  margin: 40px 0 24px;
-  text-align: center;
+ background: linear-gradient(135deg, #db2777 0%, #9333ea 50%, #2563eb 100%);
+ color: white;
+ border-radius: 16px;
+ padding: 28px 32px;
+ margin: 40px 0 24px;
+ text-align: center;
 }
 .cta-box h3 {
-  color: white;
-  margin-top: 0;
+ color: white;
+ margin-top: 0;
 }
 .cta-box a {
-  color: #fce7f3;
+ color: #fce7f3;
 }
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 16px 0 24px;
-  font-size: 0.85em;
+ width: 100%;
+ border-collapse: collapse;
+ margin: 16px 0 24px;
+ font-size: 0.85em;
 }
 th {
-  background: #db2777;
-  color: white;
-  padding: 10px 12px;
-  text-align: left;
-  font-weight: 600;
+ background: #db2777;
+ color: white;
+ padding: 10px 12px;
+ text-align: left;
+ font-weight: 600;
 }
 td {
-  padding: 9px 12px;
-  border-bottom: 1px solid #e4e6eb;
+ padding: 9px 12px;
+ border-bottom: 1px solid #e4e6eb;
 }
 tr:nth-child(even) {
-  background: #fdf2f8;
+ background: #fdf2f8;
 }
 tr:hover {
-  background: #fbcfe8;
+ background: #fbcfe8;
 }
 .green { color: #16a34a; font-weight: 600; }
 .red { color: #dc2626; font-weight: 600; }
 .yellow { color: #d97706; font-weight: 600; }
 blockquote {
-  border-left: 4px solid #9333ea;
-  padding: 12px 20px;
-  margin: 16px 0;
-  background: #faf5ff;
-  font-style: italic;
-  color: #3b0764;
+ border-left: 4px solid #9333ea;
+ padding: 12px 20px;
+ margin: 16px 0;
+ background: #faf5ff;
+ font-style: italic;
+ color: #3b0764;
 }
 code {
-  background: #f1f3f5;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-size: 0.9em;
-  font-family: 'SF Mono', 'Fira Code', monospace;
+ background: #f1f3f5;
+ padding: 2px 6px;
+ border-radius: 3px;
+ font-size: 0.9em;
+ font-family: 'SF Mono', 'Fira Code', monospace;
 }
 pre {
-  background: #1e293b;
-  color: #e2e8f0;
-  padding: 16px 20px;
-  border-radius: 8px;
-  overflow-x: auto;
-  font-size: 0.85em;
-  line-height: 1.6;
+ background: #1e293b;
+ color: #e2e8f0;
+ padding: 16px 20px;
+ border-radius: 8px;
+ overflow-x: auto;
+ font-size: 0.85em;
+ line-height: 1.6;
 }
 pre code {
-  background: none;
-  color: inherit;
-  padding: 0;
+ background: none;
+ color: inherit;
+ padding: 0;
 }
 </style>

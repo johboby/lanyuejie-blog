@@ -3,19 +3,19 @@ title: "Local LLM Guide: Llama 4 & Qwen 3 Deployment + Hardware"
 date: 2026-07-26
 description: "本地部署开源大模型完全指南：硬件选型+Ollama/vLLM/llama.cpp实操，覆盖Llama 4 Scout/Maverick和Qwen 3全系列，含量化策略与实测数据。"
 tags:
-  - 本地部署
-  - Llama 4
-  - Qwen 3
-  - 开源大模型
-  - Ollama
-  - vLLM
-  - llama.cpp
-  - 量化
-  - 硬件要求
-  - 隐私AI
+ - 本地部署
+ - Llama 4
+ - Qwen 3
+ - 开源大模型
+ - Ollama
+ - vLLM
+ - llama.cpp
+ - 量化
+ - 硬件要求
+ - 隐私AI
 categories:
-  - AI技术实战
-  - 研究
+ - AI技术实战
+ - 研究
 ---
 <p class="reading-time">⏱️ 阅读时间：约 15 分钟</p>
 
@@ -25,19 +25,19 @@ categories:
 
 - [为什么要在本地跑大模型](#为什么要在本地跑大模型)
 - [硬件选型：你的电脑能跑多大](#硬件选型你的电脑能跑多大)
-  - [GPU 显存对照表](#gpu-显存对照表)
-  - [Apple Silicon 实测](#apple-silicon-实测)
-  - [纯 CPU 方案](#纯-cpu-方案)
+ - [GPU 显存对照表](#gpu-显存对照表)
+ - [Apple Silicon 实测](#apple-silicon-实测)
+ - [纯 CPU 方案](#纯-cpu-方案)
 - [模型选型：2026年值得部署的开源模型](#模型选型2026年值得部署的开源模型)
-  - [Llama 4 家族](#llama-4-家族)
-  - [Qwen 3 家族](#qwen-3-家族)
-  - [其他值得关注](#其他值得关注)
+ - [Llama 4 家族](#llama-4-家族)
+ - [Qwen 3 家族](#qwen-3-家族)
+ - [其他值得关注](#其他值得关注)
 - [量化：用一半显存跑几乎同样的模型](#量化用一半显存跑几乎同样的模型)
 - [三大工具路线：Ollama / vLLM / llama.cpp](#三大工具路线ollama--vllm--llamacpp)
-  - [路线A：Ollama 一条命令](#路线aollama-一条命令)
-  - [路线B：llama.cpp 极致控制](#路线bllamacpp-极致控制)
-  - [路线C：vLLM 生产级吞吐](#路线cvllm-生产级吞吐)
-  - [三者对比](#三者对比)
+ - [路线A：Ollama 一条命令](#路线aollama-一条命令)
+ - [路线B：llama.cpp 极致控制](#路线bllamacpp-极致控制)
+ - [路线C：vLLM 生产级吞吐](#路线cvllm-生产级吞吐)
+ - [三者对比](#三者对比)
 - [实战：Llama 4 Scout 本地部署完整步骤](#实战llama-4-scout-本地部署完整步骤)
 - [实战：Qwen3 全尺寸部署实测](#实战qwen3-全尺寸部署实测)
 - [性能实测数据汇总](#性能实测数据汇总)
@@ -58,11 +58,11 @@ categories:
 
 三个最实际的理由：
 
-**1. 隐私/IP 零泄露。** 你的代码、客户数据、内部文档永远不出本机。对金融、医疗、法律等受监管行业，这不是"加分项"而是"硬要求" [citation:3]。
+**1. 隐私/IP 零泄露。** 你的代码、客户数据、内部文档永远不出本机。对金融、医疗、法律等受监管行业，这不是"加分项"而是"硬要求"。
 
-**2. 边际成本为零。** 一次性硬件投入后，每生成一百万token的成本趋近于电费。当你的API月账单超过$500，本地部署6-12个月就能回本 [citation:3]。
+**2. 边际成本为零。** 一次性硬件投入后，每生成一百万token的成本趋近于电费。当你的API月账单超过$500，本地部署6-12个月就能回本。
 
-**3. 零延迟 + 永不下线。** 本地推理首token延迟50ms vs API的300-800ms。而且你的模型不会因为 OpenAI 机房宕机而罢工 [citation:3]。
+**3. 零延迟 + 永不下线。** 本地推理首token延迟50ms vs API的300-800ms。而且你的模型不会因为 OpenAI 机房宕机而罢工。
 
 当然也有代价——你得管硬件、管更新、管显存不够时的各种奇怪报错。这篇文章就是帮你把这条曲线压到最陡。
 
@@ -110,7 +110,7 @@ Apple 的统一内存架构对大模型出奇地友好——CPU和GPU共享同�
 
 - Qwen3-4B (Q4)：约 8-12 tok/s（够日常对话）
 - Qwen3-14B (Q4)：约 2-4 tok/s（能跑但急人）
-- Llama 4 Scout (IQ2_XXS)：约 20 tok/s（Unsloth 极限量化）[citation:4]
+- Llama 4 Scout (IQ2_XXS)：约 20 tok/s（Unsloth 极限量化）
 
 > 💡 **结论**：CPU 模式适合"能跑就行"的轻量场景，主力推理还是建议至少一张 RTX 4070 以上的显卡。关于硬件投入的ROI分析，可以参考AI API成本优化完全手册，里面有本地vs云端的经济学模型。
 
@@ -120,22 +120,22 @@ Apple 的统一内存架构对大模型出奇地友好——CPU和GPU共享同�
 
 ### <span id="llama-4-家族">Llama 4 家族</span>
 
-Meta 在2025年底到2026年初发布了 Llama 4 系列，全面转向 MoE（混合专家）架构 [citation:1][citation:37]。
+Meta 在2025年底到2026年初发布了 Llama 4 系列，全面转向 MoE（混合专家）架构。
 
 | 模型 | 总参数 | 激活参数 | 上下文 | MMLU | HumanEval | 核心定位 |
 |---|---|---|---|---|---|---|
 | **Scout** | 109B | 17B | **10M** | 68% | 72% | 高速长上下文 |
 | **Maverick** | 400B | 17B | 1M | 88% | 89% | 强推理 |
 
-**关键理解**：Scout 和 Maverick 的"激活参数"都是 17B——意味着每个 token 的计算量相近。差异在于"知识容量"：Maverick 的 400B 总参数能装更多知识，但推理时也更慢、更吃资源 [citation:37]。
+**关键理解**：Scout 和 Maverick 的"激活参数"都是 17B——意味着每个 token 的计算量相近。差异在于"知识容量"：Maverick 的 400B 总参数能装更多知识，但推理时也更慢、更吃资源。
 
-**Scout 的定位**是"快、长、便宜"——10M token 上下文窗口意味着你可以把一整本书甚至一个代码仓库塞进去。首token延迟 sub-200ms，适合实时应用 [citation:37]。
+**Scout 的定位**是"快、长、便宜"——10M token 上下文窗口意味着你可以把一整本书甚至一个代码仓库塞进去。首token延迟 sub-200ms，适合实时应用。
 
-**Maverick 的定位**是"慢但聪明"——复杂推理、多步逻辑、深度分析。需要 8x H100 集群，首token延迟 500-800ms [citation:37]。
+**Maverick 的定位**是"慢但聪明"——复杂推理、多步逻辑、深度分析。需要 8x H100 集群，首token延迟 500-800ms。
 
 ### <span id="qwen-3-家族">Qwen 3 家族</span>
 
-阿里云的通义千问 3 系列是当前开源模型的"Benchmark 之王"——在多数评测上超过同级别 Llama 和 DeepSeek，且采用最宽松的 Apache 2.0 许可证 [citation:6][citation:35]。
+阿里云的通义千问 3 系列是当前开源模型的"Benchmark 之王"——在多数评测上超过同级别 Llama 和 DeepSeek，且采用最宽松的 Apache 2.0 许可证。
 
 | 模型 | 参数量 | 类型 | MMLU | GSM8K | HumanEval | 显存(Q4) |
 |---|---|---|---|---|---|---|
@@ -153,9 +153,9 @@ Meta 在2025年底到2026年初发布了 Llama 4 系列，全面转向 MoE（混
 **重点型号解读**：
 
 - **Qwen3-4B**：6GB显存设备的"甜点"——MMLU 70分，中文能力碾压同级别 Llama，Ollama 一行命令就能跑。
-- **Qwen3-14B**：16GB显卡的"黄金尺寸"——GSM8K 88.4分，数学推理逼近 GPT-4o，写代码、做分析都够用 [citation:38]。
-- **Qwen3-30B-A3B**：MoE 架构的神作。总参30B但每token只激活3B，所以速度极快（RTX 4090 上 90 tok/s），质量却接近 30B Dense 模型 [citation:2][citation:25]。
-- **Qwen3-235B-A22B**：开源旗舰，MMLU 86.3 分超过 GPT-4o（~88）和 Claude 3.5（~92）之间的区间，但需要 143GB 显存 [citation:2]。
+- **Qwen3-14B**：16GB显卡的"黄金尺寸"——GSM8K 88.4分，数学推理逼近 GPT-4o，写代码、做分析都够用。
+- **Qwen3-30B-A3B**：MoE 架构的神作。总参30B但每token只激活3B，所以速度极快（RTX 4090 上 90 tok/s），质量却接近 30B Dense 模型。
+- **Qwen3-235B-A22B**：开源旗舰，MMLU 86.3 分超过 GPT-4o（~88）和 Claude 3.5（~92）之间的区间，但需要 143GB 显存。
 
 ### 量化对质量的影响（实测数据）
 
@@ -196,7 +196,7 @@ Meta 在2025年底到2026年初发布了 Llama 4 系列，全面转向 MoE（混
 | **Q4_K_M** | ~0.5字节 | ~95-97% | **日常推荐甜点** |
 | Q3_K_M | ~0.375字节 | ~90-93% | 显存紧张时的妥协 |
 | Q2_K | ~0.25字节 | ~80-88% | 极限压缩，质量明显下降 |
-| Unsloth IQ2_XXS | ~0.22字节 | ~82% | Llama 4 Scout 在24GB卡的黑科技 [citation:4] |
+| Unsloth IQ2_XXS | ~0.22字节 | ~82% | Llama 4 Scout 在24GB卡的黑科技 |
 
 ### llama.cpp 量化工作流
 
@@ -211,7 +211,7 @@ python convert-hf-to-gguf.py path/to/model --outfile model-fp16.gguf
 ./llama.cpp/llama-cli -m model-q4_k_m.gguf -p "测试一下量化后质量" -n 128
 ```
 
-> 也可以用 Unsloth 的 imatrix 量化——它用约25万token的校准数据来优化量化参数，比标准量化精度更高 [citation:4]。
+> 也可以用 Unsloth 的 imatrix 量化——它用约25万token的校准数据来优化量化参数，比标准量化精度更高。
 
 ---
 
@@ -239,11 +239,11 @@ ollama run llama4:scout
 ollama run deepseek-r1:14b
 ```
 
-安装后自动暴露 OpenAI 兼容 API（localhost:11434），可以直接接入任何支持 OpenAI 格式的前端（Open WebUI、Chatbox、Continue 等）[citation:20][citation:23]。
+安装后自动暴露 OpenAI 兼容 API（localhost:11434），可以直接接入任何支持 OpenAI 格式的前端（Open WebUI、Chatbox、Continue 等）。
 
 **优点**：3分钟从零到对话、跨平台、自动管理模型、API 开箱即用。
 
-**缺点**：并发吞吐不如 vLLM（高并发下差距2-5倍）、调度策略简单、对推理参数的控制粒度有限 [citation:5]。
+**缺点**：并发吞吐不如 vLLM（高并发下差距2-5倍）、调度策略简单、对推理参数的控制粒度有限。
 
 > 📌 **适合**：个人开发者、想快速试模型的人、不需要高并发的场景。
 
@@ -263,26 +263,26 @@ make clean
 LLAMA_METAL=1 make -j$(sysctl -n hw.ncpu)
 
 # 验证
-./main -h | head -5  # 输出应包含 "metal: true"
+./main -h | head -5 # 输出应包含 "metal: true"
 ```
 
-> ⚠️ 别下 GitHub 预编译版——那些是为 Intel Mac 编译的，M系列跑会触发 Rosetta 2，性能掉30% [citation:21]。
+> ⚠️ 别下 GitHub 预编译版——那些是为 Intel Mac 编译的，M系列跑会触发 Rosetta 2，性能掉30%。
 
 #### Linux / NVIDIA GPU 编译
 
 ```bash
 # 需要 CUDA 12.4+ 和 CMake
 cmake llama.cpp -B llama.cpp/build \
-  -DBUILD_SHARED_LIBS=OFF \
-  -DGGML_CUDA=ON \
-  -DLLAMA_CURL=ON
+ -DBUILD_SHARED_LIBS=OFF \
+ -DGGML_CUDA=ON \
+ -DLLAMA_CURL=ON
 cmake --build llama.cpp/build --config Release -j
 
 # 启动 API 服务
 ./llama.cpp/llama-server \
-  -m models/qwen3-14b.Q4_K_M.gguf \
-  --host 0.0.0.0 --port 8080 \
-  --ctx-size 16384
+ -m models/qwen3-14b.Q4_K_M.gguf \
+ --host 0.0.0.0 --port 8080 \
+ --ctx-size 16384
 ```
 
 #### 下载模型（国内推荐 ModelScope）
@@ -290,7 +290,7 @@ cmake --build llama.cpp/build --config Release -j
 ```bash
 # 下载 Qwen3 GGUF（国内用 ModelScope 比 HuggingFace 快10倍）
 curl -L https://modelscope.cn/models/qwen/Qwen3-14B-GGUF/resolve/master/Qwen3-14B.Q4_K_M.gguf \
-  -o ~/models/Qwen3-14B.Q4_K_M.gguf
+ -o ~/models/Qwen3-14B.Q4_K_M.gguf
 
 # 校验完整性
 shasum -a 256 ~/models/Qwen3-14B.Q4_K_M.gguf
@@ -300,19 +300,19 @@ shasum -a 256 ~/models/Qwen3-14B.Q4_K_M.gguf
 
 ```bash
 ./llama.cpp/llama-cli \
-  -m ~/models/Qwen3-14B.Q4_K_M.gguf \
-  --n-gpu-layers 99 \       # GPU 卸载层数（99=尽量全卸载）
-  --ctx-size 16384 \        # 上下文长度
-  --threads 16 \            # CPU 线程数
-  --temp 0.7 \              # 温度（创造性 0-1）
-  --top-p 0.9 \
-  -p "用Python写一个快速排序" \
-  -n 1024                    # 最大生成token数
+ -m ~/models/Qwen3-14B.Q4_K_M.gguf \
+ --n-gpu-layers 99 \ # GPU 卸载层数（99=尽量全卸载）
+ --ctx-size 16384 \ # 上下文长度
+ --threads 16 \ # CPU 线程数
+ --temp 0.7 \ # 温度（创造性 0-1）
+ --top-p 0.9 \
+ -p "用Python写一个快速排序" \
+ -n 1024 # 最大生成token数
 ```
 
 **优点**：最快推理（无中间层开销）、跨平台（连树莓派都能跑）、支持 CPU/GPU/混合推理、参数完全可控。
 
-**缺点**：需要手动编译、手动管模型、没有图形界面 [citation:24]。
+**缺点**：需要手动编译、手动管模型、没有图形界面。
 
 > 📌 **适合**：极客、嵌入式部署、需要精细调参的场景、没有 N 卡但想用 Metal/Vulkan 加速的用户。
 
@@ -326,11 +326,11 @@ pip install vllm
 
 # 一行启动（自动从 HuggingFace 下载模型）
 vllm serve Qwen/Qwen3-14B \
-  --host 0.0.0.0 \
-  --port 8000 \
-  --tensor-parallel-size 1 \    # 多卡时设为 GPU 数量
-  --max-model-len 32768 \       # 最大上下文
-  --gpu-memory-utilization 0.9  # 显存利用率
+ --host 0.0.0.0 \
+ --port 8000 \
+ --tensor-parallel-size 1 \ # 多卡时设为 GPU 数量
+ --max-model-len 32768 \ # 最大上下文
+ --gpu-memory-utilization 0.9 # 显存利用率
 ```
 
 启动后自动暴露 OpenAI 兼容 API：
@@ -340,25 +340,25 @@ from openai import OpenAI
 client = OpenAI(base_url="http://localhost:8000/v1", api_key="not-needed")
 
 response = client.chat.completions.create(
-    model="Qwen/Qwen3-14B",
-    messages=[{"role": "user", "content": "你好"}],
-    temperature=0.7
+ model="Qwen/Qwen3-14B",
+ messages=[{"role": "user", "content": "你好"}],
+ temperature=0.7
 )
 print(response.choices[0].message.content)
 ```
 
 **核心黑科技**：
 
-- **PagedAttention**：把 KV cache 当虚拟内存分页管理，解决显存碎片导致的并发瓶颈 [citation:5]。
-- **Continuous Batching**：token 级别连续批处理，高并发下吞吐量是无批处理的 2-5 倍 [citation:5]。
+- **PagedAttention**：把 KV cache 当虚拟内存分页管理，解决显存碎片导致的并发瓶颈。
+- **Continuous Batching**：token 级别连续批处理，高并发下吞吐量是无批处理的 2-5 倍。
 - **Speculative Decoding**：用小模型"猜"大模型输出，加速 decode 阶段。
 
 **vLLM vs SGLang 怎么选**？
 
 | 维度 | vLLM | SGLang |
 |---|---|---|
-| 总吞吐量 | 基准 | +4-29%（小模型更明显）[citation:33] |
-| 前缀缓存 | 块级（有对齐损耗）| 令牌级 RadixTree（无损）[citation:33] |
+| 总吞吐量 | 基准 | +4-29%（小模型更明显） |
+| 前缀缓存 | 块级（有对齐损耗）| 令牌级 RadixTree（无损） |
 | 多轮对话 | 一般 | 缓存命中率 95%+ |
 | Agent/工具调用 | 一般 | 原生优化 |
 | 结构化输出(JSON) | 支持 | 招牌特性 |
@@ -367,7 +367,7 @@ print(response.choices[0].message.content)
 
 <p><em>实测数据来源：<a href="https://turion.ai/blog/vllm-vs-sglang-inference-comparison-2026" target="_blank" rel="noopener">Turion AI vLLM vs SGLang 2026</a> 及 <a href="https://stackpulsar.com/blog/vllm-sglang-ollama-comparison" target="_blank" rel="noopener">StackPulsar 三引擎对比</a></em></p>
 
-> 📌 **选型口诀**：拼并发吞吐选 vLLM；拼 Agent/对话/前缀复用选 SGLang；拼上手速度选 Ollama [citation:5]。
+> 📌 **选型口诀**：拼并发吞吐选 vLLM；拼 Agent/对话/前缀复用选 SGLang；拼上手速度选 Ollama。
 
 ### <span id="三者对比">三者对比一览</span>
 
@@ -387,7 +387,7 @@ print(response.choices[0].message.content)
 
 ## <span id="实战llama-4-scout-本地部署完整步骤">实战：Llama 4 Scout 本地部署完整步骤</span>
 
-Llama 4 Scout（109B MoE，17B 激活）是目前能在单张消费级 GPU 上跑的最强开源长上下文模型。以下是基于 Unsloth 优化的完整部署流程 [citation:4]。
+Llama 4 Scout（109B MoE，17B 激活）是目前能在单张消费级 GPU 上跑的最强开源长上下文模型。以下是基于 Unsloth 优化的完整部署流程。
 
 ### 环境准备
 
@@ -402,11 +402,11 @@ apt-get install pciutils build-essential cmake curl libcurl4-openssl-dev -y
 # 2. 克隆并编译 llama.cpp（CUDA 版）
 git clone https://github.com/ggml-org/llama.cpp
 cmake llama.cpp -B llama.cpp/build \
-  -DBUILD_SHARED_LIBS=OFF \
-  -DGGML_CUDA=ON \
-  -DLLAMA_CURL=ON
+ -DBUILD_SHARED_LIBS=OFF \
+ -DGGML_CUDA=ON \
+ -DLLAMA_CURL=ON
 cmake --build llama.cpp/build --config Release -j --clean-first \
-  --target llama-cli llama-gguf-split
+ --target llama-cli llama-gguf-split
 
 # 3. 复制可执行文件
 cp llama.cpp/build/bin/llama-* llama.cpp/
@@ -422,32 +422,32 @@ from huggingface_hub import snapshot_download
 
 # Unsloth 的 imatrix 量化版本（比标准量化精度更高）
 snapshot_download(
-    repo_id="unsloth/Llama-4-Scout-17B-16E-Instruct-GGUF",
-    local_dir="models/llama-4-scout",
-    allow_patterns=["*Q4_K_M*"]  # 约25GB，RTX 5090 完美适配
+ repo_id="unsloth/Llama-4-Scout-17B-16E-Instruct-GGUF",
+ local_dir="models/llama-4-scout",
+ allow_patterns=["*Q4_K_M*"] # 约25GB，RTX 5090 完美适配
 )
 ```
 
-> 💡 **显存不够 32GB？** 用 Unsloth 的 IQ2_XXS 版本（~14GB），Scout 在 RTX 4090 24GB 上也能跑，速度约 20 tok/s [citation:4]。
+> 💡 **显存不够 32GB？** 用 Unsloth 的 IQ2_XXS 版本（~14GB），Scout 在 RTX 4090 24GB 上也能跑，速度约 20 tok/s。
 
 ### 启动推理
 
 ```bash
 ./llama.cpp/llama-cli \
-  --model models/llama-4-scout/Llama-4-Scout-17B-16E-Instruct-UD-Q4_K_M.gguf \
-  --threads 32 \
-  --ctx-size 16384 \
-  --n-gpu-layers 99 \
-  -ot ".ffn_.*_exps.=CPU" \    # 将专家FFN层卸载到CPU（MoE技巧）
-  --seed 3407 \
-  --temp 0.6 \
-  --min-p 0.01 \
-  --top-p 0.9 \
-  --prompt "<|header_start|>user<|header_end|>\n\n解释一下MoE架构的工作原理<|eot|>"
+ --model models/llama-4-scout/Llama-4-Scout-17B-16E-Instruct-UD-Q4_K_M.gguf \
+ --threads 32 \
+ --ctx-size 16384 \
+ --n-gpu-layers 99 \
+ -ot ".ffn_.*_exps.=CPU" \ # 将专家FFN层卸载到CPU（MoE技巧）
+ --seed 3407 \
+ --temp 0.6 \
+ --min-p 0.01 \
+ --top-p 0.9 \
+ --prompt "<|header_start|>user<|header_end|>\n\n解释一下MoE架构的工作原理<|eot|>"
 ```
 
 **关键参数解释**：
-- `-ot ".ffn_.*_exps.=CPU"`：MoE 模型专属技巧——把不活跃的专家层放到 CPU 内存，只把当前激活的专家留 GPU，大幅节省显存 [citation:4]。
+- `-ot ".ffn_.*_exps.=CPU"`：MoE 模型专属技巧——把不活跃的专家层放到 CPU 内存，只把当前激活的专家留 GPU，大幅节省显存。
 - `--ctx-size 16384`：Scout 支持 10M 上下文，但 16K 是显存和实用性的平衡点。
 - `--temp 0.6`：官方推荐温度，太低会重复，太高会跑偏。
 
@@ -465,22 +465,22 @@ ollama run llama4:scout
 
 ## <span id="实战qwen3-全尺寸部署实测">实战：Qwen3 全尺寸部署实测</span>
 
-Qwen3 的部署比 Llama 4 简单得多——Ollama 官方库直接支持，一行命令拉下来就能跑 [citation:2]。
+Qwen3 的部署比 Llama 4 简单得多——Ollama 官方库直接支持，一行命令拉下来就能跑。
 
 ### Ollama 一行部署
 
 ```bash
 # 按显存选型号
-ollama run qwen3:4b      # 4-8GB 显存，入门首选
-ollama run qwen3:8b      # 8-12GB 显存
-ollama run qwen3:14b     # 12-16GB 显存，甜点尺寸
-ollama run qwen3:32b     # 24GB 显存
+ollama run qwen3:4b # 4-8GB 显存，入门首选
+ollama run qwen3:8b # 8-12GB 显存
+ollama run qwen3:14b # 12-16GB 显存，甜点尺寸
+ollama run qwen3:32b # 24GB 显存
 ollama run qwen3:30b-a3b # 16-24GB 显存，MoE 黑科技
 ```
 
 ### Qwen3 的"思考模式"切换
 
-Qwen3 支持推理时动态开关"思维链"——写代码/数学时开启，闲聊时关闭省token [citation:2]。
+Qwen3 支持推理时动态开关"思维链"——写代码/数学时开启，闲聊时关闭省token。
 
 ```
 # 开启思考（输出推理过程）
@@ -502,7 +502,7 @@ Qwen3 支持推理时动态开关"思维链"——写代码/数学时开启，�
 
 <p><em>数据来源：<a href="https://www.willitrunai.com/models/qwen-3-30b-a3b" target="_blank" rel="noopener">WillItRunAI 实测数据库</a> 及 <a href="https://juejin.cn/post/7641802314249093156" target="_blank" rel="noopener">稀土掘金 vLLM/SGLang/Ollama 三框架对比</a></em></p>
 
-> 🔥 **最惊喜的数据**：Qwen3-30B-A3B 在 RTX 4090 上 90 tok/s——这是一个 30B 参数的模型，因为 MoE 架构只激活 3B，所以速度比 14B Dense 还快，质量却接近 32B [citation:25]。2026年消费级显卡的"性价比之王"。
+> 🔥 **最惊喜的数据**：Qwen3-30B-A3B 在 RTX 4090 上 90 tok/s——这是一个 30B 参数的模型，因为 MoE 架构只激活 3B，所以速度比 14B Dense 还快，质量却接近 32B。2026年消费级显卡的"性价比之王"。
 
 ### vLLM 部署 Qwen3-14B（生产级）
 
@@ -512,31 +512,31 @@ pip install vllm
 
 # 启动服务
 vllm serve Qwen/Qwen3-14B \
-  --host 0.0.0.0 \
-  --port 8000 \
-  --max-model-len 32768 \
-  --gpu-memory-utilization 0.9 \
-  --enable-prefix-caching
+ --host 0.0.0.0 \
+ --port 8000 \
+ --max-model-len 32768 \
+ --gpu-memory-utilization 0.9 \
+ --enable-prefix-caching
 
 # 测试
 curl http://localhost:8000/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "Qwen/Qwen3-14B",
-    "messages": [{"role": "user", "content": "用Python写一个二分查找"}]
-  }'
+ -H "Content-Type: application/json" \
+ -d '{
+ "model": "Qwen/Qwen3-14B",
+ "messages": [{"role": "user", "content": "用Python写一个二分查找"}]
+ }'
 ```
 
 ### LM Studio 图形化方案（零代码）
 
-不想碰命令行？[LM Studio](https://lmstudio.ai) 提供图形界面 [citation:28]：
+不想碰命令行？[LM Studio](https://lmstudio.ai) 提供图形界面：
 
 1. 下载安装 LM Studio（Win/Mac/Linux）
 2. 搜索模型 → 下载 Qwen3-14B（Q4）
 3. 图形化界面聊天 + 一键开启 API Server
 4. 调参滑块控制温度、TopP、上下文长度
 
-**推荐参数**（来自社区实测）[citation:28]：
+**推荐参数**（来自社区实测）：
 - 温度 Temperature = 0.7（平衡创意与准确）
 - TopP = 0.8
 - TopK = 20
@@ -601,11 +601,11 @@ curl http://localhost:8000/v1/chat/completions \
 
 ```
 阶段1：本地玩 → Ollama / LM Studio（图形界面聊天）
-    ↓
+ ↓
 阶段2：接入应用 → Ollama API / llama.cpp server（OpenAI兼容）
-    ↓
+ ↓
 阶段3：小团队用 → vLLM 单卡（并发10-50）
-    ↓
+ ↓
 阶段4：产品上线 → vLLM 多卡 + SGLang 路由（并发100-1000+）
 ```
 
@@ -624,22 +624,22 @@ curl http://localhost:8000/v1/chat/completions \
 ```bash
 # Ollama 容器化
 docker run -d \
-  --name ollama \
-  --gpus all \
-  -v ollama_data:/root/.ollama \
-  -p 11434:11434 \
-  ollama/ollama
+ --name ollama \
+ --gpus all \
+ -v ollama_data:/root/.ollama \
+ -p 11434:11434 \
+ ollama/ollama
 
 # 进容器拉模型
 docker exec -it ollama ollama pull qwen3:14b
 
 # Open WebUI 联动
 docker run -d \
-  --name open-webui \
-  --link ollama \
-  -e OLLAMA_BASE_URL=http://ollama:11434 \
-  -p 3000:8080 \
-  ghcr.io/open-webui/open-webui:main
+ --name open-webui \
+ --link ollama \
+ -e OLLAMA_BASE_URL=http://ollama:11434 \
+ -p 3000:8080 \
+ ghcr.io/open-webui/open-webui:main
 ```
 
 浏览器打开 `localhost:3000` 即可获得一个类 ChatGPT 的界面，背后跑的是你本地的 Qwen3。
@@ -708,100 +708,100 @@ MoE 意味着虽然 Scout 有 109B 总参数，但每个 token 只激活 17B。�
 
 <style>
 .reading-time {
-  background: #f0fdf4;
-  border-left: 4px solid #22c55e;
-  padding: 8px 16px;
-  margin: 16px 0;
-  border-radius: 4px;
-  font-size: 0.95em;
-  color: #166534;
+ background: #f0fdf4;
+ border-left: 4px solid #22c55e;
+ padding: 8px 16px;
+ margin: 16px 0;
+ border-radius: 4px;
+ font-size: 0.95em;
+ color: #166534;
 }
 .toc {
-  background: #fafbfc;
-  border: 1px solid #e4e6eb;
-  border-radius: 10px;
-  padding: 20px 28px;
-  margin: 24px 0 32px;
+ background: #fafbfc;
+ border: 1px solid #e4e6eb;
+ border-radius: 10px;
+ padding: 20px 28px;
+ margin: 24px 0 32px;
 }
 .toc h2 {
-  margin-top: 0;
-  font-size: 1.1em;
+ margin-top: 0;
+ font-size: 1.1em;
 }
 .toc a {
-  color: #4a5568;
-  text-decoration: none;
-  display: block;
-  padding: 3px 0;
+ color: #4a5568;
+ text-decoration: none;
+ display: block;
+ padding: 3px 0;
 }
 .toc a:hover {
-  color: #22c55e;
-  text-decoration: underline;
+ color: #22c55e;
+ text-decoration: underline;
 }
 .cta-box {
-  background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%);
-  color: white;
-  border-radius: 16px;
-  padding: 28px 32px;
-  margin: 40px 0 24px;
-  text-align: center;
+ background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%);
+ color: white;
+ border-radius: 16px;
+ padding: 28px 32px;
+ margin: 40px 0 24px;
+ text-align: center;
 }
 .cta-box h3 {
-  color: white;
-  margin-top: 0;
+ color: white;
+ margin-top: 0;
 }
 .cta-box a {
-  color: #fde68a;
+ color: #fde68a;
 }
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 16px 0 24px;
-  font-size: 0.9em;
+ width: 100%;
+ border-collapse: collapse;
+ margin: 16px 0 24px;
+ font-size: 0.9em;
 }
 th {
-  background: #22c55e;
-  color: white;
-  padding: 10px 12px;
-  text-align: left;
-  font-weight: 600;
+ background: #22c55e;
+ color: white;
+ padding: 10px 12px;
+ text-align: left;
+ font-weight: 600;
 }
 td {
-  padding: 9px 12px;
-  border-bottom: 1px solid #e4e6eb;
+ padding: 9px 12px;
+ border-bottom: 1px solid #e4e6eb;
 }
 tr:nth-child(even) {
-  background: #f0fdf4;
+ background: #f0fdf4;
 }
 tr:hover {
-  background: #dcfce7;
+ background: #dcfce7;
 }
 blockquote {
-  border-left: 4px solid #3b82f6;
-  padding: 12px 20px;
-  margin: 16px 0;
-  background: #eff6ff;
-  font-style: italic;
-  color: #1e40af;
+ border-left: 4px solid #3b82f6;
+ padding: 12px 20px;
+ margin: 16px 0;
+ background: #eff6ff;
+ font-style: italic;
+ color: #1e40af;
 }
 code {
-  background: #f1f3f5;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-size: 0.9em;
+ background: #f1f3f5;
+ padding: 2px 6px;
+ border-radius: 3px;
+ font-size: 0.9em;
 }
 pre {
-  background: #1e293b;
-  color: #e2e8f0;
-  padding: 16px 20px;
-  border-radius: 8px;
-  overflow-x: auto;
-  font-size: 0.85em;
-  line-height: 1.6;
+ background: #1e293b;
+ color: #e2e8f0;
+ padding: 16px 20px;
+ border-radius: 8px;
+ overflow-x: auto;
+ font-size: 0.85em;
+ line-height: 1.6;
 }
 pre code {
-  background: none;
-  padding: 0;
-  color: inherit;
+ background: none;
+ padding: 0;
+ color: inherit;
 }
 </style>
 

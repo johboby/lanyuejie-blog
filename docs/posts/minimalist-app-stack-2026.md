@@ -3,17 +3,17 @@ title: "Minimalist App Stack 2026: 8 Apps to Run My Whole Life"
 date: 2026-07-27
 description: "极简工具主义：我只用8个App管理整个生活和工作。含选型逻辑、真实使用数据、App对比、数字极简哲学。少而精，不将就。"
 tags:
-  - 极简主义
-  - 生产力工具
-  - App推荐
-  - 数字极简
-  - 工作流
-  - 工具哲学
-  - 自我管理
+ - 极简主义
+ - 生产力工具
+ - App推荐
+ - 数字极简
+ - 工作流
+ - 工具哲学
+ - 自我管理
 categories:
-  - 工具推荐
-  - 自我管理
-  - 研究
+ - 工具推荐
+ - 自我管理
+ - 研究
 ---
 <p class="reading-time">⏱️ 阅读时间：约 15 分钟</p>
 
@@ -72,26 +72,26 @@ categories:
 ### 分工矩阵
 
 ```
-                    ┌─────────────────────────────────────────┐
-                    │           我的数字生活全景               │
-                    └────────────────┬────────────────────────┘
-                                     │
-         ┌───────────┬───────────────┼───────────────┬───────────┐
-         │           │               │               │           │
-    ┌────┴────┐┌────┴────┐    ┌────┴────┐    ┌────┴────┐┌────┴────┐
-    │行动层   ││知识层   │    │时间层   │    │防护层   ││加速层   │
-    ├─────────┤├─────────┤    ├─────────┤    ├─────────┤├─────────┤
-    │Things 3 ││Obsidian │    │Cron     │    │Opal     ││Raycast  │
-    │今天做什么││想法的家 │    │时间分配 │    │挡干扰   ││快速启动 │
-    │任务管理 ││笔记连接 │    │日历日程 │    │专注保护 ││一切入口 │
-    └─────────┘└─────────┘    └─────────┘    └─────────┘└─────────┘
-         │           │               │               │           │
-    ┌────┴────┐┌────┴────┐    ┌────┴────┐    ┌────┴────┐
-    │健康层   ││创作层   │    │安全层   │    │         │
-    ├─────────┤├─────────┤    ├─────────┤    │         │
-    │Streaks  ││Notion   │    │1Password│    │         │
-    │习惯打卡 ││项目协作 │    │密码管理 │    │         │
-    └─────────┘└─────────┘    └─────────┘    └─────────┘
+ ┌─────────────────────────────────────────┐
+ │ 我的数字生活全景 │
+ └────────────────┬────────────────────────┘
+ │
+ ┌───────────┬───────────────┼───────────────┬───────────┐
+ │ │ │ │ │
+ ┌────┴────┐┌────┴────┐ ┌────┴────┐ ┌────┴────┐┌────┴────┐
+ │行动层 ││知识层 │ │时间层 │ │防护层 ││加速层 │
+ ├─────────┤├─────────┤ ├─────────┤ ├─────────┤├─────────┤
+ │Things 3 ││Obsidian │ │Cron │ │Opal ││Raycast │
+ │今天做什么││想法的家 │ │时间分配 │ │挡干扰 ││快速启动 │
+ │任务管理 ││笔记连接 │ │日历日程 │ │专注保护 ││一切入口 │
+ └─────────┘└─────────┘ └─────────┘ └─────────┘└─────────┘
+ │ │ │ │ │
+ ┌────┴────┐┌────┴────┐ ┌────┴────┐ ┌────┴────┐
+ │健康层 ││创作层 │ │安全层 │ │ │
+ ├─────────┤├─────────┤ ├─────────┤ │ │
+ │Streaks ││Notion │ │1Password│ │ │
+ │习惯打卡 ││项目协作 │ │密码管理 │ │ │
+ └─────────┘└─────────┘ └─────────┘ └─────────┘
 ```
 
 ### 核心原则
@@ -108,11 +108,11 @@ categories:
 |---|---|
 | 选择困难 | 记一个笔记要想"存哪" |
 | 注意力碎片化 | 每天切换App 1200次（UC Irvine数据）|
-| 单次中断成本 | 23分钟重聚焦（UC Irvine研究）[citation:4] |
+| 单次中断成本 | 23分钟重聚焦（UC Irvine研究） |
 | 数据分散 | "我记在哪了？" |
 | 通知轰炸 | 大脑永远在"待机响应"模式 |
 
-> Harvard Business Review研究：数字工作者每周因App切换损失近4小时 [citation:4]。
+> Harvard Business Review研究：数字工作者每周因App切换损失近4小时。
 
 ### 1个App（All-in-One）的问题
 
@@ -130,8 +130,8 @@ categories:
 → 8个App刚好在"能记住每个用途"的边界内
 
 实践经验：超过12个→开始混淆分工
-         低于5个→某些场景被迫凑合
-         8个→每个都有不可替代性
+ 低于5个→某些场景被迫凑合
+ 8个→每个都有不可替代性
 ```
 
 ---
@@ -140,7 +140,7 @@ categories:
 
 ### 它是什么
 
-> Apple Design Award获奖的任务管理器。德国Cultured Code团队开发，只做Apple生态，买断制，无订阅 [citation:23]。
+> Apple Design Award获奖的任务管理器。德国Cultured Code团队开发，只做Apple生态，买断制，无订阅。
 
 ### 为什么选它（vs Todoist/TickTick/Notion）
 
@@ -159,22 +159,22 @@ categories:
 
 ```
 每天早上第一件事：打开Things → 看Today列表
-  → 3-5件今天必须完成的事（不多不少）
-  → 按"精力曲线"排序：最难的事放上午
+ → 3-5件今天必须完成的事（不多不少）
+ → 按"精力曲线"排序：最难的事放上午
 
 核心功能我用到的：
-  ✅ Today（今天）
-  ✅ Upcoming（未来7天）
-  ✅ Anytime（随时可做）
-  ✅ Someday（以后再说）
-  ✅ Start Date ≠ Due Date（开始日≠截止日）
-  ✅ Quick Entry（全局快捷键 capture）
-  ✅ Tags（#深度工作 #会议 #运动）
+ ✅ Today（今天）
+ ✅ Upcoming（未来7天）
+ ✅ Anytime（随时可做）
+ ✅ Someday（以后再说）
+ ✅ Start Date ≠ Due Date（开始日≠截止日）
+ ✅ Quick Entry（全局快捷键 capture）
+ ✅ Tags（#深度工作 #会议 #运动）
 
 我不用/关掉的：
-  ❌ 子任务（太细→在Obsidian拆）
-  ❌ 协作（个人用，不需要）
-  ❌ 日历集成（用Cron单独看）
+ ❌ 子任务（太细→在Obsidian拆）
+ ❌ 协作（个人用，不需要）
+ ❌ 日历集成（用Cron单独看）
 ```
 
 ### 关键数据
@@ -197,7 +197,7 @@ categories:
 
 ### 它是什么
 
-> 本地优先的Markdown笔记工具。你的所有笔记是`.md`文件存在自己电脑上，不锁云、不订阅、可迁移 [citation:22]。
+> 本地优先的Markdown笔记工具。你的所有笔记是`.md`文件存在自己电脑上，不锁云、不订阅、可迁移。
 
 ### 为什么选它（vs Bear/Notion/Evernote）
 
@@ -215,20 +215,20 @@ categories:
 
 ```
 Obsidian是我的"第二大脑"核心：
-  📁 Inbox/（临时捕获，每天清空）
-  📁 Daily Notes/（日记+日志）
-  📁 Projects/（进行中的项目笔记）
-  📁 Knowledge/（持久知识库）
-  📁 Templates/（模板）
-  📁 Archive/（已完成归档）
+ 📁 Inbox/（临时捕获，每天清空）
+ 📁 Daily Notes/（日记+日志）
+ 📁 Projects/（进行中的项目笔记）
+ 📁 Knowledge/（持久知识库）
+ 📁 Templates/（模板）
+ 📁 Archive/（已完成归档）
 
 核心插件（只装6个）：
-  1. Templates（快速插入模板）
-  2. Dataview（按条件查笔记）
-  3. Daily Notes（自动建日记）
-  4. Quick Switcher++（快速跳转）
-  5. Kanban（看板视图）
-  6. Excalidraw（手绘+流程图）
+ 1. Templates（快速插入模板）
+ 2. Dataview（按条件查笔记）
+ 3. Daily Notes（自动建日记）
+ 4. Quick Switcher++（快速跳转）
+ 5. Kanban（看板视图）
+ 6. Excalidraw（手绘+流程图）
 ```
 
 ### 为什么"本地文件"很重要
@@ -255,7 +255,7 @@ Obsidian是我的"第二大脑"核心：
 
 ### 它是什么
 
-> 被Notion收购后改名为"Notion Calendar"，但独立App依然最强。时间块视图+多日历聚合+智能调度 [citation:4]。
+> 被Notion收购后改名为"Notion Calendar"，但独立App依然最强。时间块视图+多日历聚合+智能调度。
 
 ### 为什么不用系统日历
 
@@ -273,19 +273,19 @@ Obsidian是我的"第二大脑"核心：
 
 ```
 所有日历汇入Cron：
-  📅 工作日历（公司/客户会议）
-  📅 个人日历（健身/约会/家庭）
-  📅 项目截止日（从Notion同步）
-  📅 时间块（深度工作预约）
+ 📅 工作日历（公司/客户会议）
+ 📅 个人日历（健身/约会/家庭）
+ 📅 项目截止日（从Notion同步）
+ 📅 时间块（深度工作预约）
 
 每天看3次：
-  早上：今天有什么会？哪些时段可保护？
-  中午：下午时间块要不要调整？
-  晚上：明天的时间分配合理吗？
+ 早上：今天有什么会？哪些时段可保护？
+ 中午：下午时间块要不要调整？
+ 晚上：明天的时间分配合理吗？
 
 核心理念：日历不是"记录事件"，是"保护时间"
-  → 深度工作不是"有空再做"
-  → 而是"提前预约自己"
+ → 深度工作不是"有空再做"
+ → 而是"提前预约自己"
 ```
 
 ### 关键数据
@@ -306,7 +306,7 @@ Obsidian是我的"第二大脑"核心：
 
 ### 它是什么
 
-> 2025年Apple Design Awards Social Impact获奖的专注App。自动保护注意力，挡掉社交媒体和干扰源 [citation:3]。
+> 2025年Apple Design Awards Social Impact获奖的专注App。自动保护注意力，挡掉社交媒体和干扰源。
 
 ### 为什么需要"反App的App"
 
@@ -368,8 +368,8 @@ Obsidian是我的"第二大脑"核心：
 所有密保问题 = 1Password生成假答案
 
 登录流程：
-  打开App → Touch ID → 自动填充 → 完事
-  全程不记一个密码、不输一次密码
+ 打开App → Touch ID → 自动填充 → 完事
+ 全程不记一个密码、不输一次密码
 ```
 
 ### 1Password vs Bitwarden vs Apple钥匙串
@@ -394,7 +394,7 @@ Obsidian是我的"第二大脑"核心：
 
 ### 它是什么
 
-> Apple Design Award获奖的习惯打卡App。只做一件事：帮你坚持每天做某件事 [citation:24]。
+> Apple Design Award获奖的习惯打卡App。只做一件事：帮你坚持每天做某件事。
 
 ### 为什么不用Notion/Things管习惯
 
@@ -402,7 +402,7 @@ Obsidian是我的"第二大脑"核心：
 |---|---|---|
 | 连续打卡激励 | ✅ 核心设计 | ❌ 需DIY |
 | Apple Health集成 | ✅ 自动同步 | ❌ |
-|  streak可视化 | ✅ 美观 | ⚠️ |
+| streak可视化 | ✅ 美观 | ⚠️ |
 | 每日通知 | ✅ 恰到好处 | ⚠️ 通知过载 |
 | 统计趋势 | ✅ 内建 | ❌ 需手动 |
 
@@ -419,7 +419,7 @@ Obsidian是我的"第二大脑"核心：
 
 ### 为什么"streak"有效
 
-> 心理学：损失厌恶（loss aversion）。你不是"在坚持一个好习惯"，你是"不想失去连续87天的记录"。这种微妙的框架差异，让行为持续率从30%→80%+ [citation:24]。
+> 心理学：损失厌恶（loss aversion）。你不是"在坚持一个好习惯"，你是"不想失去连续87天的记录"。这种微妙的框架差异，让行为持续率从30%→80%+。
 
 ### 一句话评价
 
@@ -473,22 +473,22 @@ Obsidian是我的"第二大脑"核心：
 
 ### 它是什么
 
-> macOS上的"超级启动器"。按⌥+Space→搜索/启动/计算/翻译/控制一切。99.8%无崩溃率 [citation:25]。
+> macOS上的"超级启动器"。按⌥+Space→搜索/启动/计算/翻译/控制一切。99.8%无崩溃率。
 
 ### 为什么需要"启动器"
 
 ```
 不用Raycast的日常：
-  想打开Obsidian → 找Dock → 点击 → 等1秒
-  想搜一个文件 → 打开Finder → 输入 → 等
-  想翻译一句 → 打开浏览器 → 打开翻译网页 → 粘贴
-  想设个计时 → 找App → 打开 → 设置
+ 想打开Obsidian → 找Dock → 点击 → 等1秒
+ 想搜一个文件 → 打开Finder → 输入 → 等
+ 想翻译一句 → 打开浏览器 → 打开翻译网页 → 粘贴
+ 想设个计时 → 找App → 打开 → 设置
 
 用Raycast的日常：
-  ⌥+Space → 输入"obs" → Enter（0.5秒）
-  ⌥+Space → "find 报告" → Enter（1秒）
-  ⌥+Space → "tr hello" → 出结果（0.5秒）
-  ⌥+Space → "timer 25" → Enter（1秒）
+ ⌥+Space → 输入"obs" → Enter（0.5秒）
+ ⌥+Space → "find 报告" → Enter（1秒）
+ ⌥+Space → "tr hello" → 出结果（0.5秒）
+ ⌥+Space → "timer 25" → Enter（1秒）
 ```
 
 ### 我的高频Raycast命令
@@ -526,50 +526,50 @@ Obsidian是我的"第二大脑"核心：
 ### 典型的一天
 
 ```
-5:30  闹钟响 → 起床 → 喝温水
-5:33  Raycast启动 → 打开Streaks → 打卡"晨跑" → 出门
-5:40  跑步 → Apple Watch记录 → 自动同步Streaks
-6:10  回来 → Raycast → 打开Things → 看Today列表
-6:15  Things显示：① 写完文章 ② 回邮件 ③ 健身
-       → 决定先写文章（深度工作）
-6:20  Raycast → 打开Obsidian → 打开"今日写作"笔记
-       → 写作45分钟 → 完成
-7:05  Things勾掉"写完文章" → Streaks打卡"写作"
-7:10  Raycast → 打开Cron → 看今天会议安排
-       → 9:00有会 → 8:00-8:45是最后一块深度时间
-8:00  打开Opal → 锁定社交媒体 → 处理邮件
-9:00  会议（Cron提醒）→ 会后记录到Notion项目页
+5:30 闹钟响 → 起床 → 喝温水
+5:33 Raycast启动 → 打开Streaks → 打卡"晨跑" → 出门
+5:40 跑步 → Apple Watch记录 → 自动同步Streaks
+6:10 回来 → Raycast → 打开Things → 看Today列表
+6:15 Things显示：① 写完文章 ② 回邮件 ③ 健身
+ → 决定先写文章（深度工作）
+6:20 Raycast → 打开Obsidian → 打开"今日写作"笔记
+ → 写作45分钟 → 完成
+7:05 Things勾掉"写完文章" → Streaks打卡"写作"
+7:10 Raycast → 打开Cron → 看今天会议安排
+ → 9:00有会 → 8:00-8:45是最后一块深度时间
+8:00 打开Opal → 锁定社交媒体 → 处理邮件
+9:00 会议（Cron提醒）→ 会后记录到Notion项目页
 11:00 Things → Upcoming → 看明天安排
-       → 把"交报告"拖到明天Today
+ → 把"交报告"拖到明天Today
 11:30 午饭 → 阅读30分钟（Streaks打卡）
 13:00 Raycast → 计时器25min → 深度工作块
 14:00 Cron提醒：14:00有约 → 准备
 ...（下午继续）
 22:00 Opal进入Sleep Mode → 手机不可用
 22:05 打开Streaks → 检查今日6个习惯全打卡
-       → 打开Things → 快速capture明天的1件事
-       → 关灯睡觉
+ → 打开Things → 快速capture明天的1件事
+ → 关灯睡觉
 ```
 
 ### 数据流图
 
 ```
-┌─────────┐     ┌─────────┐     ┌─────────┐
-│ Things 3│────→│  Cron   │────→│  Opal   │
-│ 该做什么│     │ 何时做  │     │ 挡干扰  │
-└────┬────┘     └────┬────┘     └────┬────┘
-     │              │               │
-     ↓              ↓               ↓
-┌─────────┐     ┌─────────┐     ┌─────────┐
-│Obsidian │←───→│ Notion  │←───→│Raycast  │
-│ 知识笔记│     │ 项目协作│     │ 一切入口│
-└────┬────┘     └────┬────┘     └────┬────┘
-     │              │               │
-     ↓              ↓               ↓
-┌─────────┐     ┌─────────┐     ┌─────────┐
-│Streaks  │     │1Password│     │  iCloud │
-│ 习惯    │     │ 密码    │     │  同步    │
-└─────────┘     └─────────┘     └─────────┘
+┌─────────┐ ┌─────────┐ ┌─────────┐
+│ Things 3│────→│ Cron │────→│ Opal │
+│ 该做什么│ │ 何时做 │ │ 挡干扰 │
+└────┬────┘ └────┬────┘ └────┬────┘
+ │ │ │
+ ↓ ↓ ↓
+┌─────────┐ ┌─────────┐ ┌─────────┐
+│Obsidian │←───→│ Notion │←───→│Raycast │
+│ 知识笔记│ │ 项目协作│ │ 一切入口│
+└────┬────┘ └────┬────┘ └────┬────┘
+ │ │ │
+ ↓ ↓ ↓
+┌─────────┐ ┌─────────┐ ┌─────────┐
+│Streaks │ │1Password│ │ iCloud │
+│ 习惯 │ │ 密码 │ │ 同步 │
+└─────────┘ └─────────┘ └─────────┘
 ```
 
 ---
@@ -591,7 +591,7 @@ Obsidian是我的"第二大脑"核心：
 
 ### 删App的准则
 
-> **Cal Newport"30天实验法"：** 装一个App→用30天→问"它给我的价值>它消耗注意力的成本吗？"回答"不确定"或"不"→删 [citation:3]。
+> **Cal Newport"30天实验法"：** 装一个App→用30天→问"它给我的价值>它消耗注意力的成本吗？"回答"不确定"或"不"→删。
 
 ---
 
@@ -601,19 +601,19 @@ Obsidian是我的"第二大脑"核心：
 
 ```
 Q1: 它解决什么具体问题？
-    → 说不清楚 = 不装
-    
+ → 说不清楚 = 不装
+ 
 Q2: 我现有的8个App里，有没有能替代它的？
-    → 有 = 不装（用现有的）
-    
+ → 有 = 不装（用现有的）
+ 
 Q3: 我会每天打开它吗？
-    → 不会 = 不装（偶尔用Web端）
-    
+ → 不会 = 不装（偶尔用Web端）
+ 
 Q4: 它保护注意力还是消耗注意力？
-    → 消耗 = 不装（除非必须）
-    
+ → 消耗 = 不装（除非必须）
+ 
 Q5: 它的数据能导出吗？
-    → 不能 = 谨慎（锁死风险）
+ → 不能 = 谨慎（锁死风险）
 ```
 
 ### 如果必须加第9个App
@@ -672,27 +672,27 @@ Q5: 它的数据能导出吗？
 
 ### 1. 8个App够用吗？不会有些场景覆盖不到？
 
-核心原则：一个App只干一件事，但干到极致。8个App覆盖6大生活域：任务管理（Things 3）、知识笔记（Obsidian）、日历时间（Cron）、专注屏蔽（Opal）、密码安全（1Password）、运动健康（Streaks+Health）、创作发布（Notion）、快速启动（Raycast）。确实有些"边缘场景"需要临时用Web端（签PDF用iLovePDF、做图用Canva网页版），但这些不是"每天用"的工具，不计入核心栈。UC Irvine研究：单次切换App成本23分钟重聚焦。我的8个App都在Apple生态内，Handoff/Universal Clipboard无缝衔接，实际切换成本接近零 [citation:4]。
+核心原则：一个App只干一件事，但干到极致。8个App覆盖6大生活域：任务管理（Things 3）、知识笔记（Obsidian）、日历时间（Cron）、专注屏蔽（Opal）、密码安全（1Password）、运动健康（Streaks+Health）、创作发布（Notion）、快速启动（Raycast）。确实有些"边缘场景"需要临时用Web端（签PDF用iLovePDF、做图用Canva网页版），但这些不是"每天用"的工具，不计入核心栈。UC Irvine研究：单次切换App成本23分钟重聚焦。我的8个App都在Apple生态内，Handoff/Universal Clipboard无缝衔接，实际切换成本接近零。
 
 ### 2. 为什么不用Notion做Everything？很多人推荐All-in-One。
 
-Notion是好工具，但不是"一切工具"。我的原则：Notion管"知识和项目"（Wiki/数据库/协作），不碰"任务和日程"。原因：① Notion没有原生时间块调度引擎——打开不知道"今天该做什么"；② Notion加载慢（尤其移动端），不适合"30秒快速捕获"；③ Notion是云端数据库，离线=残废。Things 3打开即Today列表，3秒看到今天要做什么。两者分工：Notion=大脑（记录和连接知识），Things=行动（今天做什么）。2026年Notion AI Agents很强大，但AI不能替你做"起床后第一件事"的判断 [citation:4][citation:21]。
+Notion是好工具，但不是"一切工具"。我的原则：Notion管"知识和项目"（Wiki/数据库/协作），不碰"任务和日程"。原因：① Notion没有原生时间块调度引擎——打开不知道"今天该做什么"；② Notion加载慢（尤其移动端），不适合"30秒快速捕获"；③ Notion是云端数据库，离线=残废。Things 3打开即Today列表，3秒看到今天要做什么。两者分工：Notion=大脑（记录和连接知识），Things=行动（今天做什么）。2026年Notion AI Agents很强大，但AI不能替你做"起床后第一件事"的判断。
 
 ### 3. 全Apple生态是不是太贵了？有跨平台替代方案吗？
 
-坦诚说Apple-only确实贵，但一次性投入而非持续订阅。8个App中只有2个订阅制（Opal $10/月、iCloud $1/月），其余都是一次性买断或免费。总价约¥380买断+¥100/月订阅。跨平台替代方案：Windows/Android用户可以用TickTick替代Things 3（¥240/年，全平台）、Joplin替代Obsidian（免费/开源）、Bitwarden替代1Password（免费/开源）、Forest替代Opal（¥12买断）、Wox/PowerToys替代Raycast。核心不是"用什么品牌"，是"用几个"和"分工是否清晰" [citation:4][citation:22][citation:23]。
+坦诚说Apple-only确实贵，但一次性投入而非持续订阅。8个App中只有2个订阅制（Opal $10/月、iCloud $1/月），其余都是一次性买断或免费。总价约¥380买断+¥100/月订阅。跨平台替代方案：Windows/Android用户可以用TickTick替代Things 3（¥240/年，全平台）、Joplin替代Obsidian（免费/开源）、Bitwarden替代1Password（免费/开源）、Forest替代Opal（¥12买断）、Wox/PowerToys替代Raycast。核心不是"用什么品牌"，是"用几个"和"分工是否清晰"。
 
 ### 4. 你怎么决定"不用"某个流行的App？比如小红书、抖音。
 
-Cal Newport的"数字极简主义"核心：每个App必须通过"30天实验"测试——装上去用30天，然后问"它给我的价值>它消耗我注意力的成本吗？"2026年我试过但删掉的：小红书（每天40分钟→0产出→删）、抖音（注意力黑洞→删）、Twitter/X（信息过载焦虑→删）、各种"AI助手"App（ChatGPT+Claude网页版够用→不装）。留下标准：① 每天打开>3次且有明确用途；② 不用它会有实际损失；③ 它保护注意力而非消耗注意力。Opal/Forest这种"反App的App"反而最重要——帮我挡掉其他App [citation:3][citation:4]。
+Cal Newport的"数字极简主义"核心：每个App必须通过"30天实验"测试——装上去用30天，然后问"它给我的价值>它消耗我注意力的成本吗？"2026年我试过但删掉的：小红书（每天40分钟→0产出→删）、抖音（注意力黑洞→删）、Twitter/X（信息过载焦虑→删）、各种"AI助手"App（ChatGPT+Claude网页版够用→不装）。留下标准：① 每天打开>3次且有明确用途；② 不用它会有实际损失；③ 它保护注意力而非消耗注意力。Opal/Forest这种"反App的App"反而最重要——帮我挡掉其他App。
 
 ### 5. 8个App之间的数据怎么打通？会不会形成信息孤岛？
 
-设计原则：每个App是"终点"不是"中转站"。任务进了Things就只在Things里管理（不复制到Notion）；笔记在Obsidian写完就发布（不经过其他App）。打通靠"引用"不靠"复制"：Things任务可以链Obsidian笔记（URL scheme）；Notion页面可以嵌入日历链接；Raycast作为"中枢启动器"统一搜索所有App内容。2026年Apple Continuity让Handoff/Universal Clipboard更顺滑。关键是：信息只在一个地方"活"，其他地方只是"链接"。这样永远不会出现"我在哪记过这个来着"的问题 [citation:25]。
+设计原则：每个App是"终点"不是"中转站"。任务进了Things就只在Things里管理（不复制到Notion）；笔记在Obsidian写完就发布（不经过其他App）。打通靠"引用"不靠"复制"：Things任务可以链Obsidian笔记（URL scheme）；Notion页面可以嵌入日历链接；Raycast作为"中枢启动器"统一搜索所有App内容。2026年Apple Continuity让Handoff/Universal Clipboard更顺滑。关键是：信息只在一个地方"活"，其他地方只是"链接"。这样永远不会出现"我在哪记过这个来着"的问题。
 
 ### 6. 如果只能推荐3个必装App，你选哪3个？
 
-如果砍到3个：① Things 3（任务/行动/今天）——"每天打开第一个App"，决定一天方向；② Obsidian（知识/笔记/思考）——"所有想法的家"，时间越久价值越大；③ Opal（专注/屏蔽/保护）——"让前两个App生效的护城河"，没有专注保护再好的工具也被通知流淹没。这3个覆盖"想清楚→记下来→保护时间去做"的完整闭环。其余5个是锦上添花：Raycast加速操作、Cron管时间、1Password管密码、Streaks管习惯、Notion管协作。但没了这5个，3个核心仍能运转 [citation:3][citation:4][citation:23]。
+如果砍到3个：① Things 3（任务/行动/今天）——"每天打开第一个App"，决定一天方向；② Obsidian（知识/笔记/思考）——"所有想法的家"，时间越久价值越大；③ Opal（专注/屏蔽/保护）——"让前两个App生效的护城河"，没有专注保护再好的工具也被通知流淹没。这3个覆盖"想清楚→记下来→保护时间去做"的完整闭环。其余5个是锦上添花：Raycast加速操作、Cron管时间、1Password管密码、Streaks管习惯、Notion管协作。但没了这5个，3个核心仍能运转。
 
 ---
 
@@ -743,103 +743,103 @@ Cal Newport的"数字极简主义"核心：每个App必须通过"30天实验"测
 
 <style>
 .reading-time {
-  background: #f0fdf4;
-  border-left: 4px solid #22c55e;
-  padding: 8px 16px;
-  margin: 16px 0;
-  border-radius: 4px;
-  font-size: 0.95em;
-  color: #14532d;
+ background: #f0fdf4;
+ border-left: 4px solid #22c55e;
+ padding: 8px 16px;
+ margin: 16px 0;
+ border-radius: 4px;
+ font-size: 0.95em;
+ color: #14532d;
 }
 .toc {
-  background: #fafbfc;
-  border: 1px solid #e4e6eb;
-  border-radius: 10px;
-  padding: 20px 28px;
-  margin: 24px 0 32px;
+ background: #fafbfc;
+ border: 1px solid #e4e6eb;
+ border-radius: 10px;
+ padding: 20px 28px;
+ margin: 24px 0 32px;
 }
 .toc h2 {
-  margin-top: 0;
-  font-size: 1.1em;
+ margin-top: 0;
+ font-size: 1.1em;
 }
 .toc a {
-  color: #14532d;
-  text-decoration: none;
-  display: block;
-  padding: 3px 0;
+ color: #14532d;
+ text-decoration: none;
+ display: block;
+ padding: 3px 0;
 }
 .toc a:hover {
-  color: #16a34a;
-  text-decoration: underline;
+ color: #16a34a;
+ text-decoration: underline;
 }
 .cta-box {
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
-  color: white;
-  border-radius: 16px;
-  padding: 28px 32px;
-  margin: 40px 0 24px;
-  text-align: center;
+ background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+ color: white;
+ border-radius: 16px;
+ padding: 28px 32px;
+ margin: 40px 0 24px;
+ text-align: center;
 }
 .cta-box h3 {
-  color: white;
-  margin-top: 0;
+ color: white;
+ margin-top: 0;
 }
 .cta-box a {
-  color: #dcfce7;
+ color: #dcfce7;
 }
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 16px 0 24px;
-  font-size: 0.85em;
+ width: 100%;
+ border-collapse: collapse;
+ margin: 16px 0 24px;
+ font-size: 0.85em;
 }
 th {
-  background: #22c55e;
-  color: white;
-  padding: 10px 12px;
-  text-align: left;
-  font-weight: 600;
+ background: #22c55e;
+ color: white;
+ padding: 10px 12px;
+ text-align: left;
+ font-weight: 600;
 }
 td {
-  padding: 9px 12px;
-  border-bottom: 1px solid #e4e6eb;
+ padding: 9px 12px;
+ border-bottom: 1px solid #e4e6eb;
 }
 tr:nth-child(even) {
-  background: #f0fdf4;
+ background: #f0fdf4;
 }
 tr:hover {
-  background: #bbf7d0;
+ background: #bbf7d0;
 }
 .green { color: #16a34a; font-weight: 600; }
 .red { color: #dc2626; font-weight: 600; }
 .yellow { color: #d97706; font-weight: 600; }
 blockquote {
-  border-left: 4px solid #16a34a;
-  padding: 12px 20px;
-  margin: 16px 0;
-  background: #f0fdf4;
-  font-style: italic;
-  color: #14532d;
+ border-left: 4px solid #16a34a;
+ padding: 12px 20px;
+ margin: 16px 0;
+ background: #f0fdf4;
+ font-style: italic;
+ color: #14532d;
 }
 code {
-  background: #f1f3f5;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-size: 0.9em;
-  font-family: 'SF Mono', 'Fira Code', monospace;
+ background: #f1f3f5;
+ padding: 2px 6px;
+ border-radius: 3px;
+ font-size: 0.9em;
+ font-family: 'SF Mono', 'Fira Code', monospace;
 }
 pre {
-  background: #1e293b;
-  color: #e2e8f0;
-  padding: 16px 20px;
-  border-radius: 8px;
-  overflow-x: auto;
-  font-size: 0.85em;
-  line-height: 1.6;
+ background: #1e293b;
+ color: #e2e8f0;
+ padding: 16px 20px;
+ border-radius: 8px;
+ overflow-x: auto;
+ font-size: 0.85em;
+ line-height: 1.6;
 }
 pre code {
-  background: none;
-  color: inherit;
-  padding: 0;
+ background: none;
+ color: inherit;
+ padding: 0;
 }
 </style>

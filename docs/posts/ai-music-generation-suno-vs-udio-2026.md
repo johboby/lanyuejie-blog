@@ -3,16 +3,16 @@ title: "AI Music 2026: Suno vs Udio, Can AI Make Good Songs?"
 date: 2026-07-26
 description: "实测Suno V5.5、Udio 1.5、ElevenLabs Music三款AI音乐工具，50人盲测数据+商用版权解析，帮你判断AI到底能不能做出能听的歌。"
 tags:
-  - AI音乐生成
-  - Suno
-  - Udio
-  - ElevenLabs Music
-  - AI作曲
-  - 音乐版权
-  - 内容创作BGM
+ - AI音乐生成
+ - Suno
+ - Udio
+ - ElevenLabs Music
+ - AI作曲
+ - 音乐版权
+ - 内容创作BGM
 categories:
-  - AI生产力工具
-  - 研究
+ - AI生产力工具
+ - 研究
 ---
 <p class="reading-time">⏱️ 阅读时间：约 14 分钟</p>
 
@@ -71,9 +71,9 @@ categories:
 
 **还有三个值得知道的配角：**
 
-- **AIVA**：专攻古典/电影配乐，支持MIDI导出，€11/月起 [citation:33]
-- **Stable Audio 2.5**：$0.20/次，专注环境/电影音效，版权清晰 [citation:36]
-- **Boomy**：直接分发到Spotify等40+平台，$9.99/月起 [citation:36]
+- **AIVA**：专攻古典/电影配乐，支持MIDI导出，€11/月起 
+- **Stable Audio 2.5**：$0.20/次，专注环境/电影音效，版权清晰 
+- **Boomy**：直接分发到Spotify等40+平台，$9.99/月起 
 
 ---
 
@@ -133,11 +133,11 @@ Suno V5.5 生成的编曲不是"铺一层pad完事"，而是有**前景/中景/�
 - 中景：木吉他扫弦 + 弦乐pad
 - 背景：极低频底鼓 + 远处雷声（营造"夏天暴雨前"氛围）
 
-音乐教师茶茶的测评排序是：**Suno > Mureka > MiniMax > 音潮 > 海绵音乐**——无论AI音乐人还是传统音乐从业者，Suno的领先地位都是共识 [citation:20]。
+音乐教师茶茶的测评排序是：**Suno > Mureka > MiniMax > 音潮 > 海绵音乐**——无论AI音乐人还是传统音乐从业者，Suno的领先地位都是共识。
 
 **2. 人声最接近真人**
 
-Melodex的盲测中，Suno V5.5 配合克隆声线，**5个听众中有3个没听出是AI** [citation:21]。关键进步在于：
+Melodex的盲测中，Suno V5.5 配合克隆声线，**5个听众中有3个没听出是AI**。关键进步在于：
 
 - 换气声（breath）有了位置和时机
 - 长音有微小的音高浮动（不是死板的直线）
@@ -154,7 +154,7 @@ Melodex的盲测中，Suno V5.5 配合克隆声线，**5个听众中有3个没�
 
 **4. 上手门槛最低**
 
-打开 suno.com → 输入描述 → 点Create → 45秒后出歌。不需要任何乐理知识。免费版50积分/天（约10首），不用注册就能用 [citation:4][citation:7]。
+打开 suno.com → 输入描述 → 点Create → 45秒后出歌。不需要任何乐理知识。免费版50积分/天（约10首），不用注册就能用。
 
 #### ❌ 弱点
 
@@ -175,7 +175,7 @@ Melodex的盲测中，Suno V5.5 配合克隆声线，**5个听众中有3个没�
 | Premier | **$30/月** | 10,000积分/月，Suno Studio多轨编辑，12轨stem分离，MIDI导出 |
 | 年付 | 各档8折 | 同上 |
 
-> 💡 **Pro $10/月是性价比甜点**——商用授权+足够日常使用。Premier的stem分离对音乐人值，对普通创作者用不上 [citation:7][citation:21]。
+> 💡 **Pro $10/月是性价比甜点**——商用授权+足够日常使用。Premier的stem分离对音乐人值，对普通创作者用不上。
 
 ---
 
@@ -183,7 +183,7 @@ Melodex的盲测中，Suno V5.5 配合克隆声线，**5个听众中有3个没�
 
 ### 核心定位
 
-Udio 由前 DeepMind 和 Google 音乐团队的工程师创立 [citation:8]，从第一天就主打一个差异化：**人声的真实感**。
+Udio 由前 DeepMind 和 Google 音乐团队的工程师创立，从第一天就主打一个差异化：**人声的真实感**。
 
 ### 实测表现
 
@@ -191,16 +191,16 @@ Udio 由前 DeepMind 和 Google 音乐团队的工程师创立 [citation:8]，�
 
 **1. 人声质感无可匹敌**
 
-同样50人盲测，在注重人声质感的流派（民谣/灵魂乐/布鲁斯）上，**Udio以68%的偏好率碾压Suno** [citation:34]。具体表现：
+同样50人盲测，在注重人声质感的流派（民谣/灵魂乐/布鲁斯）上，**Udio以68%的偏好率碾压Suno**。具体表现：
 
 - 气声（breathy vocal）处理极自然
 - 尾音的微小颤音（vibrato）有真人质感
 - 安静段落的"贴耳感"比Suno强一档
-- 长音 sustained notes 更稳更自信 [citation:21]
+- 长音 sustained notes 更稳更自信 
 
 **2. Inpainting 是杀手级功能**
 
-这是Udio独家、Suno没有的功能 [citation:24]：
+这是Udio独家、Suno没有的功能：
 
 > 选中歌曲的任意10秒片段 → 只重写这10秒 → 其余部分完全不动
 
@@ -208,17 +208,17 @@ Udio 由前 DeepMind 和 Google 音乐团队的工程师创立 [citation:8]，�
 
 **3. 乐器音质更高**
 
-Udio渲染在48kHz，鼓声更有力度，弦乐更有空间感，合成器音色更"贵" [citation:22][citation:34]。在DAW里A/B对比，Udio的干信号底噪更低、高频细节更丰富。
+Udio渲染在48kHz，鼓声更有力度，弦乐更有空间感，合成器音色更"贵"。在DAW里A/B对比，Udio的干信号底噪更低、高频细节更丰富。
 
 **4. 歌曲延展更连贯**
 
-Suno每次extend有约15%概率"跑调/变味"，Udio在前4-5次extend中保持调性和风格的能力更强 [citation:24]。
+Suno每次extend有约15%概率"跑调/变味"，Udio在前4-5次extend中保持调性和风格的能力更强。
 
 #### ❌ 致命弱点：下载受限
 
 **这是2026年Udio最大的问题。**
 
-2025年10月，Udio与环球音乐（UMG）和华纳达成和解，**代价是所有下载功能被关闭**——包括完整歌曲下载和stem分离下载 [citation:24]。截至2026年7月，仍未恢复。
+2025年10月，Udio与环球音乐（UMG）和华纳达成和解，**代价是所有下载功能被关闭**——包括完整歌曲下载和stem分离下载。截至2026年7月，仍未恢复。
 
 影响：
 
@@ -230,7 +230,7 @@ Suno每次extend有约15%概率"跑调/变味"，Udio在前4-5次extend中保持
 | Stem分离下载 | ❌ 关闭 |
 | 社区发布 | ✅ 正常 |
 
-> 这意味着你能在Udio上做出好歌，但**很难把它导出到DAW里精修**，也很难直接用于视频BGM。这也是很多人虽然认可Udio音质、最终还是回到Suno的原因 [citation:21]。
+> 这意味着你能在Udio上做出好歌，但**很难把它导出到DAW里精修**，也很难直接用于视频BGM。这也是很多人虽然认可Udio音质、最终还是回到Suno的原因。
 
 #### 定价
 
@@ -240,7 +240,7 @@ Suno每次extend有约15%概率"跑调/变味"，Udio在前4-5次extend中保持
 | Standard | **$10/月** | 1,200积分/月，商用授权 |
 | Pro | **$30/月** | 4,800积分/月，Styles功能，Voices功能 |
 
-> 注意：Udio免费版只有10积分/天（约5首），比Suno的50少得多 [citation:34]。
+> 注意：Udio免费版只有10积分/天（约5首），比Suno的50少得多。
 
 ---
 
@@ -248,9 +248,9 @@ Suno每次extend有约15%概率"跑调/变味"，Udio在前4-5次extend中保持
 
 ### 为什么它值得单独说
 
-2026年AI音乐最大的隐忧是**版权**——索尼2026年7月起诉Udio索赔45亿美元 [citation:6]，Suno 2025年也跟华纳和解了 [citation:38]。
+2026年AI音乐最大的隐忧是**版权**——索尼2026年7月起诉Udio索赔45亿美元，Suno 2025年也跟华纳和解了。
 
-ElevenLabs Music 走了一条完全不同的路：**跟唱片公司、出版商、艺人合作训练模型** [citation:38]。这意味着：
+ElevenLabs Music 走了一条完全不同的路：**跟唱片公司、出版商、艺人合作训练模型**。这意味着：
 
 - 训练数据合法授权，不像Suno/Udio被指控"抓取数十万首录音"
 - 商用法律风险最低
@@ -260,10 +260,10 @@ ElevenLabs Music 走了一条完全不同的路：**跟唱片公司、出版商�
 
 | 维度 | 评价 |
 |---|---|
-| 人声自然度 | ⭐⭐⭐⭐⭐ **三者最佳**——训练数据含更多元人声风格 [citation:21] |
-| 跨语种一致性 | ⭐⭐⭐⭐⭐ 同一声线在英/西/法/日稳定迁移 [citation:21] |
+| 人声自然度 | ⭐⭐⭐⭐⭐ **三者最佳**——训练数据含更多元人声风格 |
+| 跨语种一致性 | ⭐⭐⭐⭐⭐ 同一声线在英/西/法/日稳定迁移 |
 | 乐器编排 | ⭐⭐⭐⭐ 不错但不是最强 |
-| 生成速度 | ⭐⭐⭐⭐⭐ 器乐约28秒 [citation:22] |
+| 生成速度 | ⭐⭐⭐⭐⭐ 器乐约28秒 |
 | 精细编辑 | ⭐⭐⭐⭐ 模块化section regeneration |
 | 商用安全 | ⭐⭐⭐⭐⭐ **唯一无版权诉讼风险** |
 
@@ -276,7 +276,7 @@ ElevenLabs Music 走了一条完全不同的路：**跟唱片公司、出版商�
 | Creator | **$22/月** | 121K | ✅ | ✅（付费附加）|
 | Pro | $99/月 | 600K | ✅ | ✅ |
 
-> 💡 **Starter $6/月是内容创作者最低成本的商用入口**——比Suno Pro还便宜$4，且版权最干净 [citation:35]。
+> 💡 **Starter $6/月是内容创作者最低成本的商用入口**——比Suno Pro还便宜$4，且版权最干净。
 
 ---
 
@@ -287,7 +287,7 @@ ElevenLabs Music 走了一条完全不同的路：**跟唱片公司、出版商�
 ### 测试设计
 
 1. 每个流派生成3个版本的短片段（30秒，去标识）
-2. 在AirPods +  studio monitors 两种环境下播放
+2. 在AirPods + studio monitors 两种环境下播放
 3. 打分维度：人声自然度/编曲质量/情感表达/整体好感度（1-10分）
 4. 最后问"你觉得这是真人还是AI？"
 
@@ -308,7 +308,7 @@ ElevenLabs Music 走了一条完全不同的路：**跟唱片公司、出版商�
 ### 关键发现
 
 1. **没有绝对的赢家**——Udio均分略高但优势极小（0.11分）
-2. **Suno在国风/中文歌上碾压**——中文咬字和旋律感明显更强 [citation:20]
+2. **Suno在国风/中文歌上碾压**——中文咬字和旋律感明显更强 
 3. **Udio在"人声驱动"的流派上碾压**——民谣、爵士、lo-fi
 4. **ElevenLabs的人声自然度单项最高**——尤其在跨语种时
 5. **"是AI还是真人"的判断**：30秒片段，约42%的人能识别AI；完整3分钟歌曲，约68%能识别
@@ -430,7 +430,7 @@ No acoustic guitar, no autotune effect, no rap."
 | ④ 不模仿特定艺人 | 别说"像周杰伦/像Adele"，用风格描述替代 |
 | ⑤ 重要项目买保险 | 商业广告等高价值用途，确认平台TOS覆盖你的场景 |
 
-> ⚠️ **真实案例**：2026年有YouTuber用Suno免费版生成的BGM做视频，3个月后视频被Content ID静音——因为免费版输出默认公开且不含商用授权 [citation:7]。
+> ⚠️ **真实案例**：2026年有YouTuber用Suno免费版生成的BGM做视频，3个月后视频被Content ID静音——因为免费版输出默认公开且不含商用授权。
 
 ---
 
@@ -462,25 +462,25 @@ Suno偏主流流水线，做实验电子/先锋爵士容易出"制式结构"。�
 
 ## <span id="音乐人真实工作流ai当助理不当替身">音乐人真实工作流：AI当助理，不当替身</span>
 
-2026年，**60%的音乐制作人已经在用AI工具辅助工作**（2020年只有35%）[citation:22]。但他们不是"让AI写歌"，而是这样用：
+2026年，**60%的音乐制作人已经在用AI工具辅助工作**（2020年只有35%）。但他们不是"让AI写歌"，而是这样用：
 
 ### 工作流示例
 
 ```
 ┌─────────────────────────────────────────────┐
-│ Step 1: 灵感阶段                              │
+│ Step 1: 灵感阶段 │
 │ Suno生成5个旋律方向 → 挑1个最有潜力的 → 哼唱录下 │
 ├─────────────────────────────────────────────┤
-│ Step 2: 编曲骨架                              │
-│ 把哼唱导入DAW → 用Suno的stems做参考编排      │
-│ → 自己弹/录真实乐器                          │
+│ Step 2: 编曲骨架 │
+│ 把哼唱导入DAW → 用Suno的stems做参考编排 │
+│ → 自己弹/录真实乐器 │
 ├─────────────────────────────────────────────┤
-│ Step 3: 人声处理                              │
-│ 真人录音 → 用AI去噪/修音高 → 手动混音        │
+│ Step 3: 人声处理 │
+│ 真人录音 → 用AI去噪/修音高 → 手动混音 │
 ├─────────────────────────────────────────────┤
-│ Step 4: 母带前Demo                            │
-│ Udio生成参考母带（学习压缩/ EQ 方向）         │
-│ → 自己在DAW里做最终母带                      │
+│ Step 4: 母带前Demo │
+│ Udio生成参考母带（学习压缩/ EQ 方向） │
+│ → 自己在DAW里做最终母带 │
 └─────────────────────────────────────────────┘
 ```
 
@@ -526,27 +526,27 @@ Suno偏主流流水线，做实验电子/先锋爵士容易出"制式结构"。�
 
 ### 1. AI生成的音乐能商用吗？版权归谁？
 
-取决于平台和计划。Suno Pro（$10/月）和Premier（$30/月）都包含商用授权，可以在YouTube、Spotify、广告、游戏中使用 [citation:7]。Udio Standard（$10/月）和Pro（$30/月）同理。但2026年7月索尼起诉Udio索赔45亿美元的案件提醒我们：平台声称的"商用权"可能在法律层面仍有争议 [citation:6]。最安全的选项是ElevenLabs Music——它与唱片公司合作训练模型，商用法律风险最低 [citation:38]。AIVA Pro（€33/月）则直接让你拥有完整版权 [citation:33]。建议：商用前确认你的具体用途在平台TOS白名单内，并保留生成记录作为证据。
+取决于平台和计划。Suno Pro（$10/月）和Premier（$30/月）都包含商用授权，可以在YouTube、Spotify、广告、游戏中使用。Udio Standard（$10/月）和Pro（$30/月）同理。但2026年7月索尼起诉Udio索赔45亿美元的案件提醒我们：平台声称的"商用权"可能在法律层面仍有争议。最安全的选项是ElevenLabs Music——它与唱片公司合作训练模型，商用法律风险最低。AIVA Pro（€33/月）则直接让你拥有完整版权。建议：商用前确认你的具体用途在平台TOS白名单内，并保留生成记录作为证据。
 
 ### 2. Suno和Udio哪个更好听？盲测结果是什么？
 
-50人盲测结果：在流行/电子/摇滚等主流流派上，Suno V5.5以54%的偏好率略胜Udio 1.5（46%）[citation:34]。但在独立民谣/爵士/氛围等注重人声质感的流派上，Udio以68%的偏好率大幅领先 [citation:34]。关键差异：Suno的人声更像"录音室精修"，Udio的人声更像"现场演唱" [citation:37]。乐器方面Udio的鼓声更有力、弦乐更有空间感。结论：要完整歌曲选Suno，要人声质感选Udio，预算够两个都开。
+50人盲测结果：在流行/电子/摇滚等主流流派上，Suno V5.5以54%的偏好率略胜Udio 1.5（46%）。但在独立民谣/爵士/氛围等注重人声质感的流派上，Udio以68%的偏好率大幅领先。关键差异：Suno的人声更像"录音室精修"，Udio的人声更像"现场演唱"。乐器方面Udio的鼓声更有力、弦乐更有空间感。结论：要完整歌曲选Suno，要人声质感选Udio，预算够两个都开。
 
 ### 3. AI音乐能骗过人耳吗？
 
-部分能。Melodex的盲测显示：用Suno V5.5克隆真人声线后，5个听众中有3个没听出是AI [citation:21]。Udio在电子/氛围类纯器乐上，10个听众中只有3个识别出AI痕迹 [citation:22]。但有一个致命破绽：AI歌曲的"情绪弧线"太平了——人类歌手会在第二段副歌多一分力道、在桥段压低音量制造反差，AI目前还不会这种动态调控。所以短片段能骗人，完整听下来老耳朵还是能感觉到"哪里不太对"。
+部分能。Melodex的盲测显示：用Suno V5.5克隆真人声线后，5个听众中有3个没听出是AI。Udio在电子/氛围类纯器乐上，10个听众中只有3个识别出AI痕迹。但有一个致命破绽：AI歌曲的"情绪弧线"太平了——人类歌手会在第二段副歌多一分力道、在桥段压低音量制造反差，AI目前还不会这种动态调控。所以短片段能骗人，完整听下来老耳朵还是能感觉到"哪里不太对"。
 
 ### 4. 做YouTube/B站视频BGM用哪个最划算？
 
-只需要背景音乐（不要人声）：Suno免费版就够了——50积分/天约10首，描述"BGM""instrumental""no vocals"即可 [citation:4]。要做有歌词的主题曲/片头曲：Suno Pro $10/月，商用授权覆盖YouTube获利 [citation:7]。要高品质纯音乐：AIVA Standard €11/月，专门做古典/电影配乐，支持MIDI导出 [citation:33]。要快速大量产出：ElevenLabs Music Starter $6/月，约28秒出一首，商用授权包含 [citation:35]。
+只需要背景音乐（不要人声）：Suno免费版就够了——50积分/天约10首，描述"BGM""instrumental""no vocals"即可。要做有歌词的主题曲/片头曲：Suno Pro $10/月，商用授权覆盖YouTube获利。要高品质纯音乐：AIVA Standard €11/月，专门做古典/电影配乐，支持MIDI导出。要快速大量产出：ElevenLabs Music Starter $6/月，约28秒出一首，商用授权包含。
 
 ### 5. 音乐人应该用AI吗？会失去创作能力吗？
 
-工具不会让你变弱，拒绝使用才会。2026年60%的音乐制作人已经在用AI工具辅助工作 [citation:22]。最合理的用法：① 用Suno/Udio快速验证旋律/编曲想法（替代哼唱录音+钢琴草稿）；② 把AI生成的stems导入DAW精修混音；③ 用AI做demo给客户听、节省棚时费。真正失去能力的不是"用AI的人"，是"只用AI、不再学乐理和编曲的人"。把AI当助理，不当替身。
+工具不会让你变弱，拒绝使用才会。2026年60%的音乐制作人已经在用AI工具辅助工作。最合理的用法：① 用Suno/Udio快速验证旋律/编曲想法（替代哼唱录音+钢琴草稿）；② 把AI生成的stems导入DAW精修混音；③ 用AI做demo给客户听、节省棚时费。真正失去能力的不是"用AI的人"，是"只用AI、不再学乐理和编曲的人"。把AI当助理，不当替身。
 
 ### 6. AI音乐的致命缺陷是什么？
 
-五个绕不开的问题：① 精细控制缺失——你说不出"第17小节换成Dm7和弦"；② 人声咬字偶发崩坏——生僻词、外语、快速说唱是重灾区；③ 情绪动态扁平——整首歌力度变化不够戏剧化；④ 风格趋同——Suno偏主流流水线，做实验电子会出制式结构；⑤ 法律不确定性——索尼诉Udio案表明，平台给的"商用权"可能经不起法庭检验 [citation:6]。这五个问题决定了AI目前是"创作辅助"而非"创作替代"。
+五个绕不开的问题：① 精细控制缺失——你说不出"第17小节换成Dm7和弦"；② 人声咬字偶发崩坏——生僻词、外语、快速说唱是重灾区；③ 情绪动态扁平——整首歌力度变化不够戏剧化；④ 风格趋同——Suno偏主流流水线，做实验电子会出制式结构；⑤ 法律不确定性——索尼诉Udio案表明，平台给的"商用权"可能经不起法庭检验。这五个问题决定了AI目前是"创作辅助"而非"创作替代"。
 
 ---
 
@@ -588,85 +588,85 @@ Suno偏主流流水线，做实验电子/先锋爵士容易出"制式结构"。�
 
 <style>
 .reading-time {
-  background: #fdf2f8;
-  border-left: 4px solid #ec4899;
-  padding: 8px 16px;
-  margin: 16px 0;
-  border-radius: 4px;
-  font-size: 0.95em;
-  color: #831843;
+ background: #fdf2f8;
+ border-left: 4px solid #ec4899;
+ padding: 8px 16px;
+ margin: 16px 0;
+ border-radius: 4px;
+ font-size: 0.95em;
+ color: #831843;
 }
 .toc {
-  background: #fafbfc;
-  border: 1px solid #e4e6eb;
-  border-radius: 10px;
-  padding: 20px 28px;
-  margin: 24px 0 32px;
+ background: #fafbfc;
+ border: 1px solid #e4e6eb;
+ border-radius: 10px;
+ padding: 20px 28px;
+ margin: 24px 0 32px;
 }
 .toc h2 {
-  margin-top: 0;
-  font-size: 1.1em;
+ margin-top: 0;
+ font-size: 1.1em;
 }
 .toc a {
-  color: #4a5568;
-  text-decoration: none;
-  display: block;
-  padding: 3px 0;
+ color: #4a5568;
+ text-decoration: none;
+ display: block;
+ padding: 3px 0;
 }
 .toc a:hover {
-  color: #ec4899;
-  text-decoration: underline;
+ color: #ec4899;
+ text-decoration: underline;
 }
 .cta-box {
-  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
-  color: white;
-  border-radius: 16px;
-  padding: 28px 32px;
-  margin: 40px 0 24px;
-  text-align: center;
+ background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+ color: white;
+ border-radius: 16px;
+ padding: 28px 32px;
+ margin: 40px 0 24px;
+ text-align: center;
 }
 .cta-box h3 {
-  color: white;
-  margin-top: 0;
+ color: white;
+ margin-top: 0;
 }
 .cta-box a {
-  color: #fde68a;
+ color: #fde68a;
 }
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 16px 0 24px;
-  font-size: 0.88em;
+ width: 100%;
+ border-collapse: collapse;
+ margin: 16px 0 24px;
+ font-size: 0.88em;
 }
 th {
-  background: #ec4899;
-  color: white;
-  padding: 10px 12px;
-  text-align: left;
-  font-weight: 600;
+ background: #ec4899;
+ color: white;
+ padding: 10px 12px;
+ text-align: left;
+ font-weight: 600;
 }
 td {
-  padding: 9px 12px;
-  border-bottom: 1px solid #e4e6eb;
+ padding: 9px 12px;
+ border-bottom: 1px solid #e4e6eb;
 }
 tr:nth-child(even) {
-  background: #fdf2f8;
+ background: #fdf2f8;
 }
 tr:hover {
-  background: #fce7f3;
+ background: #fce7f3;
 }
 blockquote {
-  border-left: 4px solid #8b5cf6;
-  padding: 12px 20px;
-  margin: 16px 0;
-  background: #f5f3ff;
-  font-style: italic;
-  color: #3b0764;
+ border-left: 4px solid #8b5cf6;
+ padding: 12px 20px;
+ margin: 16px 0;
+ background: #f5f3ff;
+ font-style: italic;
+ color: #3b0764;
 }
 code {
-  background: #f1f3f5;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-size: 0.9em;
+ background: #f1f3f5;
+ padding: 2px 6px;
+ border-radius: 3px;
+ font-size: 0.9em;
 }
 </style>

@@ -38,7 +38,7 @@ reading_time: "约35分钟"
 
 > "Let an ultraintelligent machine be defined as a machine that can far surpass all the intellectual activities of any man however clever. Since the design of machines is one of these intellectual activities, an ultraintelligent machine could design even better machines; there would then unquestionably be an 'intelligence explosion,' and the intelligence of man would be left far behind."[citation:51]
 
-值得注意的是，Good本人晚年（1998年）修正了自己的判断，认为应将"生存"替换为"灭绝"，并自嘲"我们像旅鼠一样"正走向悬崖。[citation:51]
+Good本人晚年（1998年）修正了自己的判断，认为应将"生存"替换为"灭绝"，并自嘲"我们像旅鼠一样"正走向悬崖。[citation:51]
 
 ### 2.2 Vernor Vinge与"奇点"的命名（1993）
 
@@ -247,7 +247,7 @@ Power Usage Effectiveness（PUE）从2007年的2.5改善至2025年的1.54，但*
 
 2026年1月，清华大学电子系在《Nature》发表重磅研究：分析了全球**2.5亿篇**科学文献后发现——AI让科学家个体发文量提升至**3.02倍**、引用量激增至**4.84倍**、提前**1.37年**成为PI，但**集体知识广度反而下降4%**。[citation:31]
 
-> "在AI持续赋能科研的背景下，为何各学科的颠覆性研究成果却在逐年减少？"[citation:31]
+> "在 AI 持续赋能科研的背景下，为何各学科的颠覆性研究成果却在逐年减少？"[citation:31]
 
 论文揭示：AI赋能的研究项目，其"知识广度"（768维语义向量空间的直径与熵值）在收缩。科学智能正从"辅助工具"升级为"合作伙伴"，但如果不打破"单点优化"的惯性，整个科学界会陷入**注意力窄化**的集体陷阱。[citation:31]
 

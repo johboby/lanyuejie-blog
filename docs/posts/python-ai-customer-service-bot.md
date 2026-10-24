@@ -3,19 +3,19 @@ title: "Python + AI: Build a Smart Customer Service Bot in 100 Lines"
 date: 2026-07-26
 description: "用100行Python代码搭建一个智能客服机器人：知识库RAG检索、多轮对话、意图识别、工单创建，含完整可运行代码和多平台部署方案。"
 tags:
-  - Python
-  - AI客服
-  - OpenAI API
-  - RAG
-  - LangChain
-  - Function Calling
-  - Gradio
-  - 智能客服机器人
-  - 实战教程
+ - Python
+ - AI客服
+ - OpenAI API
+ - RAG
+ - LangChain
+ - Function Calling
+ - Gradio
+ - 智能客服机器人
+ - 实战教程
 categories:
-  - Python实战
-  - AI应用开发
-  - 研究
+ - Python实战
+ - AI应用开发
+ - 研究
 ---
 <p class="reading-time">⏱️ 阅读时间：约 14 分钟</p>
 
@@ -67,22 +67,22 @@ categories:
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│                    CustomerServiceBot                        │
+│ CustomerServiceBot │
 ├──────────────────────────────────────────────────────────────┤
-│                                                              │
-│  用户输入: "我昨天买的耳机什么时候到？"                        │
-│       ↓                                                      │
-│  [意图识别] → "物流查询"                                      │
-│       ↓                                                      │
-│  [知识库检索] → 找到"发货说明"和"物流时效"文档                  │
-│       ↓                                                      │
-│  [Function Calling] → get_order_status("ORD-12345")          │
-│       ↓                                                      │
-│  [LLM生成回复] → "您的耳机已发货，预计明天到达..."              │
-│       ↓                                                      │
-│  用户看到回复 + 满意度评分按钮                                  │
-│                                                              │
-│  如果用户说"我要退款" → [创建工单] → [转人工提示]              │
+│ │
+│ 用户输入: "我昨天买的耳机什么时候到？" │
+│ ↓ │
+│ [意图识别] → "物流查询" │
+│ ↓ │
+│ [知识库检索] → 找到"发货说明"和"物流时效"文档 │
+│ ↓ │
+│ [Function Calling] → get_order_status("ORD-12345") │
+│ ↓ │
+│ [LLM生成回复] → "您的耳机已发货，预计明天到达..." │
+│ ↓ │
+│ 用户看到回复 + 满意度评分按钮 │
+│ │
+│ 如果用户说"我要退款" → [创建工单] → [转人工提示] │
 └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -106,21 +106,21 @@ categories:
 ```bash
 # 创建虚拟环境（推荐）
 python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+source venv/bin/activate # Windows: venv\Scripts\activate
 
 # 安装依赖
 pip install openai chromadb langchain langchain-community \
-            langchain-openai sentence-transformers \
-            gradio python-dotenv
+ langchain-openai sentence-transformers \
+ gradio python-dotenv
 ```
 
 ### Step 2: 获取API Key
 
 | 方案 | 获取地址 | 免费额度 | 特点 |
 |---|---|---|---|
-| **OpenAI** | platform.openai.com | $5新用户 | 质量最高 [citation:1] |
-| **DeepSeek** | platform.deepseek.com | 注册送¥10 | 最便宜，中文好 [citation:23] |
-| **本地Ollama** | ollama.ai | 完全免费 | 零API费，需GPU/大内存 [citation:2] |
+| **OpenAI** | platform.openai.com | $5新用户 | 质量最高 |
+| **DeepSeek** | platform.deepseek.com | 注册送¥10 | 最便宜，中文好 |
+| **本地Ollama** | ollama.ai | 完全免费 | 零API费，需GPU/大内存 |
 
 ```bash
 # 创建.env文件
@@ -158,51 +158,51 @@ load_dotenv()
 # ─── 1. LLM客户端（支持OpenAI/DeepSeek/Ollama切换）──────────────
 API_KEY = os.getenv("OPENAI_API_KEY") or os.getenv("DEEPSEEK_API_KEY")
 BASE_URL = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
-MODEL = os.getenv("MODEL", "gpt-5.4-mini")  # 或 deepseek-chat / ollama/llama3.2
+MODEL = os.getenv("MODEL", "gpt-5.4-mini") # 或 deepseek-chat / ollama/llama3.2
 client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
 
 # ─── 2. 知识库（RAG）──────────────────────────────────────────────
 class KnowledgeBase:
-    def __init__(self, docs_dir="./docs"):
-        self.ef = embedding_functions.SentenceTransformerEmbeddingFunction(
-            model_name="all-MiniLM-L6-v2")
-        self.client = chromadb.PersistentClient(path="./chroma_db")
-        self.collection = self.client.get_or_create_collection(
-            "kb", embedding_function=self.ef)
+ def __init__(self, docs_dir="./docs"):
+ self.ef = embedding_functions.SentenceTransformerEmbeddingFunction(
+ model_name="all-MiniLM-L6-v2")
+ self.client = chromadb.PersistentClient(path="./chroma_db")
+ self.collection = self.client.get_or_create_collection(
+ "kb", embedding_function=self.ef)
 
-    def build(self):
-        loader = DirectoryLoader("./docs", glob="**/*.md", loader_cls=TextLoader)
-        docs = loader.load()
-        splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
-        chunks = splitter.split_documents(docs)
-        self.collection.add(
-            ids=[f"c{i}" for i in range(len(chunks))],
-            documents=[c.page_content for c in chunks])
+ def build(self):
+ loader = DirectoryLoader("./docs", glob="**/*.md", loader_cls=TextLoader)
+ docs = loader.load()
+ splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+ chunks = splitter.split_documents(docs)
+ self.collection.add(
+ ids=[f"c{i}" for i in range(len(chunks))],
+ documents=[c.page_content for c in chunks])
 
-    def search(self, query, k=3):
-        results = self.collection.query(query_texts=[query], n_results=k)
-        return "\n---\n".join(results["documents"][0])
+ def search(self, query, k=3):
+ results = self.collection.query(query_texts=[query], n_results=k)
+ return "\n---\n".join(results["documents"][0])
 
 # ─── 3. 工具函数（Function Calling）──────────────────────────────
 def get_order_status(order_id: str) -> str:
-    """查询订单状态。实际项目替换为数据库查询。"""
-    fake_db = {"ORD-12345": "已发货，预计明天到达",
-               "ORD-67890": "备货中，预计2天内发货"}
-    return fake_db.get(order_id, f"未找到订单 {order_id}")
+ """查询订单状态。实际项目替换为数据库查询。"""
+ fake_db = {"ORD-12345": "已发货，预计明天到达",
+ "ORD-67890": "备货中，预计2天内发货"}
+ return fake_db.get(order_id, f"未找到订单 {order_id}")
 
 def create_ticket(subject: str, description: str) -> str:
-    """创建客服工单。实际项目写入数据库/工单系统。"""
-    ticket_id = f"TICKET-{hash(subject) % 10000:04d}"
-    print(f"[工单已创建] {ticket_id}: {subject}")
-    return f"工单已创建：{ticket_id}，客服会在24h内回复"
+ """创建客服工单。实际项目写入数据库/工单系统。"""
+ ticket_id = f"TICKET-{hash(subject) % 10000:04d}"
+ print(f"[工单已创建] {ticket_id}: {subject}")
+ return f"工单已创建：{ticket_id}，客服会在24h内回复"
 
 TOOLS = {
-    "get_order_status": {
-        "desc": "查询订单物流状态", "fn": get_order_status,
-        "schema": {"order_id": "订单号如ORD-12345"}},
-    "create_ticket": {
-        "desc": "创建客服工单", "fn": create_ticket,
-        "schema": {"subject": "问题标题", "description": "详细描述"}}}
+ "get_order_status": {
+ "desc": "查询订单物流状态", "fn": get_order_status,
+ "schema": {"order_id": "订单号如ORD-12345"}},
+ "create_ticket": {
+ "desc": "创建客服工单", "fn": create_ticket,
+ "schema": {"subject": "问题标题", "description": "详细描述"}}}
 
 # ─── 4. 系统提示词 ──────────────────────────────────────────────
 SYSTEM_PROMPT = """你是TechShop的智能客服助手。规则：
@@ -214,60 +214,60 @@ SYSTEM_PROMPT = """你是TechShop的智能客服助手。规则：
 
 # ─── 5. 核心对话函数 ────────────────────────────────────────────
 def chat(user_msg: str, history: list, kb: KnowledgeBase) -> str:
-    # 检索知识库
-    context = kb.search(user_msg)
-    
-    # 构建消息
-    messages = [
-        {"role": "system", "content": SYSTEM_PROMPT + f"\n知识库:\n{context}"},
-        *history,
-        {"role": "user", "content": user_msg}]
+ # 检索知识库
+ context = kb.search(user_msg)
+ 
+ # 构建消息
+ messages = [
+ {"role": "system", "content": SYSTEM_PROMPT + f"\n知识库:\n{context}"},
+ *history,
+ {"role": "user", "content": user_msg}]
 
-    # 定义工具
-    tools = [{"type": "function", "function": {
-        "name": k, "description": v["desc"],
-        "parameters": {"type": "object",
-            "properties": {p: {"type": "string"} for p in v["schema"]},
-            "required": list(v["schema"].keys())}}
-    } for k, v in TOOLS.items()]
+ # 定义工具
+ tools = [{"type": "function", "function": {
+ "name": k, "description": v["desc"],
+ "parameters": {"type": "object",
+ "properties": {p: {"type": "string"} for p in v["schema"]},
+ "required": list(v["schema"].keys())}}
+ } for k, v in TOOLS.items()]
 
-    # 第一轮：LLM决定是否调用工具
-    response = client.chat.completions.create(
-        model=MODEL, messages=messages, tools=tools)
-    
-    msg = response.choices[0].message
-    
-    # 如果有工具调用
-    if msg.tool_calls:
-        for call in msg.tool_calls:
-            fn_name = call.function.name
-            args = json.loads(call.function.arguments)
-            result = TOOLS[fn_name]["fn"](**args)
-            messages.append(msg)  # 把assistant的tool_call加回去
-            messages.append({"role": "tool", "tool_call_id": call.id,
-                           "content": json.dumps(result, ensure_ascii=False)})
-        # 第二轮：用工具结果生成最终回复
-        response = client.chat.completions.create(model=MODEL, messages=messages)
-        return response.choices[0].message.content
-    
-    return msg.content
+ # 第一轮：LLM决定是否调用工具
+ response = client.chat.completions.create(
+ model=MODEL, messages=messages, tools=tools)
+ 
+ msg = response.choices[0].message
+ 
+ # 如果有工具调用
+ if msg.tool_calls:
+ for call in msg.tool_calls:
+ fn_name = call.function.name
+ args = json.loads(call.function.arguments)
+ result = TOOLS[fn_name]["fn"](**args)
+ messages.append(msg) # 把assistant的tool_call加回去
+ messages.append({"role": "tool", "tool_call_id": call.id,
+ "content": json.dumps(result, ensure_ascii=False)})
+ # 第二轮：用工具结果生成最终回复
+ response = client.chat.completions.create(model=MODEL, messages=messages)
+ return response.choices[0].message.content
+ 
+ return msg.content
 
 # ─── 6. 入口 ────────────────────────────────────────────────────
 if __name__ == "__main__":
-    kb = KnowledgeBase()
-    if not os.path.exists("./chroma_db"):
-        print("首次运行，构建知识库...")
-        kb.build()
-    
-    history = []
-    print("🤖 客服机器人已启动（输入quit退出）")
-    while True:
-        user = input("你: ").strip()
-        if user == "quit": break
-        reply = chat(user, history, kb)
-        print(f"🤖: {reply}\n")
-        history.append({"role": "user", "content": user})
-        history.append({"role": "assistant", "content": reply})
+ kb = KnowledgeBase()
+ if not os.path.exists("./chroma_db"):
+ print("首次运行，构建知识库...")
+ kb.build()
+ 
+ history = []
+ print("🤖 客服机器人已启动（输入quit退出）")
+ while True:
+ user = input("你: ").strip()
+ if user == "quit": break
+ reply = chat(user, history, kb)
+ print(f"🤖: {reply}\n")
+ history.append({"role": "user", "content": user})
+ history.append({"role": "assistant", "content": reply})
 ```
 
 **搞定。运行 `python bot.py` 就能用了。**
@@ -288,7 +288,7 @@ client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
 | DeepSeek | https://api.deepseek.com | deepseek-chat | 改.env |
 | Ollama本地 | http://localhost:11434/v1 | ollama/llama3.2 | 改.env |
 
-> **一行代码切换模型供应商**——这就是用OpenAI兼容接口的好处 [citation:23]。
+> **一行代码切换模型供应商**——这就是用OpenAI兼容接口的好处。
 
 ### 第2段：知识库RAG（第18-36行）
 
@@ -296,22 +296,22 @@ client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
 
 ```
 文档 → TextLoader读取 → RecursiveCharacterTextSplitter切500字块
-     → SentenceTransformer嵌入 → ChromaDB存储（本地文件）
-     → 查询时：用户问题嵌入 → 余弦相似度Top-3 → 拼入Prompt
+ → SentenceTransformer嵌入 → ChromaDB存储（本地文件）
+ → 查询时：用户问题嵌入 → 余弦相似度Top-3 → 拼入Prompt
 ```
 
-> 这叫**RAG（Retrieval-Augmented Generation）**——让AI回答前先"查资料"，幻觉率直降60%+ [citation:2][citation:27]。
+> 这叫**RAG（Retrieval-Augmented Generation）**——让AI回答前先"查资料"，幻觉率直降60%+。
 
 ### 第3段：工具函数（第39-55行）
 
 ```python
 TOOLS = {
-    "get_order_status": {...},
-    "create_ticket": {...}
+ "get_order_status": {...},
+ "create_ticket": {...}
 }
 ```
 
-> **Function Calling** 是2026年AI应用的杀手锏——让LLM能"调用你的代码"。用户说"查订单"，LLM自动决定调`get_order_status("ORD-12345")`，拿到结果后再组织语言回复 [citation:3]。
+> **Function Calling** 是2026年AI应用的杀手锏——让LLM能"调用你的代码"。用户说"查订单"，LLM自动决定调`get_order_status("ORD-12345")`，拿到结果后再组织语言回复。
 
 ### 第5段：核心对话（第67-92行）
 
@@ -319,13 +319,13 @@ TOOLS = {
 
 ```
 第一轮：用户消息 → LLM → "我要调get_order_status"
-                ↓
+ ↓
 执行工具 → 拿到结果
-                ↓
+ ↓
 第二轮：用户消息 + 工具结果 → LLM → 自然语言回复
 ```
 
-> 这是Agent的雏形——LLM不只是"说话"，还能"做事" [citation:1][citation:3]。
+> 这是Agent的雏形——LLM不只是"说话"，还能"做事"。
 
 ---
 
@@ -369,7 +369,7 @@ TOOLS = {
 
 ```python
 >>> kb = KnowledgeBase()
->>> kb.build()  # 首次构建
+>>> kb.build() # 首次构建
 >>> print(kb.search("怎么退货"))
 "产品支持7天无理由退换货，商品需包装完好。
 退款在收到退货后3个工作日内原路返还。"
@@ -390,11 +390,11 @@ TOOLS = {
 ↓ LLM推理：这需要查订单 → 调用get_order_status
 
 ↓ 你的代码执行：
-   result = get_order_status("ORD-12345")
-   → "已发货，预计明天到达"
+ result = get_order_status("ORD-12345")
+ → "已发货，预计明天到达"
 
 ↓ LLM拿到结果，生成回复：
-   "您的订单ORD-12345已发货，预计明天到达 🚚"
+ "您的订单ORD-12345已发货，预计明天到达 🚚"
 ```
 
 ### 加一个新工具只要3步
@@ -404,20 +404,20 @@ TOOLS = {
 ```python
 # Step 1: 写函数
 def check_stock(product_name: str) -> str:
-    db = {"耳机": "剩12件", "手机壳": "缺货", "充电宝": "剩3件"}
-    return db.get(product_name, f"{product_name}暂无库存数据")
+ db = {"耳机": "剩12件", "手机壳": "缺货", "充电宝": "剩3件"}
+ return db.get(product_name, f"{product_name}暂无库存数据")
 
 # Step 2: 注册到TOOLS
 TOOLS["check_stock"] = {
-    "desc": "查询商品库存数量",
-    "fn": check_stock,
-    "schema": {"product_name": "商品名称"}
+ "desc": "查询商品库存数量",
+ "fn": check_stock,
+ "schema": {"product_name": "商品名称"}
 }
 
 # Step 3: 完事。LLM自动学会用这个新工具
 ```
 
-> 这就是**工具即插件**——加功能不用改核心代码，注册一下就行 [citation:3]。
+> 这就是**工具即插件**——加功能不用改核心代码，注册一下就行。
 
 ### 常见工具清单
 
@@ -446,22 +446,22 @@ from bot import chat, KnowledgeBase
 
 kb = KnowledgeBase()
 if not __import__("os").path.exists("./chroma_db"):
-    kb.build()
+ kb.build()
 
 def respond(message, history):
-    # Gradio history格式转OpenAI格式
-    fmt = [{"role": "user" if m["role"]=="user" else "assistant",
-            "content": m["content"]} for m in (history or [])]
-    return chat(message, fmt, kb)
+ # Gradio history格式转OpenAI格式
+ fmt = [{"role": "user" if m["role"]=="user" else "assistant",
+ "content": m["content"]} for m in (history or [])]
+ return chat(message, fmt, kb)
 
 gr.ChatInterface(
-    respond,
-    title="🤖 TechShop 智能客服",
-    description="请问有什么可以帮您？",
-    theme="soft",
-    examples=["你们的退货政策是什么？",
-              "耳机保修多久？",
-              "查一下订单ORD-12345"],
+ respond,
+ title="🤖 TechShop 智能客服",
+ description="请问有什么可以帮您？",
+ theme="soft",
+ examples=["你们的退货政策是什么？",
+ "耳机保修多久？",
+ "查一下订单ORD-12345"],
 ).launch(server_port=7860)
 ```
 
@@ -470,7 +470,7 @@ python app.py
 # → 浏览器打开 http://localhost:7860
 ```
 
-> **2分钟搞定一个漂亮的聊天界面，不用写一行HTML/JS。** Gradio自动处理消息历史、输入框、流式输出 [citation:24][citation:28]。
+> **2分钟搞定一个漂亮的聊天界面，不用写一行HTML/JS。** Gradio自动处理消息历史、输入框、流式输出。
 
 ### 用Streamlit（更适合多页面）
 
@@ -483,26 +483,26 @@ st.set_page_config(page_title="智能客服", page_icon="🤖")
 st.title("🤖 TechShop 客服中心")
 
 if "messages" not in st.session_state:
-    st.session_state.messages = []
+ st.session_state.messages = []
 
 for m in st.session_state.messages:
-    with st.chat_message(m["role"]):
-        st.write(m["content"])
+ with st.chat_message(m["role"]):
+ st.write(m["content"])
 
 if prompt := st.chat_input("请输入您的问题..."):
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user"):
-        st.write(prompt)
-    with st.chat_message("assistant"):
-        with st.spinner("思考中..."):
-            kb = st.session_state.get("kb") or KnowledgeBase()
-            st.session_state.kb = kb
-            reply = chat(prompt, st.session_state.messages[:-1], kb)
-            st.write(reply)
-    st.session_state.messages.append({"role": "assistant", "content": reply})
+ st.session_state.messages.append({"role": "user", "content": prompt})
+ with st.chat_message("user"):
+ st.write(prompt)
+ with st.chat_message("assistant"):
+ with st.spinner("思考中..."):
+ kb = st.session_state.get("kb") or KnowledgeBase()
+ st.session_state.kb = kb
+ reply = chat(prompt, st.session_state.messages[:-1], kb)
+ st.write(reply)
+ st.session_state.messages.append({"role": "assistant", "content": reply})
 ```
 
-> Gradio vs Streamlit怎么选：单页面聊天用Gradio（更快），多页面应用用Streamlit（更灵活）[citation:28]。
+> Gradio vs Streamlit怎么选：单页面聊天用Gradio（更快），多页面应用用Streamlit（更灵活）。
 
 ---
 
@@ -519,8 +519,8 @@ kb = KnowledgeBase()
 app = Application.builder().token("YOUR_BOT_TOKEN").build()
 
 async def handle(update, context):
-    reply = chat(update.message.text, [], kb)
-    await update.message.reply_text(reply)
+ reply = chat(update.message.text, [], kb)
+ await update.message.reply_text(reply)
 
 app.add_handler(MessageHandler(filters.TEXT, handle))
 app.run_polling()
@@ -532,7 +532,7 @@ app.run_polling()
 3. 运行上面的代码
 4. 在Telegram找到你的bot，开始聊天
 
-> 5分钟接入，零前端代码 [citation:4]。
+> 5分钟接入，零前端代码。
 
 ### Discord接入（10行代码）
 
@@ -546,10 +546,10 @@ client = discord.Client(intents=discord.Intents.default())
 
 @client.event
 async def on_message(msg):
-    if msg.author == client.user: return
-    if msg.content.startswith("!"):  # !help 触发
-        reply = chat(msg.content[1:], [], kb)
-        await msg.channel.send(reply)
+ if msg.author == client.user: return
+ if msg.content.startswith("!"): # !help 触发
+ reply = chat(msg.content[1:], [], kb)
+ await msg.channel.send(reply)
 
 client.run("YOUR_DISCORD_BOT_TOKEN")
 ```
@@ -559,24 +559,24 @@ client.run("YOUR_DISCORD_BOT_TOKEN")
 ### 多平台统一架构
 
 ```
-                    ┌──────────────┐
-                    │  用户消息    │
-                    └──────┬───────┘
-                           ↓
-            ┌──────────────┼──────────────┐
-            ↓              ↓              ↓
-       Telegram        Discord         Web界面
-       Adapter         Adapter        (Gradio)
-            └──────────────┼──────────────┘
-                           ↓
-                    ┌──────────────┐
-                    │  统一消息格式  │
-                    └──────┬───────┘
-                           ↓
-                    ┌──────────────┐
-                    │ CustomerServiceBot │
-                    │ (RAG + Tools)    │
-                    └──────────────────┘
+ ┌──────────────┐
+ │ 用户消息 │
+ └──────┬───────┘
+ ↓
+ ┌──────────────┼──────────────┐
+ ↓ ↓ ↓
+ Telegram Discord Web界面
+ Adapter Adapter (Gradio)
+ └──────────────┼──────────────┘
+ ↓
+ ┌──────────────┐
+ │ 统一消息格式 │
+ └──────┬───────┘
+ ↓
+ ┌──────────────┐
+ │ CustomerServiceBot │
+ │ (RAG + Tools) │
+ └──────────────────┘
 ```
 
 ---
@@ -594,7 +594,7 @@ client.run("YOUR_DISCORD_BOT_TOKEN")
 ```
 你: 我想退一个耳机，包装拆了还能退吗？
 🤖: 可以的！我们支持7天无理由退换货，即使包装拆了也行，
-    只要商品本身不影响二次销售。退款会在收到货后3个工作日内原路返还。
+ 只要商品本身不影响二次销售。退款会在收到货后3个工作日内原路返还。
 ```
 > 正确从知识库找到了退货政策，并补充了"不影响二次销售"的细节。
 
@@ -616,9 +616,9 @@ client.run("YOUR_DISCORD_BOT_TOKEN")
 ```
 你: 我买的充电宝用了三天就鼓包了，我要投诉！
 🤖: 非常抱歉给您带来不好的体验😔 我帮您创建一个优先工单，
-    客服会在24小时内联系您处理。同时建议您立即停止使用，
-    避免安全隐患。
-    [工单已创建：TICKET-3847]
+ 客服会在24小时内联系您处理。同时建议您立即停止使用，
+ 避免安全隐患。
+ [工单已创建：TICKET-3847]
 ```
 > 后台日志：`→ tool_call: create_ticket("充电宝鼓包投诉", "...")` → 同时表达了同理心 + 安全提醒。
 
@@ -626,7 +626,7 @@ client.run("YOUR_DISCORD_BOT_TOKEN")
 ```
 你: 今天天气真好
 🤖: 是的呢！好天气心情也会变好 😊 请问有什么购物相关
-    的问题可以帮您吗？
+ 的问题可以帮您吗？
 ```
 > 礼貌回应但不跑题，引导回业务。
 
@@ -668,11 +668,11 @@ import json
 r = redis.Redis(host='localhost', port=6379, decode_responses=True)
 
 def save_history(session_id: str, history: list):
-    r.setex(f"chat:{session_id}", 3600, json.dumps(history))  # 1小时过期
+ r.setex(f"chat:{session_id}", 3600, json.dumps(history)) # 1小时过期
 
 def load_history(session_id: str) -> list:
-    data = r.get(f"chat:{session_id}")
-    return json.loads(data) if data else []
+ data = r.get(f"chat:{session_id}")
+ return json.loads(data) if data else []
 ```
 
 ### Docker一键部署
@@ -681,16 +681,16 @@ def load_history(session_id: str) -> list:
 # docker-compose.yml
 version: '3.8'
 services:
-  bot:
-    build: .
-    ports:
-      - "7860:7860"
-    env_file:
-      - .env
-    volumes:
-      - ./chroma_db:/app/chroma_db
-      - ./docs:/app/docs
-    restart: unless-stopped
+ bot:
+ build: .
+ ports:
+ - "7860:7860"
+ env_file:
+ - .env
+ volumes:
+ - ./chroma_db:/app/chroma_db
+ - ./docs:/app/docs
+ restart: unless-stopped
 ```
 
 ---
@@ -717,14 +717,14 @@ services:
 | 10万次 | ~$6 | 依然很便宜 |
 | 100万次 | ~$60 | 考虑DeepSeek（省60%）或Ollama（省100%）|
 
-> **DeepSeek替代OpenAI**：输入¥1/百万token、输出¥2/百万token，同样10万次对话只要¥2-4/月 [citation:23]。
+> **DeepSeek替代OpenAI**：输入¥1/百万token、输出¥2/百万token，同样10万次对话只要¥2-4/月。
 
 ### 零成本方案（纯本地）
 
 ```bash
 # 用Ollama跑本地模型，不花一分钱
-ollama pull qwen2.5:7b    # 中文强
-ollama pull llama3.2:8b   # 英文强
+ollama pull qwen2.5:7b # 中文强
+ollama pull llama3.2:8b # 英文强
 ollama serve
 
 # .env里设置
@@ -733,7 +733,7 @@ OPENAI_BASE_URL=http://localhost:11434/v1
 MODEL=ollama/qwen2.5:7b
 ```
 
-> 需要至少16GB内存或一块GPU。回复质量略低于GPT-5.4-mini但够用 [citation:2]。
+> 需要至少16GB内存或一块GPU。回复质量略低于GPT-5.4-mini但够用。
 
 ---
 
@@ -741,27 +741,27 @@ MODEL=ollama/qwen2.5:7b
 
 ### 1. 这个客服机器人真的只需要100行代码吗？
 
-核心功能（知识库检索+多轮对话+意图识别+工单创建+Web界面）全部Python代码约120行，去掉注释和空行有效代码不到100行。这得益于三个"偷懒"：用OpenAI API做LLM引擎（不用自己训练模型）、用ChromaDB做向量存储（不用写相似度计算）、用Gradio做Web界面（不用写HTML/JS）。如果不用这些现成工具从零写，1000行也打不住。代码完整版在文章中可复制运行 [citation:1][citation:24]。
+核心功能（知识库检索+多轮对话+意图识别+工单创建+Web界面）全部Python代码约120行，去掉注释和空行有效代码不到100行。这得益于三个"偷懒"：用OpenAI API做LLM引擎（不用自己训练模型）、用ChromaDB做向量存储（不用写相似度计算）、用Gradio做Web界面（不用写HTML/JS）。如果不用这些现成工具从零写，1000行也打不住。代码完整版在文章中可复制运行。
 
 ### 2. 需要什么前置知识？完全零基础能跑通吗？
 
-需要：① 会装Python包（pip install）；② 会申请API Key（OpenAI/DeepSeek，免费额度都够玩）；③ 会复制粘贴代码和运行命令。不需要机器学习基础、前端经验、数据库知识。从环境搭建开始一步步写，按着做30分钟内能跑起来。如果连Python都没装，先花5分钟装Python 3.11+和VS Code即可 [citation:2][citation:23]。
+需要：① 会装Python包（pip install）；② 会申请API Key（OpenAI/DeepSeek，免费额度都够玩）；③ 会复制粘贴代码和运行命令。不需要机器学习基础、前端经验、数据库知识。从环境搭建开始一步步写，按着做30分钟内能跑起来。如果连Python都没装，先花5分钟装Python 3.11+和VS Code即可。
 
 ### 3. 用OpenAI API贵吗？一个月花多少？
 
-极便宜。GPT-5.4-mini输入$0.15/百万token、输出$0.60/百万token，一次典型对话约消耗2000输入+500输出token ≈ $0.0006。1000次对话/月 ≈ $0.6（约¥4）。DeepSeek更便宜——输入¥1/百万token、输出¥2/百万token，1000次约¥0.2/月。免费方案用Ollama本地跑qwen2.5:7b或llama3.2，零API费用只是回复质量略低。文章代码支持一键切换OpenAI/DeepSeek/Ollama三种后端 [citation:1][citation:23]。
+极便宜。GPT-5.4-mini输入$0.15/百万token、输出$0.60/百万token，一次典型对话约消耗2000输入+500输出token ≈ $0.0006。1000次对话/月 ≈ $0.6（约¥4）。DeepSeek更便宜——输入¥1/百万token、输出¥2/百万token，1000次约¥0.2/月。免费方案用Ollama本地跑qwen2.5:7b或llama3.2，零API费用只是回复质量略低。文章代码支持一键切换OpenAI/DeepSeek/Ollama三种后端。
 
 ### 4. 能接入微信/WhatsApp/Telegram吗？
 
-能，而且不难。文章提供三种接入：Telegram（@BotFather创建bot→5行代码）、Discord（Developer Portal→10行代码）、WhatsApp via Twilio（注册→Sandbox→webhook）。核心思路是把各平台消息统一转文本→送AI处理→回复转回各平台。CustomerServiceBot类设计了统一message_in/message_out接口，加新平台只需写适配层。企业微信/钉钉同理都有Python SDK。WhatsApp+Twilio方案实测一个月能自动处理40%咨询 [citation:4][citation:22][citation:26]。
+能，而且不难。文章提供三种接入：Telegram（@BotFather创建bot→5行代码）、Discord（Developer Portal→10行代码）、WhatsApp via Twilio（注册→Sandbox→webhook）。核心思路是把各平台消息统一转文本→送AI处理→回复转回各平台。CustomerServiceBot类设计了统一message_in/message_out接口，加新平台只需写适配层。企业微信/钉钉同理都有Python SDK。WhatsApp+Twilio方案实测一个月能自动处理40%咨询。
 
 ### 5. 知识库怎么更新？能支持PDF和Word吗？
 
-支持。KnowledgeBase类用LangChain的DocumentLoader，原生支持PDF（PyPDFLoader）、Word（Docx2txtLoader）、TXT/MD、网页URL、Notion导出。更新只需把新文档丢进./docs/重新运行build_knowledge_base()——自动切分、向量化、存入ChromaDB。生产环境建议：用watchdog监控文件夹自动重建索引；大文档用chunk_size 1000-2000；中文场景换paraphrase-multilingual-MiniLM-L12-v2嵌入模型效果更好 [citation:2][citation:27]。
+支持。KnowledgeBase类用LangChain的DocumentLoader，原生支持PDF（PyPDFLoader）、Word（Docx2txtLoader）、TXT/MD、网页URL、Notion导出。更新只需把新文档丢进./docs/重新运行build_knowledge_base()——自动切分、向量化、存入ChromaDB。生产环境建议：用watchdog监控文件夹自动重建索引；大文档用chunk_size 1000-2000；中文场景换paraphrase-multilingual-MiniLM-L12-v2嵌入模型效果更好。
 
 ### 6. 这个方案和商业客服系统（智齿/美洽）比怎么样？
 
-自建优势：数据完全私有、可深度定制、边际成本为零（10万次对话API成本也很低）。劣势：没有现成管理后台、没有多渠道一键接入、没有质检/报表/坐席协作。结论：日咨询量<500的小型电商/独立开发者/个人项目，自建方案性价比碾压商业产品；大型企业还是买成熟SaaS更省心。文章方案正好卡在这个甜点区——小团队要省钱、要控制数据、要灵活改功能 [citation:25]。
+自建优势：数据完全私有、可深度定制、边际成本为零（10万次对话API成本也很低）。劣势：没有现成管理后台、没有多渠道一键接入、没有质检/报表/坐席协作。结论：日咨询量<500的小型电商/独立开发者/个人项目，自建方案性价比碾压商业产品；大型企业还是买成熟SaaS更省心。文章方案正好卡在这个甜点区——小团队要省钱、要控制数据、要灵活改功能。
 
 ---
 
@@ -809,103 +809,103 @@ MODEL=ollama/qwen2.5:7b
 
 <style>
 .reading-time {
-  background: #f0f9ff;
-  border-left: 4px solid #0ea5e9;
-  padding: 8px 16px;
-  margin: 16px 0;
-  border-radius: 4px;
-  font-size: 0.95em;
-  color: #0c4a6e;
+ background: #f0f9ff;
+ border-left: 4px solid #0ea5e9;
+ padding: 8px 16px;
+ margin: 16px 0;
+ border-radius: 4px;
+ font-size: 0.95em;
+ color: #0c4a6e;
 }
 .toc {
-  background: #fafbfc;
-  border: 1px solid #e4e6eb;
-  border-radius: 10px;
-  padding: 20px 28px;
-  margin: 24px 0 32px;
+ background: #fafbfc;
+ border: 1px solid #e4e6eb;
+ border-radius: 10px;
+ padding: 20px 28px;
+ margin: 24px 0 32px;
 }
 .toc h2 {
-  margin-top: 0;
-  font-size: 1.1em;
+ margin-top: 0;
+ font-size: 1.1em;
 }
 .toc a {
-  color: #0c4a6e;
-  text-decoration: none;
-  display: block;
-  padding: 3px 0;
+ color: #0c4a6e;
+ text-decoration: none;
+ display: block;
+ padding: 3px 0;
 }
 .toc a:hover {
-  color: #0ea5e9;
-  text-decoration: underline;
+ color: #0ea5e9;
+ text-decoration: underline;
 }
 .cta-box {
-  background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
-  color: white;
-  border-radius: 16px;
-  padding: 28px 32px;
-  margin: 40px 0 24px;
-  text-align: center;
+ background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+ color: white;
+ border-radius: 16px;
+ padding: 28px 32px;
+ margin: 40px 0 24px;
+ text-align: center;
 }
 .cta-box h3 {
-  color: white;
-  margin-top: 0;
+ color: white;
+ margin-top: 0;
 }
 .cta-box a {
-  color: #bae6fd;
+ color: #bae6fd;
 }
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 16px 0 24px;
-  font-size: 0.85em;
+ width: 100%;
+ border-collapse: collapse;
+ margin: 16px 0 24px;
+ font-size: 0.85em;
 }
 th {
-  background: #0ea5e9;
-  color: white;
-  padding: 10px 12px;
-  text-align: left;
-  font-weight: 600;
+ background: #0ea5e9;
+ color: white;
+ padding: 10px 12px;
+ text-align: left;
+ font-weight: 600;
 }
 td {
-  padding: 9px 12px;
-  border-bottom: 1px solid #e4e6eb;
+ padding: 9px 12px;
+ border-bottom: 1px solid #e4e6eb;
 }
 tr:nth-child(even) {
-  background: #f0f9ff;
+ background: #f0f9ff;
 }
 tr:hover {
-  background: #bae6fd;
+ background: #bae6fd;
 }
 .green { color: #16a34a; font-weight: 600; }
 .red { color: #dc2626; font-weight: 600; }
 .yellow { color: #d97706; font-weight: 600; }
 blockquote {
-  border-left: 4px solid #6366f1;
-  padding: 12px 20px;
-  margin: 16px 0;
-  background: #eef2ff;
-  font-style: italic;
-  color: #312e81;
+ border-left: 4px solid #6366f1;
+ padding: 12px 20px;
+ margin: 16px 0;
+ background: #eef2ff;
+ font-style: italic;
+ color: #312e81;
 }
 code {
-  background: #f1f3f5;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-size: 0.9em;
-  font-family: 'SF Mono', 'Fira Code', monospace;
+ background: #f1f3f5;
+ padding: 2px 6px;
+ border-radius: 3px;
+ font-size: 0.9em;
+ font-family: 'SF Mono', 'Fira Code', monospace;
 }
 pre {
-  background: #1e293b;
-  color: #e2e8f0;
-  padding: 16px 20px;
-  border-radius: 8px;
-  overflow-x: auto;
-  font-size: 0.85em;
-  line-height: 1.6;
+ background: #1e293b;
+ color: #e2e8f0;
+ padding: 16px 20px;
+ border-radius: 8px;
+ overflow-x: auto;
+ font-size: 0.85em;
+ line-height: 1.6;
 }
 pre code {
-  background: none;
-  color: inherit;
-  padding: 0;
+ background: none;
+ color: inherit;
+ padding: 0;
 }
 </style>

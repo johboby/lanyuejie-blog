@@ -3,18 +3,18 @@ title: "Notion AI Second Brain 2026: PARA Setup & Free Template"
 date: 2026-07-26
 description: "用Notion+AI搭建第二大脑完整指南：PARA方法论+6个数据库架构+AI Autofill实战+每周回顾工作流+免费模板分享，2小时搭建月费¥0的知识管理系统。"
 tags:
-  - Notion
-  - 第二大脑
-  - AI知识管理
-  - PARA
-  - 生产力
-  - Notion AI
-  - 模板
-  - 工作流
+ - Notion
+ - 第二大脑
+ - AI知识管理
+ - PARA
+ - 生产力
+ - Notion AI
+ - 模板
+ - 工作流
 categories:
-  - 生产力工具
-  - AI应用
-  - 研究
+ - 生产力工具
+ - AI应用
+ - 研究
 ---
 <p class="reading-time">⏱️ 阅读时间：约 16 分钟</p>
 
@@ -88,24 +88,24 @@ categories:
 
 ### 四个字母，四个家
 
-PARA由Tiago Forte提出，是第二大脑领域最被广泛采用的框架 [citation:5][citation:27]：
+PARA由Tiago Forte提出，是第二大脑领域最被广泛采用的框架：
 
 ```
 P — Projects（项目）
-    └─ 有截止日期 + 有明确成果
-       "写完这篇博客""完成Q3预算""搬家"
+ └─ 有截止日期 + 有明确成果
+ "写完这篇博客""完成Q3预算""搬家"
 
 A — Areas（领域）
-    └─ 持续责任，无截止日期
-       "健康""理财""职业发展""家庭"
+ └─ 持续责任，无截止日期
+ "健康""理财""职业发展""家庭"
 
 R — Resources（资源）
-    └─ 参考资料，无立即行动
-       "摄影技巧""AI论文笔记""菜谱收藏"
+ └─ 参考资料，无立即行动
+ "摄影技巧""AI论文笔记""菜谱收藏"
 
 A — Archives（归档）
-    └─ 以上三项中不再活跃的内容
-       "2025年旧项目""读完的书笔记""过期兴趣"
+ └─ 以上三项中不再活跃的内容
+ "2025年旧项目""读完的书笔记""过期兴趣"
 ```
 
 ### PARA和传统文件夹的本质区别
@@ -134,12 +134,12 @@ Second Brain（主页）
 ├── 📚 Resources（资源）
 ├── 🗄️ Archives（归档）
 └── 📝 Daily Notes（每日笔记）
-        │
-        └── 关系图：
-            Projects ←→ Areas（每个Project属于一个Area）
-            Resources ←→ Projects（资源可关联项目）
-            Inbox → 四向分流（P/A/R/A）
-            Daily Notes → 每日自动创建
+ │
+ └── 关系图：
+ Projects ←→ Areas（每个Project属于一个Area）
+ Resources ←→ Projects（资源可关联项目）
+ Inbox → 四向分流（P/A/R/A）
+ Daily Notes → 每日自动创建
 ```
 
 ### 数据库关系设计
@@ -159,7 +159,7 @@ Second Brain（主页）
 
 ### 为什么Inbox是系统中最重要的一个数据库
 
-> "所有捕获路径都汇入同一个Inbox，永远不要直接存到随机页面。" [citation:5]
+> "所有捕获路径都汇入同一个Inbox，永远不要直接存到随机页面。" 
 
 如果你必须在捕获时就决定"这条笔记属于哪个项目、哪个领域、哪个标签"——你很快就会停止捕获。Inbox消除了这个决策点。
 
@@ -169,25 +169,25 @@ Second Brain（主页）
 创建方式：新建页面 → 选"数据库" → 表格视图
 
 属性设置：
-  Name（标题）— 笔记标题
-  URL（URL）— 来源链接
-  Source（选择）— Web Clipper / 手动 / 语音 / 邮件 / API
-  Status（选择）— Unprocessed / Filed / Archived
-  AI Summary（AI Autofill）— 见Step 6配置
-  Created（日期，自动）— 创建时间
-  Tags（多选）— 临时标签（处理后清除）
+ Name（标题）— 笔记标题
+ URL（URL）— 来源链接
+ Source（选择）— Web Clipper / 手动 / 语音 / 邮件 / API
+ Status（选择）— Unprocessed / Filed / Archived
+ AI Summary（AI Autofill）— 见Step 6配置
+ Created（日期，自动）— 创建时间
+ Tags（多选）— 临时标签（处理后清除）
 
 视图：
-  Table（默认，按Created倒序）
-  Board（按Status分组）
-  Filter: Status = Unprocessed（每日处理视图）
+ Table（默认，按Created倒序）
+ Board（按Status分组）
+ Filter: Status = Unprocessed（每日处理视图）
 ```
 
 ### 所有捕获路径指向Inbox
 
 | 场景 | 工具 | 操作 |
 |---|---|---|
-| 浏览网页看到好文章 | Notion Web Clipper | 一键保存到Inbox [citation:25] |
+| 浏览网页看到好文章 | Notion Web Clipper | 一键保存到Inbox |
 | 手机上闪现一个想法 | Notion移动端 | 快捷入口→新建Inbox条目 |
 | 邮件中有用信息 | 转发规则 | 转发到Notion邮箱→进Inbox |
 | 语音想法 | Whisper/语音输入 | 转文字→粘贴到Inbox |
@@ -232,10 +232,10 @@ prop("Done Tasks") / prop("Total Tasks")
 dateBetween(prop("Last Touched"), now(), "days")
 
 视图：
-  Active Board（按Status分组看板）
-  Deadline Calendar（按截止日日历）
-  Cooling Alert（公式>14天的红色标记）
-  Next Actions（只看Active + 显示Next Action列）
+ Active Board（按Status分组看板）
+ Deadline Calendar（按截止日日历）
+ Cooling Alert（公式>14天的红色标记）
+ Next Actions（只看Active + 显示Next Action列）
 ```
 
 ---
@@ -296,7 +296,7 @@ Recent Unread（Read Status=Unread 且 30天内）
 Applied Wins（Read Status=Applied，看哪些真的用上了）
 ```
 
-> 关键洞察：**Resources的真正价值不在于"存了多少"，在于"用了多少"。** "Applied"视图让你看到知识转化率 [citation:25]。
+> 关键洞察：**Resources的真正价值不在于"存了多少"，在于"用了多少"。** "Applied"视图让你看到知识转化率。
 
 ---
 
@@ -345,7 +345,7 @@ Mood（选择）— 😊 / 😐 / 😔
 （自由记录区）
 ```
 
-> 每天打开Notion的第一件事：点Template Button → 自动生成今日页面 → 填入Focus → 开始一天 [citation:27]。
+> 每天打开Notion的第一件事：点Template Button → 自动生成今日页面 → 填入Focus → 开始一天。
 
 ---
 
@@ -353,7 +353,7 @@ Mood（选择）— 😊 / 😐 / 😔
 
 ### 这是2026年Notion最被低估的功能
 
-> 大多数人只把Notion AI当"写文案工具"用。但AI Autofill才是让第二大脑"活起来"的引擎——它在你每次创建/编辑条目时**自动**提取、总结、分类、关联 [citation:2]。
+> 大多数人只把Notion AI当"写文案工具"用。但AI Autofill才是让第二大脑"活起来"的引擎——它在你每次创建/编辑条目时**自动**提取、总结、分类、关联。
 
 ### 配置5个AI Autofill属性
 
@@ -363,11 +363,11 @@ Mood（选择）— 😊 / 😐 / 😔
 位置：Inbox数据库 → 新建属性 → AI Autofill
 模式：Basic
 指令（自定义）：
-  "Summarize this content in 3 bullet points.
-   Then identify which PARA category it belongs to:
-   Projects (has deadline/action), Areas (ongoing responsibility),
-   Resources (reference material), or Archives (inactive).
-   End with: 'Suggested: [P/A/R/A]'"
+ "Summarize this content in 3 bullet points.
+ Then identify which PARA category it belongs to:
+ Projects (has deadline/action), Areas (ongoing responsibility),
+ Resources (reference material), or Archives (inactive).
+ End with: 'Suggested: [P/A/R/A]'"
 触发：On page create + On page edit
 ```
 
@@ -377,9 +377,9 @@ Mood（选择）— 😊 / 😐 / 😔
 位置：Resources数据库 → 新建属性 → AI Autofill
 模式：Basic
 指令（自定义）：
-  "Summarize this resource in exactly 2 sentences.
-   Extract the single most actionable insight.
-   If there's a specific technique/method mentioned, name it."
+ "Summarize this resource in exactly 2 sentences.
+ Extract the single most actionable insight.
+ If there's a specific technique/method mentioned, name it."
 触发：On page create
 ```
 
@@ -389,10 +389,10 @@ Mood（选择）— 😊 / 😐 / 😔
 位置：Resources数据库 → Tags属性 → AI Autofill
 模式：Basic
 指令：
-  "Read the page content. Select all applicable tags
-   from this list: AI, Programming, Productivity, Finance,
-   Psychology, Health, Writing, Design, Business, Science.
-   Add new tags only if none fit."
+ "Read the page content. Select all applicable tags
+ from this list: AI, Programming, Productivity, Finance,
+ Psychology, Health, Writing, Design, Business, Science.
+ Add new tags only if none fit."
 触发：On page create
 ```
 
@@ -402,10 +402,10 @@ Mood（选择）— 😊 / 😐 / 😔
 位置：Projects数据库 → Next Action属性 → AI Autofill
 模式：Custom Agent（需Business plan）
 指令：
-  "Read the project description and recent notes.
-   Suggest the single most logical next action (one sentence).
-   Only fill if Status = 'Active' and Next Action is empty.
-   Be specific: not 'work on it' but 'write section 3 outline'."
+ "Read the project description and recent notes.
+ Suggest the single most logical next action (one sentence).
+ Only fill if Status = 'Active' and Next Action is empty.
+ Be specific: not 'work on it' but 'write section 3 outline'."
 触发：On page edit（每天一次）
 ```
 
@@ -415,12 +415,12 @@ Mood（选择）— 😊 / 😐 / 😔
 位置：Daily Notes数据库 → 新建属性"Review Prompt" → AI Autofill
 模式：Basic
 指令：
-  "Read today's captures and notes.
-   Generate 3 questions for reflection:
-   1. What went well today?
-   2. What's one thing to improve tomorrow?
-   3. What's the most important thing to carry forward?
-   Keep each answer to one sentence."
+ "Read today's captures and notes.
+ Generate 3 questions for reflection:
+ 1. What went well today?
+ 2. What's one thing to improve tomorrow?
+ 3. What's the most important thing to carry forward?
+ Keep each answer to one sentence."
 触发：手动（睡前点一下）
 ```
 
@@ -485,7 +485,7 @@ Mood（选择）— 😊 / 😐 / 😔
 
 ### 2026年Notion杀手级功能
 
-> 不用再打开Slack搜聊天记录、打开GDrive找文档、打开GitHub看Issue——**在Notion里问一句，AI从所有连接的应用里找答案并标注来源** [citation:4]。
+> 不用再打开Slack搜聊天记录、打开GDrive找文档、打开GitHub看Issue——**在Notion里问一句，AI从所有连接的应用里找答案并标注来源**。
 
 ### 支持的Connector（2026年7月）
 
@@ -502,27 +502,27 @@ Mood（选择）— 😊 / 😐 / 😔
 ```
 在Notion AI Chat（右下角）或侧边栏搜索框直接问：
 
-  "帮我找上周Slack里关于Q3预算的讨论要点"
-  "GitHub上我open的Issue有哪些？"
-  "把Gmail里客户X最近的邮件总结一下"
-  "Jira上我们团队这个sprint的blocked任务"
+ "帮我找上周Slack里关于Q3预算的讨论要点"
+ "GitHub上我open的Issue有哪些？"
+ "把Gmail里客户X最近的邮件总结一下"
+ "Jira上我们团队这个sprint的blocked任务"
 
 AI会自动：
-  ① 在连接的app里搜索
-  ② 综合多个来源
-  ③ 给出答案 + 引用具体来源链接
+ ① 在连接的app里搜索
+ ② 综合多个来源
+ ③ 给出答案 + 引用具体来源链接
 ```
 
 ### 设置步骤
 
 ```
 Settings → Notion AI → Connectors
-  → 选择要连接的应用
-  → 授权（需该应用的admin权限）
-  → 等待同步（最多72小时）
-  
+ → 选择要连接的应用
+ → 授权（需该应用的admin权限）
+ → 等待同步（最多72小时）
+ 
 注意：需Business或Enterprise plan
-     数据同步后AI才能检索
+ 数据同步后AI才能检索
 ```
 
 ---
@@ -547,24 +547,24 @@ Settings → Notion AI → Connectors
 
 ```
 每天必用：
-  ✓ AI Q&A（找旧笔记）→ 5-10次/天
-  ✓ Autofill Summary（新条目）→ 10-20次/天
-  ✓ Ask AI（页面内提问）→ 2-3次/天
+ ✓ AI Q&A（找旧笔记）→ 5-10次/天
+ ✓ Autofill Summary（新条目）→ 10-20次/天
+ ✓ Ask AI（页面内提问）→ 2-3次/天
 
 每周用：
-  ✓ Weekly Review AI辅助 → 1次/周
-  ✓ Meeting Notes总结 → 2-3次/周
+ ✓ Weekly Review AI辅助 → 1次/周
+ ✓ Meeting Notes总结 → 2-3次/周
 
 偶尔用：
-  ✓ Custom Agent（复杂检索）→ 1-2次/周
-  ✓ Web Clipper + AI摘要 → 按需
+ ✓ Custom Agent（复杂检索）→ 1-2次/周
+ ✓ Web Clipper + AI摘要 → 按需
 ```
 
 ---
 
 ## <span id="定价分析免费版够用吗">定价分析：免费版够用吗？</span>
 
-### 2026年Notion定价 [citation:24][citation:28]
+### 2026年Notion定价 
 
 | Plan | 月费 | AI | 适合 |
 |---|---|---|---|
@@ -575,7 +575,7 @@ Settings → Notion AI → Connectors
 
 ### 2026年最大变化
 
-> ⚠️ Notion AI不再单独售卖（以前$8/月）。现在AI全功能**只捆绑在Business和Enterprise**。Free和Plus只有"试用额度"（有限次）[citation:28]。
+> ⚠️ Notion AI不再单独售卖（以前$8/月）。现在AI全功能**只捆绑在Business和Enterprise**。Free和Plus只有"试用额度"（有限次）。
 
 ### 我的建议
 
@@ -587,21 +587,21 @@ Settings → Notion AI → Connectors
 | 5+人+要AI全功能 | Business | AI Autofill/Agent/Meeting Notes |
 | 企业/合规要求 | Enterprise | SSO/审计/DLP/零保留 |
 
-> 个人使用真相：我跑了2年免费版，AI试用额度每月约200次操作。日常Autofill+Q&A大约消耗150-180次。**刚好够用，但不宽裕。** 如果每天重度使用AI，会不够 [citation:28]。
+> 个人使用真相：我跑了2年免费版，AI试用额度每月约200次操作。日常Autofill+Q&A大约消耗150-180次。**刚好够用，但不宽裕。** 如果每天重度使用AI，会不够。
 
 ### 升级信号（不要提前升）
 
 ```
 升Business的信号：
-  ✅ AI试用额度每月不够用（频繁提示升级）
-  ✅ 需要Meeting Notes自动整理
-  ✅ 需要连接Slack/GDrive等Enterprise Search
-  ✅ 团队协作需要AI Agent
+ ✅ AI试用额度每月不够用（频繁提示升级）
+ ✅ 需要Meeting Notes自动整理
+ ✅ 需要连接Slack/GDrive等Enterprise Search
+ ✅ 团队协作需要AI Agent
 
 不要升的信号：
-  ❌ "感觉应该支持一下"（情怀不是理由）
-  ❌ "Business看起来更专业"（你一个人用不到）
-  ❌ "AI全功能很酷"（先试用看实际用量）
+ ❌ "感觉应该支持一下"（情怀不是理由）
+ ❌ "Business看起来更专业"（你一个人用不到）
+ ❌ "AI全功能很酷"（先试用看实际用量）
 ```
 
 ---
@@ -612,28 +612,28 @@ Settings → Notion AI → Connectors
 
 ```
 🌅 早上 8:00 — 打开Notion
-  → 自动生成今日Daily Note（Template）
-  → 填入Today's Focus（3件事）
-  → 看AI Agent的"今日提醒"（Deadline/Blocked项目）
+ → 自动生成今日Daily Note（Template）
+ → 填入Today's Focus（3件事）
+ → 看AI Agent的"今日提醒"（Deadline/Blocked项目）
 
 📱 白天随时 — 捕获
-  → 看到好文章 → Web Clipper → Inbox（5秒）
-  → 闪现想法 → 手机Notion → Inbox（10秒）
-  → 会议结束 → Meeting Notes自动生成（0操作）
+ → 看到好文章 → Web Clipper → Inbox（5秒）
+ → 闪现想法 → 手机Notion → Inbox（10秒）
+ → 会议结束 → Meeting Notes自动生成（0操作）
 
 🔍 工作中 — 检索
-  → 需要旧笔记 → AI Q&A框输入关键词 → 秒出结果+来源链接
-  → 比翻文件夹快10倍
+ → 需要旧笔记 → AI Q&A框输入关键词 → 秒出结果+来源链接
+ → 比翻文件夹快10倍
 
 🌙 晚上 10:00 — 收尾
-  → Daily Note填Wins/Tomorrow
-  → 点AI Review → 自动生成3个反思问题
-  → 花2分钟回答 → 关电脑
+ → Daily Note填Wins/Tomorrow
+ → 点AI Review → 自动生成3个反思问题
+ → 花2分钟回答 → 关电脑
 
 📅 每周日 9:00 — Weekly Review
-  → 打开Weekly Review模板
-  → 15分钟走完5步检查清单
-  → 新的一周计划写入Monday Focus
+ → 打开Weekly Review模板
+ → 15分钟走完5步检查清单
+ → 新的一周计划写入Monday Focus
 ```
 
 ### 时间投资回报
@@ -646,10 +646,10 @@ Settings → Notion AI → Connectors
 总计：约2.5小时/月
 
 换回：
-  - 找东西从平均5分钟→<3秒（按每天5次=省20分钟/天=10小时/月）
-  - 写内容时自动调取相关笔记（省去重新研究的时间）
-  - 不遗漏重要事项（Deadline提醒）
-  - 积累的可检索知识库持续增值
+ - 找东西从平均5分钟→<3秒（按每天5次=省20分钟/天=10小时/月）
+ - 写内容时自动调取相关笔记（省去重新研究的时间）
+ - 不遗漏重要事项（Deadline提醒）
+ - 积累的可检索知识库持续增值
 
 净节省：约7-8小时/月
 ```
@@ -690,38 +690,38 @@ Settings → Notion AI → Connectors
 
 ```
 方式一：Duplicate链接（推荐）
-  ① 点击模板分享链接
-  ② 点右上角"Duplicate"按钮
-  ③ 选择目标工作区
-  ④ 自动复制所有数据库+关系
+ ① 点击模板分享链接
+ ② 点右上角"Duplicate"按钮
+ ③ 选择目标工作区
+ ④ 自动复制所有数据库+关系
 
 方式二：手动搭建（学习用）
-  ① 按本文Step 1-7逐步创建
-  ② 每个数据库照属性表配置
-  ③ 约2小时完成
+ ① 按本文Step 1-7逐步创建
+ ② 每个数据库照属性表配置
+ ③ 约2小时完成
 
 适配步骤（30分钟）：
-  ① 改Areas为你的领域
-  ② 改Tags为你的主题
-  ③ 删掉所有示例数据
-  ④ 测试一条Inbox→PARA流程
-  ⑤ 配置AI Autofill（如有权限）
+ ① 改Areas为你的领域
+ ② 改Tags为你的主题
+ ③ 删掉所有示例数据
+ ④ 测试一条Inbox→PARA流程
+ ⑤ 配置AI Autofill（如有权限）
 ```
 
 ### 使用建议
 
 ```
 第一周：只跑Inbox + Daily Notes
-  → 习惯捕获和每日记录
+ → 习惯捕获和每日记录
 
 第二周：加Projects + Areas
-  → 开始用PARA分类
+ → 开始用PARA分类
 
 第三周：加Resources + Archives
-  → 完整系统跑通
+ → 完整系统跑通
 
 第四周：加AI Autofill + Weekly Review
-  → 自动化开始生效
+ → 自动化开始生效
 
 不要第一天就全开 → 会overwhelm
 ```
@@ -732,27 +732,27 @@ Settings → Notion AI → Connectors
 
 ### 1. 免费版Notion够用吗？需要升级到Plus还是Business？
 
-个人搭建第二大脑，免费版完全够用。免费版2026年包含：无限页面和区块（个人）、AI功能试用（有限次数）、数据库、Web Clipper、基础连接。关键限制是个人版仅限1人使用——不需要协作就够。升级信号：① 需要多人协作→Plus $10/月/人；② 需要Notion AI全功能→Business $20/月/人（AI已捆绑不再单独售卖）；③ 需要Meeting Notes/Enterprise Search/SSO→Business或Enterprise。建议先用免费版跑3个月再决定 [citation:24][citation:28]。
+个人搭建第二大脑，免费版完全够用。免费版2026年包含：无限页面和区块（个人）、AI功能试用（有限次数）、数据库、Web Clipper、基础连接。关键限制是个人版仅限1人使用——不需要协作就够。升级信号：① 需要多人协作→Plus $10/月/人；② 需要Notion AI全功能→Business $20/月/人（AI已捆绑不再单独售卖）；③ 需要Meeting Notes/Enterprise Search/SSO→Business或Enterprise。建议先用免费版跑3个月再决定。
 
 ### 2. PARA是什么？和传统的文件夹分类有什么不同？
 
-PARA是Tiago Forte提出的知识管理框架：Projects（有截止日期的活跃项目）、Areas（无截止日期的持续责任）、Resources（参考资料/兴趣主题）、Archives（已完成/过时的归档）。和传统文件夹本质区别：① 按"可行动性"而非"主题"分类——"买什么相机"是Project（有行动），"摄影技巧"是Resource（无行动）；② 动态流转——完成的项目→Archives，过时的资源→Archives；③ 和AI天然兼容——AI可自动判断归属。传统文件夹是静态的"东西是什么"，PARA是动态的"我现在要对它做什么" [citation:5][citation:27]。
+PARA是Tiago Forte提出的知识管理框架：Projects（有截止日期的活跃项目）、Areas（无截止日期的持续责任）、Resources（参考资料/兴趣主题）、Archives（已完成/过时的归档）。和传统文件夹本质区别：① 按"可行动性"而非"主题"分类——"买什么相机"是Project（有行动），"摄影技巧"是Resource（无行动）；② 动态流转——完成的项目→Archives，过时的资源→Archives；③ 和AI天然兼容——AI可自动判断归属。传统文件夹是静态的"东西是什么"，PARA是动态的"我现在要对它做什么"。
 
 ### 3. AI Autofill怎么用？真的能自动整理笔记吗？
 
-能，但有边界。两种模式：① Basic Autofill（免费试用/Plus有限）——基于单页内容生成摘要、标签、提取关键信息，设置：属性上悬停→AI Autofill→Basic→选摘要/翻译/关键信息→设触发时机。② Custom Agent Autofill（Business专属，烧Credits）——可用Workspace搜索+Web搜索+多步推理，示例："两句话总结页面。提到截止日期提取到Due Date。只在Status=In Progress时执行。"实测Basic对摘要很好用（省30秒×20条=10分钟/天），Custom Agent能跨页面关联但需注意Credits消耗 [citation:2][citation:25]。
+能，但有边界。两种模式：① Basic Autofill（免费试用/Plus有限）——基于单页内容生成摘要、标签、提取关键信息，设置：属性上悬停→AI Autofill→Basic→选摘要/翻译/关键信息→设触发时机。② Custom Agent Autofill（Business专属，烧Credits）——可用Workspace搜索+Web搜索+多步推理，示例："两句话总结页面。提到截止日期提取到Due Date。只在Status=In Progress时执行。"实测Basic对摘要很好用（省30秒×20条=10分钟/天），Custom Agent能跨页面关联但需注意Credits消耗。
 
 ### 4. 我的笔记隐私安全吗？Notion AI会不会拿我的数据训练？
 
-Notion官方隐私政策（2026）：① 免费/Plus/Business：AI处理数据零数据保留协议（处理后立即删除，不用于训练）；② Enterprise：LLM零保留+SCIM+审计日志+DLP/SIEM；③ 数据加密+SOC2认证。注意：Custom Agent启用Web搜索会访问外部信息；连接第三方App（Slack/GDrive）时AI能读取那些数据。建议：敏感信息（密码/财务细节/个人隐私）不要放Notion；用Private Teamspaces隔离；Enterprise如需合规保障。个人知识管理安全级别足够 [citation:2][citation:4][citation:24]。
+Notion官方隐私政策（2026）：① 免费/Plus/Business：AI处理数据零数据保留协议（处理后立即删除，不用于训练）；② Enterprise：LLM零保留+SCIM+审计日志+DLP/SIEM；③ 数据加密+SOC2认证。注意：Custom Agent启用Web搜索会访问外部信息；连接第三方App（Slack/GDrive）时AI能读取那些数据。建议：敏感信息（密码/财务细节/个人隐私）不要放Notion；用Private Teamspaces隔离；Enterprise如需合规保障。个人知识管理安全级别足够。
 
 ### 5. 和Obsidian/Logseq等本地工具比，Notion有什么优势和劣势？
 
-三维度对比：① 上手难度——Notion最低（所见即所得），Obsidian需学Markdown+插件，Logseq需学大纲法。② 数据安全——Obsidian/Logseq本地优先，Notion云端。③ AI集成——Notion原生AI最流畅（Autofill/Agent/Meeting Notes开箱即用），Obsidian需Copilot插件+Ollama/API，Logseq较基础。④ 数据库——Notion最强（关系型/视图/公式），Obsidian靠插件模拟。⑤ 价格——Obsidian/Logseq免费本地，Notion AI全功能$20/月。选择：最低门槛+AI优先→Notion；数据完全自控→Obsidian；大纲思维+本地→Logseq [citation:1][citation:3]。
+三维度对比：① 上手难度——Notion最低（所见即所得），Obsidian需学Markdown+插件，Logseq需学大纲法。② 数据安全——Obsidian/Logseq本地优先，Notion云端。③ AI集成——Notion原生AI最流畅（Autofill/Agent/Meeting Notes开箱即用），Obsidian需Copilot插件+Ollama/API，Logseq较基础。④ 数据库——Notion最强（关系型/视图/公式），Obsidian靠插件模拟。⑤ 价格——Obsidian/Logseq免费本地，Notion AI全功能$20/月。选择：最低门槛+AI优先→Notion；数据完全自控→Obsidian；大纲思维+本地→Logseq。
 
 ### 6. 模板怎么导入？你分享的模板我能直接用吗？
 
-极简：① 点模板链接→右上角"Duplicate"→选工作区→自动复制所有数据库+关系；② 约30分钟适配——改Areas为你的领域、删示例数据、设AI Autofill。适配先跑通一条Inbox→PARA流程再批量迁移。注意AI Autofill在免费版是试用次数限制。模板含6个数据库+5个AI配置+每周回顾模板+每日笔记模板+4条自动化规则+Dashboard。建议第一周只开Inbox+Daily Notes，第二周加Projects+Areas，第三周加Resources+Archives，第四周加AI+Review——不要一天全开 [citation:1][citation:3][citation:5]。
+极简：① 点模板链接→右上角"Duplicate"→选工作区→自动复制所有数据库+关系；② 约30分钟适配——改Areas为你的领域、删示例数据、设AI Autofill。适配先跑通一条Inbox→PARA流程再批量迁移。注意AI Autofill在免费版是试用次数限制。模板含6个数据库+5个AI配置+每周回顾模板+每日笔记模板+4条自动化规则+Dashboard。建议第一周只开Inbox+Daily Notes，第二周加Projects+Areas，第三周加Resources+Archives，第四周加AI+Review——不要一天全开。
 
 ---
 
@@ -806,103 +806,103 @@ AI帮你摘要、标签、分类、提醒——但"这条笔记对我意味着�
 
 <style>
 .reading-time {
-  background: #f0fdf4;
-  border-left: 4px solid #16a34a;
-  padding: 8px 16px;
-  margin: 16px 0;
-  border-radius: 4px;
-  font-size: 0.95em;
-  color: #14532d;
+ background: #f0fdf4;
+ border-left: 4px solid #16a34a;
+ padding: 8px 16px;
+ margin: 16px 0;
+ border-radius: 4px;
+ font-size: 0.95em;
+ color: #14532d;
 }
 .toc {
-  background: #fafbfc;
-  border: 1px solid #e4e6eb;
-  border-radius: 10px;
-  padding: 20px 28px;
-  margin: 24px 0 32px;
+ background: #fafbfc;
+ border: 1px solid #e4e6eb;
+ border-radius: 10px;
+ padding: 20px 28px;
+ margin: 24px 0 32px;
 }
 .toc h2 {
-  margin-top: 0;
-  font-size: 1.1em;
+ margin-top: 0;
+ font-size: 1.1em;
 }
 .toc a {
-  color: #14532d;
-  text-decoration: none;
-  display: block;
-  padding: 3px 0;
+ color: #14532d;
+ text-decoration: none;
+ display: block;
+ padding: 3px 0;
 }
 .toc a:hover {
-  color: #16a34a;
-  text-decoration: underline;
+ color: #16a34a;
+ text-decoration: underline;
 }
 .cta-box {
-  background: linear-gradient(135deg, #16a34a 0%, #059669 40%, #0d9488 100%);
-  color: white;
-  border-radius: 16px;
-  padding: 28px 32px;
-  margin: 40px 0 24px;
-  text-align: center;
+ background: linear-gradient(135deg, #16a34a 0%, #059669 40%, #0d9488 100%);
+ color: white;
+ border-radius: 16px;
+ padding: 28px 32px;
+ margin: 40px 0 24px;
+ text-align: center;
 }
 .cta-box h3 {
-  color: white;
-  margin-top: 0;
+ color: white;
+ margin-top: 0;
 }
 .cta-box a {
-  color: #d1fae5;
+ color: #d1fae5;
 }
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 16px 0 24px;
-  font-size: 0.85em;
+ width: 100%;
+ border-collapse: collapse;
+ margin: 16px 0 24px;
+ font-size: 0.85em;
 }
 th {
-  background: #16a34a;
-  color: white;
-  padding: 10px 12px;
-  text-align: left;
-  font-weight: 600;
+ background: #16a34a;
+ color: white;
+ padding: 10px 12px;
+ text-align: left;
+ font-weight: 600;
 }
 td {
-  padding: 9px 12px;
-  border-bottom: 1px solid #e4e6eb;
+ padding: 9px 12px;
+ border-bottom: 1px solid #e4e6eb;
 }
 tr:nth-child(even) {
-  background: #f0fdf4;
+ background: #f0fdf4;
 }
 tr:hover {
-  background: #bbf7d0;
+ background: #bbf7d0;
 }
 .green { color: #16a34a; font-weight: 600; }
 .red { color: #dc2626; font-weight: 600; }
 .yellow { color: #d97706; font-weight: 600; }
 blockquote {
-  border-left: 4px solid #059669;
-  padding: 12px 20px;
-  margin: 16px 0;
-  background: #ecfdf5;
-  font-style: italic;
-  color: #064e3b;
+ border-left: 4px solid #059669;
+ padding: 12px 20px;
+ margin: 16px 0;
+ background: #ecfdf5;
+ font-style: italic;
+ color: #064e3b;
 }
 code {
-  background: #f1f3f5;
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-size: 0.9em;
-  font-family: 'SF Mono', 'Fira Code', monospace;
+ background: #f1f3f5;
+ padding: 2px 6px;
+ border-radius: 3px;
+ font-size: 0.9em;
+ font-family: 'SF Mono', 'Fira Code', monospace;
 }
 pre {
-  background: #1e293b;
-  color: #e2e8f0;
-  padding: 16px 20px;
-  border-radius: 8px;
-  overflow-x: auto;
-  font-size: 0.85em;
-  line-height: 1.6;
+ background: #1e293b;
+ color: #e2e8f0;
+ padding: 16px 20px;
+ border-radius: 8px;
+ overflow-x: auto;
+ font-size: 0.85em;
+ line-height: 1.6;
 }
 pre code {
-  background: none;
-  color: inherit;
-  padding: 0;
+ background: none;
+ color: inherit;
+ padding: 0;
 }
 </style>
