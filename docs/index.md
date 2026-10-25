@@ -52,25 +52,16 @@ head:
   <nav class="section cat-nav reveal reveal-delay-1" data-part="cat-nav" aria-label="分类导航">
     <div class="section-inner">
       <div class="cat-nav-grid">
-        <a href="/lanyuejie-blog/posts/" class="cat-nav-card" data-part="cat-card">
-          <span class="cat-nav-glyph" aria-hidden="true">AI</span>
-          <span class="cat-nav-name">AI 前沿</span>
-          <span class="cat-nav-count" id="cat-ai-count">— 篇</span>
-        </a>
-        <a href="/lanyuejie-blog/posts/" class="cat-nav-card" data-part="cat-card">
-          <span class="cat-nav-glyph" aria-hidden="true">行业</span>
-          <span class="cat-nav-name">行业洞察</span>
-          <span class="cat-nav-count" id="cat-industry-count">— 篇</span>
-        </a>
-        <a href="/lanyuejie-blog/posts/" class="cat-nav-card" data-part="cat-card">
-          <span class="cat-nav-glyph" aria-hidden="true">深度</span>
-          <span class="cat-nav-name">深度解析</span>
-          <span class="cat-nav-count" id="cat-deep-count">— 篇</span>
-        </a>
-        <a href="/lanyuejie-blog/posts/" class="cat-nav-card" data-part="cat-card">
-          <span class="cat-nav-glyph" aria-hidden="true">工具</span>
-          <span class="cat-nav-name">效率实战</span>
-          <span class="cat-nav-count" id="cat-tool-count">— 篇</span>
+        <a
+          v-for="axis in axes"
+          :key="axis.key"
+          :href="withBase(axisHref(axis.key))"
+          class="cat-nav-card"
+          data-part="cat-card"
+        >
+          <span class="cat-nav-glyph" aria-hidden="true">{{ axis.glyph }}</span>
+          <span class="cat-nav-name">{{ axis.label }}</span>
+          <span class="cat-nav-count" :id="'cat-' + axis.slug + '-count'">— 篇</span>
         </a>
       </div>
     </div>
@@ -160,36 +151,11 @@ head:
 import { onMounted } from 'vue'
 import { withBase } from 'vitepress'
 import { POSTS as BUILD_POSTS } from './posts-list.generated.js'
+import { CONTENT_AXES, axisHref, countByAxis } from './.vitepress/lib/content-axes.js'
 
-const CATEGORIES = [
-  { key: 'AI', id: 'cat-ai-count' },
-  { key: '行业', id: 'cat-industry-count' },
-  { key: '深度', id: 'cat-deep-count' },
-  { key: '工具', id: 'cat-tool-count' }
-]
-
-// 分类维度关键词表：文章的真实 categories 标签极度碎片化（80+ 个，多数只出现 1 次），
-// 无法用等值匹配统计。这里用「内容域关键词」对标题 + 摘要 + 标签 + 分类做聚类，
-// 计数结果与卡片语义一致（卡片写「AI 前沿」，数字就是命中 AI 域的文章数）。
-const DOMAIN_KEYWORDS = {
-  AI: ['ai', '人工智能', '大模型', '大语言模型', 'llm', '智能体', 'agent', '具身', '机器人',
-    '芯片', '算力', '深度学习', '神经网络', '多模态', '生成式', 'claude', 'gpt', 'deepseek',
-    'prompt', 'rag', 'mcp', '自动驾驶', '算法', '编程', '世界模型', '扩散模型'],
-  行业: ['行业分析', '行业观察', '行业新闻', '行业展望', '产业研究', '市场', '竞争格局',
-    '商业模式', '经济', '政策', '供应链', '趋势'],
-  深度: ['深度分析', '深度思考', '深度复盘', '深度调查', '深度长文', '研究综述', '技术原理',
-    '深度', '综述', '复盘', '机制', '架构'],
-  工具: ['工具', '生产力', '效率', '工作流', '实战', '教程', '上手', '推荐', '脚本', '插件', '方法论']
-}
-
-// 纯 ASCII 关键词按「词首边界」匹配，避免 trained / paragraph / email 等误命中；
-// 中文关键词直接子串匹配。
-function hitDomain(text, word) {
-  if (/^[\x00-\x7F]+$/.test(word)) {
-    return new RegExp(`(^|[^a-z0-9])${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`).test(text)
-  }
-  return text.includes(word)
-}
+// 分类卡片与归档页筛选共用同一套「内容轴」规则，卡片上的「N 篇」
+// 与归档页按轴筛选后的条数永远一致。
+const axes = CONTENT_AXES
 
 function formatDate(value) {
   const d = new Date(value)
@@ -216,17 +182,9 @@ function renderHome(posts) {
   sorted.forEach((p) => (p.tags || []).forEach((t) => allTags.add(t)))
   setText('tag-count', allTags.size)
 
-  // 分类计数：按内容域关键词聚类（标签/分类/标题/摘要）
-  const catCounts = {}
-  CATEGORIES.forEach((c) => { catCounts[c.key] = 0 })
-  sorted.forEach((p) => {
-    const text = [p.title, p.description, ...(p.tags || []), ...(p.categories || [])]
-      .filter(Boolean).join(' ').toLowerCase()
-    CATEGORIES.forEach((c) => {
-      if (DOMAIN_KEYWORDS[c.key].some((w) => hitDomain(text, w))) catCounts[c.key]++
-    })
-  })
-  CATEGORIES.forEach((c) => setText(c.id, `${catCounts[c.key]} 篇`))
+  // 分类计数：与归档页共用 countByAxis，卡片数字 == 归档页按该轴筛选后的条数
+  const catCounts = countByAxis(sorted)
+  axes.forEach((axis) => setText(`cat-${axis.slug}-count`, `${catCounts[axis.key]} 篇`))
 
   // 精选文章（最新一篇）
   const fp = sorted[0]

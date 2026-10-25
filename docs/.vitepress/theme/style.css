@@ -497,6 +497,13 @@ body {
 .archive-title { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 var(--space-2); color: var(--vp-c-text-1); }
 .archive-sub { color: var(--vp-c-text-3); font-size: 0.95rem; margin: 0; }
 .archive-toolbar { display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center; margin-bottom: var(--space-6); }
+.result-count { flex: none; font-size: 0.9rem; color: var(--vp-c-text-3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* 筛选状态条 */
+.filter-status { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-6); padding: var(--space-3) var(--space-4); font-size: 0.9rem; color: var(--vp-c-text-2); background: var(--surface-soft); border: 1px solid var(--vp-c-divider); border-left: 3px solid var(--brand-primary); border-radius: var(--radius-sm); }
+.clear-filter { padding: 0 var(--space-3); min-height: var(--component-height-sm); font-size: 0.85rem; color: var(--brand-primary); background: transparent; border: 1px solid var(--brand-primary); border-radius: var(--radius-sm); cursor: pointer; transition: all var(--motion-fast) var(--easing); }
+.clear-filter:hover { background: var(--brand-primary); color: #fff; }
+.clear-filter:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 2px; }
 
 /* Search / Filter sidebar */
 .search-box { position: relative; flex: 1; min-width: 220px; }
@@ -1040,6 +1047,10 @@ html:has(.home-page),
   --vp-c-brand-2: var(--home-accent);
   --vp-c-brand-3: var(--home-accent);
   --vp-nav-bg-color: rgba(5, 5, 7, 0.78);
+  /* 这两个变量声明在 :root 上，`var()` 在声明处就已求值，
+     .home-page 上的覆盖传不到它们，必须在首页作用域重新声明。 */
+  --vp-c-gutter: var(--home-border-strong);
+  --vp-local-nav-bg-color: var(--home-bg);
 }
 
 /* body / html 是 .home-page 的祖先，拿不到后代上的变量覆盖，

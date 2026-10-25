@@ -5,24 +5,20 @@ layout: page
 
 <script setup>
 import { ref, computed, onMounted, h } from 'vue'
-import { data as loaderPosts } from '../.vitepress/posts.data.js'
 import { POSTS } from '../posts-list.generated.js'
 import { withBase } from 'vitepress'
+import { CONTENT_AXES, AXIS_QUERY, findAxis, matchAxes, countByAxis } from '../.vitepress/lib/content-axes.js'
 
-function getSourcePosts() {
-  if (typeof window !== 'undefined' && window.__VP_POSTS__ && window.__VP_POSTS__.length) {
-    return window.__VP_POSTS__
-  }
-  if (POSTS.length) return POSTS
-  return loaderPosts.value || []
-}
+// 唯一数据源：构建期列表兜底，客户端由 Layout.vue 注入 posts.json 后替换。
+// 首页与归档页必须用同一份数据，否则同一篇文章在两边的分类归属会不一致。
+const sourcePosts = ref(POSTS)
 
 const PAGE_SIZE = 6
 const query = ref('')
 const category = ref('')
 const activeTag = ref('')
+const axis = ref('')
 const page = ref(1)
-const total = ref(0)
 
 function toStrArray(v) {
   if (!v) return []
@@ -31,10 +27,10 @@ function toStrArray(v) {
   return []
 }
 
-const localPosts = computed(() => getSourcePosts().map(normalize))
+const localPosts = computed(() => sourcePosts.value.map(normalize))
 
 function normalize(p) {
-  if (!p) return { title: '', url: '', date: null, readTime: '', excerpt: '', tags: [], categories: [], hasLongContent: false }
+  if (!p) return { title: '', url: '', date: null, readTime: '', excerpt: '', description: '', tags: [], categories: [], hasLongContent: false }
   const date = p.date ? fmtDate(p.date) : null
   return {
     title: p.title,
@@ -42,6 +38,7 @@ function normalize(p) {
     date,
     readTime: p.readTime || (p.wordCount ? `${Math.max(1, Math.ceil(p.wordCount / 500))} 分钟` : ''),
     excerpt: p.excerpt || p.description || '',
+    description: p.description || '',
     tags: toStrArray(p.tags),
     categories: toStrArray(p.categories),
     hasLongContent: p.hasLongContent !== undefined ? p.hasLongContent : (p.wordCount || 0) > 3000,
@@ -68,15 +65,50 @@ const hasMoreTags = computed(() => allTags.value.length > VISIBLE_TAGS)
 const categories = computed(() => {
   const map = new Map()
   localPosts.value.forEach(p => {
-    const set = new Set([...(p.categories || []), ...(p.tags || [])])
+    const set = new Set(p.categories || [])
     if (set.size === 0) set.add('未分类')
     set.forEach(c => map.set(c, (map.get(c) || 0) + 1))
   })
   return [...map.entries()].map(([name, count]) => ({ name, count })).sort((a, b) => b.count - a.count)
 })
 
+const VISIBLE_CATEGORIES = 12
+const categoriesExpanded = ref(false)
+const visibleCategories = computed(() => categoriesExpanded.value ? categories.value : categories.value.slice(0, VISIBLE_CATEGORIES))
+const hasMoreCategories = computed(() => categories.value.length > VISIBLE_CATEGORIES)
+function toggleCategories() { categoriesExpanded.value = !categoriesExpanded.value }
+
+// 内容轴：与首页分类卡片共用同一套规则与计数，保证两边数字一致
+const axisOptions = computed(() => {
+  const counts = countByAxis(localPosts.value)
+  return CONTENT_AXES.map(a => ({ ...a, count: counts[a.key] || 0 }))
+})
+
+const axisLabel = computed(() => {
+  const a = findAxis(axis.value)
+  return a ? a.label : ''
+})
+
 function postHasCategory(p, cat) {
-  return [...(p.categories || []), ...(p.tags || [])].includes(cat)
+  return (p.categories || []).includes(cat)
+}
+
+function syncAxisQuery() {
+  if (typeof window === 'undefined') return
+  const url = new URL(window.location.href)
+  if (axis.value) url.searchParams.set(AXIS_QUERY, axis.value)
+  else url.searchParams.delete(AXIS_QUERY)
+  window.history.replaceState({}, '', url.pathname + url.search + url.hash)
+}
+
+function selectAxis(key) {
+  axis.value = axis.value === key ? '' : key
+  // 内容轴是粗粒度入口，切换时清掉更细的分类/标签，避免叠加出空结果
+  category.value = ''
+  activeTag.value = ''
+  page.value = 1
+  syncAxisQuery()
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 function selectCategory(cat) {
@@ -92,6 +124,7 @@ function selectTag(tag) {
 
 const filteredPosts = computed(() => {
   let list = localPosts.value
+  if (axis.value) list = list.filter(p => matchAxes(p).includes(axis.value))
   if (category.value) list = list.filter(p => postHasCategory(p, category.value))
   if (activeTag.value) list = list.filter(p => (p.tags || []).includes(activeTag.value))
   if (query.value.trim()) {
@@ -106,6 +139,8 @@ const filteredPosts = computed(() => {
 })
 
 const totalPages = computed(() => Math.max(1, Math.ceil(filteredPosts.value.length / PAGE_SIZE)))
+// 结果条数：让「当前筛选命中多少篇」直接可见，首页卡片数字也以此为准
+const resultCount = computed(() => filteredPosts.value.length)
 const displayPosts = computed(() => {
   const start = (page.value - 1) * PAGE_SIZE
   return filteredPosts.value.slice(start, start + PAGE_SIZE)
@@ -118,11 +153,8 @@ const pageNumbers = computed(() => {
   return out
 })
 
-let debounceTimer = null
 function onSearchInput() {
   page.value = 1
-  clearTimeout(debounceTimer)
-  debounceTimer = setTimeout(() => { total.value = filteredPosts.value.length }, 200)
 }
 
 function goPage(p) {
@@ -132,21 +164,23 @@ function goPage(p) {
 }
 
 function clearFilter() {
+  axis.value = ''
   category.value = ''
   activeTag.value = ''
   query.value = ''
   page.value = 1
-  total.value = filteredPosts.value.length
+  syncAxisQuery()
 }
 
 function toggleTags() {
   tagsExpanded.value = !tagsExpanded.value
 }
 
-const filterActive = computed(() => category.value || activeTag.value || query.value.trim())
+const filterActive = computed(() => axis.value || category.value || activeTag.value || query.value.trim())
 const filterLabel = computed(() => {
   const parts = []
-  if (category.value) parts.push(category.value)
+  if (axis.value) parts.push(axisLabel.value)
+  if (category.value) parts.push((parts.length ? ' · ' : '') + category.value)
   if (activeTag.value) parts.push(' · ' + activeTag.value)
   if (query.value.trim()) parts.push(' · "' + query.value.trim() + '"')
   return '已筛选：' + parts.join('')
@@ -167,7 +201,20 @@ const tocByYear = computed(() => {
   return [...map.entries()].sort((a, b) => b[0] - a[0])
 })
 
-onMounted(() => { total.value = localPosts.value.length })
+onMounted(() => {
+  // 深链筛选：首页分类卡片跳过来时带上 ?axis=AI
+  if (typeof window !== 'undefined') {
+    const key = new URLSearchParams(window.location.search).get(AXIS_QUERY)
+    if (key && findAxis(key)) axis.value = key
+
+    // 运行时数据（posts.json）与首页同源
+    const apply = (posts) => {
+      if (posts && posts.length) sourcePosts.value = posts
+    }
+    if (window.__VP_POSTS__ && window.__VP_POSTS__.length) apply(window.__VP_POSTS__)
+    window.addEventListener('vp-posts-ready', (e) => apply((e && e.detail) || window.__VP_POSTS__))
+  }
+})
 
 // 内联组件：render function 构建，规避 markdown 模板编译分裂
 const ArchiveList = {
@@ -202,11 +249,27 @@ const ArchiveList = {
             )
           ),
         ]),
-        // 分类筛选
+        // 内容轴筛选（与首页分类卡片同源同规则）
+        h('div', { class: 'sidebar-section' }, [
+          h('h3', { class: 'sidebar-title' }, '内容轴'),
+          h('div', { class: 'cat-list' },
+            axisOptions.value.map(a =>
+              h('button', {
+                key: a.key,
+                class: ['cat-item', { active: axis.value === a.key }],
+                onClick: () => selectAxis(a.key),
+              }, [
+                h('span', null, a.label),
+                h('span', { class: 'cat-count' }, String(a.count)),
+              ])
+            )
+          ),
+        ]),
+        // 分类筛选（真实 categories，不再与 tags 混合出 700+ 条目）
         h('div', { class: 'sidebar-section' }, [
           h('h3', { class: 'sidebar-title' }, '分类'),
           h('div', { class: 'cat-list' },
-            categories.value.map(c =>
+            visibleCategories.value.map(c =>
               h('button', {
                 key: c.name,
                 class: ['cat-item', { active: category.value === c.name }],
@@ -217,6 +280,10 @@ const ArchiveList = {
               ])
             )
           ),
+          hasMoreCategories.value
+            ? h('button', { class: 'tags-toggle', onClick: toggleCategories },
+                categoriesExpanded.value ? '收起分类' : `展开 ${categories.value.length - VISIBLE_CATEGORIES} 个分类`)
+            : null,
         ]),
         allTags.value.length
           ? h('div', { class: 'sidebar-section' }, [
@@ -259,6 +326,7 @@ const ArchiveList = {
               placeholder: '搜索标题、标签或摘要…', 'aria-label': '搜索文章',
             }),
           ]),
+          h('span', { class: 'result-count', 'aria-live': 'polite' }, `共 ${resultCount.value} 篇`),
         ]),
         filterActive.value
           ? h('div', { class: 'filter-status' }, [
