@@ -1,4 +1,4 @@
-﻿---
+---
 title: "AI绘画工具终极对决：Midjourney vs DALL·E vs Stable Diffusion 2026"
 date: 2026-07-26
 description: "三款主流AI绘画工具全方位实测：画质、价格、上手难度、文字渲染、商用版权逐项拆解，帮你一次选对。"

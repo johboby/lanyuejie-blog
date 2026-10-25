@@ -1,5 +1,6 @@
 ---
 title: "AI for Science：当人工智能成为科学家的'第三只眼'"
+date: 2026-08-01
 subtitle: "从第五范式到自主发现——2025–2026年度技术全景"
 reading_time: "约22分钟"
 last_updated: "2026-08"

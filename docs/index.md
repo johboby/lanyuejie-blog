@@ -1,11 +1,18 @@
 ---
 title: 揽月界科技
+description: 揽月界科技聚焦人工智能与风险控制的前沿研究，覆盖大模型与智能体、AI 工程实战、遥感气象预测与行业深度分析，输出可复用的方法论与工具链。
 layout: page
+pageClass: home-page
+head:
+  -
+    - meta
+    - name: theme-color
+      content: '#050507'
 ---
 
 <main class="home">
-  <!-- Hero: magazine-cover centered, no side panel -->
-  <section class="hero reveal" data-part="hero" aria-label="品牌介绍">
+  <!-- Hero: centered cover, no side panel -->
+  <section class="hero reveal visible" data-part="hero" aria-label="品牌介绍">
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-inner">
       <header>
@@ -24,7 +31,7 @@ layout: page
   </section>
 
   <!-- Metrics bar -->
-  <section class="metrics reveal reveal-delay-1" data-part="metrics" aria-label="研究数据">
+  <section class="metrics reveal reveal-delay-1 visible" data-part="metrics" aria-label="研究数据">
     <div class="metrics-inner">
       <dl class="metric">
         <dt class="metric-num" id="post-count">—</dt>
@@ -47,23 +54,23 @@ layout: page
       <div class="cat-nav-grid">
         <a href="/lanyuejie-blog/posts/" class="cat-nav-card" data-part="cat-card">
           <span class="cat-nav-glyph" aria-hidden="true">AI</span>
-          <span class="cat-nav-name">智能科技</span>
-          <span class="cat-nav-count" id="cat-ai-count">0 篇</span>
+          <span class="cat-nav-name">AI 前沿</span>
+          <span class="cat-nav-count" id="cat-ai-count">— 篇</span>
         </a>
         <a href="/lanyuejie-blog/posts/" class="cat-nav-card" data-part="cat-card">
-          <span class="cat-nav-glyph" aria-hidden="true">风险</span>
-          <span class="cat-nav-name">风险研究</span>
-          <span class="cat-nav-count" id="cat-risk-count">0 篇</span>
+          <span class="cat-nav-glyph" aria-hidden="true">行业</span>
+          <span class="cat-nav-name">行业洞察</span>
+          <span class="cat-nav-count" id="cat-industry-count">— 篇</span>
         </a>
         <a href="/lanyuejie-blog/posts/" class="cat-nav-card" data-part="cat-card">
-          <span class="cat-nav-glyph" aria-hidden="true">农业</span>
-          <span class="cat-nav-name">农业监测</span>
-          <span class="cat-nav-count" id="cat-agri-count">0 篇</span>
+          <span class="cat-nav-glyph" aria-hidden="true">深度</span>
+          <span class="cat-nav-name">深度解析</span>
+          <span class="cat-nav-count" id="cat-deep-count">— 篇</span>
         </a>
         <a href="/lanyuejie-blog/posts/" class="cat-nav-card" data-part="cat-card">
-          <span class="cat-nav-glyph" aria-hidden="true">保险</span>
-          <span class="cat-nav-name">智能保险</span>
-          <span class="cat-nav-count" id="cat-ins-count">0 篇</span>
+          <span class="cat-nav-glyph" aria-hidden="true">工具</span>
+          <span class="cat-nav-name">效率实战</span>
+          <span class="cat-nav-count" id="cat-tool-count">— 篇</span>
         </a>
       </div>
     </div>
@@ -78,7 +85,6 @@ layout: page
       </header>
       <a href="/lanyuejie-blog/posts/" class="featured-card" data-part="featured-card">
         <div class="featured-body">
-          <span class="eyebrow">FEATURED</span>
           <h3 class="featured-title" id="featured-title">加载中…</h3>
           <p class="featured-excerpt" id="featured-excerpt"></p>
           <div class="featured-meta">
@@ -102,7 +108,7 @@ layout: page
         <!-- 动态填充 -->
       </div>
       <div class="posts-more">
-        <a href="/lanyuejie-blog/posts/" class="btn btn-outline" data-part="articles-more">查看全部 0 篇研究 →</a>
+        <a href="/lanyuejie-blog/posts/" class="btn btn-outline" data-part="articles-more">查看全部研究 →</a>
       </div>
     </div>
   </section>
@@ -149,152 +155,204 @@ layout: page
   </section>
 </main>
 
-<script>
-// SSR 安全：所有客户端专用逻辑包裹在 typeof window 检查中
-if (typeof window !== 'undefined') {
-  // 滚动揭示：IntersectionObserver（Zag hidden → visible 状态机）
-  if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
-  } else {
-    document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); });
+<script setup>
+// 首页数据渲染：SSR 安全 + 客户端挂载后填充
+import { onMounted } from 'vue'
+import { withBase } from 'vitepress'
+import { POSTS as BUILD_POSTS } from './posts-list.generated.js'
+
+const CATEGORIES = [
+  { key: 'AI', id: 'cat-ai-count' },
+  { key: '行业', id: 'cat-industry-count' },
+  { key: '深度', id: 'cat-deep-count' },
+  { key: '工具', id: 'cat-tool-count' }
+]
+
+// 分类维度关键词表：文章的真实 categories 标签极度碎片化（80+ 个，多数只出现 1 次），
+// 无法用等值匹配统计。这里用「内容域关键词」对标题 + 摘要 + 标签 + 分类做聚类，
+// 计数结果与卡片语义一致（卡片写「AI 前沿」，数字就是命中 AI 域的文章数）。
+const DOMAIN_KEYWORDS = {
+  AI: ['ai', '人工智能', '大模型', '大语言模型', 'llm', '智能体', 'agent', '具身', '机器人',
+    '芯片', '算力', '深度学习', '神经网络', '多模态', '生成式', 'claude', 'gpt', 'deepseek',
+    'prompt', 'rag', 'mcp', '自动驾驶', '算法', '编程', '世界模型', '扩散模型'],
+  行业: ['行业分析', '行业观察', '行业新闻', '行业展望', '产业研究', '市场', '竞争格局',
+    '商业模式', '经济', '政策', '供应链', '趋势'],
+  深度: ['深度分析', '深度思考', '深度复盘', '深度调查', '深度长文', '研究综述', '技术原理',
+    '深度', '综述', '复盘', '机制', '架构'],
+  工具: ['工具', '生产力', '效率', '工作流', '实战', '教程', '上手', '推荐', '脚本', '插件', '方法论']
+}
+
+// 纯 ASCII 关键词按「词首边界」匹配，避免 trained / paragraph / email 等误命中；
+// 中文关键词直接子串匹配。
+function hitDomain(text, word) {
+  if (/^[\x00-\x7F]+$/.test(word)) {
+    return new RegExp(`(^|[^a-z0-9])${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`).test(text)
+  }
+  return text.includes(word)
+}
+
+function formatDate(value) {
+  const d = new Date(value)
+  if (isNaN(d.getTime())) return ''
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${d.getFullYear()}-${m}-${day}`
+}
+
+function renderHome(posts) {
+  if (!posts || !posts.length) return
+  const sorted = posts.slice().sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
+
+  const setText = (id, text) => {
+    const el = document.getElementById(id)
+    if (el) el.textContent = text
   }
 
-  // 文章数据：从构建内嵌数据读取
-  var posts = window.__VP_POSTS__ || [];
-  var sorted = posts.slice().sort(function(a, b) {
-    return new Date(b.date || 0) - new Date(a.date || 0);
-  });
+  // 指标
+  setText('post-count', sorted.length)
+  const totalWords = sorted.reduce((sum, p) => sum + (p.wordCount || 0), 0)
+  setText('word-count', totalWords.toLocaleString('en-US'))
+  const allTags = new Set()
+  sorted.forEach((p) => (p.tags || []).forEach((t) => allTags.add(t)))
+  setText('tag-count', allTags.size)
 
-  // withBase 兜底
-  var base = (typeof withBase === 'function') ? withBase : function(p) { return '/lanyuejie-blog' + p; };
+  // 分类计数：按内容域关键词聚类（标签/分类/标题/摘要）
+  const catCounts = {}
+  CATEGORIES.forEach((c) => { catCounts[c.key] = 0 })
+  sorted.forEach((p) => {
+    const text = [p.title, p.description, ...(p.tags || []), ...(p.categories || [])]
+      .filter(Boolean).join(' ').toLowerCase()
+    CATEGORIES.forEach((c) => {
+      if (DOMAIN_KEYWORDS[c.key].some((w) => hitDomain(text, w))) catCounts[c.key]++
+    })
+  })
+  CATEGORIES.forEach((c) => setText(c.id, `${catCounts[c.key]} 篇`))
 
-  // 文章数量
-  var countEl = document.getElementById('post-count');
-  if (countEl) countEl.textContent = posts.length;
-
-  // 总字数
-  var totalWords = 0;
-  posts.forEach(function(p) { totalWords += (p.wordCount || 0); });
-  var wordEl = document.getElementById('word-count');
-  if (wordEl) wordEl.textContent = totalWords.toLocaleString();
-
-  // 标签数（去重）
-  var allTags = new Set();
-  posts.forEach(function(p) { (p.tags || []).forEach(function(t) { allTags.add(t); }); });
-  var tagEl = document.getElementById('tag-count');
-  if (tagEl) tagEl.textContent = allTags.size;
-
-  // 分类计数
-  var catCounts = { 'AI': 0, '风险': 0, '农业': 0, '保险': 0 };
-  posts.forEach(function(p) {
-    var cats = p.categories || [];
-    var tags = p.tags || [];
-    var all = cats.concat(tags);
-    all.forEach(function(t) {
-      if (catCounts.hasOwnProperty(t)) catCounts[t]++;
-    });
-    // 关键词匹配兜底
-    var title = (p.title || '').toLowerCase();
-    if (title.indexOf('ai') !== -1 || title.indexOf('智能') !== -1) catCounts['AI']++;
-    if (title.indexOf('风险') !== -1 || title.indexOf('防灾') !== -1) catCounts['风险']++;
-    if (title.indexOf('农业') !== -1 || title.indexOf('养殖') !== -1) catCounts['农业']++;
-    if (title.indexOf('保险') !== -1) catCounts['保险']++;
-  });
-  Object.keys(catCounts).forEach(function(k) {
-    var el = document.getElementById('cat-' + k.toLowerCase() + '-count');
-    if (el) el.textContent = catCounts[k] + ' 篇';
-  });
-
-  // 1. 精选文章：取第一篇
-  if (sorted.length > 0) {
-    var fp = sorted[0];
-    var featTitle = document.getElementById('featured-title');
-    var featCard = document.querySelector('.featured-card');
-    var featTag = document.getElementById('featured-tag');
-    var featExcerpt = document.getElementById('featured-excerpt');
-    var featDate = document.getElementById('featured-date');
-    if (featTitle) featTitle.textContent = fp.title || '暂无文章';
-    if (featCard && fp.url) featCard.href = base(fp.url);
-    if (featExcerpt) featExcerpt.textContent = fp.excerpt || '';
-    if (featDate && fp.date) {
-      var isoDate = new Date(fp.date).toISOString();
-      featDate.textContent = isoDate.slice(0, 10);
-      featDate.setAttribute('datetime', isoDate);
-      featDate.style.display = 'block';
-      featDate.style.fontSize = '0.82rem';
-      featDate.style.color = 'var(--vp-c-text-3)';
-      featDate.style.marginTop = '8px';
-    }
-    if (fp.tags && fp.tags.length) {
-      if (featTag) featTag.textContent = fp.tags[0];
-    }
+  // 精选文章（最新一篇）
+  const fp = sorted[0]
+  const featTitle = document.getElementById('featured-title')
+  const featCard = document.querySelector('.featured-card')
+  const featTag = document.getElementById('featured-tag')
+  const featExcerpt = document.getElementById('featured-excerpt')
+  const featDate = document.getElementById('featured-date')
+  if (featTitle) featTitle.textContent = fp.title || '暂无文章'
+  if (featCard && fp.url) featCard.href = withBase(fp.url)
+  if (featExcerpt) featExcerpt.textContent = fp.excerpt || fp.description || ''
+  if (featDate && fp.date) {
+    featDate.textContent = formatDate(fp.date)
+    featDate.setAttribute('datetime', new Date(fp.date).toISOString())
   }
+  if (featTag && fp.tags && fp.tags.length) featTag.textContent = fp.tags[0]
 
-  // 2. 文章网格：取第 2-5 篇
-  var grid = document.getElementById('post-grid');
+  // 文章网格（次新四篇）
+  const grid = document.getElementById('post-grid')
   if (grid) {
-    grid.innerHTML = '';
-    var monoIdx = 0;
-    var monograms = ['AI', '风', '农', '智', '数', '安'];
-    for (var i = 0; i < 4 && sorted[i + 1]; i++) {
-      var p = sorted[i + 1];
-      var card = document.createElement('article');
-      card.className = 'post-card';
-      card.setAttribute('data-part', 'post-card');
-      var link = document.createElement('a');
-      link.href = base(p.url);
-      link.setAttribute('aria-label', p.title || '暂无文章');
-      var mono = document.createElement('span');
-      mono.className = 'post-card-monogram';
-      mono.textContent = monograms[monoIdx % monograms.length];
-      mono.setAttribute('aria-hidden', 'true');
-      monoIdx++;
-      var h3 = document.createElement('h3');
-      h3.textContent = p.title || '暂无文章';
-      link.appendChild(mono);
-      link.appendChild(h3);
-      card.appendChild(link);
-      if (p.date) {
-        var time = document.createElement('time');
-        time.className = 'post-card-date';
-        time.setAttribute('datetime', new Date(p.date).toISOString());
-        time.textContent = new Date(p.date).toISOString().slice(0, 10);
-        card.appendChild(time);
+    grid.innerHTML = ''
+    for (let i = 1; i <= 4 && sorted[i]; i++) {
+      const p = sorted[i]
+      const card = document.createElement('article')
+      card.className = 'post-card'
+      card.setAttribute('data-part', 'post-card')
+
+      const link = document.createElement('a')
+      link.href = withBase(p.url)
+      link.setAttribute('aria-label', p.title || '暂无文章')
+
+      const h3 = document.createElement('h3')
+      h3.textContent = p.title || '暂无文章'
+      link.appendChild(h3)
+
+      const excerpt = p.excerpt || p.description || ''
+      if (excerpt) {
+        const para = document.createElement('p')
+        para.className = 'post-excerpt'
+        para.textContent = excerpt
+        link.appendChild(para)
       }
-      grid.appendChild(card);
+      card.appendChild(link)
+
+      if (p.date) {
+        const time = document.createElement('time')
+        time.className = 'post-card-date'
+        time.setAttribute('datetime', new Date(p.date).toISOString())
+        time.textContent = formatDate(p.date)
+        card.appendChild(time)
+      }
+      grid.appendChild(card)
     }
   }
 
-  // 3. "查看全部"链接
-  var moreLink = document.querySelector('[data-part="articles-more"]');
-  if (moreLink) moreLink.textContent = '查看全部 ' + posts.length + ' 篇研究 →';
+  const moreLink = document.querySelector('[data-part="articles-more"]')
+  if (moreLink) moreLink.textContent = `查看全部 ${sorted.length} 篇研究 →`
+}
+
+onMounted(() => {
+  // 滚动揭示：区块顶边进入视口即显示。
+  // 不用纯 IntersectionObserver：被瞬间滚动 / 锚点跳过的区块，其交叉比始终为 0，
+  // IO 不会触发回调，会永久停在 opacity:0（整块空白）。这里直接按位置判定，
+  // 滚动、跳转、浏览器恢复滚动位置都能正确显示。
+  const pending = Array.from(document.querySelectorAll('.reveal:not(.visible)'))
+  let ticking = false
+  const revealCheck = () => {
+    ticking = false
+    const limit = window.innerHeight - 40
+    for (let i = pending.length - 1; i >= 0; i--) {
+      if (pending[i].getBoundingClientRect().top < limit) {
+        pending[i].classList.add('visible')
+        pending.splice(i, 1)
+      }
+    }
+    if (!pending.length) {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }
+  const onScroll = () => {
+    if (ticking) return
+    ticking = true
+    requestAnimationFrame(revealCheck)
+  }
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('resize', onScroll)
+  revealCheck()
+
+  // 文章数据：运行时注入优先，构建期内联兜底
+  const apply = (posts) => {
+    if (!posts || !posts.length) return
+    renderHome(posts)
+  }
+  if (window.__VP_POSTS__ && window.__VP_POSTS__.length) apply(window.__VP_POSTS__)
+  else if (BUILD_POSTS && BUILD_POSTS.length) apply(BUILD_POSTS)
+  window.addEventListener('vp-posts-ready', (e) => apply((e && e.detail) || window.__VP_POSTS__))
 
   // 订阅表单反馈
-  var form = document.querySelector('.subscribe-form');
+  const form = document.querySelector('.subscribe-form')
   if (form) {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var input = form.querySelector('.subscribe-input');
-      var feedback = form.parentElement.querySelector('.subscribe-feedback');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault()
+      const input = form.querySelector('.subscribe-input')
+      const feedback = form.parentElement.querySelector('.subscribe-feedback')
       if (!input || !input.value || input.value.indexOf('@') === -1) {
-        input.classList.add('input-error');
-        if (feedback) { feedback.textContent = '请输入有效的邮箱地址'; feedback.hidden = false; }
-        return;
+        input.classList.add('input-error')
+        if (feedback) {
+          feedback.textContent = '请输入有效的邮箱地址'
+          feedback.hidden = false
+          feedback.classList.remove('is-success')
+          feedback.classList.add('is-error')
+        }
+        return
       }
-      input.classList.remove('input-error');
-      input.classList.add('input-success');
-      if (feedback) { feedback.textContent = '订阅成功！'; feedback.hidden = false; }
-      form.reset();
-      setTimeout(function() { input.classList.remove('input-success'); }, 2000);
-    });
+      input.classList.remove('input-error')
+      input.classList.add('input-success')
+      if (feedback) {
+        feedback.textContent = '订阅成功！'
+        feedback.hidden = false
+        feedback.classList.remove('is-error')
+        feedback.classList.add('is-success')
+      }
+      form.reset()
+      setTimeout(() => input.classList.remove('input-success'), 2000)
+    })
   }
-}
+})
 </script>

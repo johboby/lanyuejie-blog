@@ -184,7 +184,9 @@ const POST_META = (() => {
     const files = readdirSync(dir).filter(f => f.endsWith('.md'))
     for (const file of files) {
       const filePath = resolve(dir, file)
-      const src = readFileSync(filePath, 'utf-8')
+      // 去掉 UTF-8 BOM 与前置空行：部分文章文件带 BOM 或以空行开头，
+      // 不清理会让 frontmatter 正则失配，文章被静默丢弃。
+      const src = readFileSync(filePath, 'utf-8').replace(/^\uFEFF/, '').replace(/^\s+/, '')
       const slug = file.replace('.md', '')
       const fmMatch = src.match(/^---\s*\n([\s\S]*?)\n---/)
       const fm = {}

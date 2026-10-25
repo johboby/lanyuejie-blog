@@ -20,21 +20,27 @@ const isPost = computed(() => {
 // 让 index.md / posts/index.md 在 hydration 之前就能拿到真实文章列表。
 const dataLoading = ref(true)
 
+function announcePosts(posts) {
+  window.__VP_POSTS__ = Array.isArray(posts) ? posts : []
+  window.dispatchEvent(new CustomEvent('vp-posts-ready', { detail: window.__VP_POSTS__ }))
+}
+
 onMounted(() => {
   if (typeof window === 'undefined') return
   if (window.__VP_POSTS__) {
     dataLoading.value = false
+    announcePosts(window.__VP_POSTS__)
     return
   }
   const url = withBase('/data/posts.json')
   fetch(url)
     .then(res => res.ok ? res.json() : [])
     .then(posts => {
-      window.__VP_POSTS__ = Array.isArray(posts) ? posts : []
+      announcePosts(posts)
       dataLoading.value = false
     })
     .catch(() => {
-      window.__VP_POSTS__ = []
+      announcePosts([])
       dataLoading.value = false
     })
 })

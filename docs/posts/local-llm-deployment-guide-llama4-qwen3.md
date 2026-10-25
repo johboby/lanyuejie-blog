@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Local LLM Guide: Llama 4 & Qwen 3 Deployment + Hardware"
 date: 2026-07-26
 description: "本地部署开源大模型完全指南：硬件选型+Ollama/vLLM/llama.cpp实操，覆盖Llama 4 Scout/Maverick和Qwen 3全系列，含量化策略与实测数据。"

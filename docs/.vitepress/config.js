@@ -62,6 +62,7 @@ export default defineConfig({
         buildStart() {
           const list = POSTS_DATA.map(p => ({
             url: p.url, title: p.title, date: p.date,
+            description: p.description, excerpt: p.excerpt,
             tags: p.tags, categories: p.categories,
             wordCount: p.wordCount, readTime: p.readTime,
             hasLongContent: p.hasLongContent,
@@ -97,6 +98,9 @@ export default defineConfig({
 
   // 站点级通用 head 标签（所有页面共享）
   head: [
+    // 首屏滚动揭示动画的 JS 开关：在 <html> 上打标，CSS 仅在 JS 可用时隐藏元素，
+    // 避免脚本失败时整页空白。内联脚本不阻塞解析。
+    ['script', {}, 'document.documentElement.classList.add("js")'],
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/lanyuejie-blog/favicon.svg' }],
     ['link', { rel: 'alternate', type: 'application/rss+xml', title: `${SITE_NAME} RSS`, href: `${SITE_URL}/feed.xml` }],
     ['link', { rel: 'dns-prefetch', href: 'https://johboby.github.io' }],

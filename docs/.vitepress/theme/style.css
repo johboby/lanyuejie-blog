@@ -114,18 +114,31 @@ body {
 
 .VPFooter { display: none !important; }
 
+/* 视觉隐藏但保留给屏幕阅读器 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ============================================================
    HOME
+   （具体样式见文件末尾「HOME — Minimal Tech」区块）
    ============================================================ */
-.home { max-width: var(--content-max); margin: 0 auto; padding: 0 var(--space-6); }
-.home .section { padding: var(--section-pad) 0; }
-.home .section + .section { border-top: 1px solid var(--vp-c-divider); }
-.home .section-inner { max-width: 960px; margin: 0 auto; }
-.home .section-head { text-align: center; margin-bottom: var(--space-12); }
+.home { max-width: none; margin: 0; padding: 0; }
 
-/* Scroll-reveal (Zag state-machine: hidden → visible) */
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s var(--easing), transform 0.6s var(--easing); }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+/* Scroll-reveal (Zag state-machine: hidden → visible)
+   `.js` 由 head 内联脚本在 <html> 上打标：只有在 JS 可用时才进入隐藏态，
+   脚本失败/被拦截时内容保持可见，不会出现整页空白。 */
+.js .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s var(--easing), transform 0.6s var(--easing); }
+.js .reveal.visible { opacity: 1; transform: translateY(0); }
 .reveal-delay-1 { transition-delay: 0.08s; }
 .reveal-delay-2 { transition-delay: 0.16s; }
 .reveal-delay-3 { transition-delay: 0.24s; }
@@ -724,7 +737,7 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .reveal { opacity: 1; transform: none; transition: none; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
 }
 
 /* Large screen refinement */
@@ -988,6 +1001,10 @@ body {
    single mint accent, monospace for numeric/English labels,
    thin grid as subtle background texture.
    ============================================================ */
+/* `html:has(.home-page)` 命中 SSR HTML 中已存在的 .Layout.home-page，
+   使 body / html 在首帧就能拿到暗色 token，避免白闪。 */
+html:has(.home-page),
+.home-page,
 .home {
   --home-bg: #050507;
   --home-bg-2: #0b0b0f;
@@ -999,30 +1016,68 @@ body {
   --home-fg-3: #63636b;
   --home-accent: #4ade80;
   --home-accent-dim: rgba(74, 222, 128, 0.14);
+  --home-grid: rgba(255, 255, 255, 0.026);
   --home-mono: ui-monospace, "SF Mono", "JetBrains Mono", "IBM Plex Mono", Menlo, Consolas, monospace;
   color-scheme: dark;
-  background: var(--home-bg);
-  color: var(--home-fg);
-  min-height: 100vh;
-  border-top: 1px solid var(--home-border-strong);
   font-feature-settings: "ss01" 1, "cv11" 1;
 }
 
-/* 全站头部/导航在首页也一起变黑 */
-.home ~ .VPNav,
-.VPNav:has(~ .home) {
-  background: rgba(5, 5, 7, 0.72);
+/* 首页画布：整页黑底，并把 VitePress 站点级色板同步切黑，
+   使导航栏 / 移动抽屉 / 搜索面板与首页保持同一套暗色语言。 */
+.home-page {
+  background: var(--home-bg);
+  color: var(--home-fg);
+  --vp-c-bg: var(--home-bg);
+  --vp-c-bg-alt: var(--home-bg-2);
+  --vp-c-bg-soft: var(--home-surface);
+  --vp-c-bg-elv: var(--home-surface);
+  --vp-c-divider: var(--home-border);
+  --vp-c-divider-dark: var(--home-border-strong);
+  --vp-c-text-1: var(--home-fg);
+  --vp-c-text-2: var(--home-fg-2);
+  --vp-c-text-3: var(--home-fg-3);
+  --vp-c-brand-1: var(--home-accent);
+  --vp-c-brand-2: var(--home-accent);
+  --vp-c-brand-3: var(--home-accent);
+  --vp-nav-bg-color: rgba(5, 5, 7, 0.78);
+}
+
+/* body / html 是 .home-page 的祖先，拿不到后代上的变量覆盖，
+   必须从根节点用 :has() 切底色，否则首屏会露出站点默认白底。 */
+html:has(.home-page) {
+  background-color: var(--home-bg);
+}
+html:has(.home-page) body {
+  background-color: var(--home-bg);
+}
+
+/* 导航栏：首页固定半透明黑 + 毛玻璃。
+   VitePress 在 ≥960px 把 .VPNavBar 设为 transparent（底色由 body 透出），
+   这里补上变量与窄屏兜底，保证任何断点下导航条都是暗色。 */
+.home-page .VPNavBar {
+  --vp-nav-bg-color: rgba(5, 5, 7, 0.78);
   backdrop-filter: blur(14px) saturate(1.2);
-  border-bottom-color: var(--home-border-strong) !important;
-  color: var(--home-fg-2) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border-bottom-color: var(--home-border-strong);
+}
+.home-page .VPNavBarTitle .title { color: var(--home-fg); }
+.home-page .VPSwitchAppearance { display: none; }
+.home-page .VPLocalSearchBox { background: var(--home-bg-2); }
+
+/* 首页主体：整幅黑底，内容宽度由内部容器约束 */
+.home {
+  background: var(--home-bg);
+  color: var(--home-fg);
+  min-height: 100vh;
 }
 
 /* Section 分隔线 */
 .home .section { padding: 88px 0; border-top: 1px solid var(--home-border); }
 .home .section + .section { border-top: 1px solid var(--home-border); }
-.home .section-inner { max-width: 1080px; margin: 0 auto; }
-.home .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); margin-bottom: 44px; }
+.home .section-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+.home .section-head { display: flex; align-items: baseline; gap: 16px; text-align: left; margin-bottom: 44px; }
 .home .section-head .section-title { margin-bottom: 0; }
+.home .section-head .eyebrow { margin-bottom: 0; }
 
 /* Eyebrow：极客感 —— 小方点 + 等宽字 + 品牌色 */
 .home .eyebrow {
@@ -1062,17 +1117,17 @@ body {
   position: absolute; inset: 0;
   background:
     linear-gradient(to bottom, rgba(5, 5, 7, 0) 0%, var(--home-bg) 88%),
-    radial-gradient(60% 45% at 50% 0%, rgba(74, 222, 128, 0.08) 0%, transparent 65%),
-    linear-gradient(var(--home-border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--home-border) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+    radial-gradient(60% 45% at 50% 0%, rgba(74, 222, 128, 0.055) 0%, transparent 65%),
+    linear-gradient(var(--home-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--home-grid) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 72px 72px, 72px 72px;
   background-position: 0 0, 0 0, -1px -1px, -1px -1px;
   mask-image: radial-gradient(85% 100% at 50% 0%, #000 40%, transparent 90%);
   -webkit-mask-image: radial-gradient(85% 100% at 50% 0%, #000 40%, transparent 90%);
   pointer-events: none;
 }
 .home .hero-bg::after { display: none; }
-.home .hero-inner { position: relative; }
+.home .hero-inner { position: relative; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 .home .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
   font-family: var(--home-mono);
@@ -1144,6 +1199,7 @@ body {
 .home .metrics-inner {
   max-width: 1080px;
   margin: 0 auto;
+  padding: 0 24px;
   display: flex;
   justify-content: center;
   gap: 0;
@@ -1283,7 +1339,7 @@ body {
   font-size: 0.72rem;
   letter-spacing: 0.06em;
 }
-.home .featured-date { font-variant-numeric: tabular-nums; }
+.home .featured-date { font-variant-numeric: tabular-nums; color: var(--home-fg-3); }
 .home .featured-cta {
   margin-left: auto;
   color: var(--home-fg);
@@ -1326,17 +1382,9 @@ body {
   color: inherit;
 }
 .home .post-card:hover { background: #111116; }
-.home .post-card:hover .post-card-title { color: var(--home-accent); }
-.home .post-card-media { display: none; }
-.home .post-card-monogram { display: none; }
-.home .post-card > .post-meta,
-.home .post-card > h3,
-.home .post-card > .post-excerpt,
-.home .post-card > .post-tags {
-  padding: 0;
-}
-.home .post-card > h3 {
-  margin: 0 0 2px;
+.home .post-card:hover h3 { color: var(--home-accent); }
+.home .post-card > a > h3 {
+  margin: 0;
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.45;
@@ -1384,8 +1432,8 @@ body {
 
 /* ---------- Subscribe card ---------- */
 .home .subscribe-card {
-  max-width: 100%;
-  margin: 0;
+  max-width: 1080px;
+  margin: 0 auto;
   padding: 56px 40px;
   border-radius: 12px;
   background: var(--home-surface);
@@ -1455,8 +1503,8 @@ body {
 
 /* ---------- Contact card ---------- */
 .home .contact-card {
-  max-width: 100%;
-  margin: 0;
+  max-width: 1080px;
+  margin: 0 auto;
   padding: 40px;
   border-radius: 12px;
   background: var(--home-surface);
@@ -1516,9 +1564,10 @@ body {
   .home .post-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
-  .home { padding: 0 20px; }
+  .home .section-inner,
+  .home .hero-inner,
+  .home .metrics-inner { padding: 0 20px; }
   .home .section { padding: 60px 0; }
-  .home .section-inner { padding: 0; }
   .home .section-head { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 28px; }
   .home .hero { padding: 72px 0 48px; }
   .home .hero-title { font-size: 2.4rem; }
@@ -1526,6 +1575,8 @@ body {
   .home .featured-title { font-size: 1.3rem; }
   .home .featured-meta { padding-top: 14px; }
   .home .featured-cta { margin-left: 0; }
+  .home .subscribe-card { padding: 40px 22px; }
+  .home .contact-card { padding: 28px 20px; }
   .home .contact-grid { grid-template-columns: 1fr; }
   .home .subscribe-form { flex-direction: column; }
   .home .subscribe-input, .home .subscribe-btn { width: 100%; flex: none; }
