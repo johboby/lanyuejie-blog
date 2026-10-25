@@ -77,14 +77,15 @@ layout: page
         <h2 class="section-title">精选研究</h2>
       </header>
       <a href="/lanyuejie-blog/posts/" class="featured-card" data-part="featured-card">
-        <div class="featured-media" aria-hidden="true">
-          <span class="featured-media-tag" id="featured-tag">精选研究</span>
-        </div>
         <div class="featured-body">
           <span class="eyebrow">FEATURED</span>
           <h3 class="featured-title" id="featured-title">加载中…</h3>
           <p class="featured-excerpt" id="featured-excerpt"></p>
-          <time class="featured-date" id="featured-date" datetime=""></time>
+          <div class="featured-meta">
+            <span class="featured-tag" id="featured-tag"></span>
+            <time class="featured-date" id="featured-date" datetime=""></time>
+            <span class="featured-cta">阅读全文 <span class="featured-arrow" aria-hidden="true">→</span></span>
+          </div>
         </div>
       </a>
     </div>
