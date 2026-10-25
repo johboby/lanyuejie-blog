@@ -520,7 +520,7 @@ body {
    ARTICLE READING ENHANCEMENTS
    ============================================================ */
 .VPDoc .vp-doc {
-  max-width: 720px; font-size: 1.02rem; line-height: 1.85;
+  max-width: 760px; font-size: 1.02rem; line-height: 1.85;
   text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased;
   font-feature-settings: "liga" 1, "kern" 1; word-break: break-word; overflow-wrap: anywhere;
 }
@@ -533,7 +533,7 @@ body {
 .VPDoc .vp-doc figure { margin: 1.8em 0; text-align: center; }
 .VPDoc .vp-doc figure img { margin: 0 auto; }
 .VPDoc .vp-doc figcaption { margin-top: var(--space-2); font-size: 0.82rem; color: var(--vp-c-text-3); line-height: 1.5; }
-.VPDoc .vp-doc blockquote { margin: 1.6em 0; padding: var(--space-4) var(--space-6); border-left: 3px solid var(--brand-primary); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; background: var(--vp-c-brand-soft); color: var(--vp-c-text-2); font-style: normal; }
+.VPDoc .vp-doc blockquote { margin: 1.6em 0; padding: var(--space-4) var(--space-6); border-left: 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; background: var(--vp-c-brand-soft); color: var(--vp-c-text-2); font-style: normal; }
 .VPDoc .vp-doc blockquote p { margin: 0.5em 0; }
 .VPDoc .vp-doc blockquote > :first-child { margin-top: 0; }
 .VPDoc .vp-doc blockquote > :last-child { margin-bottom: 0; }
@@ -731,4 +731,165 @@ body {
 @media (min-width: 1537px) {
   .home .section-inner, .metrics-inner { max-width: var(--content-max); }
   .hero-title { font-size: 4.5rem; }
+}
+
+/* ============================================================
+   Dark Mode Token Overrides
+   Park UI 深色主题：VitePress 默认变量已提供基础暗色，
+   此处补齐自定义 tokens，保证品牌绿与金色在深色背景下的对比度。
+   ============================================================ */
+.dark {
+  /* Neutral surfaces */
+  --neutral-0: #0b0e10;
+  --neutral-50: #12161a;
+  --neutral-100: #1c2126;
+  --neutral-200: #272d33;
+  --neutral-300: #3a424a;
+  --neutral-400: #6b7480;
+  --neutral-500: #949daa;
+  --neutral-600: #b8bfca;
+  --neutral-700: #d3d8e0;
+  --neutral-900: #f4f6f9;
+
+  /* Brand (提亮以适配暗底) */
+  --vp-c-brand: #4db89a;
+  --vp-c-brand-1: #5ec7aa;
+  --vp-c-brand-2: #6fd4b7;
+  --vp-c-brand-3: #8ee0c9;
+  --vp-c-brand-soft: rgba(77, 184, 154, 0.10);
+  --brand-primary: #4db89a;
+  --brand-primary-strong: #f4f6f9;
+  --brand-primary-hover: #5ec7aa;
+  --brand-accent: #e6c46a;
+  --brand-accent-soft: rgba(230, 196, 106, 0.10);
+
+  /* Aliases */
+  --vp-c-bg: #0b0e10;
+  --vp-c-bg-soft: #12161a;
+  --vp-c-bg-mute: #1c2126;
+  --vp-c-bg-alt: #12161a;
+  --vp-c-divider: #272d33;
+  --vp-c-text: #f4f6f9;
+  --vp-c-text-1: #f4f6f9;
+  --vp-c-text-2: #b8bfca;
+  --vp-c-text-3: #6b7480;
+  --surface-soft: #12161a;
+  --surface-base: #0b0e10;
+  --surface-raised: #12161a;
+
+  /* Semantic */
+  --vp-c-success: #4db89a;
+  --vp-c-danger: #e57373;
+  --vp-c-warning: #e6c46a;
+  --vp-c-info: #60a5fa;
+}
+
+/* Dark mode component polish */
+.dark .VPDoc .vp-doc :not(pre) > code {
+  background: rgba(77, 184, 154, 0.10);
+  color: #b8f0dd;
+  border-color: #272d33;
+}
+.dark .VPDoc .vp-doc table th,
+.dark .VPDoc .vp-doc table td {
+  border-color: #272d33;
+}
+.dark .VPDoc .vp-doc table th {
+  background: #1c2126;
+}
+.dark .VPDoc .vp-doc blockquote {
+  background: rgba(77, 184, 154, 0.06);
+  color: #d3d8e0;
+}
+.dark .VPDoc .vp-doc .callout {
+  background: rgba(255, 255, 255, 0.03);
+}
+.dark .hero-title { color: #f4f6f9; }
+.dark .hero-desc { color: #949daa; }
+.dark .post-card-media,
+.dark .featured-media {
+  background: linear-gradient(135deg, #0d1a17 0%, #173d33 100%);
+}
+.dark .post-tag,
+.dark .cat-count,
+.dark .post-badge {
+  background: rgba(77, 184, 154, 0.10);
+  color: #8ee0c9;
+}
+.dark .hero-badge {
+  background: rgba(77, 184, 154, 0.10);
+  color: #8ee0c9;
+  border-color: rgba(77, 184, 154, 0.20);
+}
+.dark .badge-brand { background: rgba(77, 184, 154, 0.10); color: #8ee0c9; }
+.dark .badge-accent { background: rgba(230, 196, 106, 0.10); color: #e6c46a; }
+.dark .badge-ghost { background: transparent; color: #6b7480; border-color: #272d33; }
+.dark .btn-solid { background: #4db89a; color: #0b0e10; border-color: #4db89a; }
+.dark .btn-solid:hover { background: #5ec7aa; }
+.dark .btn-outline { color: #4db89a; border-color: #4db89a; }
+.dark .btn-outline:hover { background: rgba(77, 184, 154, 0.10); }
+.dark .btn-subtle { background: rgba(77, 184, 154, 0.10); color: #4db89a; }
+.dark .btn-surface { background: #1c2126; color: #4db89a; border-color: #272d33; }
+.dark .subscribe-input { background: #12161a; color: #f4f6f9; }
+.dark .subscribe-input::placeholder { color: #6b7480; }
+.dark .input { background: #12161a; color: #f4f6f9; }
+.dark .font-toolbar {
+  background: rgba(18, 22, 26, 0.92);
+  border-color: #272d33;
+  backdrop-filter: blur(8px);
+}
+
+/* ============================================================
+   Article Typography Polish — 阅读体验增强
+   ============================================================ */
+/* H2 视觉锚：编辑杂志风短横线 */
+.VPDoc .vp-doc h2 {
+  position: relative;
+  padding-bottom: 0.4em;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+/* 首段首字装饰：编辑感（仅中文正文首段） */
+.VPDoc .vp-doc > p:first-of-type {
+  font-size: 1.1rem;
+  color: var(--vp-c-text-1);
+  line-height: 1.85;
+  margin-top: 0.5em;
+}
+/* 表格 hover 高亮 */
+.VPDoc .vp-doc table tbody tr {
+  transition: background var(--motion-fast) var(--easing);
+}
+.VPDoc .vp-doc table tbody tr:hover {
+  background: var(--vp-c-brand-soft);
+}
+/* 表头视觉强化 */
+.VPDoc .vp-doc th {
+  text-align: left;
+  letter-spacing: 0.02em;
+  border-bottom-width: 2px !important;
+  border-bottom-color: var(--brand-primary) !important;
+}
+/* 数字列右对齐：让表格更专业 */
+.VPDoc .vp-doc th:nth-child(n+2),
+.VPDoc .vp-doc td:nth-child(n+2) {
+  font-variant-numeric: tabular-nums;
+}
+/* 引言块视觉提升 */
+.VPDoc .vp-doc blockquote {
+  position: relative;
+}
+.VPDoc .vp-doc blockquote::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--brand-primary), var(--brand-accent));
+  border-radius: 3px 0 0 3px;
+}
+/* 图片阴影在暗色模式下更清晰 */
+.dark .VPDoc .vp-doc img {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  border-color: #272d33;
 }
