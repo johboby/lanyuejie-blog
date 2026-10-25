@@ -5,7 +5,7 @@ import {
   generateMetadata, SITE_URL, SITE_NAME, SITE_NAME_EN,
   SITE_DESCRIPTION, SITE_DESCRIPTION_EN, CHARS_PER_MINUTE,
   enforceTitle, enforceDescription, autoDescription, countWords,
-  POST_META, SEO_EN, getEnMeta, getPageUrl, escapeXml,
+  POST_META, SEO_EN, getEnMeta, getPageUrl, escapeXml, normalizeReadTime,
 } from './metadata.js'
 import { generateOGImages, generateHomeOGImage } from './og-generator.js'
 
@@ -25,7 +25,7 @@ const POSTS_DATA = (() => {
       categories: Array.isArray(fm.categories) ? fm.categories : [],
       excerpt: pm.description || '',
       wordCount: wc,
-      readTime: `${Math.max(1, Math.ceil(wc / CHARS_PER_MINUTE))} 分钟`,
+      readTime: normalizeReadTime(fm.reading_time) || `${Math.max(1, Math.ceil(wc / CHARS_PER_MINUTE))} 分钟`,
       hasLongContent: wc > 3000,
     })
   }
@@ -268,7 +268,8 @@ ${items}
         description: fm.description || autoDescription(src, ''),
         tags: fm.tags || [], categories: fm.categories || [],
         excerpt: autoDescription(src, fm.description || ''),
-        wordCount: wc, readTime: `${Math.max(1, Math.ceil(wc / CHARS_PER_MINUTE))} 分钟`,
+        wordCount: wc,
+        readTime: normalizeReadTime(fm.reading_time) || `${Math.max(1, Math.ceil(wc / CHARS_PER_MINUTE))} 分钟`,
         enTitle: fm.enTitle || '', enDescription: fm.enDescription || '',
       }
     })

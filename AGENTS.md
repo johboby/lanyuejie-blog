@@ -16,7 +16,8 @@ touching any file. Design framework reference: `design.md`.
 | Path | Purpose |
 | --- | --- |
 | `docs/.vitepress/config.js` | Site config: SEO / JSON-LD / RSS / llms.txt, markdown image-lazy hook, search-index slimming, vite proxy `/api → 3001` |
-| `docs/.vitepress/posts.data.js` | `createContentLoader('posts/*.md', { excerpt: true, render: false })` — SSG article index |
+| `docs/.vitepress/metadata.js` | Build-time metadata core: frontmatter parsing, word count, description, JSON-LD |
+| `docs/posts-list.generated.js` | Generated article index (flat fields), written by the `generate-posts-list` plugin in `config.js` — single source for home / archive / `PostFeatures.vue` |
 | `docs/.vitepress/theme/style.css` | Design tokens + global component styles |
 | `docs/.vitepress/theme/Layout.vue` | Wraps `DefaultTheme.Layout`, injects `PostBreadcrumb` / `ReadingEnhance` / `PostFeatures` |
 | `docs/.vitepress/theme/components/` | `PostFeatures.vue` (related / pager / share / CTA), `ReadingEnhance.vue` (progress / font / table scroll), `PostBreadcrumb.vue` |
@@ -58,15 +59,32 @@ truncated to 1800 chars it is ~266 KB. Do not remove this hook.
 
 ### VitePress base / `withBase`
 
-- `createContentLoader` yields `post.url` **without** base (e.g.
+- `posts-list.generated.js` yields `post.url` **without** base (e.g.
   `/posts/xxx.html`). In Vue templates and home-page links you **must** use
   `withBase(post.url)` → `/lanyuejie-blog/posts/xxx.html`; a bare `post.url`
   404s under the subpath. `withBase` only applies to paths starting with `/`.
 - In markdown, image refs use root-absolute paths **without** base
   (`![](/images/xxx.svg)`); VitePress adds the base automatically. Use
   `withBase()` only inside Vue templates.
-- Verification: build then grep `dist/assets/chunks/posts.data.*.js` —
-  entries like `/posts/...` prove the loader is base-free.
+- Verification: build then grep `dist/assets/chunks/posts-list.generated.*.js` —
+  entries like `/posts/...` prove the list is base-free.
+
+### Frontmatter must be parsed with gray-matter
+
+`metadata.js` used a hand-written per-line `key: value` parser. It cannot read
+YAML block sequences (`tags:` + `  - a`), so 48 posts lost their `tags` and 47
+lost their `categories` — which silently broke related-post scoring and the
+archive page's category counts. Always parse with `gray-matter`; a broken
+frontmatter should fail the build loudly, not drop the post.
+
+### Article data has one source of truth
+
+`docs/posts-list.generated.js` (written by the `generate-posts-list` plugin in
+`config.js` at `buildStart`) is the flat article index shared by the home page,
+the archive page and `PostFeatures.vue`. Do not reintroduce a second
+`createContentLoader` data file: `createContentLoader` returns a **nested**
+shape (`p.frontmatter.title`, `p.frontmatter.tags`), while the generated list is
+flat (`p.title`, `p.tags`) — reading the wrong shape silently yields `undefined`.
 
 ### favicon absolute path
 
@@ -83,9 +101,8 @@ selector to confirm uniqueness, then rebuild.
 
 ### extractText must skip scripts/styles
 
-The `og:description` extraction in `config.js` / `posts.data.js` must skip
-`<script>` / `<style>` and HTML tags, otherwise Vue SFC source leaks into
-meta.
+The `og:description` extraction in `config.js` must skip `<script>` /
+`<style>` and HTML tags, otherwise Vue SFC source leaks into meta.
 
 ### Fonts
 

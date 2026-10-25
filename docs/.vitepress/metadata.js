@@ -8,6 +8,7 @@
  */
 import { resolve } from 'path'
 import { readdirSync, readFileSync } from 'fs'
+import matter from 'gray-matter'
 
 // ============ 常量 ============
 
@@ -27,6 +28,19 @@ const SYNDICATION_PLATFORMS = [
 ]
 
 // ============ 工具函数 ============
+
+// 解析 frontmatter。必须用真正的 YAML 解析器：逐行 "key: value" 的手写解析器
+// 认不出 YAML 块序列（tags:\n  - a\n  - b），实测会丢掉 48 篇文章的 tags 与
+// 47 篇的 categories，导致"相关阅读"评分、归档页分类计数一起失真。
+// 解析失败直接抛错——frontmatter 写坏属于作者错误，应当让构建显式失败，
+// 而不是把文章静默丢出列表。
+function parseFrontmatter(src, file) {
+  try {
+    return matter(src).data || {}
+  } catch (e) {
+    throw new Error(`frontmatter 解析失败：${file}\n${e.message}`)
+  }
+}
 
 function escapeXml(str) {
   return String(str)
@@ -133,10 +147,22 @@ function extractExternalLinks(src) {
 }
 
 function extractFirstKeyword(src, fm) {
-  if (fm.keywords && fm.keywords.length) return fm.keywords[0]
+  // keywords 是逗号分隔的字符串，不是数组：直接取 [0] 只会拿到第一个字符
+  if (fm.keywords) {
+    const kw = String(fm.keywords).split(/[,，、]/).map(s => s.trim()).filter(Boolean)[0]
+    if (kw) return kw
+  }
   const tags = fm.tags || []
   if (tags.length) return tags[0]
   return ''
+}
+
+// 阅读时间：优先用作者写在 frontmatter 里的 reading_time（如 "约 38 分钟"），
+// 没有时按字数估算。两种来源统一成 "N 分钟" 的格式，避免各处显示不一致。
+function normalizeReadTime(v) {
+  if (!v) return ''
+  const m = String(v).match(/\d+/)
+  return m ? `${Number(m[0])} 分钟` : ''
 }
 
 function generateFAQs(faqs) {
@@ -188,22 +214,7 @@ const POST_META = (() => {
       // 不清理会让 frontmatter 正则失配，文章被静默丢弃。
       const src = readFileSync(filePath, 'utf-8').replace(/^\uFEFF/, '').replace(/^\s+/, '')
       const slug = file.replace('.md', '')
-      const fmMatch = src.match(/^---\s*\n([\s\S]*?)\n---/)
-      const fm = {}
-      if (fmMatch) {
-        fmMatch[1].split('\n').forEach(line => {
-          const idx = line.indexOf(':')
-          if (idx < 0) return
-          const key = line.slice(0, idx).trim()
-          let val = line.slice(idx + 1).trim()
-          if (val.startsWith('[')) {
-            try { val = JSON.parse(val) } catch { val = val.replace(/^\[|\]$/g, '').split(',').map(s => s.trim().replace(/^["']|["']$/g, '')) }
-          } else if (val.startsWith('"') || val.startsWith("'")) {
-            val = val.slice(1, -1)
-          }
-          fm[key] = val
-        })
-      }
+      const fm = parseFrontmatter(src, file)
       meta[slug] = {
         src, fm,
         wordCount: countWords(src),
@@ -420,5 +431,5 @@ export {
   enforceTitle, enforceDescription, autoDescription, countWords,
   extractHeadings, extractFAQs, generateFAQs,
   extractInternalLinks, extractExternalLinks, extractFirstKeyword, getEnMeta, getPageUrl,
-  fmtDate, escapeXml,
+  fmtDate, escapeXml, normalizeReadTime,
 }

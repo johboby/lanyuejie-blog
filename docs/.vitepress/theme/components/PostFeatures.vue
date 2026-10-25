@@ -1,16 +1,35 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useData, withBase } from 'vitepress'
-import { data as allPosts } from '../../posts.data.js'
+// 数据源与首页、归档页共用同一份构建期列表（扁平结构）。
+// 不要再用 posts.data.js：createContentLoader 返回的是嵌套 frontmatter 结构，
+// 标题/日期/分类/标签都挂在 p.frontmatter.* 下，按扁平字段取值会全部落空，
+// 导致"相关阅读"恒为空、上一篇/下一篇标题为空。
+import { POSTS as allPosts } from '../../../posts-list.generated.js'
 
 const SITE_URL = 'https://johboby.github.io/lanyuejie-blog'
 
-const { page } = useData()
+const { page, site } = useData()
 
 const frontmatter = computed(() => page.value?.frontmatter || {})
-const readingTime = computed(() => frontmatter.value.readTime || '')
 
 const isPost = computed(() => page.value?.relativePath?.startsWith('posts/') && !page.value?.relativePath?.endsWith('index.md'))
+
+function toArray(v) {
+  if (!v) return []
+  return Array.isArray(v) ? v : [v]
+}
+
+// 当前文章的规范路径：源路径 posts/xxx.md → 构建路径 /posts/xxx.html
+// 必须与 allPosts 里的 p.url 同格式，否则匹配不上（此前相关阅读会把自己列进去）。
+const currentUrl = computed(() => {
+  const rp = page.value?.relativePath || ''
+  return rp ? '/' + rp.replace(/\.md$/, '.html') : ''
+})
+
+const currentPost = computed(() => (allPosts || []).find(p => p.url === currentUrl.value) || null)
+
+const readingTime = computed(() => currentPost.value?.readTime || '')
 
 const faqs = computed(() => {
   const fm = frontmatter.value
@@ -25,27 +44,21 @@ const externalLinks = computed(() => {
 })
 
 // 自动相关文章：基于分类/标签重合度排序，排除当前文章，最多 4 篇
-// 注意 allPosts 的 p.url 是构建路径（/posts/xxx.html），而 relativePath 是源路径（posts/xxx.md），
-// 必须用统一格式比较，否则当前文章无法被排除（此前真实 bug：相关阅读会列出自己）。
-const currentUrl = computed(() => {
-  const rp = page.value?.relativePath || ''
-  return rp ? '/' + rp.replace(/\.md$/, '.html') : ''
-})
 const relatedPosts = computed(() => {
   const fm = frontmatter.value
-  const cats = fm.categories || []
-  const tags = fm.tags || []
+  const cats = toArray(fm.categories)
+  const tags = toArray(fm.tags)
   if (!cats.length && !tags.length) return []
   const scored = (allPosts || [])
     .filter(p => p.url && p.url !== currentUrl.value && !p.url.endsWith('/posts/index.html'))
     .map(p => {
-      const cOverlap = (p.categories || []).filter(c => cats.includes(c)).length
-      const tOverlap = (p.tags || []).filter(t => tags.includes(t)).length
+      const cOverlap = toArray(p.categories).filter(c => cats.includes(c)).length
+      const tOverlap = toArray(p.tags).filter(t => tags.includes(t)).length
       const score = cOverlap * 2 + tOverlap
       return { post: p, score }
     })
     .filter(x => x.score > 0)
-    .sort((a, b) => b.score - a.score || new Date(b.post.dateISO || 0) - new Date(a.post.dateISO || 0))
+    .sort((a, b) => b.score - a.score || new Date(b.post.date || 0) - new Date(a.post.date || 0))
     .slice(0, 4)
     .map(x => x.post)
   return scored
@@ -62,7 +75,7 @@ const shareUrl = computed(() => {
   const rp = page.value?.relativePath || ''
   return rp ? `${SITE_URL}/${rp.replace(/\.md$/, '.html')}` : SITE_URL
 })
-const shareTitle = computed(() => frontmatter.value.title || SITE_NAME)
+const shareTitle = computed(() => frontmatter.value.title || site.value?.title || '揽月界科技')
 function shareNative() {
   if (navigator.share) {
     navigator.share({ title: shareTitle.value, url: shareUrl.value }).catch(() => {})
@@ -104,8 +117,11 @@ const showAdj = computed(() => isPost.value && (adjPosts.value.prev || adjPosts.
 <template>
   <div class="post-features">
     <div v-if="showReadingTime" class="post-reading-time">
-      <span class="reading-time-icon" aria-hidden="true">&#8635;</span>
-      <span class="reading-time-text">约{{ readingTime }}阅读</span>
+      <svg class="reading-time-icon" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false">
+        <circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5" />
+        <path d="M8 4.75V8l2.25 1.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <span class="reading-time-text">约需 {{ readingTime }}阅读</span>
     </div>
 
     <div v-if="showRelated" class="post-links-section">
@@ -186,6 +202,10 @@ const showAdj = computed(() => isPost.value && (adjPosts.value.prev || adjPosts.
   color: var(--vp-c-brand-1);
   font-weight: 600;
   margin-bottom: 1.5rem;
+}
+
+.reading-time-icon {
+  flex: none;
 }
 
 .post-links-section {
