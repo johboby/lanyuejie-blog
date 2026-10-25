@@ -9,6 +9,36 @@ import {
 } from './metadata.js'
 import { generateOGImages, generateHomeOGImage } from './og-generator.js'
 
+// 站点部署在 GitHub Pages 子路径下，所有站内绝对链接都要带这个前缀。
+const SITE_BASE = '/lanyuejie-blog/'
+
+// VitePress 的 linkPlugin 只处理 markdown 语法写出的链接（[x](/posts/a)），
+// 手写的原生 HTML <a href="/posts/a"> 会原样输出：既缺 base 也缺 .html，
+// 线上直接 404。原生链接必须自己补全。
+function normalizeRawHref(href) {
+  if (!href.startsWith('/')) return href // 相对路径 / 锚点 / 外部链接
+  if (href.startsWith('//')) return href // 协议相对地址
+  if (href.startsWith(SITE_BASE)) return href // 已经带 base
+  const cut = href.search(/[?#]/)
+  const path = cut >= 0 ? href.slice(0, cut) : href
+  const suffix = cut >= 0 ? href.slice(cut) : ''
+  if (path.endsWith('/')) return SITE_BASE + path.slice(1) + suffix
+  if (path.endsWith('.html')) return SITE_BASE + path.slice(1) + suffix
+  const seg = path.slice(path.lastIndexOf('/') + 1)
+  if (seg.includes('.')) return SITE_BASE + path.slice(1) + suffix // 静态资源，不加 .html
+  return SITE_BASE + path.slice(1) + '.html' + suffix
+}
+
+// 只匹配真实的 href 属性：跳过 Vue 绑定（:href / v-bind:href）。
+const RAW_ANCHOR_RE = /(<a\b[^>]*?(?<![:\w-])href\s*=\s*)(["'])([^"']*)\2/gi
+
+function rewriteRawLinks(html) {
+  return html.replace(RAW_ANCHOR_RE, (m, head, quote, href) => {
+    const next = normalizeRawHref(href)
+    return next === href ? m : `${head}${quote}${next}${quote}`
+  })
+}
+
 // 从 POST_META 派生文章列表（供 window.__VP_POSTS__ 内嵌到 HTML）
 const POSTS_DATA = (() => {
   const list = []
@@ -92,6 +122,27 @@ export default defineConfig({
         const token = tokens[idx]
         if (token.attrIndex('loading') < 0) token.attrPush(['loading', 'lazy'])
         return defaultImage(tokens, idx, options, env, self)
+      }
+
+      // 原生 HTML 里的 <a href="/posts/xxx"> 不走 VitePress 的 linkPlugin
+      //（那个规则只挂在 link_open 渲染器上，只处理 markdown 链接），
+      // 结果既缺 base 也缺 .html，部署到子路径后必然 404。
+      // 这里对 html_block / html_inline 里的原生锚点做同样的补全。
+      // 注意：sfcPlugin 已经包装过 html_block，这里保存的委托目标已包含它的
+      // env.sfcBlocks 分支；<script>/<style> 属于 SFC 块，不能改内容。
+      const defaultHtmlBlock = md.renderer.rules.html_block
+      md.renderer.rules.html_block = (tokens, idx, options, env, self) => {
+        const token = tokens[idx]
+        if (!/^\s*<(script|style)\b/i.test(token.content)) {
+          token.content = rewriteRawLinks(token.content)
+        }
+        return defaultHtmlBlock(tokens, idx, options, env, self)
+      }
+      const defaultHtmlInline = md.renderer.rules.html_inline
+      md.renderer.rules.html_inline = (tokens, idx, options, env, self) => {
+        const token = tokens[idx]
+        token.content = rewriteRawLinks(token.content)
+        return defaultHtmlInline(tokens, idx, options, env, self)
       }
     },
   },

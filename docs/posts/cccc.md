@@ -17,7 +17,7 @@ categories:
   - AI×地球科学
   - 研究方法
 ---
----
+
 # From Satellites to Forecasts: 遥感气象AI研究选题完全指南
 ## <span id="为什么你需要这张研究地图">为什么你需要这张研究地图</span>
 > 遥感气象AI在2026年已经不是"拿个U-Net跑个数据集"那么简单了。它是一条从**数据获取→图像增强→时空建模→预报应用→气候评估**的完整研究链路——选题时只看方法新不新、不看链条位置，你的课题要么算力烧不起，要么审稿人一句"novelty不足"直接拒稿。
@@ -64,7 +64,7 @@ categories:
 | IMERG [14]                   | 卫星降水                      | 0.1°，30min       | NASA GES DISC / GEE            |
 | OISST/OSTIA                  | 海表温度分析场                | 0.25°，逐日       | NOAA / CMEMS                   |
 ### 评估：为什么PSNR/SSIM会骗你
-
+```
 核心矛盾：生成模型的"锐度"与"保真度"不可兼得
 MSE/PSNR最优解 = 条件均值 → 奖励模糊 → "糊成一团的高分"
 GAN锐度 → 细节漂亮 → 可能是幻觉（不忠于真值）
@@ -180,6 +180,7 @@ GAN锐度 → 细节漂亮 → 可能是幻觉（不忠于真值）
   模式：CMIP6 historical + SSP2-4.5/SSP5-8.5，取10-20个模式成员
   维度：气候态偏差 + 季节循环 + 年际变率 + 极端指标 + 趋势
   时段：历史基准期1995-2014，未来分期2030-2050 / 2080-2100
+```
 ### 数据清单
 | 类别     | 数据                      | 关键参数                       | 备注                     |
 | -------- | ------------------------- | ------------------------------ | ------------------------ |
@@ -209,6 +210,7 @@ GAN锐度 → 细节漂亮 → 可能是幻觉（不忠于真值）
 | 不确定性   | 模式间散布、模式独立性讨论             | 集合均值可信度                |
 ### 数据处理天坑清单（每一条都是血的教训）
 
+```
 ① 单位：CMIP6降水标准单位是 kg m-2 s-1
    → 忘乘86400换成 mm/day，结果全错（最常见低级错误）
 ② 日历：部分模式用 360_day / noleap 日历
@@ -375,6 +377,7 @@ Phase 5: 成文（4周）
 不会，赛道分层了。大模型（GraphCast [9]、Pangu [8]、Aurora [10]）占据的是**全球中期预报**赛道，那是工业界大算力的地盘。研究生机会在它们覆盖不到的地方：① 区域高分辨率（大模型0.25°级，对流尺度1km级仍是空白）；② 极端事件与长尾分布（大模型整体指标好看，极值表现仍是公开弱点）；③ 物理可解释与约束（黑盒之外的机理融合）；④ 降尺度与偏差校正（方向一/三，与预报大模型是互补而非竞争）；⑤ 临近预报（0-3小时，赛道独立）。一句话：别跟大模型比"全球平均"，去做它做不好的"局部极端"。
 ### 6. 没有气象背景，要补什么？反过来，没有深度学习背景呢？
 CS背景补三门课的地学部分：① 气象动力学基础（理解平流、对流、为什么降水难——推荐先读"为什么预报降水比预报温度难一个数量级"的科普文献）；② 数据格式与规范（GRIB/NetCDF、CF约定、CMIP命名规则——这是工程必修）；③ 目标变量的物理特性（降水的0膨胀长尾、SST的平滑连续性，直接决定你的模型设计）。反过来，大气背景补：① PyTorch工程能力（数据管道>模型结构）；② 深度学习基础（至少到扩散模型原理）；③ 生成模型评估哲学（为什么MSE会骗你）。共同必修：统计学假设检验（方向三的命根子）和可复现研究（Git+配置文件+随机种子管理）。
+
 ---
 ## <span id="写在最后">写在最后</span>
 ### 三个核心认知
@@ -391,17 +394,17 @@ CS背景补三门课的地学部分：① 气象动力学基础（理解平流�
 > **遥感气象AI研究的本质不是"把CV模型换个数据集"，而是"让生成模型学会尊重地球的物理规律"——极端不糊、守恒不破、极值不幻。谁先在锐度、保真、物理三者间找到可证明的平衡点，谁就拿到了下一篇Nature的入场券。**
 ---
 <div class="cta-box">
-### 🛰️ 开始绘制你的研究地图
+
+### 开始绘制你的研究地图
+
 1. **现在**：在纸上画出四大方向链路图，标出你的位置
 2. **今天**：注册Copernicus CDS，下载你的第一份ERA5切片
 3. **这周**：跑通一个基线（SEVIR上的ConvLSTM / ESMValTool recipe）
 4. **评论区告诉我**：你选了哪个方向？卡在数据还是算力？
+
 </div>
 ---
 <hr>
 <p><small><strong>数据更新至：</strong>2026年8月23日。本文引用来源：Ravuri et al. "Skilful precipitation nowcasting using deep generative models of radar" (Nature, 2021)；Zhang et al. "Skilful nowcasting of extreme precipitation with NowcastNet" (Nature, 2023)；Bi et al. "Accurate medium-range global weather forecasting with 3D neural networks" (Nature, 2023)；Lam et al. "Learning skillful medium-range global weather forecasting" (Science, 2023)；Bodnar et al. "Aurora: A Foundation Model for the Earth System" (Nature, 2025)；Hersbach et al. "The ERA5 global reanalysis" (QJRMS, 2020)；Eyring et al. "Overview of the Coupled Model Intercomparison Project Phase 6" (GMD, 2016)；Shi et al. "Convolutional LSTM Network" (NeurIPS, 2015)；Wang et al. "PredRNN" (NeurIPS, 2017)；Gao et al. "SimVP" (CVPR, 2022) & "Earthformer" (NeurIPS, 2022)；Pathak et al. "FourCastNet" (2022)；Rasp et al. "WeatherBench" (JAMES, 2020)；Veillette et al. "SEVIR" (NeurIPS D&B, 2020)；Saharia et al. "SR3" (TPAMI, 2022)；Guen & Thome "PhyDNet" (NeurIPS, 2020)；"PreDiff" (2024)；Righi et al. "ESMValTool" (GMD, 2020)；Bowler et al. "STEPS" (2006)；Andersson et al. "MetNet" 系列。数据集规格以各数据中心官方文档为准。本文为研究选题分析，不构成具体投稿建议。</small></p>
-<p><small><strong>相关阅读：</strong> <a href="/posts/diffusion-model-for-geoscience-from-scratch">从零实现地学扩散模型</a> · <a href="/posts/era5-data-pipeline-guide">ERA5数据工程完全指南</a> · <a href="/posts/cmip6-esmvaltool-tutorial">ESMValTool实战：CMIP6评估流水线</a> · <a href="/posts/nowcasting-benchmark-sevir-hko7">SEVIR/HKO-7基准复现手册</a> · <a href="/posts/physics-informed-deep-learning-earth">物理约束深度学习入门</a></small></p>
+<p><small><strong>相关阅读：</strong> <a href="/posts/ai-for-science">AI for Science：当人工智能成为科学家的'第三只眼'</a> · <a href="/posts/ai-weather-forecasting-2026">AI气象大模型：从数据驱动预报到地球系统智能</a> · <a href="/posts/energy-climate-industry-report">能源与气候前沿行业报告</a> · <a href="/posts/temporal-modeling-time-series">时间建模：从静态时间处理到差分增强</a> · <a href="/posts/world-models-2026-technical-frontier">世界模型 2026：从'生成视频'到'物理世界模拟器'的技术拐点</a></small></p>
 <p><small><strong>数据与工具官网：</strong> <a href="https://cds.climate.copernicus.eu" target="_blank" rel="noopener">Copernicus CDS (ERA5)</a> · <a href="https://esgf-node.llnl.gov" target="_blank" rel="noopener">ESGF (CMIP6)</a> · <a href="https://registry.opendata.aws" target="_blank" rel="noopener">AWS Open Data</a> · <a href="https://earthengine.google.com" target="_blank" rel="noopener">Google Earth Engine</a> · <a href="https://pangeo.io" target="_blank" rel="noopener">Pangeo</a> · <a href="https://disc.gsfc.nasa.gov" target="_blank" rel="noopener">NASA GES DISC (IMERG)</a> · <a href="https://www.esmvaltool.org" target="_blank" rel="noopener">ESMValTool</a> · <a href="https://www.ecmwf.int" target="_blank" rel="noopener">ECMWF</a> · <a href="https://xarray.dev" target="_blank" rel="noopener">xarray</a></small></p>
-
-```
----
