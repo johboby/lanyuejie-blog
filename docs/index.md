@@ -30,25 +30,25 @@ head:
     </div>
   </section>
 
-  <!-- Metrics bar -->
+  <!-- Metrics bar: values are computed refs, SSR emits real text, no FOUC -->
   <section class="metrics reveal reveal-delay-1 visible" data-part="metrics" aria-label="研究数据">
     <div class="metrics-inner">
       <dl class="metric">
-        <dt class="metric-num" id="post-count">—</dt>
+        <dt class="metric-num">{{ articleCount }}</dt>
         <dd class="metric-label">研究文章</dd>
       </dl>
       <dl class="metric">
-        <dt class="metric-num" id="word-count">—</dt>
+        <dt class="metric-num">{{ wordCountText }}</dt>
         <dd class="metric-label">总字数</dd>
       </dl>
       <dl class="metric">
-        <dt class="metric-num" id="tag-count">—</dt>
+        <dt class="metric-num">{{ tagCount }}</dt>
         <dd class="metric-label">研究标签</dd>
       </dl>
     </div>
   </section>
 
-  <!-- Category Quick Nav -->
+  <!-- Category Quick Nav: counts are reactive, no "— 篇" placeholder -->
   <nav class="section cat-nav reveal reveal-delay-1" data-part="cat-nav" aria-label="分类导航">
     <div class="section-inner">
       <div class="cat-nav-grid">
@@ -61,26 +61,26 @@ head:
         >
           <span class="cat-nav-glyph" aria-hidden="true">{{ axis.glyph }}</span>
           <span class="cat-nav-name">{{ axis.label }}</span>
-          <span class="cat-nav-count" :id="'cat-' + axis.slug + '-count'">— 篇</span>
+          <span class="cat-nav-count">{{ categoryCounts[axis.key] }} 篇</span>
         </a>
       </div>
     </div>
   </nav>
 
-  <!-- Featured post -->
+  <!-- Featured post: reactive, no "加载中…" FOUC -->
   <article class="section featured-section reveal reveal-delay-2" data-part="featured" aria-label="精选研究">
     <div class="section-inner">
       <header class="section-head">
         <span class="eyebrow">FEATURED</span>
         <h2 class="section-title">精选研究</h2>
       </header>
-      <a href="/lanyuejie-blog/posts/" class="featured-card" data-part="featured-card">
+      <a :href="featuredUrl" class="featured-card" data-part="featured-card">
         <div class="featured-body">
-          <h3 class="featured-title" id="featured-title">加载中…</h3>
-          <p class="featured-excerpt" id="featured-excerpt"></p>
+          <h3 class="featured-title">{{ featuredTitle }}</h3>
+          <p class="featured-excerpt">{{ featuredExcerpt }}</p>
           <div class="featured-meta">
-            <span class="featured-tag" id="featured-tag"></span>
-            <time class="featured-date" id="featured-date" datetime=""></time>
+            <span class="featured-tag">{{ featuredTag }}</span>
+            <time v-if="featuredDate" class="featured-date" :datetime="featuredDatetime">{{ featuredDate }}</time>
             <span class="featured-cta">阅读全文 <span class="featured-arrow" aria-hidden="true">→</span></span>
           </div>
         </div>
@@ -88,35 +88,51 @@ head:
     </div>
   </article>
 
-  <!-- Latest articles grid -->
+  <!-- Latest articles grid: rendered by v-for, no empty container -->
   <section class="section articles-section reveal reveal-delay-3" data-part="articles" aria-label="最新研究">
     <div class="section-inner">
       <header class="section-head">
         <span class="eyebrow">LATEST</span>
         <h2 class="section-title">最新研究</h2>
       </header>
-      <div class="post-grid" id="post-grid">
-        <!-- 动态填充 -->
+      <div class="post-grid">
+        <article v-for="p in latestPosts" :key="p.url" class="post-card" data-part="post-card">
+          <a :href="withBase(p.url)" :aria-label="p.title">
+            <h3 class="post-card-title">{{ p.title }}</h3>
+            <p v-if="p.excerpt || p.description" class="post-excerpt">{{ p.excerpt || p.description }}</p>
+          </a>
+          <time v-if="p.date" class="post-card-date" :datetime="isoDate(p.date)">{{ formatDate(p.date) }}</time>
+        </article>
       </div>
       <div class="posts-more">
-        <a href="/lanyuejie-blog/posts/" class="btn btn-outline" data-part="articles-more">查看全部研究 →</a>
+        <a href="/lanyuejie-blog/posts/" class="btn btn-outline" data-part="articles-more">查看全部 {{ articleCount }} 篇研究 →</a>
       </div>
     </div>
   </section>
 
-  <!-- Subscribe -->
-  <section class="section subscribe reveal reveal-delay-3" data-part="subscribe" aria-label="订阅更新">
+  <!-- Follow channels (no fake-submit email form; real RSS + WeChat only) -->
+  <section class="section subscribe reveal reveal-delay-3" data-part="subscribe" aria-label="跟进更新">
     <div class="subscribe-card">
       <div class="subscribe-inner">
         <span class="eyebrow">STAY UPDATED</span>
-        <h2 class="section-title">订阅研究更新</h2>
-        <p class="section-subtitle">每月一封，精选 AI 与风险控制的深度研究</p>
-        <form class="subscribe-form" data-part="subscribe-form" novalidate>
-          <label for="subscribe-email" class="sr-only">邮箱地址</label>
-          <input type="email" id="subscribe-email" class="subscribe-input" placeholder="you@example.com" aria-label="邮箱地址" required />
-          <button type="submit" class="subscribe-btn" data-part="subscribe-btn">订阅</button>
-        </form>
-        <p class="subscribe-feedback" aria-live="polite" hidden></p>
+        <h2 class="section-title">跟进研究更新</h2>
+        <p class="section-subtitle">通过 RSS 或微信公众号接收最新文章</p>
+        <div class="follow-channels" data-part="follow-channels">
+          <a class="follow-channel" href="/lanyuejie-blog/feed.xml" data-part="rss-link">
+            <span class="follow-icon" aria-hidden="true">RSS</span>
+            <span class="follow-body">
+              <span class="follow-label">RSS 订阅</span>
+              <span class="follow-hint">通用阅读器：Inoreader / NetNewsWire / Feedly</span>
+            </span>
+          </a>
+          <a class="follow-channel" href="https://mp.weixin.qq.com/" target="_blank" rel="noopener noreferrer" data-part="wechat-link">
+            <span class="follow-icon" aria-hidden="true">微信</span>
+            <span class="follow-body">
+              <span class="follow-label">微信公众号</span>
+              <span class="follow-hint">尘渊文化 · 每篇研究同步推送</span>
+            </span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -147,8 +163,9 @@ head:
 </main>
 
 <script setup>
-// 首页数据渲染：SSR 安全 + 客户端挂载后填充
-import { onMounted } from 'vue'
+// 首页数据渲染：全部走 Vue 响应式 + 构建期内联数据，SSR 输出真实文本，
+// 客户端 hydration 首帧即真实值——彻底消除 metrics / featured / grid 的 FOUC。
+import { computed, onMounted, ref } from 'vue'
 import { withBase } from 'vitepress'
 import { POSTS as BUILD_POSTS } from './posts-list.generated.js'
 import { CONTENT_AXES, axisHref, countByAxis } from './.vitepress/lib/content-axes.js'
@@ -157,6 +174,50 @@ import { CONTENT_AXES, axisHref, countByAxis } from './.vitepress/lib/content-ax
 // 与归档页按轴筛选后的条数永远一致。
 const axes = CONTENT_AXES
 
+// 当前数据源：优先 BUILD_POSTS（构建期注入），运行时 fetch 到更新数据后 ref 会重设。
+const posts = ref(Array.isArray(BUILD_POSTS) ? BUILD_POSTS.slice() : [])
+
+// 按时间倒序：SSR / 客户端算出来的顺序一致，Featured = 最新一篇，Grid = 次新四篇。
+const sortedPosts = computed(() =>
+  posts.value.slice().sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
+)
+
+// ---- 顶部指标（Georgia 数字条）----
+const articleCount = computed(() => sortedPosts.value.length)
+
+const totalWords = computed(() =>
+  sortedPosts.value.reduce((sum, p) => sum + (p.wordCount || 0), 0)
+)
+const wordCountText = computed(() => totalWords.value.toLocaleString('en-US'))
+
+const tagCount = computed(() => {
+  const s = new Set()
+  for (const p of sortedPosts.value) {
+    for (const t of (p.tags || [])) s.add(t)
+  }
+  return s.size
+})
+
+// 分类卡片计数：与归档页共用 countByAxis，卡片数字 == 归档页按轴筛选后的条数
+const categoryCounts = computed(() => countByAxis(sortedPosts.value))
+
+// ---- 精选文章（最新一篇）----
+const featured = computed(() => sortedPosts.value[0] || null)
+const featuredTitle = computed(() => (featured.value && featured.value.title) || '暂无文章')
+const featuredExcerpt = computed(() =>
+  (featured.value && (featured.value.excerpt || featured.value.description)) || ''
+)
+const featuredTag = computed(() =>
+  (featured.value && featured.value.tags && featured.value.tags[0]) || ''
+)
+const featuredDate = computed(() => (featured.value && featured.value.date) ? formatDate(featured.value.date) : '')
+const featuredDatetime = computed(() => (featured.value && featured.value.date) ? isoDate(featured.value.date) : '')
+const featuredUrl = computed(() => (featured.value && featured.value.url) ? withBase(featured.value.url) : withBase('/posts/'))
+
+// ---- 最新文章网格（次新四篇）----
+const latestPosts = computed(() => sortedPosts.value.slice(1, 5))
+
+// ---- 日期工具 ----
 function formatDate(value) {
   const d = new Date(value)
   if (isNaN(d.getTime())) return ''
@@ -165,85 +226,15 @@ function formatDate(value) {
   return `${d.getFullYear()}-${m}-${day}`
 }
 
-function renderHome(posts) {
-  if (!posts || !posts.length) return
-  const sorted = posts.slice().sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
-
-  const setText = (id, text) => {
-    const el = document.getElementById(id)
-    if (el) el.textContent = text
-  }
-
-  // 指标
-  setText('post-count', sorted.length)
-  const totalWords = sorted.reduce((sum, p) => sum + (p.wordCount || 0), 0)
-  setText('word-count', totalWords.toLocaleString('en-US'))
-  const allTags = new Set()
-  sorted.forEach((p) => (p.tags || []).forEach((t) => allTags.add(t)))
-  setText('tag-count', allTags.size)
-
-  // 分类计数：与归档页共用 countByAxis，卡片数字 == 归档页按该轴筛选后的条数
-  const catCounts = countByAxis(sorted)
-  axes.forEach((axis) => setText(`cat-${axis.slug}-count`, `${catCounts[axis.key]} 篇`))
-
-  // 精选文章（最新一篇）
-  const fp = sorted[0]
-  const featTitle = document.getElementById('featured-title')
-  const featCard = document.querySelector('.featured-card')
-  const featTag = document.getElementById('featured-tag')
-  const featExcerpt = document.getElementById('featured-excerpt')
-  const featDate = document.getElementById('featured-date')
-  if (featTitle) featTitle.textContent = fp.title || '暂无文章'
-  if (featCard && fp.url) featCard.href = withBase(fp.url)
-  if (featExcerpt) featExcerpt.textContent = fp.excerpt || fp.description || ''
-  if (featDate && fp.date) {
-    featDate.textContent = formatDate(fp.date)
-    featDate.setAttribute('datetime', new Date(fp.date).toISOString())
-  }
-  if (featTag && fp.tags && fp.tags.length) featTag.textContent = fp.tags[0]
-
-  // 文章网格（次新四篇）
-  const grid = document.getElementById('post-grid')
-  if (grid) {
-    grid.innerHTML = ''
-    for (let i = 1; i <= 4 && sorted[i]; i++) {
-      const p = sorted[i]
-      const card = document.createElement('article')
-      card.className = 'post-card'
-      card.setAttribute('data-part', 'post-card')
-
-      const link = document.createElement('a')
-      link.href = withBase(p.url)
-      link.setAttribute('aria-label', p.title || '暂无文章')
-
-      const h3 = document.createElement('h3')
-      h3.textContent = p.title || '暂无文章'
-      link.appendChild(h3)
-
-      const excerpt = p.excerpt || p.description || ''
-      if (excerpt) {
-        const para = document.createElement('p')
-        para.className = 'post-excerpt'
-        para.textContent = excerpt
-        link.appendChild(para)
-      }
-      card.appendChild(link)
-
-      if (p.date) {
-        const time = document.createElement('time')
-        time.className = 'post-card-date'
-        time.setAttribute('datetime', new Date(p.date).toISOString())
-        time.textContent = formatDate(p.date)
-        card.appendChild(time)
-      }
-      grid.appendChild(card)
-    }
-  }
-
-  const moreLink = document.querySelector('[data-part="articles-more"]')
-  if (moreLink) moreLink.textContent = `查看全部 ${sorted.length} 篇研究 →`
+function isoDate(value) {
+  const d = new Date(value)
+  if (isNaN(d.getTime())) return ''
+  return d.toISOString()
 }
 
+// 运行时数据热更新兜底：Layout.vue 会 fetch('/data/posts.json') 后广播
+// 'vp-posts-ready'。BUILD_POSTS 已经是当前构建的最新数据，这里只是让
+// 后续推送的运行时数据能驱动 UI（例如通过 server/API 新增了文章后不重启）。
 onMounted(() => {
   // 滚动揭示：区块顶边进入视口即显示。
   // 不用纯 IntersectionObserver：被瞬间滚动 / 锚点跳过的区块，其交叉比始终为 0，
@@ -274,43 +265,10 @@ onMounted(() => {
   window.addEventListener('resize', onScroll)
   revealCheck()
 
-  // 文章数据：运行时注入优先，构建期内联兜底
-  const apply = (posts) => {
-    if (!posts || !posts.length) return
-    renderHome(posts)
+  const apply = (incoming) => {
+    if (Array.isArray(incoming) && incoming.length) posts.value = incoming
   }
   if (window.__VP_POSTS__ && window.__VP_POSTS__.length) apply(window.__VP_POSTS__)
-  else if (BUILD_POSTS && BUILD_POSTS.length) apply(BUILD_POSTS)
   window.addEventListener('vp-posts-ready', (e) => apply((e && e.detail) || window.__VP_POSTS__))
-
-  // 订阅表单反馈
-  const form = document.querySelector('.subscribe-form')
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault()
-      const input = form.querySelector('.subscribe-input')
-      const feedback = form.parentElement.querySelector('.subscribe-feedback')
-      if (!input || !input.value || input.value.indexOf('@') === -1) {
-        input.classList.add('input-error')
-        if (feedback) {
-          feedback.textContent = '请输入有效的邮箱地址'
-          feedback.hidden = false
-          feedback.classList.remove('is-success')
-          feedback.classList.add('is-error')
-        }
-        return
-      }
-      input.classList.remove('input-error')
-      input.classList.add('input-success')
-      if (feedback) {
-        feedback.textContent = '订阅成功！'
-        feedback.hidden = false
-        feedback.classList.remove('is-error')
-        feedback.classList.add('is-success')
-      }
-      form.reset()
-      setTimeout(() => input.classList.remove('input-success'), 2000)
-    })
-  }
 })
 </script>

@@ -61,8 +61,8 @@ function extractText(src) {
     .replace(/{{[^}]+}}/g, '')
     .replace(/^#{1,6}\s+/gm, '')
     .replace(/\*\*|__|\*|_|~~|`{1,3}[^`]*`{1,3}/g, '')
-    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
     .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
     .replace(/^[-*+]\s+/gm, '')
     .replace(/^\d+\.\s+/gm, '')
     .replace(/^>\s+/gm, '')
@@ -203,38 +203,39 @@ function fmtDate(d) {
 
 // ============ 预计算所有文章元数据 ============
 
+// 构建时预解析所有文章。frontmatter 坏了必须让构建显式失败——
+// 空的 catch {} 会把错误吞掉，让文章被静默丢出 meta，破坏归档、
+// 相关文章评分、SEO 描述、RSS、llms.txt 一整条链。参见 AGENTS.md。
 const POST_META = (() => {
   const meta = {}
-  try {
-    const dir = resolve('docs', 'posts')
-    const files = readdirSync(dir).filter(f => f.endsWith('.md'))
-    for (const file of files) {
-      const filePath = resolve(dir, file)
-      // 去掉 UTF-8 BOM 与前置空行：部分文章文件带 BOM 或以空行开头，
-      // 不清理会让 frontmatter 正则失配，文章被静默丢弃。
-      const src = readFileSync(filePath, 'utf-8').replace(/^\uFEFF/, '').replace(/^\s+/, '')
-      const slug = file.replace('.md', '')
-      const fm = parseFrontmatter(src, file)
-      meta[slug] = {
-        src, fm,
-        wordCount: countWords(src),
-        headings: extractHeadings(src),
-        faqs: extractFAQs(src),
-        internalLinks: extractInternalLinks(src),
-        externalLinks: extractExternalLinks(src),
-        description: autoDescription(src, fm.description || ''),
-        mainKeyword: extractFirstKeyword(src, fm),
-        keywordInFirst100: (() => {
-          const kw = extractFirstKeyword(src, fm)
-          if (!kw) return false
-          const body = src.replace(/^---[\s\S]*?---/, '')
-          const text = body.replace(/<[^>]+>/g, '').replace(/#{1,6}\s+/g, '').replace(/!\[[^\]]*\]\([^)]*\)/g, '')
-          const words = text.trim().split(/\s+/).slice(0, 100).join(' ')
-          return words.toLowerCase().includes(kw.toLowerCase())
-        })(),
-      }
+  const dir = resolve('docs', 'posts')
+  const files = readdirSync(dir).filter(f => f.endsWith('.md'))
+  for (const file of files) {
+    const filePath = resolve(dir, file)
+    // 去掉 UTF-8 BOM 与前置空行：部分文章文件带 BOM 或以空行开头，
+    // 不清理会让 frontmatter 正则失配，文章被静默丢弃。
+    const src = readFileSync(filePath, 'utf-8').replace(/^\uFEFF/, '').replace(/^\s+/, '')
+    const slug = file.replace('.md', '')
+    const fm = parseFrontmatter(src, file)
+    meta[slug] = {
+      src, fm,
+      wordCount: countWords(src),
+      headings: extractHeadings(src),
+      faqs: extractFAQs(src),
+      internalLinks: extractInternalLinks(src),
+      externalLinks: extractExternalLinks(src),
+      description: autoDescription(src, fm.description || ''),
+      mainKeyword: extractFirstKeyword(src, fm),
+      keywordInFirst100: (() => {
+        const kw = extractFirstKeyword(src, fm)
+        if (!kw) return false
+        const body = src.replace(/^---[\s\S]*?---/, '')
+        const text = body.replace(/<[^>]+>/g, '').replace(/#{1,6}\s+/g, '').replace(/!\[[^\]]*\]\([^)]*\)/g, '')
+        const words = text.trim().split(/\s+/).slice(0, 100).join(' ')
+        return words.toLowerCase().includes(kw.toLowerCase())
+      })(),
     }
-  } catch {}
+  }
   return meta
 })()
 

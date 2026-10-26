@@ -6,12 +6,22 @@ const { page, frontmatter } = useData()
 
 const postTitle = computed(() => frontmatter.value?.title || page.value?.title || '')
 const categories = computed(() => frontmatter.value?.categories || [])
+// <time> 元素需要同时提供可读文本和 ISO datetime 属性。
+// 拆成两个 computed：显示日期（中文格式）+ 属性日期（ISO），
+// SEO 抓取 / 富搜索结果（Schema.org Article datePublished）都靠 datetime 属性。
 const postDate = computed(() => {
   const d = frontmatter.value?.date
   if (!d) return ''
   const dt = new Date(d)
   if (Number.isNaN(dt.getTime())) return String(d)
   return `${dt.getFullYear()}年${dt.getMonth() + 1}月${dt.getDate()}日`
+})
+const postDatetime = computed(() => {
+  const d = frontmatter.value?.date
+  if (!d) return ''
+  const dt = new Date(d)
+  if (Number.isNaN(dt.getTime())) return ''
+  return dt.toISOString()
 })
 </script>
 
@@ -33,7 +43,7 @@ const postDate = computed(() => {
         :href="withBase('/posts/')"
         class="post-cat-chip"
       >{{ cat }}</a>
-      <span v-if="postDate" class="post-date">{{ postDate }}</span>
+      <time v-if="postDate" class="post-date" :datetime="postDatetime">{{ postDate }}</time>
     </div>
   </div>
 </template>

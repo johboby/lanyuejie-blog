@@ -17,31 +17,42 @@ const headings = computed(() => {
 const activeSlug = ref('')
 let observer = null
 
-function refreshObserver() {
+// 一次性挂载 IntersectionObserver；不要挂在 scroll 上——之前每个 tick 都
+// disconnect + 重建 observer，导致 CPU 抖动、滚动卡顿、IO 事件流错乱。
+// IntersectionObserver 本身就是为 scroll-spy 设计的（观察元素进出视口），
+// 滚动只是自然触发 IO 回调的方式，不需要 JS 侧再监听。
+function setupObserver() {
   if (observer) observer.disconnect()
   observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        activeSlug.value = entry.target.id
-      }
-    })
+    for (const entry of entries) {
+      if (entry.isIntersecting) activeSlug.value = entry.target.id
+    }
   }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 })
 
-  headings.value.forEach(h => {
+  for (const h of headings.value) {
     const el = document.getElementById(h.slug)
     if (el) observer.observe(el)
-  })
+  }
 }
 
 onMounted(() => {
-  // Small delay to ensure DOM is rendered
-  setTimeout(refreshObserver, 300)
-  window.addEventListener('scroll', refreshObserver, { passive: true })
+  // 页面渲染后再挂一次：VitePress 的 h2/h3 由 Vue 动态插入 DOM，
+  // setTimeout 保证 DOM 已经就位再抓 element 引用。
+  setTimeout(setupObserver, 300)
 })
 
 onBeforeUnmount(() => {
   if (observer) observer.disconnect()
-  window.removeEventListener('scroll', refreshObserver)
+  observer = null
+})
+
+// 页面路由切换时 VitePress 会重跑 watch + headings 会变化；重新建 observer。
+watch(headings, () => {
+  if (observer) {
+    observer.disconnect()
+    observer = null
+  }
+  setTimeout(setupObserver, 300)
 })
 
 function scrollTo(slug) {

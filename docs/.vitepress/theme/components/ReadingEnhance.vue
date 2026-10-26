@@ -10,10 +10,20 @@ const progress = ref(0)
 const fontLevel = ref(0)
 const STORAGE_KEY = 'lyj-reading-font'
 
+// 滚动节流：scroll 事件在快速滚动时能触发到每秒 60+ 次，
+// 每次都用 requestAnimationFrame 合并到一个 rAF 回调里，
+// 保证进度条只在渲染帧更新，避免 ref 频繁赋值触发的多次模板重渲染。
+let rafId = 0
 function onScroll() {
-  const doc = document.documentElement
-  const max = doc.scrollHeight - doc.clientHeight
-  progress.value = max > 0 ? Math.min(100, Math.max(0, (doc.scrollTop / max) * 100)) : 0
+  if (rafId) return
+  rafId = requestAnimationFrame(() => {
+    rafId = 0
+    const doc = document.documentElement
+    const max = doc.scrollHeight - doc.clientHeight
+    const next = max > 0 ? Math.min(100, Math.max(0, (doc.scrollTop / max) * 100)) : 0
+    // 进度条本身只有 1% 精度，微小抖动没必要触发响应式更新
+    if (Math.abs(next - progress.value) >= 1) progress.value = next
+  })
 }
 
 function applyFont() {
