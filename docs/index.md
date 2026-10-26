@@ -230,8 +230,7 @@ function isoDate(value) {
   return d.toISOString()
 }
 
-// BUILD_POSTS 是构建期唯一数据源；Layout.vue 会广播 'vp-posts-ready'
-// 事件（当前不携带新数据，仅为同页监听者提供同步挂载点）。
+// BUILD_POSTS 是构建期唯一数据源。onMounted 仅处理滚动揭示。
 onMounted(() => {
   // 滚动揭示：区块顶边进入视口即显示。
   // 不用纯 IntersectionObserver：被瞬间滚动 / 锚点跳过的区块，其交叉比始终为 0，
@@ -261,11 +260,5 @@ onMounted(() => {
   window.addEventListener('scroll', onScroll, { passive: true })
   window.addEventListener('resize', onScroll)
   revealCheck()
-
-  const apply = (incoming) => {
-    if (Array.isArray(incoming) && incoming.length) posts.value = incoming
-  }
-  if (window.__VP_POSTS__ && window.__VP_POSTS__.length) apply(window.__VP_POSTS__)
-  window.addEventListener('vp-posts-ready', (e) => apply((e && e.detail) || window.__VP_POSTS__))
 })
 </script>

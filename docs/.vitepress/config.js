@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-import { writeFileSync, readdirSync, mkdirSync } from 'fs'
+import { writeFileSync, readdirSync } from 'fs'
 import { resolve } from 'path'
 import {
   generateMetadata, SITE_URL, SITE_NAME, SITE_NAME_EN,
@@ -39,7 +39,7 @@ function rewriteRawLinks(html) {
   })
 }
 
-// 从 POST_META 派生文章列表（供 window.__VP_POSTS__ 内嵌到 HTML）
+// 从 POST_META 派生文章列表（供 generate-posts-list 插件生成 posts-list.generated.js）
 const POSTS_DATA = (() => {
   const list = []
   for (const [slug, pm] of Object.entries(POST_META)) {
@@ -307,25 +307,5 @@ ${items}
       `- [llms-full.txt](${SITE_URL}/llms-full.txt) — 包含所有文章摘要的完整版`, '',
     ].join('\n')
     writeFileSync(resolve(outDir, 'llms.txt'), llmsIndex, { encoding: 'utf-8' })
-
-    // ---- data/posts.json ----
-    const postsJson = posts.map(post => {
-      const fm = post.frontmatter || {}
-      const src = post.src || ''
-      const wc = countWords(src)
-      return {
-        url: post.url, title: fm.title || '',
-        date: fm.date ? new Date(fm.date).toISOString() : null,
-        description: fm.description || autoDescription(src, ''),
-        tags: fm.tags || [], categories: fm.categories || [],
-        excerpt: autoDescription(src, fm.description || ''),
-        wordCount: wc,
-        readTime: normalizeReadTime(fm.reading_time) || `${Math.max(1, Math.ceil(wc / CHARS_PER_MINUTE))} 分钟`,
-        enTitle: fm.enTitle || '', enDescription: fm.enDescription || '',
-      }
-    })
-    const dataDir = resolve(outDir, 'data')
-    mkdirSync(dataDir, { recursive: true })
-    writeFileSync(resolve(dataDir, 'posts.json'), JSON.stringify(postsJson, null, 0), { encoding: 'utf-8' })
   },
 })

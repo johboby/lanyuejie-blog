@@ -9,9 +9,9 @@ import { POSTS } from '../posts-list.generated.js'
 import { withBase } from 'vitepress'
 import { CONTENT_AXES, AXIS_QUERY, findAxis, matchAxes, countByAxis } from '../.vitepress/lib/content-axes.js'
 
-// 唯一数据源：构建期列表兜底，客户端由 Layout.vue 注入 posts.json 后替换。
+// 唯一数据源：构建期列表 POSTS（来自 posts-list.generated.js）。
 // 首页与归档页必须用同一份数据，否则同一篇文章在两边的分类归属会不一致。
-const sourcePosts = ref(POSTS)
+const sourcePosts = POSTS
 
 const PAGE_SIZE = 6
 const query = ref('')
@@ -27,7 +27,7 @@ function toStrArray(v) {
   return []
 }
 
-const localPosts = computed(() => sourcePosts.value.map(normalize))
+const localPosts = computed(() => sourcePosts.map(normalize))
 
 function normalize(p) {
   if (!p) return { title: '', url: '', date: null, readTime: '', excerpt: '', description: '', tags: [], categories: [], hasLongContent: false }
@@ -206,13 +206,6 @@ onMounted(() => {
   if (typeof window !== 'undefined') {
     const key = new URLSearchParams(window.location.search).get(AXIS_QUERY)
     if (key && findAxis(key)) axis.value = key
-
-    // 运行时数据（posts.json）与首页同源
-    const apply = (posts) => {
-      if (posts && posts.length) sourcePosts.value = posts
-    }
-    if (window.__VP_POSTS__ && window.__VP_POSTS__.length) apply(window.__VP_POSTS__)
-    window.addEventListener('vp-posts-ready', (e) => apply((e && e.detail) || window.__VP_POSTS__))
   }
 })
 
