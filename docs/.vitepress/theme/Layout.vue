@@ -1,7 +1,7 @@
 <script setup>
-import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
+import { computed, onMounted } from 'vue'
 import DefaultTheme from 'vitepress/theme'
-import { useData, withBase } from 'vitepress'
+import { useData } from 'vitepress'
 import PostFeatures from './components/PostFeatures.vue'
 import ReadingEnhance from './components/ReadingEnhance.vue'
 import PostBreadcrumb from './components/PostBreadcrumb.vue'
@@ -15,38 +15,12 @@ const isPost = computed(() => {
   return path.startsWith('posts/') && !path.endsWith('index.md')
 })
 
-// 预加载 data/posts.json：SSR 阶段 createContentLoader 数据为空，
-// 客户端启动时把构建产物中的文章数据内联注入到 window.__VP_POSTS__，
-// 让 index.md / posts/index.md 在 hydration 之前就能拿到真实文章列表。
-const dataLoading = ref(true)
-
-function announcePosts(posts) {
-  window.__VP_POSTS__ = Array.isArray(posts) ? posts : []
-  window.dispatchEvent(new CustomEvent('vp-posts-ready', { detail: window.__VP_POSTS__ }))
-}
-
+// BUILD_POSTS 已随 SSR HTML 内联，index.md / posts/index.md 直接读取即可。
+// 这里仅在客户端挂载时把 window.__VP_POSTS__ 广播为事件，供同页监听者热更新。
 onMounted(() => {
   if (typeof window === 'undefined') return
-  if (window.__VP_POSTS__) {
-    dataLoading.value = false
-    announcePosts(window.__VP_POSTS__)
-    return
-  }
-  const url = withBase('/data/posts.json')
-  fetch(url)
-    .then(res => res.ok ? res.json() : [])
-    .then(posts => {
-      announcePosts(posts)
-      dataLoading.value = false
-    })
-    .catch(() => {
-      announcePosts([])
-      dataLoading.value = false
-    })
-})
-
-onBeforeUnmount(() => {
-  // noop: fetch 是 fire-and-forget，由 window 持有引用
+  const posts = Array.isArray(window.__VP_POSTS__) ? window.__VP_POSTS__ : []
+  window.dispatchEvent(new CustomEvent('vp-posts-ready', { detail: posts }))
 })
 </script>
 

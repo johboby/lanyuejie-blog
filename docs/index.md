@@ -105,7 +105,7 @@ head:
         </article>
       </div>
       <div class="posts-more">
-        <a href="/lanyuejie-blog/posts/" class="btn btn-outline" data-part="articles-more">查看全部 {{ articleCount }} 篇研究 →</a>
+        <a href="/lanyuejie-blog/posts/" class="btn btn-outline" data-part="articles-more">查看全部 {{ articleCount }} 篇研究<span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
@@ -113,26 +113,24 @@ head:
   <!-- Follow channels (no fake-submit email form; real RSS + WeChat only) -->
   <section class="section subscribe reveal reveal-delay-3" data-part="subscribe" aria-label="跟进更新">
     <div class="subscribe-card">
-      <div class="subscribe-inner">
-        <span class="eyebrow">STAY UPDATED</span>
-        <h2 class="section-title">跟进研究更新</h2>
-        <p class="section-subtitle">通过 RSS 或微信公众号接收最新文章</p>
-        <div class="follow-channels" data-part="follow-channels">
-          <a class="follow-channel" href="/lanyuejie-blog/feed.xml" data-part="rss-link">
-            <span class="follow-icon" aria-hidden="true">RSS</span>
-            <span class="follow-body">
-              <span class="follow-label">RSS 订阅</span>
-              <span class="follow-hint">通用阅读器：Inoreader / NetNewsWire / Feedly</span>
-            </span>
-          </a>
-          <a class="follow-channel" href="https://mp.weixin.qq.com/" target="_blank" rel="noopener noreferrer" data-part="wechat-link">
-            <span class="follow-icon" aria-hidden="true">微信</span>
-            <span class="follow-body">
-              <span class="follow-label">微信公众号</span>
-              <span class="follow-hint">尘渊文化 · 每篇研究同步推送</span>
-            </span>
-          </a>
-        </div>
+      <span class="eyebrow">STAY UPDATED</span>
+      <h2 class="section-title">跟进研究更新</h2>
+      <p class="section-subtitle">通过 RSS 或微信公众号接收最新文章</p>
+      <div class="follow-channels" data-part="follow-channels">
+        <a class="follow-channel" href="/lanyuejie-blog/feed.xml" data-part="rss-link">
+          <span class="follow-icon" aria-hidden="true">RSS</span>
+          <span class="follow-body">
+            <span class="follow-label">RSS 订阅</span>
+            <span class="follow-hint">通用阅读器：Inoreader / NetNewsWire / Feedly</span>
+          </span>
+        </a>
+        <a class="follow-channel" href="https://mp.weixin.qq.com/" target="_blank" rel="noopener noreferrer" data-part="wechat-link">
+          <span class="follow-icon" aria-hidden="true">微信</span>
+          <span class="follow-body">
+            <span class="follow-label">微信公众号</span>
+            <span class="follow-hint">尘渊文化 · 每篇研究同步推送</span>
+          </span>
+        </a>
       </div>
     </div>
   </section>
@@ -232,9 +230,8 @@ function isoDate(value) {
   return d.toISOString()
 }
 
-// 运行时数据热更新兜底：Layout.vue 会 fetch('/data/posts.json') 后广播
-// 'vp-posts-ready'。BUILD_POSTS 已经是当前构建的最新数据，这里只是让
-// 后续推送的运行时数据能驱动 UI（例如通过 server/API 新增了文章后不重启）。
+// BUILD_POSTS 是构建期唯一数据源；Layout.vue 会广播 'vp-posts-ready'
+// 事件（当前不携带新数据，仅为同页监听者提供同步挂载点）。
 onMounted(() => {
   // 滚动揭示：区块顶边进入视口即显示。
   // 不用纯 IntersectionObserver：被瞬间滚动 / 锚点跳过的区块，其交叉比始终为 0，

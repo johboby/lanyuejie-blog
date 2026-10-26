@@ -388,12 +388,6 @@ const showAdj = computed(() => isPost.value && (adjPosts.value.prev || adjPosts.
   min-width: 120px;
 }
 
-.cta-collect {
-  background: var(--vp-c-brand-1);
-  color: #fff;
-  border: 1px solid var(--vp-c-brand-1);
-}
-
 .cta-share {
   background: var(--vp-c-brand-1);
   color: #fff;
@@ -401,12 +395,6 @@ const showAdj = computed(() => isPost.value && (adjPosts.value.prev || adjPosts.
   cursor: pointer;
 }
 .cta-share:hover {
-  background: var(--vp-c-brand-2);
-  border-color: var(--vp-c-brand-2);
-  transform: translateY(-1px);
-}
-
-.cta-collect:hover {
   background: var(--vp-c-brand-2);
   border-color: var(--vp-c-brand-2);
   transform: translateY(-1px);

@@ -373,46 +373,65 @@ body {
 .subscribe-card .section-title { color: #fff; }
 .subscribe-card .section-subtitle { color: rgba(255,255,255,0.82); }
 
-/* Subscribe form (new — replaces old .subscribe-actions) */
-.subscribe-form { display: flex; gap: var(--space-2); max-width: 480px; margin: var(--space-6) auto 0; flex-wrap: wrap; justify-content: center; }
-.subscribe-input {
-  flex: 1 1 220px; min-height: var(--component-height-md); padding: 0 var(--space-4);
-  font-size: 0.95rem; color: var(--vp-c-text-1); background: #fff;
-  border: 1.5px solid var(--vp-c-divider); border-radius: var(--radius-sm);
-  transition: border-color var(--motion-fast) var(--easing), box-shadow var(--motion-fast) var(--easing);
-  outline: none;
+/* Follow channels（真实 RSS + 微信入口，替代已移除的假订阅表单） */
+.follow-channels {
+  display: flex; flex-direction: column;
+  gap: var(--space-3);
+  max-width: 540px;
+  margin: var(--space-8) auto 0;
+  width: 100%;
 }
-.subscribe-input::placeholder { color: var(--neutral-400); }
-.subscribe-input:focus { border-color: var(--brand-primary); box-shadow: 0 0 0 3px rgb(31 79 66 / 0.12); }
-.subscribe-input.input-error { border-color: var(--vp-c-danger); box-shadow: 0 0 0 3px rgb(192 57 43 / 0.12); }
-.subscribe-input.input-success { border-color: var(--vp-c-success); box-shadow: 0 0 0 3px rgb(31 79 66 / 0.12); }
-.subscribe-btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
-  min-height: var(--component-height-md); padding: 0 var(--space-6);
-  font-size: 0.95rem; font-weight: 600; border-radius: var(--radius-sm);
-  background: var(--brand-accent); color: #1f2a22; border: 1.5px solid var(--brand-accent);
-  cursor: pointer; transition: background var(--motion-fast) var(--easing), transform var(--motion-fast) var(--easing), box-shadow var(--motion-fast) var(--easing);
+.follow-channel {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-md);
+  color: #fff;
+  text-decoration: none;
+  text-align: left;
+  transition: background var(--motion-fast) var(--easing),
+              border-color var(--motion-fast) var(--easing),
+              transform var(--motion-fast) var(--easing);
 }
-.subscribe-btn:hover { background: #d8b85e; border-color: #d8b85e; transform: translateY(-1px); box-shadow: var(--shadow-md); }
-.subscribe-btn:active { transform: translateY(0); background: #c9a04a; }
-.subscribe-btn.is-loading { opacity: 0.7; cursor: not-allowed; transform: none; }
-.subscribe-btn.is-success { background: var(--vp-c-brand-soft); color: var(--brand-primary); border-color: var(--brand-primary); }
-.subscribe-btn:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
-.subscribe-feedback { margin-top: var(--space-3); font-size: 0.84rem; color: var(--vp-c-text-3); min-height: 1.2em; }
-.subscribe-feedback.is-error { color: var(--vp-c-danger); }
-.subscribe-feedback.is-success { color: var(--vp-c-success); }
-.subscribe-note { margin-top: var(--space-5); font-size: 0.82rem; color: rgba(255,255,255,0.7); }
-.subscribe-link { color: rgba(255,255,255,0.95); text-decoration: underline; font-weight: 600; }
-.subscribe-link:hover { color: #fff; }
-@keyframes subscribe-spin {
-  to { transform: rotate(360deg); }
+.follow-channel:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: var(--brand-accent);
+  transform: translateX(4px);
 }
-.spinner {
-  display: inline-block; width: 16px; height: 16px;
-  border: 2px solid rgba(31,79,66,0.25); border-top-color: var(--brand-primary);
-  border-radius: 50%; animation: subscribe-spin 0.6s linear infinite;
+.follow-channel:focus-visible {
+  outline: 2px solid var(--brand-accent);
+  outline-offset: 2px;
 }
-
+.follow-icon {
+  flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 52px; height: 52px; padding: 0 14px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+  color: var(--brand-accent);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.follow-body {
+  display: flex; flex-direction: column; gap: 4px;
+  min-width: 0; flex: 1;
+}
+.follow-label {
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.98rem;
+  line-height: 1.3;
+}
+.follow-hint {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
 .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-5); max-width: 640px; margin: 0 auto; }
 .contact-item { text-align: center; padding: var(--space-6) var(--space-4); border-radius: var(--radius-md); background: var(--surface-base); border: 1px solid var(--vp-c-divider); transition: border-color var(--motion-standard) var(--easing), box-shadow var(--motion-standard) var(--easing); }
 .contact-item:hover { border-color: var(--brand-primary); box-shadow: var(--shadow-2); }
@@ -674,8 +693,6 @@ body {
   .hero-title { font-size: 2.1rem; }
   .hero-tagline { letter-spacing: 0.12em; }
   .hero-metric + .hero-metric { border-left: none; }
-  .subscribe-form { flex-direction: column; }
-  .subscribe-input, .subscribe-btn { width: 100%; flex: none; }
 }
 
 @media (max-width: 1024px) {
@@ -850,8 +867,6 @@ body {
 .dark .btn-outline:hover { background: rgba(77, 184, 154, 0.10); }
 .dark .btn-subtle { background: rgba(77, 184, 154, 0.10); color: #4db89a; }
 .dark .btn-surface { background: #1c2126; color: #4db89a; border-color: #272d33; }
-.dark .subscribe-input { background: #12161a; color: #f4f6f9; }
-.dark .subscribe-input::placeholder { color: #6b7480; }
 .dark .input { background: #12161a; color: #f4f6f9; }
 .dark .font-toolbar {
   background: rgba(18, 22, 26, 0.92);
@@ -1464,53 +1479,8 @@ html:has(.home-page) body {
 .home .subscribe-card .eyebrow { margin-bottom: 16px; }
 .home .subscribe-card .section-title { color: var(--home-fg); }
 .home .subscribe-card .section-subtitle { color: var(--home-fg-2); font-family: var(--vp-font-family-base); }
-.home .subscribe-form {
-  display: flex;
-  gap: 8px;
-  max-width: 460px;
-  margin: 28px auto 0;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.home .subscribe-input {
-  flex: 1 1 220px;
-  min-height: 44px;
-  padding: 0 16px;
-  font-size: 0.92rem;
-  color: var(--home-fg);
-  background: #0a0a0e;
-  border: 1px solid var(--home-border-strong);
-  border-radius: 6px;
-  font-family: var(--home-mono);
-}
-.home .subscribe-input::placeholder { color: var(--home-fg-3); }
-.home .subscribe-input:focus {
-  border-color: var(--home-accent);
-  box-shadow: 0 0 0 3px var(--home-accent-dim);
-}
-.home .subscribe-btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  min-height: 44px; padding: 0 22px;
-  font-size: 0.92rem; font-weight: 500;
-  border-radius: 6px;
-  background: var(--home-accent);
-  color: #050507;
-  border: 1px solid var(--home-accent);
-  cursor: pointer;
-  transition: background var(--motion-fast) var(--easing), transform var(--motion-fast) var(--easing);
-}
-.home .subscribe-btn:hover { background: #6ee799; border-color: #6ee799; transform: translateY(-1px); }
-.home .subscribe-btn:active { background: #3fd072; }
-.home .subscribe-feedback {
-  margin-top: 14px;
-  font-size: 0.85rem;
-  color: var(--home-fg-2);
-  min-height: 1.2em;
-  font-family: var(--home-mono);
-}
-.home .subscribe-feedback.is-success { color: var(--home-accent); }
-.home .subscribe-feedback.is-error { color: #f87171; }
-.home .subscribe-note { color: var(--home-fg-3); margin-top: 18px; }
+.home .follow-hint { font-family: var(--home-mono); }
+.home .follow-icon { font-family: var(--home-mono); }
 
 /* ---------- Contact card ---------- */
 .home .contact-card {
@@ -1589,8 +1559,6 @@ html:has(.home-page) body {
   .home .subscribe-card { padding: 40px 22px; }
   .home .contact-card { padding: 28px 20px; }
   .home .contact-grid { grid-template-columns: 1fr; }
-  .home .subscribe-form { flex-direction: column; }
-  .home .subscribe-input, .home .subscribe-btn { width: 100%; flex: none; }
 }
 @media (max-width: 480px) {
   .home .cat-nav-grid { grid-template-columns: 1fr; }
