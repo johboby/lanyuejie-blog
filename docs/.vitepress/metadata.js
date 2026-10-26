@@ -21,11 +21,6 @@ const CHARS_PER_MINUTE = 500
 const MAX_TITLE_LENGTH = 60
 const MAX_DESCRIPTION_LENGTH = 160
 const DESCRIPTION_CTA = ' | 深度阅读'
-const SYNDICATION_PLATFORMS = [
-  { name: 'twitter', url: 'https://twitter.com/intent/tweet' },
-  { name: 'linkedin', url: 'https://www.linkedin.com/sharing/share-offsite' },
-  { name: 'facebook', url: 'https://www.facebook.com/sharer/sharer.php' },
-]
 
 // ============ 工具函数 ============
 
@@ -165,18 +160,6 @@ function normalizeReadTime(v) {
   return m ? `${Number(m[0])} 分钟` : ''
 }
 
-function generateFAQs(faqs) {
-  if (!faqs.length) return null
-  return JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqs.map(f => ({
-      '@type': 'Question', name: f.question,
-      acceptedAnswer: { '@type': 'Answer', text: f.answer.replace(/<[^>]+>/g, '').replace(/\n+/g, ' ').trim() },
-    })),
-  })
-}
-
 function enforceTitle(title) {
   if (!title) return SITE_NAME
   const clean = String(title).replace(/\s+/g, ' ').trim()
@@ -192,13 +175,6 @@ function enforceDescription(desc, fallback = '') {
   if (text.length + cta.length <= MAX_DESCRIPTION_LENGTH) return text + cta
   const cut = MAX_DESCRIPTION_LENGTH - cta.length
   return text.slice(0, cut - 1).trim() + '…' + cta
-}
-
-function fmtDate(d) {
-  if (!d) return null
-  const t = new Date(d)
-  if (Number.isNaN(t.getTime())) return String(d)
-  return `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`
 }
 
 // ============ 预计算所有文章元数据 ============
@@ -427,10 +403,8 @@ export function generateMetadata({ pageData, overrides = {} }) {
 
 export {
   SITE_URL, SITE_NAME, SITE_NAME_EN, SITE_DESCRIPTION, SITE_DESCRIPTION_EN,
-  CHARS_PER_MINUTE, MAX_TITLE_LENGTH, MAX_DESCRIPTION_LENGTH, DESCRIPTION_CTA,
-  SYNDICATION_PLATFORMS, POST_META, SEO_EN,
+  CHARS_PER_MINUTE, POST_META, SEO_EN,
   enforceTitle, enforceDescription, autoDescription, countWords,
-  extractHeadings, extractFAQs, generateFAQs,
-  extractInternalLinks, extractExternalLinks, extractFirstKeyword, getEnMeta, getPageUrl,
-  fmtDate, escapeXml, normalizeReadTime,
+  getEnMeta, getPageUrl,
+  escapeXml, normalizeReadTime,
 }
