@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-import { writeFileSync, readdirSync } from 'fs'
+import { writeFileSync } from 'fs'
 import { resolve } from 'path'
 import {
   generateMetadata, SITE_URL, SITE_NAME, SITE_NAME_EN,
