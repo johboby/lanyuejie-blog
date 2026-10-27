@@ -54,13 +54,18 @@ for (let i = 0; i < urls.length; i += BATCH_SIZE) {
   batches.push(urls.slice(i, i + BATCH_SIZE))
 }
 
+// 与 metadata.js 中的 SITE_URL 保持一致：从 sitemap URL 推导 host，
+// 避免写死 johboby.github.io 导致换域名 / 换子路径时静默提交到错误 host
+const siteOrigin = new URL(urls[0]).origin
+const host = siteOrigin.replace(/^https?:\/\//, '')
+
 let successCount = 0
 let failCount = 0
 
 for (let i = 0; i < batches.length; i++) {
   const batch = batches[i]
   const body = JSON.stringify({
-    host: 'johboby.github.io',
+    host,
     key: KEY,
     keyType: 'txt',
     urlList: batch,

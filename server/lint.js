@@ -10,7 +10,11 @@ const POSTS_DIR = path.resolve(__dirname, '../docs/posts')
 function formatDate(date) {
   if (!date) return new Date().toISOString().split('T')[0]
   const d = new Date(date)
-  if (isNaN(d.getTime())) return new Date().toISOString().split('T')[0]
+  if (isNaN(d.getTime())) {
+    // 不静默回退 today —— 把坏日期吞掉会让"2099-13-45" 这种脏数据被伪装成正常文章
+    console.warn(`[lint] 无效 date: "${date}"，保留原值（应人工修正为 YYYY-MM-DD）`)
+    return date
+  }
   return d.toISOString().split('T')[0]
 }
 
@@ -83,6 +87,16 @@ function lintPost(filePath) {
     fm.date = formatDate(null)
     fixes.push(`补全缺失的 date: ${fm.date}`)
     changed = true
+  } else if (typeof fm.date !== 'string' || /^\d{4}-\d{2}-\d{2}$/.test(fm.date) === false) {
+    // 旧实现：isNaN(new Date(fm.date)) 时静默回退 today —— 会把 "2099-13-45" 这种脏数据
+    // 伪装成正常文章日期。新实现：保留原值并 warn，要求人工修正。
+    if (typeof fm.date === 'string' && new Date(fm.date).toString() === 'Invalid Date') {
+      console.warn(`[lint] ${path.relative(POSTS_DIR, filePath)}: 无效 date "${fm.date}"，保留原值`)
+    } else {
+      fm.date = formatDate(fm.date)
+      fixes.push(`规范化 date 格式: ${fm.date}`)
+      changed = true
+    }
   } else {
     const normalized = formatDate(fm.date)
     if (fm.date !== normalized) {

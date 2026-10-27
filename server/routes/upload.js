@@ -58,9 +58,13 @@ function verifyFileType(filePath, claimedExt) {
     return false
   }
   if (claimedExt === '.svg') {
-    // 简易文本校验：含 <svg 且不以脚本危险声明开头
+    // SVG 为文本：必须同时含 <svg 起始 且 不含 script / <img> / onload 等危险载荷
+    // 旧实现仅检查 "<svg"，导致 <svg><script>...</script></svg> 等 XSS 载荷直接通过
     const head = buf.toString('utf-8', 0, 8).toLowerCase()
-    return head.includes('<svg') || /^\s*<[?!]?xml/.test(head)
+    const ok = (head.includes('<svg') || /^\s*<[?!]?xml/.test(head))
+    const full = fs.readFileSync(filePath, 'utf-8')
+    const banned = /<script|javascript:|<img\s+|onload|onerror|onclick|<foreignobject|<use[^>]+href|<animate|<set/i
+    return ok && !banned.test(full)
   }
   const rule = MAGIC.find(m => m.ext === claimedExt)
   if (!rule || !rule.bytes) return true
