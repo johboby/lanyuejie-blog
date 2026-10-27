@@ -126,8 +126,11 @@ export function getPost(slug) {
 }
 
 export function createPost({ slug, title, date, categories, tags, description, content, status = 'draft' }) {
+  if (!slug && !title) throw new Error('slug 或 title 至少提供一个')
   ensureDir()
-  const fileName = (slug || title?.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-').replace(/^-|-$/g, '')) + '.md'
+  const base = slug || title.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-').replace(/^-|-$/g, '')
+  if (!base) throw new Error('无法生成有效的 slug：slug 与 title 都为空')
+  const fileName = base + '.md'
   const filePath = path.join(POSTS_DIR, fileName)
   if (fs.existsSync(filePath)) throw new Error('文章已存在: ' + fileName)
 
