@@ -1,10 +1,21 @@
 ---
 title: 寒武纪37亿利润、GDPS千台机器人、DeepSeek九芯Day-0｜AI科技周报
-date: 2026-10-24
-tags: [AI周报, 寒武纪, GDPS, DeepSeek, 昇腾, 具身智能, 国产算力]
-categories: [行业新闻]
-description: 寒武纪前三季净利37.15亿、GDPS 2026启幕9赛道800赛队、DeepSeek V4 Day-0九芯适配、上海2028目标8000台人形机器人进工厂、FlagOS 2.2十大芯片性能+27%、V4.1 Flash KV Cache缩小437倍、2026国产AI加速卡出货215-240万张。
-keywords: AI周报, 寒武纪Q3, GDPS 2026, DeepSeek V4, FlagOS 2.2, 上海2028, 昇腾910B, 国产AI芯片
+date: 2026-10-24T00:00:00.000Z
+tags:
+  - AI周报
+  - 寒武纪
+  - GDPS
+  - DeepSeek
+  - 昇腾
+  - 具身智能
+  - 国产算力
+categories:
+  - 行业新闻
+description: >-
+  寒武纪前三季净利37.15亿、GDPS 2026启幕9赛道800赛队、DeepSeek V4
+  Day-0九芯适配、上海2028目标8000台人形机器人进工厂、FlagOS 2.2十大芯片性能+27%、V4.1 Flash KV
+  Cache缩小437倍、2026国产AI加速卡出货215-240万张。
+keywords: 'AI周报, 寒武纪Q3, GDPS 2026, DeepSeek V4, FlagOS 2.2, 上海2028, 昇腾910B, 国产AI芯片'
 ---
 
 ## 1. 寒武纪 Q3 净利 14.04 亿，前三季 37.15 亿

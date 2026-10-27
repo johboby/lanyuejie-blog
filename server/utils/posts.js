@@ -12,25 +12,64 @@ function ensureDir() {
 
 /**
  * 只读 frontmatter（不同步读取全文），返回 { slug, filename, fm, raw }
- * 用于仅需元数据的场景（统计/搜索/分类），避免全量 readFileSync + matter 解析
+ * 用于仅需元数据的场景（统计/搜索/分类），避免全量 gray-matter 解析。
+ *
+ * 支持 YAML 块序列：
+ *   tags:
+ *     - a
+ *     - b
+ * 旧版逐行 split(':') 解析会把 `- a` 当成独立 key（`- a` → `a`），导致
+ * 块序列里的子项被丢、外层 tags/categories 被漏读（见 AGENTS.md "Frontmatter
+ * must be parsed with gray-matter" 一节；这里只读 frontmatter 不读全文，所以
+ * 保留轻量 parser，但补齐块序列支持）。
  */
 function readFrontmatter(file) {
   const raw = fs.readFileSync(path.join(POSTS_DIR, file), 'utf-8')
   const fmMatch = raw.match(/^---\s*\n([\s\S]*?)\n---/)
   const fm = {}
   if (fmMatch) {
-    fmMatch[1].split('\n').forEach(line => {
+    const lines = fmMatch[1].split('\n')
+    let i = 0
+    while (i < lines.length) {
+      const line = lines[i]
+      const trimmed = line.trim()
+      if (!trimmed || trimmed.startsWith('#')) { i++; continue }
       const idx = line.indexOf(':')
-      if (idx < 0) return
+      if (idx < 0) { i++; continue }
       const key = line.slice(0, idx).trim()
-      let val = line.slice(idx + 1).trim()
-      if (val.startsWith('[')) {
-        try { val = JSON.parse(val) } catch { val = val.replace(/^\[|\]$/g, '').split(',').map(s => s.trim().replace(/^["']|["']$/g, '')) }
-      } else if (val.startsWith('"') || val.startsWith("'")) {
-        val = val.slice(1, -1)
+      const val = line.slice(idx + 1).trim()
+      // 键后无值 → 可能是块序列的开始
+      if (val === '') {
+        const items = []
+        let j = i + 1
+        while (j < lines.length) {
+          const sub = lines[j]
+          const subTrim = sub.trim()
+          if (!subTrim || subTrim.startsWith('#')) { j++; continue }
+          if (subTrim.startsWith('- ') || subTrim === '-') {
+            let item = subTrim.replace(/^-\s*/, '').trim()
+            if ((item.startsWith('"') || item.startsWith("'")) && item.length >= 2 && item[0] === item[item.length - 1]) {
+              item = item.slice(1, -1)
+            }
+            items.push(item)
+            j++
+          } else break
+        }
+        if (items.length) fm[key] = items
+        i = j
+        continue
       }
-      fm[key] = val
-    })
+      // 内联 [a, b, c]
+      if (val.startsWith('[')) {
+        try { fm[key] = JSON.parse(val) }
+        catch { fm[key] = val.replace(/^\[|\]$/g, '').split(',').map(s => s.trim().replace(/^["']|["']$/g, '')) }
+      } else if (val.startsWith('"') || val.startsWith("'")) {
+        fm[key] = val.slice(1, -1)
+      } else {
+        fm[key] = val
+      }
+      i++
+    }
   }
   return { slug: file.replace('.md', ''), filename: file, fm, raw }
 }
@@ -63,10 +102,12 @@ export function listPosts({ status, category, tag, page = 1, pageSize = 20 } = {
   })) }
 }
 
-/** 模块级工具：字数统计（从正文文本计算） */
+/** 字数统计：输入的是已剥掉 frontmatter 的正文（调用方传入 matter().content 或 readFrontmatter().raw.slice(frontmatter_end)）。
+ *  防御性：若调用方误传了完整文件，再剥一次 frontmatter（零成本，正则不会匹配到正文）。
+ */
 function countWords(src) {
   const text = (src || '')
-    .replace(/^---[\s\S]*?---/, '')
+    .replace(/^---[\s\S]*?---\n?/, '')
     .replace(/[#>*_`~\-]/g, ' ')
     .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
   const chinese = (text.match(/[一-龥]/g) || []).length

@@ -36,7 +36,9 @@ router.put('/:slug', (req, res) => {
     const post = updatePost(req.params.slug, req.body)
     res.json(post)
   } catch (err) {
-    res.status(400).json({ error: err.message })
+    // "文章不存在" 是 404（语义正确），"解析/写入失败" 是 500（不是坏数据）
+    const isMissing = /文章不存在/.test(err.message || '')
+    res.status(isMissing ? 404 : 500).json({ error: err.message })
   }
 })
 
@@ -45,7 +47,8 @@ router.delete('/:slug', (req, res) => {
     const result = deletePost(req.params.slug)
     res.json(result)
   } catch (err) {
-    res.status(400).json({ error: err.message })
+    const isMissing = /文章不存在/.test(err.message || '')
+    res.status(isMissing ? 404 : 500).json({ error: err.message })
   }
 })
 
