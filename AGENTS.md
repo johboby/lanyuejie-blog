@@ -22,10 +22,11 @@ touching any file. Design framework reference: `design.md`.
 | `docs/.vitepress/theme/Layout.vue` | Wraps `DefaultTheme.Layout`, injects `PostBreadcrumb` / `ReadingEnhance` / `PostFeatures` |
 | `docs/.vitepress/theme/components/` | `PostFeatures.vue` (related / pager / share / CTA), `ReadingEnhance.vue` (progress / font / table scroll), `PostBreadcrumb.vue` |
 | `docs/index.md` | Editorial-magazine home (featured + product/tech grids + dynamic metrics) |
-| `docs/posts/*.md` | Article sources (~87 posts) |
-| `server/index.js` + `server/routes/*` | Admin API: `/api/posts` (CRUD + paging), `/api/categories`, `/api/search`, `/api/upload`, `/api/stats` |
-| `server/utils/posts.js` | Article read/write core (gray-matter + fs-extra) |
+| `docs/posts/*.md` | Article sources (~117 posts) |
+| `server/index.js` + `server/routes/*` | Admin API: `/api/posts` (CRUD + paging), `/api/categories`, `/api/search`, `/api/upload`, `/api/stats`, `/api/health` |
+| `server/utils/posts.js` | Article read/write core (gray-matter for full parse + light frontmatter-only reader) |
 | `server/lint.js` | Frontmatter auto-fix + watch |
+| `scripts/submit-indexnow.mjs` | CI helper: IndexNow bulk submission (host auto-derived from sitemap) |
 | `patches/vitepress+1.6.4.patch` | patch-package fix for Windows drive-letter bug |
 | `.github/workflows/deploy.yml` | Pages deploy pipeline |
 
@@ -76,6 +77,43 @@ YAML block sequences (`tags:` + `  - a`), so 48 posts lost their `tags` and 47
 lost their `categories` — which silently broke related-post scoring and the
 archive page's category counts. Always parse with `gray-matter`; a broken
 frontmatter should fail the build loudly, not drop the post.
+
+The admin backend has a **separate** lightweight reader
+(`server/utils/posts.js` → `readFrontmatter`) that does NOT use gray-matter
+(it reads only the frontmatter block, not the body, for stats/search/category
+endpoints). That reader was rewritten to handle YAML block sequences, inline
+arrays, and quoted strings. If you add new frontmatter fields that use block
+sequences, keep that reader in sync or the stats/search APIs will drop them.
+
+### createPost must reject an empty body
+
+`POST /api/posts` with `{}` used to silently write `docs/posts/undefined.md`
+(no slug, no title). The guard now throws `slug 或 title 至少提供一个`
+→ HTTP 400. If you add a code path that creates posts, keep that guard.
+
+### SVG upload is a stored-XSS vector
+
+`/api/upload` writes into `docs/public/images/`, which VitePress copies to
+`dist/images/` and ships to production. The old check only looked for the
+literal string `<svg` in the first 8 bytes, so
+`<svg><script>alert(1)</script></svg>` or
+`<svg><img src=x onerror=alert(1)/></svg>` passed and reached the live site.
+`verifyFileType` now reads the whole SVG and rejects
+`<script` / `javascript:` / `<img ` / `onload` / `onerror` / `onclick`.
+Do not weaken that regex; it is the only stored-XSS gate on the upload path.
+
+### Admin 404 vs 400 semantics
+
+`updatePost` / `deletePost` throw `文章不存在`. The routes map that to **404**
+(resource missing), and map real write/parse failures to **500**. The old
+code returned 400 for both, which mis-labelled a missing article as bad input.
+
+### lint.js no longer masks bad dates
+
+`formatDate` used to silently replace any unparseable `date` (e.g.
+`2099-13-45`, `2024-02-31`) with today's date, so dirty frontmatter looked
+clean after a lint run. It now keeps the original value and logs a
+`console.warn`, so an operator must fix it by hand.
 
 ### Article data has one source of truth
 
