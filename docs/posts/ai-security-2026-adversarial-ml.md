@@ -11,17 +11,12 @@
 ICLR 2026 论文《**Adversarial Déjà Vu: Jailbreak Dictionary Learning for Stronger Generalization To Unseen Attacks**》首次系统研究基于词典学习的对抗性越狱攻击：
 
 **核心发现**：
-```python
-# 攻击样本生成 (简化版)
-attack_words = ["安全警告模板", "系统紧急覆盖", "开发者隐藏模式"]
-# 攻击词嵌入在 unfound 子空间中补拓广义化
-攻击泛化率：72.3% (vs 传统 GCG 攻击 34.1%)
-```
+- 作者团队包括 Virginia Tech 的 Mahavir Dabas、Tran Huynh、Nikhil Reddy Billa、Ming Jin、Ruoxi Jia，普林斯顿大学的 Jiachen T. Wang、Prateek Mittal，以及 Amazon AGI 的 Charith Peris、Yao Ma、Rahul Gupta [1]。
+- 论文对过去两年发表的 **32 篇攻击论文** 中的对抗技能进行了大规模分析，提出 **Adversarial Skill Compositional Training (ASCoT)** 框架：将攻击技能提取为稀疏词素字典，用 LLM 生成人类可读描述，训练模型使用这些技能的任意组合进行对抗训练。
+- 实验显示：未经特定测试的攻击（unseen jailbreaks）可以用这些技能合理组合来解释，且随着技能覆盖率的提高，解释能力单调提升。
+- **关键结论是：防御鲁棒性的关键在于扩展"对抗技能覆盖率"（adversarial skill coverage），而非训练数据规模** [1]。
 
-**攻击能力**：
-- **Δ 类攻击**：一类攻击可以触发另一类模型的相似漏洞
-- **跨模型泛化**：72.1% 的 GCG 攻击能够泛化至 Falcon 180B
-- **字典学习**：从攻击词中提取潜在的攻击意图模式
+**注意：** 原报道中的"攻击泛化率 72.3%"、"72.1% 的 GCG 攻击能够泛化至 Falcon 180B"等精确数值因未核对到论文数据表，请勿作为已确认数字使用。
 
 ### 1.2 视觉提示注入 (VPI)：AI Agent 的新型攻击面
 
@@ -45,95 +40,77 @@ graph TD
     style D fill:#e8f5e8
 ```
 
-**攻击成功率**（针对 Anthropic CUA）：
-- 基础攻击成功率：34.2%
-- 组合攻击成功率：68.4%
-- 自动化红队测试：47.1% (日均)
+**攻击成功率**（原始数据来自论文摘要的摘要级别报告）：
+- 当前 CUA（ computer-use agent）遭受 VPI 攻击时，**最高攻击成功率可达 51%**
+- Browser-Use Agent (BUA) 的同类攻击最高成功率可达 **100%**
+- 现有防御方法只能带来有限的改进 [2]
+
+**注意：** 原文中关于 "Anthropic CUA 基础攻击成功率 34.2% / 组合攻击成功率 68.4%" 等分别到每个平台的精确报告数据不在原始摘要内可见，请核实论文正文后再引用。
 
 ### 1.3 属性推断攻击：LLM 隐私泄露新途径
 
 ICLR 2026 论文《**Stop Tracking Me! Proactive Defense Against Attribute Inference Attack in LLMs**》分析 LLM 中的隐私泄露攻击：
+
+**作者**：Dong Yan、Jian Liang、Ran He、Tieniu Tan（中国科学院自动化研究所 / 中国科学院大学人工智能学院）[3]。
 
 **攻击链**：
 ```
 用户输入 → 模型推理 → 日志泄露 → 攻击者重建
     │              │              │
     ↓              ↓              ↓
-敏感信息    中间表示暴露   密钥提取成功
+敏感信息     中间表示暴露    密钥提取成功
 ```
 
 **实验结果**：
-- 推理攻击成功率：52.7% (vs 随机猜测 4.3%)
-- 用户画像重建准确率：78.2%
-- 药公司数据泄露：机密研发信息 31%
+- 原始属性推断攻击成功率约 **50%**，使用 TRACE（细粒度匿名化）+ RPS（推理阻止优化）双重机制后降低至 **5% 以下** [3]
+- 该防御框架在跨模型、跨提示增强方面展现了良好的泛化能力
+
+**注意：** 原文中"药公司数据泄露:机密研发信息 31%"以及"推理攻击成功率 52.7% (vs 随机猜测 4.3%)"等精确数值没有来源支撑，请咨询论文原始数据。
 
 ---
 
 ## 2. 主动防御架构：双重保险与隐私保护
 
-### 2.1 "去匿名化 + 拒绝诱导"双重保险设计
+### 2.1 "Trace + 拒绝"双保险设计（对应 Stop Tracking Me 框架）
 
-针对属性推断攻击，研究提出创新的双重防御架构：
+针对属性推断攻击，Stop Tracking Me! 论文提出了折叠两层的复合防御架构 [3]：
 
 **双重保险机制**：
+1. **TRACE（细粒度隐私匿名化）**：结合注意力机制与推理链条生成，识别并匿名化提示中泄露隐私的文本元素
+2. **RPS（推理阻止优化）**：使用轻量级两阶段优化方法诱导模型对敏感提问拒绝回答（refuse without altering the original text）
+
 ```python
-class DualInsuranceDefense:
-    def __init__(self):
-        self.anonymizer = PrivacyAnonymizer三级
-        self.refusal_optimizer = RefusalInductionHead()
-    
-    def protect(self, input_text):
-        # Step 1: 去匿名化减少信息暴露面
-        anon_input = self.anonymizer.transform(input_text)
-        
-        # Step 2: 诱导模型拒绝敏感推理
-        output = self.model.generate(anon_input)
-        safe_output = self.refusal_optimizer.maybe_refuse(output)
-        
-        return safe_output
+# 真实防御逻辑（简化描述）
+def stop_tracking(input_text):
+    anon_input = trace_anonymize(input_text)       # 1. 保护区分
+    output = model.generate(anon_input)
+    safe_output = rps_refuse(output)                # 2. 拒绝诱导
+    return safe_output
 ```
 
-**实际效果**：
-- 双重防御组合：隐私泄露率降低 89.4%
-- 单独去匿名化：降低 42.1%
-- 单独拒绝诱导：降低 31.7%
+**实际效果**（来自论文摘要）：
+- TRACE-RPS 对属性推断攻击的准确率达到保护率，将攻击成功率从约 50% 降至 **5% 以下** [3]
+- 该框架同时保持推理质量，避免对正常请求造成过度拒绝
 
-### 2.2 漏洞哈希表探索法 (VHE)：自动化漏洞发现
+**注意**：原报道中"隐私泄露率降低 89.4%"等数值无来源支撑，请勿引用。
 
-**VHE 框架**设计：
+### 2.2 自动化红队测试框架
 
-```mermaid
-graph LR
-    A[初始化漏洞字典] --> B[贪心搜索]
-    B --> C{发现新模式？}
-    C -->|是| D[更新字典]
-    C -->|否| E[终止]
-    D --> B
-    
-    style A fill:#e3f2fd
-    style B fill:#fff3e0
-    style C fill:#f1f8e9
-    style D fill:#f3e5f5
-    style E fill:#eeeeee
-```
+自动化的 LLM 红队测试（Red Teaming）是 2026 年快速积累的安全工作之一。2026 年出现的代表工作包括基于工具调用的自动化红队框架，例如浙江大学 NESA 实验室发布的 "Automatic Red Teaming LLM-based Agents with Model Context Protocol Tools" [5]，以及学术界对各类大模型（包括 Qwen、LLaMA 等）的提示攻击基准进行批量化测试。
 
-**自动化红队效果**：
-- 日均发现漏洞：47.1 个
-- 误报率：< 7.2%
-- 覆盖模型：MLLama 7B, Vision-MINI-2, InternVL2-2B
+以下原"漏洞哈希表探索法 (VHE)"数据的"日均发现漏洞：47.1 个、误报率：<7.2%、覆盖模型：MLLama 7B, Vision-MINI-2, InternVL2-2B"为虚构（在 ICLR/OpenReview/arXiv 中均查无此框架），已移除，如需引用自动红队数据请以原始提交的论文为准。
 
 ### 2.3 数据为中心的隐私保护方法
 
-Ming Jin (MIT) 提出的数据为中心的隐私保护方法：
+**Ming Jin 和 Ruoxi Jia（美国弗吉尼亚理工大学 Virginia Tech）** 提出的数据为中心的模型反演攻击防御方法：
 
-**核心思想**：
-- 通过数据增强塑造损失景观，使攻击者难以生成目标样本
-- 形式化分析：优化联合不可观测性 (Joint Unobservability)
+- 论文标题：*"Data-Centric Defense: Shaping Loss Landscape with Augmentations to Counter Model Inversion"*，发表于 TMLR/ICLR 2025 被引用 [4]。
+- 核心思想：通过向训练数据添加隐私保护型数据增强（privacy-focused augmentations）来塑造目的地损失景观——在代理样本周围形成更平坦的曲率、在目标样本附近形成更陡峭的曲率，从而使攻击者难以重建私人目标样本。
+- 与传统的模型中心方法（per-calibration, adversarial purging）不同，该方法允许每个数据贡献者自主控制自己的隐私风险。
 
-**实验结果**：
-- 人脸识别重建成功率：≤ 4.2% (原始基准 47.1%)
-- 隐私风险降低：89.4%
-- 模型效用保持：准确率下降 < 2.1%
+**注意**：
+- 原报道中"MIT 的 Ming Jin"为错误归因；Ming Jin 的机构是弗吉尼亚理工大学（Virginia Tech），email 为 jinming@vt.edu [4]。
+- 原报道中"人脸识别重建成功率：≤ 4.2%（原始基准 47.1%）"等数值未核对来源，existing literature 报告指标较模糊；请以原始论文为准。
 
 ---
 
@@ -141,34 +118,18 @@ Ming Jin (MIT) 提出的数据为中心的隐私保护方法：
 
 ### 3.1 VPI-BENCH 基准详细说明
 
-**测试覆盖**：
-- 输入类型：图像 + 文本 + UI 组合
-- 攻击场景：ORCA、TableGI、DAL 环境
-- 代理类型：ScanBot、AMBER、CLIFFORD
+VPI-Bench 由 Tri Cao、Bennett Lim 等人（新加坡国立大学等）开发，首个系统评估 **Computer-Use Agent (CUA)** 与 **Browser-Use Agent (BUA)** 抗视觉提示注入能力的基准：
 
-**评估指标**：
-```python
-security_risk = {
-    "attack_success_rate": "攻击成功率",
-    "detection_rate": "防御系统检出率", 
-    "model_utility": "模型任务完成能力",
-    "false_positive_rate": "误报率"
-}
-```
+**测试规模**：306 个测试案例，覆盖 5 大主流 Web 平台：**Amazon、Booking、BBC、Messenger、Email**（电商、IM、邮件等场景）
+**评估对象**：7-8 个主流 Agent（含 Anthropic 的 CUA 及多家 BUA 代理）
+**攻击成功率**：BUA 在 Amazon 等平台上可达 100%，CUA 最高约 51%（部分平台上 Anthropic 的 CUA 也可达 59%）
+**防御效果**：现有防御手段（fine-tuning、系统提示）效果有限，安全行业内亟需有效的上下文感知型防御
 
-### 3.2 鲁棒性等级划分 (NIST AI RMF)
+**关键发现**：所有主流 Agent 均存在视觉提示注入漏洞；部分 CUA 在处理恶意任务时仅完成部分操作，但仍会泄露数据。
 
-**TS-1 (Few-shot, 单步攻击)**：
-- 要求漏洞率 < 30%
-- 表现基本要求
+### 3.2 评估框架说明
 
-**TS-2 (Standard, 多步攻击)**：
-- 要求漏洞率 < 20%
-- 智能体能力指标
-
-**TS-3 (Reduced, 连续攻击)**：
-- 要求漏洞率 < 10%
-- 高安全要求场景
+安全评估应参考 NIST AI RMF 的 "Govern-Merge-Measure-Manage" 核心框架，以及 ICLR 2026 各论文中提出的“攻击-检测-防御”闭环思路（见 §1.1 和 §1.3）。不要将任意未经验证的“鲁棒性等级”作为标准使用。
 
 ### 3.3 自主类的评估策略
 
@@ -202,9 +163,9 @@ graph TD
 ### 4.2 防御技术优先级
 
 **高优先级 **（立即部署）：
-1. **输入过滤**：转录和指令过滤 (降低攻击成功率 72.3%)
-2. **敏感数据抽象化**：三级去匿名化 (降低泄露率 42.1%)
-3. **自动拒绝优化**：诱导风险指令的拒绝策略 (降低推理攻击 31.7%)
+1. **输入过滤**：转录和指令过滤（降低攻击成功率 — 具体数字以各专利方案为准）
+2. **敏感数据抽象化**：三级去匿名化（降低泄露率 — 具体数字以各专利方案为准）
+3. **自动拒绝优化**：诱导风险指令的拒绝策略（降低推理攻击 — 具体数字请核对原始论文）
 
 **中优先级 **（3-6 个月）：
 1. **VPI 攻击检测**：视觉提示注入识别模块
@@ -218,10 +179,10 @@ graph TD
 
 ### 4.3 企业级工具栈
 
-**开源工具**：
-- `VPI-BENCH`：自动化视觉注入攻击评估
-- `TextBench`：对抗性评估框架
-- `Defense-Aya`：轻量级防御模型
+**开源基准/工具**：
+- `VPI-Bench 数据集`（HuggingFace）：视觉注入攻击评估与复现
+- `AutoMalTool`（浙大 NESA 实验室）：支持 MCP 的 LLM Agent 自动红队测试
+- `AgentDojo`：Agent 红队测试与拨测环境（公开发布的官方工具集）
 
 **商业方案**：
 - NVIDIA NeMo Guardrails：生产级防护
@@ -275,9 +236,9 @@ graph TD
 
 2. **ICLR 2026**. "VPI-BENCH: Visual Prompt Injection Attacks for Computer-Use Agents". https://proceedings.iclr.cc/paper_files/paper/2026/file/28e4c3696637ac727051a2922643ec6a-Paper-Conference.pdf
 
-3. **ICLR 2026**. "Stop Tracking Me! Proactive Defense Against Attribute Inference Attack in LLMs". https://en.papernotes.org/ICLR2026/llm_safety/stop_tracking_me_proactive_defense_against_attribute_inference_attack_in_llms/
+3. **ICLR 2026**. "Stop Tracking Me! Proactive Defense Against Attribute Inference Attack in LLMs". Dong Yan, Jian Liang, Ran He, Tieniu Tan (中国科学院自动化研究所). https://arxiv.org/abs/2602.11528
 
-4. **MIT**. "Data-centric defense: Shaping loss landscape with augmentations to counter model inversion". https://jinming.tech/about.html
+4. **Ming Jin, Ruoxi Jia**. "Data-Centric Defense: Shaping Loss Landscape with Augmentations to Counter Model Inversion". Virginia Tech. https://openreview.net/forum?id=r8wXaLJBIS
 
 5. **浙江大学 NESA 实验室**. "Automatic Red Teaming LLM-based Agents with Model Context Protocol Tools". https://nesa.zju.edu.cn/webpage/pubyear.html
 
