@@ -153,12 +153,14 @@ export default defineConfig({
     // 避免脚本失败时整页空白。内联脚本不阻塞解析。
     ['script', {}, 'document.documentElement.classList.add("js")'],
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/lanyuejie-blog/favicon.svg' }],
+    // PWA manifest
+    ['link', { rel: 'manifest', href: '/lanyuejie-blog/manifest.json' }],
     ['link', { rel: 'alternate', type: 'application/rss+xml', title: `${SITE_NAME} RSS`, href: `${SITE_URL}/feed.xml` }],
     ['link', { rel: 'dns-prefetch', href: 'https://johboby.github.io' }],
     ['link', { rel: 'preconnect', href: 'https://johboby.github.io', crossorigin: '' }],
     ['link', { rel: 'webmention', href: 'https://webmention.io/johboby/lanyuejie-blog/webmention' }],
     ['link', { rel: 'pingback', href: 'https://webmention.io/johboby/lanyuejie-blog/xmlrpc' }],
-    ['meta', { name: 'keywords', content: '揽月界科技,Lanyuejie Technology,AI风控,智能保险,畜牧业监测,双精两减,防灾减损,人工智能,风险控制' }],
+    ['meta', { name: 'keywords', content: '揽月界科技,Lanyuejie Technology,AI风控,智能保险,畜牧业监测,双精两减,防灾减损,人工智能,风险控制,人工智能,风险控制,技术洞察，行业分析,AI研究' }],
     ['meta', { name: 'author', content: SITE_NAME }],
     ['meta', { name: 'robots', content: 'index, follow, maxsnippet:-1, maximagepreview:large, maxvideopreview:-1' }],
     ['meta', { name: 'baiduspider', content: 'index, follow' }],
@@ -171,6 +173,8 @@ export default defineConfig({
     ['meta', { name: 'mobile-web-app-capable', content: 'yes' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
     ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }],
+    // iOS specific
+    ['link', { rel: 'apple-touch-icon', href: '/lanyuejie-blog/favicon.svg' }],
   ],
 
   themeConfig: {

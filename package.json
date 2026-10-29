@@ -12,6 +12,8 @@
     "lint:watch": "node server/lint.js",
     "dev:all": "concurrently \"npm run dev\" \"npm run server\" \"npm run lint:watch\"",
     "indexnow": "node scripts/submit-indexnow.mjs",
+    "build:all": "npm run build && npm run indexnow && npm run sitemap:ping",
+    "sitemap:ping": "node scripts/deserve-sitemap-ping.mjs",
     "postinstall": "patch-package"
   },
   "dependencies": {

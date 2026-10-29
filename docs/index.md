@@ -1,5 +1,5 @@
 ---
-title: 揽月界科技
+title: 揽月界科技 - AI 与风险控制前沿研究
 description: 揽月界科技聚焦人工智能与风险控制的前沿研究，覆盖大模型与智能体、AI 工程实战、遥感气象预测与行业深度分析，输出可复用的方法论与工具链。
 layout: page
 pageClass: home-page

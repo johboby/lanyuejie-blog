@@ -1,15 +1,16 @@
 User-agent: *
 Allow: /
-Crawl-delay: 1
-
-User-agent: Baiduspider
-Allow: /
-Crawl-delay: 1
-
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
+Allow: /posts/
+Allow: /articles/
 
 Sitemap: https://johboby.github.io/lanyuejie-blog/sitemap.xml
+
+# AI and searching agents
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+# Crawl-delay for all bots (optional, but polite)
+Crawl-delay: 1

@@ -1,0 +1,28 @@
+{
+  "name": "揽月界科技 - AI & 风险研究",
+  "short_name": "揽月界",
+  "description": "专注人工智能与风险控制的前沿科技企业",
+  "start_url": "/lanyuejie-blog/",
+  "display": "standalone",
+  "background_color": "#faf9f6",
+  "theme_color": "#1f4f42",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/lanyuejie-blog/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["technology", "science", "education", "blog"],
+  "share_target": {
+    "action": "/lanyuejie-blog/share",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

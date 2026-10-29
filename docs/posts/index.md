@@ -1,5 +1,5 @@
 ---
-title: 文章列表
+title: 研究文章 - 揽月界科技 AI 风控深度报告
 layout: page
 ---
 
