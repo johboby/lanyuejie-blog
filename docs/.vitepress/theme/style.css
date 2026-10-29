@@ -934,7 +934,7 @@ html:has(.home-page) body {
 /* ---------- HERO ---------- */
 .home .hero {
   position: relative;
-  padding: 140px 0 96px;
+  padding: 140px 0 100px;
   text-align: center;
   overflow: hidden;
   border-top: none;
@@ -942,17 +942,16 @@ html:has(.home-page) body {
 .home .hero-bg {
   position: absolute; inset: 0;
   background:
-    linear-gradient(to bottom, rgba(5, 5, 7, 0) 0%, var(--home-bg) 88%),
+    linear-gradient(to bottom, rgba(5, 5, 7, 0) 0%, var(--home-bg) 90%),
     radial-gradient(60% 45% at 50% 0%, rgba(74, 222, 128, 0.055) 0%, transparent 65%),
     linear-gradient(var(--home-grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--home-grid) 1px, transparent 1px);
   background-size: 100% 100%, 100% 100%, 72px 72px, 72px 72px;
   background-position: 0 0, 0 0, -1px -1px, -1px -1px;
-  mask-image: radial-gradient(85% 100% at 50% 0%, #000 40%, transparent 90%);
-  -webkit-mask-image: radial-gradient(85% 100% at 50% 0%, #000 40%, transparent 90%);
+  mask-image: radial-gradient(85% 100% at 50% 0%, #000 35%, transparent 85%);
+  -webkit-mask-image: radial-gradient(85% 100% at 50% 0%, #000 35%, transparent 85%);
   pointer-events: none;
 }
-.home .hero-bg::after { display: none; }
 .home .hero-inner { position: relative; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 .home .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
@@ -965,23 +964,27 @@ html:has(.home-page) body {
   color: var(--home-accent);
   margin-bottom: 32px;
   border: 1px solid rgba(74, 222, 128, 0.24);
+  transition: all var(--motion-fast) var(--easing);
 }
+.home .hero-badge:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(74, 222, 128, 0.12); }
 .home .hero-title {
   font-family: var(--vp-font-family-base);
   font-size: clamp(2.6rem, 8vw, 5.2rem);
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.05;
   margin: 0 0 20px;
   color: var(--home-fg);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 .home .hero-tagline {
   font-family: var(--home-mono);
   font-size: clamp(0.85rem, 1.8vw, 1rem);
   font-weight: 400;
-  color: var(--home-fg-2);
+  color: var(--home-accent);
   letter-spacing: 0.08em;
   margin: 0 0 28px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 .home .hero-desc {
   font-size: 1.02rem;
@@ -1037,17 +1040,18 @@ html:has(.home-page) body {
   padding: 24px 32px;
   text-align: center;
   display: flex; flex-direction: column; gap: 6px;
-  transition: background var(--motion-fast) var(--easing);
+  transition: background var(--motion-fast) var(--easing), transform var(--motion-fast) var(--easing);
 }
-.home .metric:hover { background: rgba(255,255,255,0.015); }
+.home .metric:hover { background: rgba(255, 255, 255, 0.015); transform: translateY(-2px); }
 .home .metric + .metric { border-left: 1px solid var(--home-border); }
 .home .metric-num {
-  font-family: var(--home-mono);
-  font-size: 2.4rem; font-weight: 500;
-  line-height: 1;
-  color: var(--home-fg);
+  font-family: var(--font-display), Georgia, "Times New Roman", "Noto Serif", serif;
+  font-size: 2.8rem; font-weight: 700;
+  line-height: 1.1;
+  color: var(--brand-primary);
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  text-shadow: 0 0 20px rgba(74, 222, 128, 0.1) inset;
 }
 .home .metric-label {
   font-family: var(--home-mono);
@@ -1109,7 +1113,7 @@ html:has(.home-page) body {
   font-variant-numeric: tabular-nums;
 }
 
-/* ---------- Featured card (minimal, no image block) ---------- */
+/* ---------- Featured card (brand-coverage media, no multiply) ---------- */
 .home .featured-card {
   display: block;
   grid-template-columns: 1fr;
@@ -1119,26 +1123,47 @@ html:has(.home-page) body {
   overflow: hidden;
   text-decoration: none;
   margin-bottom: 32px;
-  transition: border-color var(--motion-standard) var(--easing), background var(--motion-standard) var(--easing);
+  transition: border-color var(--motion-standard) var(--easing), background var(--motion-standard) var(--easing), box-shadow var(--motion-standard) var(--easing);
   position: relative;
 }
 .home .featured-card::before {
   content: "";
   position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(74, 222, 128, 0.04) 0%, transparent 45%);
+  background: linear-gradient(135deg, 
+    var(--brand-accent) 0%, 
+    rgba(74, 222, 128, 0.04) 35%, 
+    transparent 60%, 
+    transparent 100%);
+  opacity: 0.85;
   pointer-events: none;
 }
-.home .featured-card:hover { border-color: var(--home-border-strong); background: #111116; }
+.home .featured-card::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent, rgba(5, 5, 7, 0.8));
+  opacity: 0.9;
+  pointer-events: none;
+}
+.home .featured-card:hover { 
+  border-color: var(--home-border-strong); 
+  background: #111116; 
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
 .home .featured-card:hover .featured-arrow { transform: translateX(4px); }
-.home .featured-body { padding: 40px 40px; position: relative; }
+.home .featured-body { 
+  padding: 40px 40px; 
+  position: relative; 
+  z-index: 1;
+}
 .home .featured-title {
   font-family: var(--vp-font-family-base);
   font-size: 1.55rem;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.35;
   letter-spacing: -0.015em;
   margin: 0 0 14px;
   color: var(--home-fg);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 .home .featured-excerpt {
   font-size: 0.95rem;
@@ -1155,6 +1180,7 @@ html:has(.home-page) body {
   color: var(--home-fg-3);
   padding-top: 18px;
   border-top: 1px solid var(--home-border);
+  position: relative;
 }
 .home .featured-tag {
   padding: 3px 10px;
@@ -1164,6 +1190,7 @@ html:has(.home-page) body {
   border: 1px solid rgba(74, 222, 128, 0.24);
   font-size: 0.72rem;
   letter-spacing: 0.06em;
+  text-shadow: 0 0 4px rgba(74, 222, 128, 0.2);
 }
 .home .featured-date { font-variant-numeric: tabular-nums; color: var(--home-fg-3); }
 .home .featured-cta {
@@ -1171,6 +1198,7 @@ html:has(.home-page) body {
   color: var(--home-fg);
   font-weight: 500;
   display: inline-flex; align-items: center; gap: 6px;
+  transition: transform var(--motion-standard) var(--easing);
 }
 .home .featured-arrow {
   display: inline-block;
