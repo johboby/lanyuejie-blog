@@ -819,9 +819,9 @@ body {
 /* ============================================================
    HOME — Minimal Tech (黑色极简科技风)
    Scoped to .home so it doesn't affect posts / archive pages.
-   Inspiration: Linear / Vercel / Radix — pure black, cold white,
-   single mint accent, monospace for numeric/English labels,
-   thin grid as subtle background texture.
+   Inspiration: Linear / Vercel / Radix + Tokyo Brutalism — 
+   pure black, cold white, single mint accent, monospace for 
+   numeric/English labels, thin grid as subtle background texture.
    ============================================================ */
 /* `html:has(.home-page)` 命中 SSR HTML 中已存在的 .Layout.home-page，
    使 body / html 在首帧就能拿到暗色 token，避免白闪。 */
@@ -839,6 +839,7 @@ html:has(.home-page),
   --home-accent: #4ade80;
   --home-accent-dim: rgba(74, 222, 128, 0.14);
   --home-grid: rgba(255, 255, 255, 0.026);
+  --home-grid-hover: rgba(74, 222, 128, 0.08);
   --home-mono: ui-monospace, "SF Mono", "JetBrains Mono", "IBM Plex Mono", Menlo, Consolas, monospace;
   color-scheme: dark;
   font-feature-settings: "ss01" 1, "cv11" 1;
@@ -951,6 +952,29 @@ html:has(.home-page) body {
   mask-image: radial-gradient(85% 100% at 50% 0%, #000 35%, transparent 85%);
   -webkit-mask-image: radial-gradient(85% 100% at 50% 0%, #000 35%, transparent 85%);
   pointer-events: none;
+  z-index: 0;
+}
+.home .hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(160% 160% at 20% 60%, rgba(74, 222, 128, 0.06) 0%, transparent 70%),
+    radial-gradient(120% 120% at 80% 20%, rgba(74, 222, 128, 0.04) 0%, transparent 60%);
+  opacity: 0.6;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+.home .hero-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(180deg, transparent, rgba(5,5,7,0.4)),
+    repeating-linear-gradient(0deg, var(--home-grid) 0px, var(--home-grid) 1px, transparent 2px, transparent 240px),
+    repeating-linear-gradient(90deg, var(--home-grid) 0px, var(--home-grid) 1px, transparent 2px, transparent 240px);
+  opacity: 0.5;
+  pointer-events: none;
 }
 .home .hero-inner { position: relative; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 .home .hero-badge {
@@ -964,9 +988,24 @@ html:has(.home-page) body {
   color: var(--home-accent);
   margin-bottom: 32px;
   border: 1px solid rgba(74, 222, 128, 0.24);
-  transition: all var(--motion-fast) var(--easing);
+  transition: all 0.4s var(--easing);
+  position: relative;
+  overflow: hidden;
 }
-.home .hero-badge:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(74, 222, 128, 0.12); }
+.home .hero-badge::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(74, 222, 128, 0.1), transparent);
+  transition: left 0.6s var(--easing);
+}
+.home .hero-badge:hover { 
+  transform: translateY(-2px); 
+  box-shadow: 0 8px 24px rgba(74, 222, 128, 0.16);
+  border-color: rgba(74, 222, 128, 0.48);
+}
+.home .hero-badge:hover::before { left: 100%; }
 .home .hero-title {
   font-family: var(--vp-font-family-base);
   font-size: clamp(2.6rem, 8vw, 5.2rem);
@@ -1003,20 +1042,54 @@ html:has(.home-page) body {
   border-radius: 6px;
   border-width: 1px;
   font-family: var(--vp-font-family-base);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+}
+.home .btn::after {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 0; height: 0;
+  background: rgba(255,255,255,0.18);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s var(--easing), height 0.6s var(--easing);
+}
+.home .btn:active::after {
+  width: 200px; height: 200px;
+  opacity: 0;
+  transition: width 0s 0.6s, height 0s 0.6s, opacity 0s 0.6s;
+}
+.home .btn {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .home .btn-solid {
   background: var(--home-accent);
   color: #050507;
   border-color: var(--home-accent);
 }
-.home .btn-solid:hover { background: #6ee799; border-color: #6ee799; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(74, 222, 128, 0.24); }
-.home .btn-solid:active { background: #3fd072; }
+.home .btn-solid:hover { 
+  background: #6ee799; 
+  border-color: #6ee799; 
+  transform: translateY(-2px); 
+  box-shadow: 0 8px 24px rgba(74, 222, 128, 0.32);
+}
+.home .btn-solid:active { 
+  background: #3fd072; 
+  transform: translateY(0); 
+}
 .home .btn-outline {
   background: transparent;
   color: var(--home-fg);
   border-color: var(--home-border-strong);
 }
-.home .btn-outline:hover { border-color: var(--home-fg-2); background: rgba(255,255,255,0.02); transform: translateY(-1px); }
+.home .btn-outline:hover { 
+  border-color: var(--home-fg-2); 
+  background: rgba(255,255,255,0.02); 
+  transform: translateY(-2px); 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
 
 /* ---------- Metrics ---------- */
 .home .metrics {
@@ -1040,9 +1113,25 @@ html:has(.home-page) body {
   padding: 24px 32px;
   text-align: center;
   display: flex; flex-direction: column; gap: 6px;
-  transition: background var(--motion-fast) var(--easing), transform var(--motion-fast) var(--easing);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
 }
-.home .metric:hover { background: rgba(255, 255, 255, 0.015); transform: translateY(-2px); }
+.home .metric::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--home-accent), transparent);
+  opacity: 0;
+  transition: opacity 0.4s var(--easing);
+}
+.home .metric:hover { 
+  background: rgba(255, 255, 255, 0.015); 
+  transform: translateY(-2px); 
+  border-color: rgba(74, 222, 128, 0.24);
+}
+.home .metric:hover::before { opacity: 0.4; }
 .home .metric + .metric { border-left: 1px solid var(--home-border); }
 .home .metric-num {
   font-family: var(--font-display), Georgia, "Times New Roman", "Noto Serif", serif;
@@ -1052,6 +1141,11 @@ html:has(.home-page) body {
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.03em;
   text-shadow: 0 0 20px rgba(74, 222, 128, 0.1) inset;
+  transition: color 0.3s var(--easing), text-shadow 0.3s var(--easing);
+}
+.home .metric:hover .metric-num { 
+  color: #5ab89e; 
+  text-shadow: 0 0 30px rgba(74, 222, 128, 0.2) inset, 0 0 10px rgba(74, 222, 128, 0.1);
 }
 .home .metric-label {
   font-family: var(--home-mono);
@@ -1059,7 +1153,9 @@ html:has(.home-page) body {
   letter-spacing: 0.18em;
   color: var(--home-fg-3);
   text-transform: uppercase;
+  transition: color 0.3s var(--easing);
 }
+.home .metric:hover .metric-label { color: var(--home-accent); }
 
 /* ---------- Category nav ---------- */
 .home .cat-nav { padding-top: 72px; padding-bottom: 32px; }
@@ -1077,7 +1173,7 @@ html:has(.home-page) body {
   text-decoration: none;
   cursor: pointer;
   position: relative;
-  transition: border-color var(--motion-standard) var(--easing), background var(--motion-standard) var(--easing), transform var(--motion-standard) var(--easing);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   overflow: hidden;
 }
 .home .cat-nav-card::before {
@@ -1086,10 +1182,24 @@ html:has(.home-page) body {
   left: 0; top: 0;
   width: 2px; height: 0;
   background: var(--home-accent);
-  transition: height var(--motion-standard) var(--easing);
+  transition: height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.home .cat-nav-card:hover { border-color: var(--home-border-strong); background: #111116; transform: translateY(-2px); }
+.home .cat-nav-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(160% 160% at 50% 0%, rgba(74, 222, 128, 0.06) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s var(--easing);
+}
+.home .cat-nav-card:hover { 
+  border-color: var(--home-border-strong); 
+  background: #111116; 
+  transform: translateY(-4px) scale(1.01); 
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
 .home .cat-nav-card:hover::before { height: 100%; }
+.home .cat-nav-card:hover::after { opacity: 1; }
 .home .cat-nav-card:focus-visible { outline: 2px solid var(--home-accent); outline-offset: 2px; }
 .home .cat-nav-glyph {
   font-family: var(--home-mono);
@@ -1098,6 +1208,7 @@ html:has(.home-page) body {
   letter-spacing: 0.16em;
   color: var(--home-fg-3);
   line-height: 1;
+  transition: color 0.3s var(--easing), letter-spacing 0.3s var(--easing);
 }
 .home .cat-nav-name {
   font-family: var(--vp-font-family-base);
@@ -1105,13 +1216,18 @@ html:has(.home-page) body {
   font-weight: 600;
   color: var(--home-fg);
   letter-spacing: -0.01em;
+  transition: color 0.3s var(--easing);
 }
 .home .cat-nav-count {
   font-family: var(--home-mono);
   font-size: 0.78rem;
   color: var(--home-accent);
   font-variant-numeric: tabular-nums;
+  transition: color 0.3s var(--easing);
 }
+.home .cat-nav-card:hover .cat-nav-glyph { color: var(--home-accent); letter-spacing: 0.2em; }
+.home .cat-nav-card:hover .cat-nav-name { color: var(--home-accent); }
+.home .cat-nav-card:hover .cat-nav-count { color: var(--home-accent-dim); }
 
 /* ---------- Featured card (brand-coverage media, no multiply) ---------- */
 .home .featured-card {
@@ -1123,7 +1239,7 @@ html:has(.home-page) body {
   overflow: hidden;
   text-decoration: none;
   margin-bottom: 32px;
-  transition: border-color var(--motion-standard) var(--easing), background var(--motion-standard) var(--easing), box-shadow var(--motion-standard) var(--easing);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
 }
 .home .featured-card::before {
@@ -1144,16 +1260,27 @@ html:has(.home-page) body {
   opacity: 0.9;
   pointer-events: none;
 }
+.home .featured-card::before {
+  transition: opacity 0.5s var(--easing);
+}
 .home .featured-card:hover { 
   border-color: var(--home-border-strong); 
   background: #111116; 
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+  transform: translateY(-4px);
 }
-.home .featured-card:hover .featured-arrow { transform: translateX(4px); }
+.home .featured-card:hover::before { opacity: 1; }
+.home .featured-card:hover .featured-arrow { transform: translateX(6px); }
 .home .featured-body { 
   padding: 40px 40px; 
   position: relative; 
   z-index: 1;
+}
+.home .featured-body {
+  transition: padding 0.5s var(--easing);
+}
+.home .featured-card:hover .featured-body {
+  padding: 40px 40px;
 }
 .home .featured-title {
   font-family: var(--vp-font-family-base);
@@ -1226,7 +1353,16 @@ html:has(.home-page) body {
   overflow: visible;
   position: relative;
   text-decoration: none;
-  transition: background var(--motion-standard) var(--easing);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.home .post-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--home-accent), transparent);
+  left: -100%;
+  transition: left 0.4s var(--easing);
 }
 .home .post-card > a {
   display: flex;
@@ -1236,6 +1372,7 @@ html:has(.home-page) body {
   color: inherit;
 }
 .home .post-card:hover { background: #111116; }
+.home .post-card:hover::before { left: 100%; }
 .home .post-card:hover h3 { color: var(--home-accent); }
 .home .post-card > a > h3 {
   margin: 0;
@@ -1244,8 +1381,19 @@ html:has(.home-page) body {
   line-height: 1.45;
   letter-spacing: -0.005em;
   color: var(--home-fg);
-  transition: color var(--motion-standard) var(--easing);
+  transition: color 0.3s var(--easing);
+  position: relative;
 }
+.home .post-card > a > h3::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -4px;
+  width: 0;
+  height: 1px;
+  background: var(--home-accent);
+  transition: width 0.3s var(--easing);
+}
+.home .post-card:hover > a > h3::after { width: 100%; }
 .home .post-card > time,
 .home .post-card .post-card-date {
   font-family: var(--home-mono);
@@ -1253,6 +1401,11 @@ html:has(.home-page) body {
   color: var(--home-fg-3);
   letter-spacing: 0.06em;
   font-variant-numeric: tabular-nums;
+  transition: color 0.3s var(--easing);
+}
+.home .post-card:hover > time,
+.home .post-card:hover .post-card-date {
+  color: var(--home-accent);
 }
 .home .post-excerpt {
   font-size: 0.86rem;
@@ -1260,6 +1413,7 @@ html:has(.home-page) body {
   color: var(--home-fg-2);
   margin-bottom: 0;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  transition: color 0.3s var(--easing);
 }
 .home .posts-more {
   text-align: center;
