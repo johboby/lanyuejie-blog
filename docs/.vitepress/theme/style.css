@@ -231,9 +231,9 @@ body {
   border: 1px solid rgba(31,79,66,0.12);
   transition: box-shadow var(--motion-fast) var(--easing), transform var(--motion-fast) var(--easing);
 }
-/* 杂志 Hero 下的徽章：改为亮色 */
-.hero-magazine .hero-badge { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
-
+/* 杂志 Hero 下的徽章：改为亮色（仅在暗色背景下生效） */
+[data-vp-theme="dark"] .hero-magazine .hero-badge { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+/* 浅色模式恢复品牌软底色 */
 /* 暗色模式全局次要文字更亮 */
 [data-vp-theme="dark"] .hero-desc { color: rgba(255,255,255,0.85); }
 .hero-badge:hover { box-shadow: var(--shadow-sm); transform: translateY(-1px); }
@@ -898,9 +898,4 @@ html { scroll-behavior: smooth; }
 }
 .hero-magazine .hero-desc {
   color: rgba(255,255,255,0.9);
-}
-.hero-magazine .hero-badge {
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: #fff;
 }
