@@ -68,17 +68,17 @@ layout: page
         <a href="/lanyuejie-blog/posts/" class="cat-nav-card" data-part="cat-card">
           <span class="cat-nav-glyph" aria-hidden="true">风险</span>
           <span class="cat-nav-name">风险研究</span>
-          <span class="cat-nav-count" id="cat-risk-count">0 篇</span>
+          <span class="cat-nav-count" id="cat-风险-count">0 篇</span>
         </a>
         <a href="/lanyuejie-blog/posts/" class="cat-nav-card" data-part="cat-card">
           <span class="cat-nav-glyph" aria-hidden="true">农业</span>
           <span class="cat-nav-name">农业监测</span>
-          <span class="cat-nav-count" id="cat-agri-count">0 篇</span>
+          <span class="cat-nav-count" id="cat-农业-count">0 篇</span>
         </a>
         <a href="/lanyuejie-blog/posts/" class="cat-nav-card" data-part="cat-card">
           <span class="cat-nav-glyph" aria-hidden="true">保险</span>
           <span class="cat-nav-name">智能保险</span>
-          <span class="cat-nav-count" id="cat-ins-count">0 篇</span>
+          <span class="cat-nav-count" id="cat-保险-count">0 篇</span>
         </a>
       </div>
     </div>
