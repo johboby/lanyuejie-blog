@@ -1,18 +1,11 @@
 ---
-title: 揽月界科技 - AI 与风险控制前沿研究
-description: 揽月界科技聚焦人工智能与风险控制的前沿研究，覆盖大模型与智能体、AI 工程实战、遥感气象预测与行业深度分析，输出可复用的方法论与工具链。
+title: 揽月界科技
 layout: page
-pageClass: home-page
-head:
-  -
-    - meta
-    - name: theme-color
-      content: '#050507'
 ---
 
 <main class="home">
-  <!-- Hero: centered cover, no side panel -->
-  <section class="hero reveal visible" data-part="hero" aria-label="品牌介绍">
+  <!-- Hero: magazine-cover centered, no right-side visual panel -->
+  <section class="hero hero-magazine reveal" data-part="hero" aria-label="品牌介绍">
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-inner">
       <header>
@@ -28,109 +21,119 @@ head:
         </div>
       </header>
     </div>
+    <!-- Floating Stats -->
+    <div class="hero-floating-stats" aria-hidden="true">
+      <div class="hero-floating-stat">
+        <div class="hero-floating-number" id="hero-post-count">—</div>
+        <div class="hero-floating-label">研究文章</div>
+      </div>
+      <div class="hero-floating-stat">
+        <div class="hero-floating-number" id="hero-word-count">—</div>
+        <div class="hero-floating-label">总字数</div>
+      </div>
+      <div class="hero-floating-stat">
+        <div class="hero-floating-number" id="hero-tag-count">—</div>
+        <div class="hero-floating-label">研究标签</div>
+      </div>
+    </div>
   </section>
 
-  <!-- Metrics bar: values are computed refs, SSR emits real text, no FOUC -->
-  <section class="metrics reveal reveal-delay-1 visible" data-part="metrics" aria-label="研究数据">
+  <!-- Metrics bar -->
+  <section class="metrics reveal reveal-delay-1" data-part="metrics" aria-label="研究数据">
     <div class="metrics-inner">
       <dl class="metric">
-        <dt class="metric-num">{{ articleCount }}</dt>
+        <dt class="metric-num" id="post-count">—</dt>
         <dd class="metric-label">研究文章</dd>
       </dl>
       <dl class="metric">
-        <dt class="metric-num">{{ wordCountText }}</dt>
+        <dt class="metric-num" id="word-count">—</dt>
         <dd class="metric-label">总字数</dd>
       </dl>
       <dl class="metric">
-        <dt class="metric-num">{{ tagCount }}</dt>
+        <dt class="metric-num" id="tag-count">—</dt>
         <dd class="metric-label">研究标签</dd>
       </dl>
     </div>
   </section>
 
-  <!-- Category Quick Nav: counts are reactive, no "— 篇" placeholder -->
+  <!-- Category Quick Nav -->
   <nav class="section cat-nav reveal reveal-delay-1" data-part="cat-nav" aria-label="分类导航">
     <div class="section-inner">
       <div class="cat-nav-grid">
-        <a
-          v-for="axis in axes"
-          :key="axis.key"
-          :href="withBase(axisHref(axis.key))"
-          class="cat-nav-card"
-          data-part="cat-card"
-        >
-          <span class="cat-nav-glyph" aria-hidden="true">{{ axis.glyph }}</span>
-          <span class="cat-nav-name">{{ axis.label }}</span>
-          <span class="cat-nav-count">{{ categoryCounts[axis.key] }} 篇</span>
+        <a href="/lanyuejie-blog/posts/" class="cat-nav-card" data-part="cat-card">
+          <span class="cat-nav-glyph" aria-hidden="true">AI</span>
+          <span class="cat-nav-name">智能科技</span>
+          <span class="cat-nav-count" id="cat-ai-count">0 篇</span>
+        </a>
+        <a href="/lanyuejie-blog/posts/" class="cat-nav-card" data-part="cat-card">
+          <span class="cat-nav-glyph" aria-hidden="true">风险</span>
+          <span class="cat-nav-name">风险研究</span>
+          <span class="cat-nav-count" id="cat-risk-count">0 篇</span>
+        </a>
+        <a href="/lanyuejie-blog/posts/" class="cat-nav-card" data-part="cat-card">
+          <span class="cat-nav-glyph" aria-hidden="true">农业</span>
+          <span class="cat-nav-name">农业监测</span>
+          <span class="cat-nav-count" id="cat-agri-count">0 篇</span>
+        </a>
+        <a href="/lanyuejie-blog/posts/" class="cat-nav-card" data-part="cat-card">
+          <span class="cat-nav-glyph" aria-hidden="true">保险</span>
+          <span class="cat-nav-name">智能保险</span>
+          <span class="cat-nav-count" id="cat-ins-count">0 篇</span>
         </a>
       </div>
     </div>
   </nav>
 
-  <!-- Featured post: reactive, no "加载中…" FOUC -->
+  <!-- Featured post -->
   <article class="section featured-section reveal reveal-delay-2" data-part="featured" aria-label="精选研究">
     <div class="section-inner">
       <header class="section-head">
         <span class="eyebrow">FEATURED</span>
         <h2 class="section-title">精选研究</h2>
       </header>
-      <a :href="featuredUrl" class="featured-card" data-part="featured-card">
+      <a href="/lanyuejie-blog/posts/" class="featured-card" data-part="featured-card">
+        <div class="featured-media" aria-hidden="true">
+          <span class="featured-media-tag" id="featured-tag">精选研究</span>
+        </div>
         <div class="featured-body">
-          <h3 class="featured-title">{{ featuredTitle }}</h3>
-          <p class="featured-excerpt">{{ featuredExcerpt }}</p>
-          <div class="featured-meta">
-            <span class="featured-tag">{{ featuredTag }}</span>
-            <time v-if="featuredDate" class="featured-date" :datetime="featuredDatetime">{{ featuredDate }}</time>
-            <span class="featured-cta">阅读全文 <span class="featured-arrow" aria-hidden="true">→</span></span>
-          </div>
+          <span class="eyebrow">FEATURED</span>
+          <h3 class="featured-title" id="featured-title">加载中…</h3>
+          <p class="featured-excerpt" id="featured-excerpt"></p>
+          <time class="featured-date" id="featured-date" datetime=""></time>
         </div>
       </a>
     </div>
   </article>
 
-  <!-- Latest articles grid: rendered by v-for, no empty container -->
+  <!-- Latest articles grid -->
   <section class="section articles-section reveal reveal-delay-3" data-part="articles" aria-label="最新研究">
     <div class="section-inner">
       <header class="section-head">
         <span class="eyebrow">LATEST</span>
         <h2 class="section-title">最新研究</h2>
       </header>
-      <div class="post-grid">
-        <article v-for="p in latestPosts" :key="p.url" class="post-card" data-part="post-card">
-          <a :href="withBase(p.url)" :aria-label="p.title">
-            <h3 class="post-card-title">{{ p.title }}</h3>
-            <p v-if="p.excerpt || p.description" class="post-excerpt">{{ p.excerpt || p.description }}</p>
-          </a>
-          <time v-if="p.date" class="post-card-date" :datetime="isoDate(p.date)">{{ formatDate(p.date) }}</time>
-        </article>
+      <div class="post-grid" id="post-grid">
+        <!-- 动态填充 -->
       </div>
       <div class="posts-more">
-        <a href="/lanyuejie-blog/posts/" class="btn btn-outline" data-part="articles-more">查看全部 {{ articleCount }} 篇研究<span aria-hidden="true">→</span></a>
+        <a href="/lanyuejie-blog/posts/" class="btn btn-outline" data-part="articles-more">查看全部 0 篇研究 →</a>
       </div>
     </div>
   </section>
 
-  <!-- Follow channels (no fake-submit email form; real RSS + WeChat only) -->
-  <section class="section subscribe reveal reveal-delay-3" data-part="subscribe" aria-label="跟进更新">
+  <!-- Subscribe -->
+  <section class="section subscribe reveal reveal-delay-3" data-part="subscribe" aria-label="订阅更新">
     <div class="subscribe-card">
-      <span class="eyebrow">STAY UPDATED</span>
-      <h2 class="section-title">跟进研究更新</h2>
-      <p class="section-subtitle">通过 RSS 或微信公众号接收最新文章</p>
-      <div class="follow-channels" data-part="follow-channels">
-        <a class="follow-channel" href="/lanyuejie-blog/feed.xml" data-part="rss-link">
-          <span class="follow-icon" aria-hidden="true">RSS</span>
-          <span class="follow-body">
-            <span class="follow-label">RSS 订阅</span>
-            <span class="follow-hint">通用阅读器：Inoreader / NetNewsWire / Feedly</span>
-          </span>
-        </a>
-        <a class="follow-channel" href="https://mp.weixin.qq.com/" target="_blank" rel="noopener noreferrer" data-part="wechat-link">
-          <span class="follow-icon" aria-hidden="true">微信</span>
-          <span class="follow-body">
-            <span class="follow-label">微信公众号</span>
-            <span class="follow-hint">尘渊文化 · 每篇研究同步推送</span>
-          </span>
-        </a>
+      <div class="subscribe-inner">
+        <span class="eyebrow">STAY UPDATED</span>
+        <h2 class="section-title">订阅研究更新</h2>
+        <p class="section-subtitle">每月一封，精选 AI 与风险控制的深度研究</p>
+        <form class="subscribe-form" data-part="subscribe-form" novalidate>
+          <label for="subscribe-email" class="sr-only">邮箱地址</label>
+          <input type="email" id="subscribe-email" class="subscribe-input" placeholder="you@example.com" aria-label="邮箱地址" required />
+          <button type="submit" class="subscribe-btn" data-part="subscribe-btn">订阅</button>
+        </form>
+        <p class="subscribe-feedback" aria-live="polite" hidden></p>
       </div>
     </div>
   </section>
@@ -160,105 +163,152 @@ head:
   </section>
 </main>
 
-<script setup>
-// 首页数据渲染：全部走 Vue 响应式 + 构建期内联数据，SSR 输出真实文本，
-// 客户端 hydration 首帧即真实值——彻底消除 metrics / featured / grid 的 FOUC。
-import { computed, onMounted, ref } from 'vue'
-import { withBase } from 'vitepress'
-import { POSTS as BUILD_POSTS } from './posts-list.generated.js'
-import { CONTENT_AXES, axisHref, countByAxis } from './.vitepress/lib/content-axes.js'
-
-// 分类卡片与归档页筛选共用同一套「内容轴」规则，卡片上的「N 篇」
-// 与归档页按轴筛选后的条数永远一致。
-const axes = CONTENT_AXES
-
-// 当前数据源：优先 BUILD_POSTS（构建期注入），运行时 fetch 到更新数据后 ref 会重设。
-const posts = ref(Array.isArray(BUILD_POSTS) ? BUILD_POSTS.slice() : [])
-
-// 按时间倒序：SSR / 客户端算出来的顺序一致，Featured = 最新一篇，Grid = 次新四篇。
-const sortedPosts = computed(() =>
-  posts.value.slice().sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
-)
-
-// ---- 顶部指标（Georgia 数字条）----
-const articleCount = computed(() => sortedPosts.value.length)
-
-const totalWords = computed(() =>
-  sortedPosts.value.reduce((sum, p) => sum + (p.wordCount || 0), 0)
-)
-const wordCountText = computed(() => totalWords.value.toLocaleString('en-US'))
-
-const tagCount = computed(() => {
-  const s = new Set()
-  for (const p of sortedPosts.value) {
-    for (const t of (p.tags || [])) s.add(t)
+<script>
+// SSR 安全：所有客户端专用逻辑包裹在 typeof window 检查中
+if (typeof window !== 'undefined') {
+  // 滚动揭示：IntersectionObserver（Zag hidden → visible 状态机）
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); });
   }
-  return s.size
-})
 
-// 分类卡片计数：与归档页共用 countByAxis，卡片数字 == 归档页按轴筛选后的条数
-const categoryCounts = computed(() => countByAxis(sortedPosts.value))
+  // 文章数据：从构建内嵌数据读取
+  var posts = window.__VP_POSTS__ || [];
+  var sorted = posts.slice().sort(function(a, b) {
+    return new Date(b.date || 0) - new Date(a.date || 0);
+  });
 
-// ---- 精选文章（最新一篇）----
-const featured = computed(() => sortedPosts.value[0] || null)
-const featuredTitle = computed(() => (featured.value && featured.value.title) || '暂无文章')
-const featuredExcerpt = computed(() =>
-  (featured.value && (featured.value.excerpt || featured.value.description)) || ''
-)
-const featuredTag = computed(() =>
-  (featured.value && featured.value.tags && featured.value.tags[0]) || ''
-)
-const featuredDate = computed(() => (featured.value && featured.value.date) ? formatDate(featured.value.date) : '')
-const featuredDatetime = computed(() => (featured.value && featured.value.date) ? isoDate(featured.value.date) : '')
-const featuredUrl = computed(() => (featured.value && featured.value.url) ? withBase(featured.value.url) : withBase('/posts/'))
+  // withBase 兜底
+  var base = (typeof withBase === 'function') ? withBase : function(p) { return '/lanyuejie-blog' + p; };
 
-// ---- 最新文章网格（次新四篇）----
-const latestPosts = computed(() => sortedPosts.value.slice(1, 5))
+  // 文章序号、总字数、标签数量
+  var countEl = function(id, value) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = value;
+  };
+  countEl('post-count', posts.length);
+  countEl('hero-post-count', posts.length);
+  var totalWords = 0;
+  posts.forEach(function(p) { totalWords += (p.wordCount || 0); });
+  countEl('word-count', totalWords.toLocaleString());
+  countEl('hero-word-count', totalWords.toLocaleString());
+  var allTags = new Set();
+  posts.forEach(function(p) { (p.tags || []).forEach(function(t) { allTags.add(t); }); });
+  countEl('tag-count', allTags.size);
+  countEl('hero-tag-count', allTags.size);
 
-// ---- 日期工具 ----
-function formatDate(value) {
-  const d = new Date(value)
-  if (isNaN(d.getTime())) return ''
-  const m = String(d.getMonth() + 1).padStart(2, '0')
-  const day = String(d.getDate()).padStart(2, '0')
-  return `${d.getFullYear()}-${m}-${day}`
-}
+  // 分类计数
+  var catCounts = { 'AI': 0, '风险': 0, '农业': 0, '保险': 0 };
+  posts.forEach(function(p) {
+    var cats = p.categories || [];
+    var tags = p.tags || [];
+    var all = cats.concat(tags);
+    all.forEach(function(t) {
+      if (catCounts.hasOwnProperty(t)) catCounts[t]++;
+    });
+    // 关键词匹配兜底
+    var title = (p.title || '').toLowerCase();
+    if (title.indexOf('ai') !== -1 || title.indexOf('智能') !== -1) catCounts['AI']++;
+    if (title.indexOf('风险') !== -1 || title.indexOf('防灾') !== -1) catCounts['风险']++;
+    if (title.indexOf('农业') !== -1 || title.indexOf('养殖') !== -1) catCounts['农业']++;
+    if (title.indexOf('保险') !== -1) catCounts['保险']++;
+  });
+  Object.keys(catCounts).forEach(function(k) {
+    var el = document.getElementById('cat-' + k.toLowerCase() + '-count');
+    if (el) el.textContent = catCounts[k] + ' 篇';
+  });
 
-function isoDate(value) {
-  const d = new Date(value)
-  if (isNaN(d.getTime())) return ''
-  return d.toISOString()
-}
+  // 1. 精选文章：取第一篇
+  if (sorted.length > 0) {
+    var fp = sorted[0];
+    var featTitle = document.getElementById('featured-title');
+    var featCard = document.querySelector('.featured-card');
+    var featTag = document.getElementById('featured-tag');
+    var featExcerpt = document.getElementById('featured-excerpt');
+    var featDate = document.getElementById('featured-date');
+    if (featTitle) featTitle.textContent = fp.title || '暂无文章';
+    if (featCard && fp.url) featCard.href = base(fp.url);
+    if (featExcerpt) featExcerpt.textContent = fp.excerpt || '';
+    if (featDate && fp.date) {
+      var isoDate = new Date(fp.date).toISOString();
+      featDate.textContent = isoDate.slice(0, 10);
+      featDate.setAttribute('datetime', isoDate);
+      featDate.style.display = 'block';
+      featDate.style.fontSize = '0.82rem';
+      featDate.style.color = 'var(--vp-c-text-3)';
+      featDate.style.marginTop = '8px';
+    }
+    if (fp.tags && fp.tags.length) {
+      if (featTag) featTag.textContent = fp.tags[0];
+    }
+  }
 
-// BUILD_POSTS 是构建期唯一数据源。onMounted 仅处理滚动揭示。
-onMounted(() => {
-  // 滚动揭示：区块顶边进入视口即显示。
-  // 不用纯 IntersectionObserver：被瞬间滚动 / 锚点跳过的区块，其交叉比始终为 0，
-  // IO 不会触发回调，会永久停在 opacity:0（整块空白）。这里直接按位置判定，
-  // 滚动、跳转、浏览器恢复滚动位置都能正确显示。
-  const pending = Array.from(document.querySelectorAll('.reveal:not(.visible)'))
-  let ticking = false
-  const revealCheck = () => {
-    ticking = false
-    const limit = window.innerHeight - 40
-    for (let i = pending.length - 1; i >= 0; i--) {
-      if (pending[i].getBoundingClientRect().top < limit) {
-        pending[i].classList.add('visible')
-        pending.splice(i, 1)
+  // 2. 文章网格：取第 2-5 篇
+  var grid = document.getElementById('post-grid');
+  if (grid) {
+    grid.innerHTML = '';
+    var monoIdx = 0;
+    var monograms = ['AI', '风', '农', '智', '数', '安'];
+    for (var i = 0; i < 4 && sorted[i + 1]; i++) {
+      var p = sorted[i + 1];
+      var card = document.createElement('article');
+      card.className = 'post-card';
+      card.setAttribute('data-part', 'post-card');
+      var link = document.createElement('a');
+      link.href = base(p.url);
+      link.setAttribute('aria-label', p.title || '暂无文章');
+      var mono = document.createElement('span');
+      mono.className = 'post-card-monogram';
+      mono.textContent = monograms[monoIdx % monograms.length];
+      mono.setAttribute('aria-hidden', 'true');
+      monoIdx++;
+      var h3 = document.createElement('h3');
+      h3.textContent = p.title || '暂无文章';
+      link.appendChild(mono);
+      link.appendChild(h3);
+      card.appendChild(link);
+      if (p.date) {
+        var time = document.createElement('time');
+        time.className = 'post-card-date';
+        time.setAttribute('datetime', new Date(p.date).toISOString());
+        time.textContent = new Date(p.date).toISOString().slice(0, 10);
+        card.appendChild(time);
       }
-    }
-    if (!pending.length) {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+      grid.appendChild(card);
     }
   }
-  const onScroll = () => {
-    if (ticking) return
-    ticking = true
-    requestAnimationFrame(revealCheck)
+
+  // 3. "查看全部"链接
+  var moreLink = document.querySelector('[data-part="articles-more"]');
+  if (moreLink) moreLink.textContent = '查看全部 ' + posts.length + ' 篇研究 →';
+
+  // 订阅表单反馈
+  var form = document.querySelector('.subscribe-form');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var input = form.querySelector('.subscribe-input');
+      var feedback = form.parentElement.querySelector('.subscribe-feedback');
+      if (!input || !input.value || input.value.indexOf('@') === -1) {
+        input.classList.add('input-error');
+        if (feedback) { feedback.textContent = '请输入有效的邮箱地址'; feedback.hidden = false; }
+        return;
+      }
+      input.classList.remove('input-error');
+      input.classList.add('input-success');
+      if (feedback) { feedback.textContent = '订阅成功！'; feedback.hidden = false; }
+      form.reset();
+      setTimeout(function() { input.classList.remove('input-success'); }, 2000);
+    });
   }
-  window.addEventListener('scroll', onScroll, { passive: true })
-  window.addEventListener('resize', onScroll)
-  revealCheck()
-})
+}
 </script>
