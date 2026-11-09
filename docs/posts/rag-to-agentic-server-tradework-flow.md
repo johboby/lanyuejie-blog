@@ -1,3 +1,14 @@
+﻿---
+title: 中转技术：从 RAG 到 Agentic AI 的架构演进
+date: 2026-10-24
+tags:
+  - RAG
+  - Agentic AI
+  - 工具调用
+  - 架构演进
+categories:
+  - 深度解析
+---
 # 中转技术：从 RAG 到 Agentic AI 的架构演进
 
 ## 前言

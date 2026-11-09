@@ -164,9 +164,15 @@ layout: page
 </main>
 
 <script>
+// 文章数据：与归档页（posts/index.md）共用的构建期列表。
+// 不用 window.__VP_POSTS__ 运行时 fetch 的原因：页面模块在 Layout.onMounted 的 fetch
+// 完成前就会执行，产生数据竞争，导致首页指标全部为空（"—" / 0 篇）。
+// VitePress 会把 markdown 的 <script> 块编译为页面模块，所以 import 可直接使用。
+import { POSTS as allPosts } from './posts-list.generated.js'
+
 // SSR 安全：所有客户端专用逻辑包裹在 typeof window 检查中
 if (typeof window !== 'undefined') {
-  // 滚动揭示：IntersectionObserver（Zag hidden → visible 状态机）
+  // 滚动揭示：IntersectionObserver（Zag hidden -> visible 状态机）
   if ('IntersectionObserver' in window) {
     var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
@@ -181,8 +187,8 @@ if (typeof window !== 'undefined') {
     document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); });
   }
 
-  // 文章数据：从构建内嵌数据读取
-  var posts = window.__VP_POSTS__ || [];
+  // 文章数据：从构建内嵌数据读取（不再依赖 Layout.vue 的异步 fetch）
+  var posts = (allPosts || [])
   var sorted = posts.slice().sort(function(a, b) {
     return new Date(b.date || 0) - new Date(a.date || 0);
   });
