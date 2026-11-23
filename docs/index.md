@@ -21,21 +21,6 @@ layout: page
         </div>
       </header>
     </div>
-    <!-- Floating Stats -->
-    <div class="hero-floating-stats" aria-hidden="true">
-      <div class="hero-floating-stat">
-        <div class="hero-floating-number" id="hero-post-count">—</div>
-        <div class="hero-floating-label">研究文章</div>
-      </div>
-      <div class="hero-floating-stat">
-        <div class="hero-floating-number" id="hero-word-count">—</div>
-        <div class="hero-floating-label">总字数</div>
-      </div>
-      <div class="hero-floating-stat">
-        <div class="hero-floating-number" id="hero-tag-count">—</div>
-        <div class="hero-floating-label">研究标签</div>
-      </div>
-    </div>
   </section>
 
   <!-- Metrics bar -->
@@ -122,23 +107,6 @@ layout: page
     </div>
   </section>
 
-  <!-- Subscribe -->
-  <section class="section subscribe reveal reveal-delay-3" data-part="subscribe" aria-label="订阅更新">
-    <div class="subscribe-card">
-      <div class="subscribe-inner">
-        <span class="eyebrow">STAY UPDATED</span>
-        <h2 class="section-title">订阅研究更新</h2>
-        <p class="section-subtitle">每月一封，精选 AI 与风险控制的深度研究</p>
-        <form class="subscribe-form" data-part="subscribe-form" novalidate>
-          <label for="subscribe-email" class="sr-only">邮箱地址</label>
-          <input type="email" id="subscribe-email" class="subscribe-input" placeholder="you@example.com" aria-label="邮箱地址" required />
-          <button type="submit" class="subscribe-btn" data-part="subscribe-btn">订阅</button>
-        </form>
-        <p class="subscribe-feedback" aria-live="polite" hidden></p>
-      </div>
-    </div>
-  </section>
-
   <!-- Contact -->
   <section class="section contact reveal reveal-delay-4" data-part="contact" aria-label="联系方式" id="contact">
     <div class="contact-card">
@@ -170,6 +138,7 @@ layout: page
 // 完成前就会执行，产生数据竞争，导致首页指标全部为空（"—" / 0 篇）。
 // VitePress 会把 markdown 的 <script> 块编译为页面模块，所以 import 可直接使用。
 import { POSTS as allPosts } from './posts-list.generated.js'
+import { CONTENT_AXES, axisHref, countByAxis } from './.vitepress/lib/content-axes.js'
 
 // SSR 安全：所有客户端专用逻辑包裹在 typeof window 检查中
 if (typeof window !== 'undefined') {
@@ -197,41 +166,47 @@ if (typeof window !== 'undefined') {
   // withBase 兜底
   var base = (typeof withBase === 'function') ? withBase : function(p) { return '/lanyuejie-blog' + p; };
 
-  // 文章序号、总字数、标签数量
+  // 指标：总字数 + 标签数（指标条单套，不再与 hero 浮动指标重复）
+  var totalWords = 0;
+  posts.forEach(function(p) { totalWords += (p.wordCount || 0); });
+  var allTags = new Set();
+  posts.forEach(function(p) { (p.tags || []).forEach(function(t) { allTags.add(t); }); });
   var countEl = function(id, value) {
     var el = document.getElementById(id);
     if (el) el.textContent = value;
   };
   countEl('post-count', posts.length);
-  countEl('hero-post-count', posts.length);
-  var totalWords = 0;
-  posts.forEach(function(p) { totalWords += (p.wordCount || 0); });
   countEl('word-count', totalWords.toLocaleString());
-  countEl('hero-word-count', totalWords.toLocaleString());
-  var allTags = new Set();
-  posts.forEach(function(p) { (p.tags || []).forEach(function(t) { allTags.add(t); }); });
   countEl('tag-count', allTags.size);
-  countEl('hero-tag-count', allTags.size);
 
-  // 分类计数（每篇对每个分类只计一次，避免 categories/tags 与标题关键词重复计数）
-  var catCounts = { 'AI': 0, '风险': 0, '农业': 0, '保险': 0 };
-  posts.forEach(function(p) {
-    var hit = new Set();
-    var all = (p.categories || []).concat(p.tags || []);
-    all.forEach(function(t) {
-      if (catCounts.hasOwnProperty(t)) hit.add(t);
+  // 内容轴分类卡片：动态渲染 CONTENT_AXES（与归档页同源同规则），
+  // 数字即「该轴命中文章数」，点击跳 ?axis=xx 深链，避免与归档页口径不一致
+  var catGrid = document.querySelector('.cat-nav-grid');
+  if (catGrid) {
+    var counts = countByAxis(posts);
+    catGrid.innerHTML = '';
+    CONTENT_AXES.forEach(function(axis) {
+      var count = counts[axis.key] || 0;
+      var card = document.createElement('a');
+      card.className = 'cat-nav-card';
+      card.setAttribute('data-part', 'cat-card');
+      card.href = base(axisHref(axis.key));
+      var glyph = document.createElement('span');
+      glyph.className = 'cat-nav-glyph';
+      glyph.textContent = axis.glyph;
+      glyph.setAttribute('aria-hidden', 'true');
+      var name = document.createElement('span');
+      name.className = 'cat-nav-name';
+      name.textContent = axis.label;
+      var c = document.createElement('span');
+      c.className = 'cat-nav-count';
+      c.textContent = count + ' 篇';
+      card.appendChild(glyph);
+      card.appendChild(name);
+      card.appendChild(c);
+      catGrid.appendChild(card);
     });
-    var title = (p.title || '').toLowerCase();
-    if (title.indexOf('ai') !== -1 || title.indexOf('智能') !== -1) hit.add('AI');
-    if (title.indexOf('风险') !== -1 || title.indexOf('防灾') !== -1) hit.add('风险');
-    if (title.indexOf('农业') !== -1 || title.indexOf('养殖') !== -1) hit.add('农业');
-    if (title.indexOf('保险') !== -1) hit.add('保险');
-    hit.forEach(function(k) { catCounts[k]++; });
-  });
-  Object.keys(catCounts).forEach(function(k) {
-    var el = document.getElementById('cat-' + k.toLowerCase() + '-count');
-    if (el) el.textContent = catCounts[k] + ' 篇';
-  });
+  }
 
   // 1. 精选文章：取第一篇
   if (sorted.length > 0) {
@@ -296,25 +271,5 @@ if (typeof window !== 'undefined') {
   // 3. "查看全部"链接
   var moreLink = document.querySelector('[data-part="articles-more"]');
   if (moreLink) moreLink.textContent = '查看全部 ' + posts.length + ' 篇研究 →';
-
-  // 订阅表单反馈
-  var form = document.querySelector('.subscribe-form');
-  if (form) {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var input = form.querySelector('.subscribe-input');
-      var feedback = form.parentElement.querySelector('.subscribe-feedback');
-      if (!input || !input.value || input.value.indexOf('@') === -1) {
-        input.classList.add('input-error');
-        if (feedback) { feedback.textContent = '请输入有效的邮箱地址'; feedback.hidden = false; }
-        return;
-      }
-      input.classList.remove('input-error');
-      input.classList.add('input-success');
-      if (feedback) { feedback.textContent = '订阅成功！'; feedback.hidden = false; }
-      form.reset();
-      setTimeout(function() { input.classList.remove('input-success'); }, 2000);
-    });
-  }
 }
 </script>
