@@ -93,6 +93,7 @@ layout: page
       </header>
       <a href="/lanyuejie-blog/posts/" class="featured-card" data-part="featured-card">
         <div class="featured-media" aria-hidden="true">
+          <span class="featured-media-glyph">研</span>
           <span class="featured-media-tag" id="featured-tag">精选研究</span>
         </div>
         <div class="featured-body">
@@ -212,21 +213,20 @@ if (typeof window !== 'undefined') {
   countEl('tag-count', allTags.size);
   countEl('hero-tag-count', allTags.size);
 
-  // 分类计数
+  // 分类计数（每篇对每个分类只计一次，避免 categories/tags 与标题关键词重复计数）
   var catCounts = { 'AI': 0, '风险': 0, '农业': 0, '保险': 0 };
   posts.forEach(function(p) {
-    var cats = p.categories || [];
-    var tags = p.tags || [];
-    var all = cats.concat(tags);
+    var hit = new Set();
+    var all = (p.categories || []).concat(p.tags || []);
     all.forEach(function(t) {
-      if (catCounts.hasOwnProperty(t)) catCounts[t]++;
+      if (catCounts.hasOwnProperty(t)) hit.add(t);
     });
-    // 关键词匹配兜底
     var title = (p.title || '').toLowerCase();
-    if (title.indexOf('ai') !== -1 || title.indexOf('智能') !== -1) catCounts['AI']++;
-    if (title.indexOf('风险') !== -1 || title.indexOf('防灾') !== -1) catCounts['风险']++;
-    if (title.indexOf('农业') !== -1 || title.indexOf('养殖') !== -1) catCounts['农业']++;
-    if (title.indexOf('保险') !== -1) catCounts['保险']++;
+    if (title.indexOf('ai') !== -1 || title.indexOf('智能') !== -1) hit.add('AI');
+    if (title.indexOf('风险') !== -1 || title.indexOf('防灾') !== -1) hit.add('风险');
+    if (title.indexOf('农业') !== -1 || title.indexOf('养殖') !== -1) hit.add('农业');
+    if (title.indexOf('保险') !== -1) hit.add('保险');
+    hit.forEach(function(k) { catCounts[k]++; });
   });
   Object.keys(catCounts).forEach(function(k) {
     var el = document.getElementById('cat-' + k.toLowerCase() + '-count');

@@ -5,26 +5,9 @@ import { useData } from 'vitepress'
 const { page } = useData()
 const isPost = computed(() => page.value?.relativePath?.startsWith('posts/') && !page.value?.relativePath?.endsWith('index.md'))
 
-const progress = ref(0)
 // 字号状态：-1 小号 / 0 标准 / 1 大号
 const fontLevel = ref(0)
 const STORAGE_KEY = 'lyj-reading-font'
-
-// 滚动节流：scroll 事件在快速滚动时能触发到每秒 60+ 次，
-// 每次都用 requestAnimationFrame 合并到一个 rAF 回调里，
-// 保证进度条只在渲染帧更新，避免 ref 频繁赋值触发的多次模板重渲染。
-let rafId = 0
-function onScroll() {
-  if (rafId) return
-  rafId = requestAnimationFrame(() => {
-    rafId = 0
-    const doc = document.documentElement
-    const max = doc.scrollHeight - doc.clientHeight
-    const next = max > 0 ? Math.min(100, Math.max(0, (doc.scrollTop / max) * 100)) : 0
-    // 进度条本身只有 1% 精度，微小抖动没必要触发响应式更新
-    if (Math.abs(next - progress.value) >= 1) progress.value = next
-  })
-}
 
 function applyFont() {
   const el = document.querySelector('.vp-doc')
@@ -78,31 +61,22 @@ onMounted(() => {
   const saved = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10)
   if (!Number.isNaN(saved)) fontLevel.value = saved
   applyFont()
-  window.addEventListener('scroll', onScroll, { passive: true })
-  window.addEventListener('resize', onScroll)
   window.addEventListener('resize', updateTableHints)
-  onScroll()
   requestAnimationFrame(setupScrollableTables)
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener('scroll', onScroll)
-  window.removeEventListener('resize', onScroll)
   window.removeEventListener('resize', updateTableHints)
 })
 
 watch(() => page.value?.relativePath, () => {
-  // reset progress on navigation; font persists
-  progress.value = 0
-  requestAnimationFrame(() => { applyFont(); onScroll(); setupScrollableTables() })
+  // font persists across navigation; re-apply on route change
+  requestAnimationFrame(() => { applyFont(); setupScrollableTables() })
 })
 </script>
 
 <template>
   <div v-if="isPost">
-    <div class="reading-bar" :class="{ visible: progress > 0 }" aria-hidden="true">
-      <div class="reading-bar-fill" :style="{ width: progress + '%' }"></div>
-    </div>
     <div class="font-toolbar" role="group" aria-label="正文字号调节">
       <button class="font-btn" :class="{ active: fontLevel === -1 }" @click="setFont(-1)" aria-label="小字号">A⁻</button>
       <button class="font-btn" :class="{ active: fontLevel === 0 }" @click="setFont(0)" aria-label="标准字号">A</button>
@@ -112,24 +86,6 @@ watch(() => page.value?.relativePath, () => {
 </template>
 
 <style scoped>
-.reading-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  z-index: 100;
-  background: transparent;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity var(--motion-fast) var(--easing);
-}
-.reading-bar.visible { opacity: 1; }
-.reading-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent));
-  transition: width 80ms linear;
-}
 .font-toolbar {
   position: fixed;
   right: 16px;
