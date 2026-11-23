@@ -76,7 +76,7 @@ toc: true
 
 4. **评估体系正在经历"去ERA5依赖"的范式转移**。WeatherBench 2奠定了标准化基础，但RealBench揭示了"在ERA5上刷分"与"在真实观测和业务分析中表现"之间的巨大鸿沟。AI模型在站点观测验证下的RMSE比ERA5评估高0.3–0.5 K[citation:85]。
 
-5. **中国力量不可忽视**。Pangu-Weather、FuXi、FengWu、AIFS的实战部署、华为盘古2.0的大气-海洋-污染全耦合、中国气象局的"风"系列矩阵和"妈祖"全球预警方案，标志着中国从跟随者变为领跑者之一[citation:52][citation:56]。
+5. **中国力量不可忽视**。Pangu-Weather、FuXi、FengWu（风乌）、AIFS的实战部署、华为盘古2.0的大气-海洋-污染全耦合、中国气象局的"风"系列矩阵和"妈祖"全球预警方案，标志着中国从跟随者变为领跑者之一[citation:52][citation:56]。
 
 ---
 
@@ -205,7 +205,7 @@ $$w_{ij}^{(l)} = \exp\left(-\frac{|\mathbf{x}_i - \mathbf{x}_j|^2}{2(\sigma^{(l)
 | FuXi-Nowcast | 0–6小时短临 | 对流启动预报，填补NWP空白 |
 | FuXi-Weather | 端到端系统 | 可微分4DVar同化+预报全链条 |
 | FuXi-CNOPs | 台风集合预报 | 非线性动力学扰动，路径误差降16.5%，强度误差降59.7% |
-| 风顺（基于FuXi） | 次季节预测 | 3分钟完成60天预测，ECMWF竞赛全球第一 |
+| 风顺（基于FuXi） | 次季节预测 | 3 分钟完成 60 天预测；AI Weather Quest 全球次季节竞赛第二、第三赛季均夺冠（第三赛季 2026 年 7 月冠军） |
 
 **核心突破**：FuXi内置自动微分模块，无需额外开发伴随模式即可分析误差来源——这是AI模型通过大气科学"图灵测试"的关键[citation:56]。
 
@@ -540,7 +540,7 @@ Adel（2026, Int. J. Dynamics Control）用PINN求解**四状态气候-政策动
 
 ### 10.1 "风和"：千亿参数气象大语言模型
 
-2026年7月17日，中国气象局在WAIC气象专会上发布**"风和"**——全球首个千亿参数级开源气象大语言模型[citation:29][citation:33]。
+2025 年 10 月 28 日，中国气象局公共气象服务中心在京发布人工智能气象服务系统**"风和"**——国内首个千亿参数级气象服务垂域大语言模型，基于混合专家（MoE）架构，训练语料为 5000 万 tokens 的高质量结构化气象服务语料；2026 年 7 月进一步启动全球开源计划[citation:29][citation:33]。
 
 **核心能力**：
 - 基于地球系统数据资源基座
@@ -593,17 +593,14 @@ Adel（2026, Int. J. Dynamics Control）用PINN求解**四状态气候-政策动
 - 持续更新的在线排行榜
 - 评估指标：RMSE、ACC、Bias、空间活动度
 
-**2026年WeatherBench 2部分排名**（T850 RMSE @ day 10, 越低越好）[citation:54]：
+**WeatherBench 2 榜单格局**（截至 2026 年 8 月，Operational WeatherBench 与 WeatherBench 2 均有活跃更新）[citation:54]：
 
-| 排名 | 模型 | T850 RMSE @ day 10 |
-|---|---|---|
-| 1 | UNFGN (oper.) | 2.60 |
-| 2 | UN Tianji | 2.67 |
-| 3 | GenCast (oper.) | 2.69 |
-| 4 | IFS ENS | 2.76 |
-| 5 | Aurora (oper.) | 2.98 |
-| 6 | GraphCast | 3.36 |
-| 7 | Pangu-Weather | 3.57 |
+- 第一梯队由 Google DeepMind WeatherNext 系列、微软 Aurora 系列、远景"天机"（UN Tianji）占据；
+- 远景"天机"（2026 年首发）在 WeatherBench 2 打榜即登顶，在风速、降水等能源关注指标上领先 Google WeatherNext 2；
+- ECMWF AIFS 系列作为参考基准被反复作为对比基线，在部分指标上与顶尖 AI 模型持平；
+- 早期模型（GraphCast、Pangu-Weather、FourCastNet）在部分长时效指标上已被新一代模型超越。
+
+> **数据诚实声明**：WeatherBench 2 官方榜每日更新，各模型排名会随新版本上线快速变化。具体 T850 RMSE 数值请以官方榜为准，本文不引用可能过时或错误的历史快照。
 
 **StationBench**（Jua AI）[citation:50]：
 - 10,000+真实地面站验证（无后处理、无站点微调）
