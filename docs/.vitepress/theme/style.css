@@ -337,7 +337,8 @@ body {
 .btn:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
 .btn.is-loading { position: relative; color: transparent !important; pointer-events: none; border-color: var(--vp-c-divider); }
 .btn.is-loading::after { content: ''; position: absolute; top: 50%; left: 50%; width: 16px; height: 16px;
-  margin: -8px 0 0 -8px; border: 2px solid rgba(255,255,255,0.25); border-top-color: #fff; border-radius: 50%; animation: subscribe-spin 0.6s linear infinite; }
+  margin: -8px 0 0 -8px; border: 2px solid rgba(255,255,255,0.25); border-top-color: #fff; border-radius: 50%; animation: btn-spin 0.6s linear infinite; }
+@keyframes btn-spin { to { transform: rotate(360deg); } }
 
 /* Product Grid */
 .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-5); }
@@ -721,8 +722,6 @@ body {
   .hero-title { font-size: 2.1rem; }
   .hero-tagline { letter-spacing: 0.12em; }
   .hero-metric + .hero-metric { border-left: none; }
-  .subscribe-form { flex-direction: column; }
-  .subscribe-input, .subscribe-btn { width: 100%; flex: none; }
 }
 
 @media (max-width: 1024px) {
